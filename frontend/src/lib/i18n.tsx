@@ -77,6 +77,7 @@ type Dict = {
   footerRights: string
   faqTitle: string
   langLabel: string
+  banner: string
   money: {
     methodEyebrow: string
     benefitsTitle: string
@@ -105,6 +106,7 @@ export const UI: Record<Locale, Dict> = {
     footerRights: 'Tous droits réservés.',
     faqTitle: 'Questions fréquentes',
     langLabel: 'EN',
+    banner: 'Site en construction — certaines pages arrivent bientôt.',
     money: {
       methodEyebrow: 'La méthode',
       benefitsTitle: 'Ce que vous obtenez',
@@ -131,6 +133,7 @@ export const UI: Record<Locale, Dict> = {
     footerRights: 'All rights reserved.',
     faqTitle: 'Frequently asked questions',
     langLabel: 'FR',
+    banner: 'Site under construction — some pages are coming soon.',
     money: {
       methodEyebrow: 'The method',
       benefitsTitle: 'What you get',
