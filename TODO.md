@@ -1,83 +1,90 @@
 # TODO — iwanesko.ch
 
-Suivi des travaux restants. Coché = fait.
+Point de reprise. Coché = fait. Dernière mise à jour : session du 2026-07-21.
 
-## Tactiques de la semaine (batch auto) — EN COURS
+---
 
-- [x] Confidentialité : pseudos dans `.env` (gitignoré) / GitHub Secrets — **jamais
-      commités** (repo public). Vérifié : 0 pseudo dans les fichiers suivis.
-- [x] `backend/internal/tactics` : config (env), **inversion 100 % FEN/coups**
-      (`MirrorFEN`/`MirrorUCIMove` + tests), modèle `Puzzle` anonyme (test anti-fuite),
-      clients chess.com + lichess (`FetchWeek`). `cmd/tactics` runnable.
-- [x] Fetch prouvé : 239 parties/semaine récupérées (bullet inclus).
-- [ ] **Détection Stockfish** (UCI) : combinaisons jouées vs ratées via seuils
-      swing d'éval + écart coup-unique ; scoring « beauté » ; top 10 ; écrire
-      `content/tactiques/<année>-S<semaine>.json`.
-- [x] **Rendu interactif** : `PuzzleBoard` (échiquier jouable, sans lib d'échecs
-      côté client) + page `/tactiques` qui charge `/api/tactics`. Backend sert le
-      dernier fichier de puzzles (`TACTICS_DIR`). Nav + sitemap OK.
-- [ ] **Stats privées (SQLite)** : `modernc.org/sqlite` sur volume `/data`
-      (`DB_PATH`), endpoint `POST /api/tactics/event` + tableau de bord `/admin`
-      protégé par `ADMIN_TOKEN`. (Dockerfile : `VOLUME /data` déjà déclaré.)
-- [ ] **Ingestion runtime** : `POST /api/admin/tactics` (Bearer ADMIN_TOKEN) pour
-      que le batch pousse les puzzles sans redeploy (modèle A).
-- [ ] **Cron hebdo** (GitHub Actions) : batch Stockfish → push vers `/api/admin/tactics`.
+## ✅ État actuel (ce qui marche déjà)
 
-## Traduction anglaise (i18n) — EN COURS
+- **Site complet** Go + React SSG : toutes les routes pré-rendues (meta + JSON-LD),
+  design premium, blog en 2 catégories (Progresser / Carnet de tournoi), maillage.
+- **Coordonnées réelles** : Alexandre Iwanesko (Maître FIDE), +41 78 783 56 89,
+  alexandre@iwanesko.ch, adresse Swiss Tax Horizon (Route de Florissant 2, 1206
+  Genève), `sameAs` fiche FIDE 682136. Tarifs 120 CHF/h · 1000 CHF pack 10 · 60 CHF/pers.
+- **Bilingue (partiel)** : FR + EN (`/en/…`) sur Home, Cours adultes, Tarifs,
+  Contact — sélecteur de langue + hreflang OK.
+- **Bandeau « site en construction »** (bilingue, à retirer au lancement :
+  `<SiteBanner/>` dans `Layout.tsx`).
+- **Tactiques** : fetch parties (chess.com + lichess), détection Stockfish
+  (jouées/ratées), anonymisation (inversion 100 %, prouvée légale), **échiquier
+  interactif** sur `/tactiques` + `GET /api/tactics`.
+- **CI** vert : lint/test/build + Lighthouse (gates bloquants a11y/best-practices/CLS).
+- **Release Docker** : workflow sur tag `v*` → `alex42000iwa/chess` (Docker Hub).
 
-- [x] Infra i18n : FR par défaut (racine) + **EN sous `/en/` avec slugs anglais**.
-      Contexte de locale, dictionnaire UI, registre de routes FR↔EN, **sélecteur
-      de langue**, **hreflang** bidirectionnel, chrome bilingue (header/footer/seo/form).
-- [x] Pages EN livrées : **Home, Cours adultes (phare), Tarifs, Contact** +
-      entrées sitemap EN. Vérifié : `lang=en`, hreflang FR↔EN, contenu anglais, 1 H1.
-- [ ] **Rollout EN restant** : money pages (tournoi, en-ligne, groupe, ados,
-      stages, conférences, team building), pages info (à-propos, résultats),
-      **articles de blog** (versions EN), et compléter la nav/footer EN.
-      → Ajouter chaque page traduite dans `PAGES` (src/lib/i18n.tsx) + une route EN.
-- [ ] Blog i18n : structure EN pour les articles + catégories EN.
+---
 
-## Différé (à traiter plus tard, décision utilisateur)
+## 🔴 Actions immédiates (toi)
 
-### Intégrations
-- [ ] **Formulaire de contact → email/CRM** : brancher `CONTACT_WEBHOOK_URL`
-      (relais mail type Resend/Postmark/Formspree, ou webhook CRM). Actuellement
-      les leads sont validés + loggés côté serveur, et forwardés si l'URL est
-      définie. Ajouter : accusé de réception e-mail, anti-spam renforcé
-      (rate-limit par IP), éventuel reCAPTCHA/Turnstile *self-host-friendly*.
-- [ ] **Prise de RDV / booking** : calendrier (Cal.com self-host, ou lien
-      externe) intégré à `/contact`.
-- [ ] **Analytics privacy-first** : Plausible/Umami self-host (pas de scripts
-      tiers bloquants, cohérent avec la CSP).
+- [ ] **Secrets GitHub** (pour le push Docker Hub) : `DOCKERHUB_USERNAME=alex42000iwa`
+      + `DOCKERHUB_TOKEN` (nouveau token — révoquer l'ancien exposé). Puis Actions →
+      run « Release (Docker Hub) » → **Re-run failed jobs**.
+- [ ] **Déploiement Jelastic** :
+  - Déployer l'image `alex42000iwa/chess:latest`.
+  - Env : `BASE_URL=https://iwanesko.ch` (+ plus tard `ADMIN_TOKEN`).
+  - **Volume persistant `/data`** (local, pas de nœud storage réseau) pour SQLite.
+  - Domaine `iwanesko.ch` + TLS.
+- [ ] Après mise en ligne : soumettre `sitemap.xml` à **Google Search Console**,
+      créer/aligner le **Google Business Profile** (NAP identique au footer).
 
-### Déploiement
-- [ ] Pipeline de déploiement réel (build Docker → registry → host).
-- [ ] Domaine `iwanesko.ch` + TLS (reverse proxy / plateforme).
-- [ ] Renseigner `BASE_URL` de prod, vérifier `sitemap.xml`/canonical.
-- [ ] Soumettre le sitemap à Google Search Console + Bing Webmaster.
-- [ ] Créer/aligner le **Google Business Profile** (NAP identique au footer).
+---
 
-## Placeholders à remplacer avant mise en ligne
-- [x] `frontend/src/lib/site.ts` : nom (Alexandre Iwanesko), téléphone
-      (+41 78 783 56 89), `sameAs` (fiche FIDE 682136 ; lichess/chess.com
-      volontairement exclus).
-- [x] Adresse pro : Swiss Tax Horizon, Route de Florissant 2, Genève
-      (footer + contact + schema LocalBusiness).
-- [x] NPA **1206** et e-mail **contact@iwanesko.ch** confirmés.
-- [ ] Coordonnées géo : approximatives (Florissant) — affiner si besoin pour le pin carte.
-- [x] `/tarifs` : prix réels en CHF (120 CHF/h · 1000 CHF le pack 10 · 60 CHF/pers groupe).
-- [x] Blog restructuré en 2 catégories : **Progresser** (guides/acquisition) et
-      **Carnet de tournoi** (journal de compet'). Templates dans `content/_templates/`.
-- [ ] **Écrire les vrais articles** en suivant `docs/plan-editorial-blog.md`.
-      Le guide « Sortir du plateau 1500 Elo » est amorcé : compléter l'anecdote vécue
-      (bloc `[À COMPLÉTER]`). Remplacer l'exemple de carnet par un vrai récit.
-- [ ] Carnet de tournoi : tu joues 2-3 tournois/mois → viser ~1 récit par tournoi
-      marquant (dupliquer `content/_templates/carnet.md`).
-- [ ] `/resultats` : témoignages **réels et attribuables** uniquement + vraies stats.
-- [ ] `public/og/` : images Open Graph 1200×630 par type de page (PNG).
-- [ ] Police **Inter variable** self-hostée dans `public/fonts/` + réactiver
-      `preload` (index.html) et `@font-face` (styles.css).
+## 🟠 Prochain chantier dev : tactiques (stats + auto)
+
+- [ ] **Stats privées (SQLite)** : `modernc.org/sqlite` (pur Go, compat distroless)
+      sur `DB_PATH=/data/tactics.db`. `POST /api/tactics/event` (vues/tentatives/
+      résolu) + **tableau de bord `/admin`** protégé par `ADMIN_TOKEN`.
+      Câbler `onSolved`/`onAttempt` de `PuzzleBoard` vers l'endpoint.
+- [ ] **Ingestion runtime** : `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`) pour
+      que le batch pousse les puzzles **sans redeploy** (modèle A). Le serveur lit
+      alors depuis `/data` au lieu du fichier bâti.
+- [ ] **Cron hebdo** (GitHub Actions) : `apt-get install stockfish` + secrets
+      pseudos → `go run ./cmd/tactics` → `POST /api/admin/tactics`.
+- [ ] Affiner les seuils de détection sur un plus gros échantillon (movetime ↑,
+      plus de parties) — la qualité s'améliore avec les vraies données.
+
+---
+
+## 📝 Contenu à fournir (toi)
+
+- [ ] **Articles de blog** réels (voir `docs/plan-editorial-blog.md`). Le guide
+      « Sortir du plateau 1500 Elo » est amorcé → compléter le bloc `[À COMPLÉTER]`
+      (ton vécu). Remplacer l'exemple de carnet par un vrai récit.
+- [ ] **Carnet de tournoi** : ~1 récit par tournoi marquant (2-3/mois) —
+      dupliquer `content/_templates/carnet.md`.
+- [ ] `/resultats` : témoignages **réels et attribuables** + vraies stats.
+- [ ] **Portrait** d'Alexandre (Home / À propos).
+- [ ] `public/og/` : images Open Graph 1200×630 (PNG).
+- [ ] Police **Inter variable** self-hostée (`public/fonts/` + `@font-face`).
 - [ ] `/contact` : carte de Genève légère (chargée en différé).
 - [ ] Dates réelles des stages (`pages/Stages.tsx`, `eventSchema`).
+- [ ] Coordonnées géo précises (actuellement approx. Florissant).
 
-## En cours (itération design + contenu)
-- Voir l'historique git. Money pages étoffées, design premium, blog + maillage.
+---
+
+## 🌐 Parké (décision : « oublie le rollout EN complet » pour l'instant)
+
+- [ ] Traduire le reste en EN : money pages (tournoi, en-ligne, groupe, ados,
+      stages, conférences, team building), pages info (à-propos, résultats),
+      **articles de blog** (structure blog i18n), et compléter nav/footer EN.
+      → Pattern posé : ajouter dans `PAGES` (`src/lib/i18n.tsx`) + route EN.
+
+---
+
+## 🚀 Post-lancement (plus tard)
+
+- [ ] **Formulaire contact → email/CRM** : `CONTACT_WEBHOOK_URL` (Resend/Postmark/
+      Formspree) + accusé de réception + rate-limit / anti-spam.
+- [ ] **Prise de RDV** : Cal.com (self-host) ou lien externe sur `/contact`.
+- [ ] **Analytics privacy-first** : Plausible/Umami self-host (cohérent CSP).
+- [ ] Workflow optionnel « push `main` → build+push `:latest` » pour fluidifier
+      les redeploys d'articles (au lieu d'un tag à chaque fois).
