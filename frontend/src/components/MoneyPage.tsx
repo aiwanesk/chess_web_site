@@ -6,6 +6,7 @@ import { Section, Eyebrow } from './ui'
 import { Breadcrumbs } from './Breadcrumbs'
 import { PageHero, FactCard } from './PageHero'
 import { Faq } from './Faq'
+import { useLocale, t, homePath, PAGES } from '../lib/i18n'
 import { postsByCluster } from '../lib/postMeta'
 import {
   IconTarget,
@@ -67,8 +68,10 @@ export interface MoneyPageProps {
  * (BreadcrumbList + Course/Offer + FAQPage).
  */
 export function MoneyPage(props: MoneyPageProps) {
+  const locale = useLocale()
+  const s = t(locale)
   const crumbs: Crumb[] = [
-    { name: 'Accueil', path: '/' },
+    { name: s.breadcrumbHome, path: homePath(locale) },
     { name: props.title, path: props.path },
   ]
 
@@ -95,7 +98,7 @@ export function MoneyPage(props: MoneyPageProps) {
         eyebrow={props.eyebrow}
         title={props.title}
         lead={props.lead}
-        secondaryCta={{ to: '/tarifs', label: 'Voir les tarifs' }}
+        secondaryCta={{ to: PAGES.tarifs[locale], label: s.viewPricing }}
         aside={<FactCard facts={props.facts} />}
       />
 
@@ -109,9 +112,9 @@ export function MoneyPage(props: MoneyPageProps) {
       {/* Benefits */}
       <Section className="border-y border-ink-100 bg-cream-100">
         <Container>
-          <Eyebrow>La méthode</Eyebrow>
+          <Eyebrow>{s.money.methodEyebrow}</Eyebrow>
           <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">
-            {props.benefitsTitle ?? 'Ce que vous obtenez'}
+            {props.benefitsTitle ?? s.money.benefitsTitle}
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {props.benefits.map((b, i) => {
@@ -142,8 +145,8 @@ export function MoneyPage(props: MoneyPageProps) {
       {props.related && props.related.length > 0 ? (
         <Section>
           <Container>
-            <Eyebrow>Explorer</Eyebrow>
-            <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">Pour aller plus loin</h2>
+            <Eyebrow>{locale === 'en' ? 'Explore' : 'Explorer'}</Eyebrow>
+            <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{s.money.goingFurther}</h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2">
               {props.related.map((r) => (
                 <li key={r.to}>
@@ -170,8 +173,8 @@ export function MoneyPage(props: MoneyPageProps) {
       {articles.length > 0 ? (
         <Section className="border-y border-ink-100 bg-cream-100">
           <Container>
-            <Eyebrow>À lire</Eyebrow>
-            <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">Articles liés</h2>
+            <Eyebrow>{s.money.readEyebrow}</Eyebrow>
+            <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{s.money.relatedTitle}</h2>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {articles.map((a) => (
                 <li key={a.slug}>
@@ -182,7 +185,7 @@ export function MoneyPage(props: MoneyPageProps) {
                     <h3 className="font-semibold text-ink-900">{a.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{a.description}</p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-700">
-                      Lire l’article
+                      {s.money.readArticle}
                       <IconArrowRight size={15} />
                     </span>
                   </Link>
@@ -193,22 +196,22 @@ export function MoneyPage(props: MoneyPageProps) {
         </Section>
       ) : null}
 
-      <Faq items={props.faq} />
+      <Faq items={props.faq} title={s.faqTitle} />
 
       {/* Closing CTA */}
       <Section className="board-texture-dark bg-ink-950 text-center text-white">
         <Container>
           <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">Prêt à progresser ?</h2>
+          <h2 className="font-display text-3xl font-bold sm:text-4xl">{s.money.closingTitle}</h2>
           <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-300">
-            Un premier échange pour définir vos objectifs et le format qui vous convient.
+            {s.money.closingSubtitle}
           </p>
           <div className="mt-9">
             <Link
-              to="/contact"
+              to={PAGES.contact[locale]}
               className="inline-flex rounded-full bg-gold-500 px-7 py-3 font-semibold text-ink-950 shadow-gold transition-[background-color,transform] duration-200 hover:bg-gold-400 active:translate-y-px"
             >
-              Réserver un premier cours
+              {s.reserveFirst}
             </Link>
           </div>
         </Container>

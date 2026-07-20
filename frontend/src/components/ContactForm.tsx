@@ -1,6 +1,29 @@
 import { useState, type FormEvent } from 'react'
+import { useLocale, type Locale } from '../lib/i18n'
 
 type Status = 'idle' | 'submitting' | 'ok' | 'error'
+
+const STR: Record<Locale, {
+  name: string; email: string; level: string; levelPh: string; goal: string; goalPh: string
+  submit: string; sending: string; ok: string; err: string; net: string
+}> = {
+  fr: {
+    name: 'Nom', email: 'E-mail', level: 'Votre niveau (Elo approximatif)', levelPh: 'ex. 1450 Elo',
+    goal: 'Votre objectif', goalPh: 'Ce que vous aimeriez travailler, vos disponibilités…',
+    submit: 'Envoyer ma demande', sending: 'Envoi…',
+    ok: 'Merci, votre message a bien été envoyé. Je vous réponds rapidement.',
+    err: 'Merci de renseigner votre nom, un e-mail valide et un message.',
+    net: 'Impossible d’envoyer le message. Vérifiez votre connexion et réessayez.',
+  },
+  en: {
+    name: 'Name', email: 'Email', level: 'Your level (approx. Elo)', levelPh: 'e.g. 1450 Elo',
+    goal: 'Your goal', goalPh: 'What you’d like to work on, your availability…',
+    submit: 'Send my request', sending: 'Sending…',
+    ok: 'Thanks, your message has been sent. I’ll get back to you shortly.',
+    err: 'Please provide your name, a valid email and a message.',
+    net: 'Could not send the message. Check your connection and try again.',
+  },
+}
 
 /**
  * Progressive-enhancement contact form. The page HTML (labels, fields) is
@@ -8,6 +31,7 @@ type Status = 'idle' | 'submitting' | 'ok' | 'error'
  * hydration. Includes a honeypot field ("company") to deter bots.
  */
 export function ContactForm() {
+  const s = STR[useLocale()]
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
@@ -22,18 +46,17 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-      const body = (await res.json().catch(() => ({}))) as { message?: string; error?: string }
       if (res.ok) {
         setStatus('ok')
-        setMessage(body.message ?? 'Merci, votre message a bien été envoyé.')
+        setMessage(s.ok)
         form.reset()
       } else {
         setStatus('error')
-        setMessage(body.error ?? 'Une erreur est survenue. Merci de réessayer.')
+        setMessage(s.err)
       }
     } catch {
       setStatus('error')
-      setMessage('Impossible d’envoyer le message. Vérifiez votre connexion et réessayez.')
+      setMessage(s.net)
     }
   }
 
@@ -45,7 +68,7 @@ export function ContactForm() {
       {/* Honeypot: hidden from humans, tempting for bots. */}
       <div className="hidden" aria-hidden="true">
         <label>
-          Ne pas remplir
+          Do not fill
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
@@ -53,13 +76,13 @@ export function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-1 block text-sm font-medium text-ink-700">
-            Nom <span className="text-gold-700">*</span>
+            {s.name} <span className="text-gold-700">*</span>
           </label>
           <input id="name" name="name" required autoComplete="name" className={field} />
         </div>
         <div>
           <label htmlFor="email" className="mb-1 block text-sm font-medium text-ink-700">
-            E-mail <span className="text-gold-700">*</span>
+            {s.email} <span className="text-gold-700">*</span>
           </label>
           <input id="email" name="email" type="email" required autoComplete="email" className={field} />
         </div>
@@ -67,23 +90,16 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="level" className="mb-1 block text-sm font-medium text-ink-700">
-          Votre niveau (Elo approximatif)
+          {s.level}
         </label>
-        <input id="level" name="level" placeholder="ex. 1450 Elo" className={field} />
+        <input id="level" name="level" placeholder={s.levelPh} className={field} />
       </div>
 
       <div>
         <label htmlFor="message" className="mb-1 block text-sm font-medium text-ink-700">
-          Votre objectif <span className="text-gold-700">*</span>
+          {s.goal} <span className="text-gold-700">*</span>
         </label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          placeholder="Ce que vous aimeriez travailler, vos disponibilités…"
-          className={field}
-        />
+        <textarea id="message" name="message" required rows={5} placeholder={s.goalPh} className={field} />
       </div>
 
       <button
@@ -91,16 +107,14 @@ export function ContactForm() {
         disabled={status === 'submitting'}
         className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-7 py-3 font-semibold text-ink-950 shadow-soft transition-[background-color,box-shadow,transform] duration-200 hover:bg-gold-400 hover:shadow-gold active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
       >
-        {status === 'submitting' ? 'Envoi…' : 'Envoyer ma demande'}
+        {status === 'submitting' ? s.sending : s.submit}
       </button>
 
       {status === 'ok' || status === 'error' ? (
         <p
           role="status"
           className={`rounded-xl border px-4 py-3 text-sm ${
-            status === 'ok'
-              ? 'border-green-200 bg-green-50 text-green-800'
-              : 'border-red-200 bg-red-50 text-red-800'
+            status === 'ok' ? 'border-green-200 bg-green-50 text-green-800' : 'border-red-200 bg-red-50 text-red-800'
           }`}
         >
           {message}

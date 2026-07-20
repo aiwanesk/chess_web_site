@@ -17,6 +17,19 @@ Suivi des travaux restants. Coché = fait.
 - [ ] **Stats privées** : événements d'interaction → `/admin` protégé par `ADMIN_TOKEN`.
 - [ ] **Cron hebdo** (GitHub Actions ou serveur) : batch → commit → redeploy.
 
+## Traduction anglaise (i18n) — EN COURS
+
+- [x] Infra i18n : FR par défaut (racine) + **EN sous `/en/` avec slugs anglais**.
+      Contexte de locale, dictionnaire UI, registre de routes FR↔EN, **sélecteur
+      de langue**, **hreflang** bidirectionnel, chrome bilingue (header/footer/seo/form).
+- [x] Pages EN livrées : **Home, Cours adultes (phare), Tarifs, Contact** +
+      entrées sitemap EN. Vérifié : `lang=en`, hreflang FR↔EN, contenu anglais, 1 H1.
+- [ ] **Rollout EN restant** : money pages (tournoi, en-ligne, groupe, ados,
+      stages, conférences, team building), pages info (à-propos, résultats),
+      **articles de blog** (versions EN), et compléter la nav/footer EN.
+      → Ajouter chaque page traduite dans `PAGES` (src/lib/i18n.tsx) + une route EN.
+- [ ] Blog i18n : structure EN pour les articles + catégories EN.
+
 ## Différé (à traiter plus tard, décision utilisateur)
 
 ### Intégrations

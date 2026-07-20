@@ -25,6 +25,12 @@ export const routes: RouteRecord[] = [
       { path: 'conferences-echecs-entreprise', lazy: () => import('./pages/Conferences') },
       { path: 'team-building-echecs-geneve', lazy: () => import('./pages/TeamBuilding') },
 
+      // English (EN slugs). Same components, locale detected from the URL.
+      { path: 'en', lazy: () => import('./pages/Home') },
+      { path: 'en/adult-chess-lessons-geneva', lazy: () => import('./pages/CoursAdultesGeneve') },
+      { path: 'en/pricing', lazy: () => import('./pages/Tarifs') },
+      { path: 'en/contact', lazy: () => import('./pages/Contact') },
+
       // Info pages
       { path: 'a-propos', lazy: () => import('./pages/APropos') },
       { path: 'resultats', lazy: () => import('./pages/Resultats') },

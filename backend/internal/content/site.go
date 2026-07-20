@@ -55,6 +55,16 @@ var StaticPages = []Page{
 		"Guides d'un Maître FIDE pour progresser aux échecs : ouvertures, finales, tactique, préparation de tournoi et mental."},
 	{"/blog/categorie/carnet-de-tournoi", "Carnet de tournoi", "weekly", 0.6,
 		"Le journal de compétition d'Alexandre Iwanesko, Maître FIDE : parties marquantes, décisions sous pression et leçons de tournoi."},
+
+	// English (EN) — grows as the i18n rollout continues.
+	{"/en", "Chess coach in Geneva — Alexandre Iwanesko, FIDE Master", "weekly", 0.9,
+		"Chess coach in Geneva, FIDE Master. Lessons for adults (1200–1900 Elo) and competitive teens, tournament prep, in person and online."},
+	{"/en/adult-chess-lessons-geneva", "Adult chess lessons in Geneva", "monthly", 0.8,
+		"Chess lessons for adults (1200–1900 Elo) in Geneva with a FIDE Master: structured method, progression plan, in person and online."},
+	{"/en/pricing", "Chess lesson pricing", "monthly", 0.7,
+		"Chess lesson pricing in Geneva: private lessons, group lessons, online and packages."},
+	{"/en/contact", "Contact", "yearly", 0.6,
+		"Contact Alexandre Iwanesko, FIDE Master, for chess lessons in Geneva or online."},
 }
 
 // BlogPost is the metadata parsed from a Markdown file's front matter.

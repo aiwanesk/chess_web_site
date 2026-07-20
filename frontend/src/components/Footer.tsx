@@ -2,8 +2,11 @@ import { Link } from 'vite-react-ssg'
 import { Container } from './Container'
 import { SITE } from '../lib/site'
 import { IconKnight, IconMail, IconPhone, IconPin } from './icons'
+import { useLocale, t, type Locale } from '../lib/i18n'
 
-const COLUMNS = [
+type Column = { title: string; links: { to: string; label: string }[] }
+
+const COLUMNS_FR: Column[] = [
   {
     title: 'Cours',
     links: [
@@ -35,29 +38,49 @@ const COLUMNS = [
   },
 ]
 
+// EN columns grow as pages are translated.
+const COLUMNS_EN: Column[] = [
+  {
+    title: 'Lessons',
+    links: [{ to: '/en/adult-chess-lessons-geneva', label: 'Adult chess lessons in Geneva' }],
+  },
+  {
+    title: 'Information',
+    links: [
+      { to: '/en/pricing', label: 'Pricing' },
+      { to: '/en/contact', label: 'Contact' },
+    ],
+  },
+]
+
 export function Footer() {
+  const locale = useLocale()
+  const s = t(locale)
+  const columns = locale === 'en' ? COLUMNS_EN : COLUMNS_FR
+  const tagline: Record<Locale, string> = {
+    fr: 'Genève · Arc lémanique · Cours en ligne',
+    en: 'Geneva · Lake Geneva region · Online lessons',
+  }
+
   return (
     <footer className="mt-8 border-t-2 border-gold-500/60 bg-ink-950 text-ink-300">
       <Container className="grid gap-12 py-16 md:grid-cols-4">
         {/* NAP block — must stay consistent with the Google Business Profile. */}
         <div>
           <p className="flex items-center gap-2.5 text-lg font-bold text-white">
-            <span
-              aria-hidden
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-gold-500 ring-1 ring-inset ring-gold-500/30"
-            >
+            <span aria-hidden className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-gold-500 ring-1 ring-inset ring-gold-500/30">
               <IconKnight size={19} />
             </span>
             <span className="font-display tracking-tight">Alexandre Iwanesko</span>
           </p>
-          <p className="mt-3 text-sm font-medium text-gold-400">Maître FIDE · Coach d’échecs</p>
+          <p className="mt-3 text-sm font-medium text-gold-400">{s.footerRole}</p>
           <address className="mt-5 space-y-2.5 not-italic text-sm leading-relaxed">
             <span className="flex items-start gap-2.5">
               <IconPin size={16} className="mt-0.5 flex-none text-gold-500/80" />
               <span>
                 {SITE.address.street}
                 <br />
-                {SITE.address.postalCode} {SITE.address.locality}, Suisse
+                {SITE.address.postalCode} {SITE.address.locality}, {locale === 'en' ? 'Switzerland' : 'Suisse'}
               </span>
             </span>
             <a href={SITE.contact.phoneHref} className="flex items-center gap-2.5 transition-colors hover:text-white">
@@ -70,11 +93,11 @@ export function Footer() {
             </a>
           </address>
           <p className="mt-4 text-xs leading-relaxed text-ink-400">
-            Zones : {SITE.areaServed.join(', ')}.
+            {s.footerZones} : {SITE.areaServed.join(', ')}.
           </p>
         </div>
 
-        {COLUMNS.map((col) => (
+        {columns.map((col) => (
           <nav key={col.title} aria-label={col.title}>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
               <span aria-hidden className="h-px w-4 bg-gold-500" />
@@ -83,10 +106,7 @@ export function Footer() {
             <ul className="mt-5 space-y-2.5 text-sm">
               {col.links.map((l) => (
                 <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="text-ink-300 transition-colors hover:text-gold-400"
-                  >
+                  <Link to={l.to} className="text-ink-300 transition-colors hover:text-gold-400">
                     {l.label}
                   </Link>
                 </li>
@@ -98,8 +118,8 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <Container className="flex flex-col items-center justify-between gap-2 py-6 text-xs text-ink-400 sm:flex-row">
-          <p>© {new Date().getFullYear()} Alexandre Iwanesko — Tous droits réservés.</p>
-          <p>Genève · Arc lémanique · Cours en ligne</p>
+          <p>© {new Date().getFullYear()} Alexandre Iwanesko — {s.footerRights}</p>
+          <p>{tagline[locale]}</p>
         </Container>
       </div>
     </footer>
