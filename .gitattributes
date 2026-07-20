@@ -1,0 +1,15 @@
+# Normalise les fins de ligne. Le dépôt stocke en LF ; Windows peut checkout en CRLF.
+* text=auto
+
+# Scripts Unix : toujours LF (sinon bash casse sous Linux/Docker/CI).
+*.sh   text eol=lf
+
+# Scripts Windows : toujours CRLF.
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Binaires : pas de normalisation.
+*.svg  text
+*.png  binary
+*.woff2 binary
+*.ico  binary
