@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -49,12 +50,18 @@ func main() {
 		fmt.Printf("  %-10s %d\n", c, byClass[c])
 	}
 
+	// Optional cap for quick test runs (MAX_GAMES=10). 0 = all.
+	if n := atoiEnv("MAX_GAMES", 0); n > 0 && n < len(games) {
+		games = games[:n]
+		fmt.Printf("(limité à %d parties pour ce run)\n", n)
+	}
+
 	// Detection needs Stockfish. Skip cleanly if it isn't available.
 	enginePath := os.Getenv("STOCKFISH_PATH")
 	if enginePath == "" {
 		enginePath = "stockfish"
 	}
-	moveTime := 200 // ms per position; raise for stronger analysis
+	moveTime := atoiEnv("MOVETIME_MS", 200) // ms per position; raise for stronger analysis
 	engine, err := tactics.NewStockfish(enginePath, moveTime)
 	if err != nil {
 		fmt.Printf("\nStockfish introuvable (%q) : détection sautée.\n", enginePath)
@@ -78,6 +85,15 @@ func main() {
 		log.Fatalf("write: %v", err)
 	}
 	fmt.Printf("%d tactiques écrites → %s\n", len(puzzles), path)
+}
+
+func atoiEnv(key string, def int) int {
+	if v := os.Getenv(key); v != "" {
+		if n, err := strconv.Atoi(v); err == nil {
+			return n
+		}
+	}
+	return def
 }
 
 // loadDotEnv is a minimal .env loader for local runs (KEY=value lines). It never

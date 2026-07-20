@@ -14,7 +14,18 @@ const (
 	balancedCP = 130 // 2nd-best must stay under this → the shot CREATES the win
 	missCP     = 200 // best − played ≥ this → he missed it
 	foundEps   = 40  // best − played ≤ this → he found it
+
+	maxSolutionPlies = 10  // published solution length cap (a puzzle, not a dump)
+	sacWindowPlies   = 6   // only the forcing start counts for sacrifice detection
+	sacThreshold     = 250 // material must drop ≥ a minor piece to count as a sac
 )
+
+func truncatePV(pv []string, max int) []string {
+	if len(pv) > max {
+		return append([]string{}, pv[:max]...)
+	}
+	return pv
+}
 
 // Tactic is a detected combination in ORIGINAL orientation (side to move is
 // Alexandre's colour). It is never published as-is — NewPuzzle mirrors it.
@@ -93,7 +104,7 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 		sac := detectSacrifice(fen, best.PV)
 		out = append(out, Tactic{
 			FEN:       fen,
-			Solution:  best.PV,
+			Solution:  truncatePV(best.PV, maxSolutionPlies),
 			Kind:      kind,
 			Mate:      mate,
 			Sacrifice: sac,
@@ -175,7 +186,12 @@ func detectSacrifice(fen string, pv []string) bool {
 	start := material(game.Position().Board(), us)
 	minMat := start
 	uci := chess.UCINotation{}
-	for _, mv := range pv {
+	// Only the forcing start of the line: a real sacrifice invests material
+	// early; deep exchanges later are just normal play, not a sac.
+	for i, mv := range pv {
+		if i >= sacWindowPlies {
+			break
+		}
 		m, err := uci.Decode(game.Position(), mv)
 		if err != nil {
 			break
@@ -187,7 +203,7 @@ func detectSacrifice(fen string, pv []string) bool {
 			minMat = mat
 		}
 	}
-	return minMat <= start-100
+	return minMat <= start-sacThreshold
 }
 
 func material(b *chess.Board, c chess.Color) int {
