@@ -1,0 +1,24 @@
+# Keep secrets and junk OUT of the Docker build context (defense-in-depth —
+# the Dockerfile never copies these, but this guarantees they can't be).
+.env
+.env.*
+!.env.example
+
+.git
+.github
+node_modules
+**/node_modules
+frontend/dist
+frontend/.vite-react-ssg-temp
+backend/dist/assets
+/server
+*.exe
+
+# Local tooling / docs not needed to build the image
+.idea
+.vscode
+scripts
+docs
+README.md
+TODO.md
+Lancer-*.cmd
