@@ -27,8 +27,10 @@ func requestLogger(next http.Handler) http.Handler {
 }
 
 // securityHeaders sets baseline hardening headers. The CSP is intentionally
-// strict: the SSG site ships no inline third-party scripts. 'unsafe-inline'
-// on style-src covers the critical inlined CSS; tighten with hashes later.
+// strict: no 'unsafe-inline' for scripts. HTML responses override this header
+// with a per-request nonce (see serveHTMLWithNonce) so vite-react-ssg's inline
+// hydration scripts run without weakening the policy. 'unsafe-inline' on
+// style-src covers the critical inlined CSS.
 func securityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		h := w.Header()
@@ -36,16 +38,26 @@ func securityHeaders(next http.Handler) http.Handler {
 		h.Set("X-Frame-Options", "DENY")
 		h.Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		h.Set("Permissions-Policy", "geolocation=(), microphone=(), camera=()")
-		h.Set("Content-Security-Policy",
-			"default-src 'self'; "+
-				"img-src 'self' data:; "+
-				"style-src 'self' 'unsafe-inline'; "+
-				"script-src 'self'; "+
-				"font-src 'self'; "+
-				"connect-src 'self'; "+
-				"base-uri 'self'; "+
-				"form-action 'self'; "+
-				"frame-ancestors 'none'")
+		h.Set("Content-Security-Policy", cspHeader(""))
 		next.ServeHTTP(w, r)
 	})
+}
+
+// cspHeader builds the Content-Security-Policy. With a nonce, inline scripts
+// carrying that nonce are allowed (used for the SSG hydration scripts);
+// without, script-src is 'self' only.
+func cspHeader(nonce string) string {
+	scriptSrc := "script-src 'self'"
+	if nonce != "" {
+		scriptSrc = "script-src 'self' 'nonce-" + nonce + "'"
+	}
+	return "default-src 'self'; " +
+		"img-src 'self' data:; " +
+		"style-src 'self' 'unsafe-inline'; " +
+		scriptSrc + "; " +
+		"font-src 'self'; " +
+		"connect-src 'self'; " +
+		"base-uri 'self'; " +
+		"form-action 'self'; " +
+		"frame-ancestors 'none'"
 }

@@ -11,10 +11,10 @@ import (
 func testServer(t *testing.T) http.Handler {
 	t.Helper()
 	static := fstest.MapFS{
-		"index.html":                            {Data: []byte("<!doctype html><h1>Accueil</h1>")},
-		"cours-echecs-adultes-geneve/index.html": {Data: []byte("<!doctype html><h1>Cours adultes</h1>")},
-		"404.html":                              {Data: []byte("<!doctype html><h1>404</h1>")},
-		"assets/app.abc123.js":                  {Data: []byte("console.log(1)")},
+		"index.html":                             {Data: []byte("<!doctype html><h1>Accueil</h1>")},
+		"cours-echecs-adultes-geneve/index.html": {Data: []byte("<!doctype html><h1>Cours adultes</h1><script>window.x=1</script>")},
+		"404.html":                               {Data: []byte("<!doctype html><h1>404</h1>")},
+		"assets/app.abc123.js":                   {Data: []byte("console.log(1)")},
 	}
 	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: "does-not-exist"}, static)
 	if err != nil {
@@ -46,6 +46,27 @@ func TestUnknownRouteServes404(t *testing.T) {
 	rec := get(t, testServer(t), "/nope")
 	if rec.Code != http.StatusNotFound {
 		t.Fatalf("want 404, got %d", rec.Code)
+	}
+}
+
+func TestHTMLNonceMatchesCSP(t *testing.T) {
+	rec := get(t, testServer(t), "/cours-echecs-adultes-geneve")
+	body := rec.Body.String()
+	csp := rec.Header().Get("Content-Security-Policy")
+
+	// The inline script must have gained a nonce...
+	if !strings.Contains(body, `<script nonce="`) {
+		t.Fatalf("inline script not nonced: %q", body)
+	}
+	// ...and the CSP must allow exactly that nonce (no 'unsafe-inline').
+	i := strings.Index(body, `<script nonce="`) + len(`<script nonce="`)
+	nonce := body[i : i+strings.Index(body[i:], `"`)]
+	if !strings.Contains(csp, "'nonce-"+nonce+"'") {
+		t.Fatalf("CSP %q does not carry the page nonce %q", csp, nonce)
+	}
+	// script-src must not fall back to 'unsafe-inline'.
+	if strings.Contains(csp, "script-src 'self' 'unsafe-inline'") {
+		t.Fatalf("script-src weakened with unsafe-inline: %q", csp)
 	}
 }
 

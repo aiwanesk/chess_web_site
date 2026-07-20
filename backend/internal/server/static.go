@@ -1,6 +1,8 @@
 package server
 
 import (
+	"crypto/rand"
+	"encoding/base64"
 	"io"
 	"io/fs"
 	"mime"
@@ -43,19 +45,18 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, candidate := range candidates {
-		if s.tryServe(w, r, candidate) {
+		if s.tryServe(w, r, candidate, http.StatusOK) {
 			return
 		}
 	}
 	// SPA-style fallback would hide broken links; instead serve the real 404
 	// page so crawlers get a proper status.
-	w.WriteHeader(http.StatusNotFound)
-	if !s.tryServe(w, r, "404.html") {
-		_, _ = io.WriteString(w, "404 not found")
+	if !s.tryServe(w, r, "404.html", http.StatusNotFound) {
+		http.Error(w, "404 not found", http.StatusNotFound)
 	}
 }
 
-func (s *Server) tryServe(w http.ResponseWriter, r *http.Request, name string) bool {
+func (s *Server) tryServe(w http.ResponseWriter, r *http.Request, name string, status int) bool {
 	f, err := s.static.Open(name)
 	if err != nil {
 		return false
@@ -65,6 +66,13 @@ func (s *Server) tryServe(w http.ResponseWriter, r *http.Request, name string) b
 	info, err := f.Stat()
 	if err != nil || info.IsDir() {
 		return false
+	}
+
+	// HTML is rewritten per request to carry a CSP nonce on its inline scripts
+	// (vite-react-ssg injects hydration + hash scripts inline). This keeps a
+	// strict CSP — script-src 'self' 'nonce-…', no 'unsafe-inline'.
+	if strings.HasSuffix(name, ".html") {
+		return serveHTMLWithNonce(w, r, f, name, status)
 	}
 
 	setContentType(w, name)
@@ -82,6 +90,37 @@ func (s *Server) tryServe(w http.ResponseWriter, r *http.Request, name string) b
 	}
 	_, _ = io.Copy(w, f)
 	return true
+}
+
+// serveHTMLWithNonce reads the HTML, stamps a fresh nonce onto every <script>
+// tag, and sets a matching CSP header, then writes it with the given status.
+func serveHTMLWithNonce(w http.ResponseWriter, r *http.Request, f fs.File, name string, status int) bool {
+	data, err := io.ReadAll(f)
+	if err != nil {
+		return false
+	}
+	nonce := newNonce()
+	html := strings.ReplaceAll(string(data), "<script", `<script nonce="`+nonce+`"`)
+
+	h := w.Header()
+	h.Set("Content-Type", "text/html; charset=utf-8")
+	h.Set("Content-Security-Policy", cspHeader(nonce))
+	setCacheHeaders(w, name)
+
+	w.WriteHeader(status)
+	if r.Method != http.MethodHead {
+		_, _ = io.WriteString(w, html)
+	}
+	return true
+}
+
+// newNonce returns a base64 CSP nonce backed by crypto/rand.
+func newNonce() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		return "ssg" // never reached in practice; keeps a valid token
+	}
+	return base64.StdEncoding.EncodeToString(b)
 }
 
 func setContentType(w http.ResponseWriter, name string) {
