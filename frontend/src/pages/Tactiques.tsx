@@ -19,41 +19,56 @@ interface Puzzle {
 
 const STR: Record<Locale, {
   title: string; desc: string; eyebrow: string; heroTitle: string; heroLead: string
+  intro: string; weekPrefix: string
   loading: string; empty: string; whiteWins: string; blackWins: string; mate: string; sac: string
   board: { yourMove: string; solved: string; tryAgain: string; retry: string; whiteToPlay: string; blackToPlay: string }
 }> = {
   fr: {
-    title: 'Tactiques de la semaine', desc: 'Résolvez les plus belles tactiques d’échecs de la semaine, sélectionnées par un Maître FIDE. Nouveaux puzzles chaque semaine.',
-    eyebrow: 'Puzzles', heroTitle: 'Les tactiques de la semaine',
-    heroLead: 'Une sélection des plus belles combinaisons, à résoudre directement sur l’échiquier. De nouveaux puzzles chaque semaine.',
-    loading: 'Chargement des puzzles…', empty: 'Les puzzles de la semaine arrivent bientôt.',
+    title: 'Tactiques de la semaine', desc: 'Résolvez les plus belles tactiques d’échecs de la semaine, sélectionnées par un Maître FIDE. Une nouvelle série chaque lundi.',
+    eyebrow: 'Puzzles hebdo', heroTitle: 'Les tactiques de la semaine',
+    heroLead: 'Chaque lundi matin, une nouvelle sélection des plus belles combinaisons — tirées de vraies parties et choisies par un Maître FIDE. À vous de les trouver.',
+    intro: 'Aux échecs, la plupart des parties se décident sur une tactique vue… ou manquée. Entraînez votre œil : cliquez la pièce puis sa case d’arrivée pour jouer la solution. Nouvelle série chaque lundi.',
+    weekPrefix: 'Semaine',
+    loading: 'Chargement des puzzles…', empty: 'Les puzzles de la semaine arrivent très bientôt — reviens lundi matin.',
     whiteWins: 'Les Blancs jouent et gagnent', blackWins: 'Les Noirs jouent et gagnent', mate: 'Mat', sac: 'Sacrifice',
     board: { yourMove: 'à vous de jouer', solved: 'Résolu !', tryAgain: 'Essayez encore', retry: 'Recommencer', whiteToPlay: 'Les Blancs jouent', blackToPlay: 'Les Noirs jouent' },
   },
   en: {
-    title: 'Tactics of the week', desc: 'Solve the week’s best chess tactics, hand-picked by a FIDE Master. New puzzles every week.',
-    eyebrow: 'Puzzles', heroTitle: 'Tactics of the week',
-    heroLead: 'A selection of the best combinations to solve right on the board. New puzzles every week.',
-    loading: 'Loading puzzles…', empty: 'This week’s puzzles are coming soon.',
+    title: 'Tactics of the week', desc: 'Solve the week’s best chess tactics, hand-picked by a FIDE Master. A new set every Monday.',
+    eyebrow: 'Weekly puzzles', heroTitle: 'Tactics of the week',
+    heroLead: 'Every Monday morning, a fresh selection of the best combinations — from real games, hand-picked by a FIDE Master. Your turn to find them.',
+    intro: 'In chess, most games are decided by a tactic spotted… or missed. Train your eye: click the piece, then its destination square, to play the solution. New set every Monday.',
+    weekPrefix: 'Week',
+    loading: 'Loading puzzles…', empty: 'This week’s puzzles are coming very soon — check back Monday morning.',
     whiteWins: 'White to play and win', blackWins: 'Black to play and win', mate: 'Mate', sac: 'Sacrifice',
     board: { yourMove: 'your move', solved: 'Solved!', tryAgain: 'Try again', retry: 'Restart', whiteToPlay: 'White to play', blackToPlay: 'Black to play' },
   },
+}
+
+/** "2026-S30" → "Semaine 30 · 2026". */
+function formatWeek(week: string, prefix: string): string {
+  const m = /^(\d{4})-S(\d{1,2})$/.exec(week)
+  if (!m) return ''
+  return `${prefix} ${Number(m[2])} · ${m[1]}`
 }
 
 export function Component() {
   const locale = useLocale()
   const s = STR[locale]
   const path = locale === 'en' ? '/en/tactics' : '/tactiques'
-  const [puzzles, setPuzzles] = useState<Puzzle[] | null>(null)
+  const [data, setData] = useState<{ week: string; puzzles: Puzzle[] } | null>(null)
 
   useEffect(() => {
     let ok = true
     fetch('/api/tactics')
       .then((r) => r.json())
-      .then((d) => { if (ok) setPuzzles(Array.isArray(d.puzzles) ? d.puzzles : []) })
-      .catch(() => { if (ok) setPuzzles([]) })
+      .then((d) => { if (ok) setData({ week: d.week || '', puzzles: Array.isArray(d.puzzles) ? d.puzzles : [] }) })
+      .catch(() => { if (ok) setData({ week: '', puzzles: [] }) })
     return () => { ok = false }
   }, [])
+
+  const puzzles = data?.puzzles ?? null
+  const weekLabel = data?.week ? formatWeek(data.week, s.weekPrefix) : ''
 
   const crumbs: Crumb[] = [
     { name: t(locale).breadcrumbHome, path: homePath(locale) },
@@ -68,6 +83,15 @@ export function Component() {
 
       <Section>
         <Container>
+          <div className="mb-8 max-w-2xl">
+            {weekLabel ? (
+              <span className="inline-flex items-center rounded-full bg-gold-100 px-3 py-1 text-xs font-bold uppercase tracking-wide text-gold-700">
+                {weekLabel}
+              </span>
+            ) : null}
+            <p className="mt-3 leading-relaxed text-ink-600">{s.intro}</p>
+          </div>
+
           {puzzles === null ? (
             <p className="text-center text-ink-500">{s.loading}</p>
           ) : puzzles.length === 0 ? (
