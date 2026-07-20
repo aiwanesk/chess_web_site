@@ -1,0 +1,228 @@
+@import 'tailwindcss';
+
+/*
+  ────────────────────────────────────────────────────────────────────────
+  Design tokens — Tailwind v4 CSS-first config.
+
+  Brand: a Maître FIDE chess coach in Geneva. Editorial, restrained, premium.
+  Palette = deep slate "ink" + a warm "cream/ivory" paper neutral + a sober,
+  antique "gold" accent used sparingly (rules, marks, key numbers).
+
+  Type: a serif "display" family (system serif, no webfont, zero network cost)
+  for headings gives an editorial, high-end feel; a clean sans for everything
+  else. To self-host Inter later, add an @font-face here and prepend it to
+  --font-sans.
+  ────────────────────────────────────────────────────────────────────────
+*/
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, ui-serif, serif;
+
+  /* Ink — deep, slightly cool slate. */
+  --color-ink-50: #f7f8fa;
+  --color-ink-100: #eef1f5;
+  --color-ink-200: #e0e5ec;
+  --color-ink-300: #cbd3de;
+  --color-ink-400: #93a0b1;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-800: #1e293b;
+  --color-ink-900: #0f172a;
+  --color-ink-950: #0a0f1e;
+
+  /* Cream — warm ivory paper for alternating sections & cards. */
+  --color-cream-50: #fdfcf9;
+  --color-cream-100: #faf7f0;
+  --color-cream-200: #f3ede1;
+  --color-cream-300: #e8dfce;
+  --color-cream-400: #d8cbb0;
+
+  /* Gold — antique, sober. 700 is dark enough for AA small text on light. */
+  --color-gold-50: #faf6ea;
+  --color-gold-100: #f3ead0;
+  --color-gold-200: #e8d5a2;
+  --color-gold-300: #dabf6f;
+  --color-gold-400: #e2c15a;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b8941f;
+  --color-gold-700: #7d6011;
+
+  /* Soft, layered shadows for premium depth (no harsh drop shadows). */
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 20px -8px rgba(15, 23, 42, 0.10);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.05), 0 12px 30px -12px rgba(15, 23, 42, 0.13);
+  --shadow-lift: 0 2px 6px rgba(15, 23, 42, 0.06), 0 22px 48px -18px rgba(15, 23, 42, 0.20);
+  --shadow-gold: 0 8px 24px -10px rgba(184, 148, 31, 0.45);
+}
+
+/* ───────────────────────────── Base layer ───────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink-800);
+  background: #ffffff;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial serif for display headings; tightened tracking. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.011em;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+/* Balanced wrapping for headings — fewer orphan words, premium look. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-gold-200);
+  color: var(--color-ink-950);
+}
+
+/* Visible focus for keyboard users (WCAG 2.1 AA). */
+:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/*
+  Faint chessboard texture for hero / accent bands. Two diagonal gradients
+  build 2×2 "squares"; kept very low-contrast so text stays AA-legible.
+*/
+.board-texture {
+  background-image:
+    linear-gradient(45deg, rgba(15, 23, 42, 0.028) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, 0.028) 75%),
+    linear-gradient(45deg, rgba(15, 23, 42, 0.028) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, 0.028) 75%);
+  background-size: 46px 46px;
+  background-position: 0 0, 23px 23px;
+}
+
+.board-texture-dark {
+  background-image:
+    linear-gradient(45deg, rgba(212, 175, 55, 0.05) 25%, transparent 25%, transparent 75%, rgba(212, 175, 55, 0.05) 75%),
+    linear-gradient(45deg, rgba(212, 175, 55, 0.05) 25%, transparent 25%, transparent 75%, rgba(212, 175, 55, 0.05) 75%);
+  background-size: 46px 46px;
+  background-position: 0 0, 23px 23px;
+}
+
+/* A hairline gold rule used as a section/element accent. */
+.rule-gold {
+  height: 2px;
+  width: 3rem;
+  background: linear-gradient(90deg, var(--color-gold-500), rgba(212, 175, 55, 0));
+  border-radius: 2px;
+}
+
+/* Subtle card hover — lift + shadow. Motion gated for reduced-motion users. */
+.hover-lift {
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─────────────── Rich text (Markdown → blog articles) ─────────────── */
+.prose {
+  max-width: 68ch;
+  line-height: 1.78;
+  color: var(--color-ink-700);
+  font-size: 1.0625rem;
+}
+.prose > :first-child { margin-top: 0; }
+.prose h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.011em;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  margin: 2.4rem 0 0.85rem;
+  line-height: 1.2;
+}
+.prose h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.008em;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  margin: 1.9rem 0 0.6rem;
+}
+.prose p { margin: 0 0 1.15rem; }
+.prose ul { list-style: none; padding-left: 0; margin: 0 0 1.15rem; }
+.prose ul > li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin: 0.4rem 0;
+}
+.prose ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.72em;
+  width: 0.42rem;
+  height: 0.42rem;
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--color-gold-500);
+  border-radius: 1px;
+}
+.prose ol { list-style: decimal; padding-left: 1.4rem; margin: 0 0 1.15rem; }
+.prose ol > li::marker { color: var(--color-gold-700); font-weight: 700; }
+.prose li { margin: 0.4rem 0; }
+.prose a {
+  color: var(--color-gold-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--color-gold-300);
+  transition: text-decoration-color 0.2s ease;
+}
+.prose a:hover { text-decoration-color: var(--color-gold-600); }
+.prose strong { color: var(--color-ink-900); font-weight: 700; }
+.prose blockquote {
+  border-left: 3px solid var(--color-gold-500);
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--color-ink-700);
+  margin: 1.6rem 0;
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose code {
+  font-size: 0.9em;
+  background: var(--color-cream-200);
+  color: var(--color-ink-900);
+  padding: 0.12em 0.4em;
+  border-radius: 4px;
+}
+.prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--color-ink-200);
+  margin: 2.4rem 0;
+}
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}

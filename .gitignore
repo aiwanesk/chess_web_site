@@ -1,0 +1,27 @@
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite-react-ssg-temp/
+*.local
+
+# Go
+/server
+*.exe
+backend/tmp/
+
+# The embedded build output. The two placeholders are tracked so //go:embed
+# compiles on a clean checkout; the real build (assets, generated HTML) is not.
+backend/dist/*
+!backend/dist/index.html
+!backend/dist/404.html
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
