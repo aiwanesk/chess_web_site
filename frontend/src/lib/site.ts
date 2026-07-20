@@ -30,7 +30,7 @@ export const SITE = {
 
   // NAP — must match the Google Business Profile exactly.
   contact: {
-    email: 'contact@iwanesko.ch',
+    email: 'alexandre@iwanesko.ch',
     phone: '+41 78 783 56 89',
     phoneHref: 'tel:+41787835689',
   },
