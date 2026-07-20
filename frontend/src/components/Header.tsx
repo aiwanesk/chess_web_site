@@ -15,6 +15,7 @@ const NAV_FR: NavItem[] = [
   { to: '/preparation-tournoi-echecs', key: 'tournoi' },
   { to: '/cours-echecs-en-ligne', key: 'enligne' },
   { to: '/tarifs', key: 'tarifs' },
+  { to: '/tactiques', key: 'tactiques' },
   { to: '/resultats', key: 'resultats' },
   { to: '/blog', key: 'blog' },
 ]

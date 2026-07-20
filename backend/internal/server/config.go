@@ -21,6 +21,9 @@ type Config struct {
 	// ContactWebhookURL, when set, forwards contact submissions (e.g. to an
 	// email relay or CRM). Empty means submissions are only logged.
 	ContactWebhookURL string
+	// TacticsDir holds the weekly anonymised puzzle files (AAAA-Sxx.json) served
+	// at /api/tactics. Empty disables the endpoint.
+	TacticsDir string
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -31,6 +34,7 @@ func LoadConfig() Config {
 		DevStaticDir:      os.Getenv("DEV_STATIC_DIR"),
 		ContentDir:        env("CONTENT_DIR", "../content/blog"),
 		ContactWebhookURL: os.Getenv("CONTACT_WEBHOOK_URL"),
+		TacticsDir:        env("TACTICS_DIR", "../content/tactiques"),
 	}
 }
 

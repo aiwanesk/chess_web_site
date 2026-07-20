@@ -13,9 +13,15 @@ Suivi des travaux restants. Coché = fait.
 - [ ] **Détection Stockfish** (UCI) : combinaisons jouées vs ratées via seuils
       swing d'éval + écart coup-unique ; scoring « beauté » ; top 10 ; écrire
       `content/tactiques/<année>-S<semaine>.json`.
-- [ ] **Rendu interactif** (échiquier jouable) des puzzles + page « Tactiques de la semaine ».
-- [ ] **Stats privées** : événements d'interaction → `/admin` protégé par `ADMIN_TOKEN`.
-- [ ] **Cron hebdo** (GitHub Actions ou serveur) : batch → commit → redeploy.
+- [x] **Rendu interactif** : `PuzzleBoard` (échiquier jouable, sans lib d'échecs
+      côté client) + page `/tactiques` qui charge `/api/tactics`. Backend sert le
+      dernier fichier de puzzles (`TACTICS_DIR`). Nav + sitemap OK.
+- [ ] **Stats privées (SQLite)** : `modernc.org/sqlite` sur volume `/data`
+      (`DB_PATH`), endpoint `POST /api/tactics/event` + tableau de bord `/admin`
+      protégé par `ADMIN_TOKEN`. (Dockerfile : `VOLUME /data` déjà déclaré.)
+- [ ] **Ingestion runtime** : `POST /api/admin/tactics` (Bearer ADMIN_TOKEN) pour
+      que le batch pousse les puzzles sans redeploy (modèle A).
+- [ ] **Cron hebdo** (GitHub Actions) : batch Stockfish → push vers `/api/admin/tactics`.
 
 ## Traduction anglaise (i18n) — EN COURS
 

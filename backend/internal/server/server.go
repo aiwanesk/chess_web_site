@@ -44,6 +44,7 @@ func (s *Server) Handler() http.Handler {
 	r.Route("/api", func(api chi.Router) {
 		api.Get("/health", s.handleHealth)
 		api.Post("/contact", s.handleContact)
+		api.Get("/tactics", s.handleTactics)
 	})
 
 	// Everything else is the pre-rendered SSG site.

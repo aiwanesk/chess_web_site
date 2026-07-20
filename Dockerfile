@@ -31,8 +31,13 @@ WORKDIR /app
 COPY --from=backend /server /app/server
 # Blog Markdown is read at runtime for sitemap.xml / llms.txt generation.
 COPY --from=frontend /app/content /app/content
+# Persistent volume for runtime state (SQLite: stats + published puzzles). On
+# Jelastic, mount /data as a persistent volume so it survives redeploys.
+VOLUME /data
 ENV ADDR=":8080" \
-    CONTENT_DIR="/app/content/blog"
+    CONTENT_DIR="/app/content/blog" \
+    TACTICS_DIR="/app/content/tactiques" \
+    DB_PATH="/data/tactics.db"
 EXPOSE 8080
 USER nonroot:nonroot
 ENTRYPOINT ["/app/server"]

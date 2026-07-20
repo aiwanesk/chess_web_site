@@ -51,6 +51,8 @@ var StaticPages = []Page{
 		"Contacter Alexandre Iwanesko pour un cours d'échecs à Genève ou en ligne : premier échange pour définir vos objectifs."},
 	{"/blog", "Blog échecs", "weekly", 0.7,
 		"Articles d'échecs : stratégie, ouvertures, préparation tournoi et progression pour joueurs intermédiaires et avancés."},
+	{"/tactiques", "Tactiques de la semaine", "weekly", 0.7,
+		"Résolvez les plus belles tactiques d'échecs de la semaine, sélectionnées par un Maître FIDE. Nouveaux puzzles chaque semaine."},
 	{"/blog/categorie/progresser", "Progresser aux échecs — guides", "weekly", 0.7,
 		"Guides d'un Maître FIDE pour progresser aux échecs : ouvertures, finales, tactique, préparation de tournoi et mental."},
 	{"/blog/categorie/carnet-de-tournoi", "Carnet de tournoi", "weekly", 0.6,
