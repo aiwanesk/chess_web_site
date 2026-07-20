@@ -38,7 +38,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/iwanesko-web
+          images: alex42000iwa/chess
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
