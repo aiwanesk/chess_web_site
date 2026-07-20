@@ -23,9 +23,9 @@ const NAV_EN: NavItem[] = [
   { to: '/en/pricing', key: 'tarifs' },
 ]
 
-function Brand({ locale, label }: { locale: Locale; label: string }) {
+function Brand({ locale }: { locale: Locale }) {
   return (
-    <Link to={homePath(locale)} className="flex items-center gap-2.5 font-bold text-ink-900" aria-label={label}>
+    <Link to={homePath(locale)} className="flex items-center gap-2.5 font-bold text-ink-900">
       <span aria-hidden className="flex h-9 w-9 items-center justify-center rounded-full bg-ink-900 text-gold-500 ring-1 ring-inset ring-gold-500/30">
         <IconKnight size={19} />
       </span>
@@ -65,7 +65,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
       <Container className="flex h-[4.5rem] items-center justify-between gap-4">
-        <Brand locale={locale} label={`Alexandre Iwanesko — ${s.breadcrumbHome}`} />
+        <Brand locale={locale} />
 
         <nav aria-label="Navigation" className="hidden items-center gap-7 lg:flex">
           {nav.map((item) => (
