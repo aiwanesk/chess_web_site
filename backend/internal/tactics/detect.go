@@ -1,0 +1,201 @@
+package tactics
+
+import (
+	"sort"
+	"strings"
+
+	"github.com/notnil/chess"
+)
+
+// Detection thresholds (centipawns, side-to-move POV). Tunable on real data.
+const (
+	gapCP      = 150 // best must beat 2nd-best by this → a real "only move"
+	winCP      = 300 // best must reach this (or mate) → decisive
+	balancedCP = 130 // 2nd-best must stay under this → the shot CREATES the win
+	missCP     = 200 // best − played ≥ this → he missed it
+	foundEps   = 40  // best − played ≤ this → he found it
+)
+
+// Tactic is a detected combination in ORIGINAL orientation (side to move is
+// Alexandre's colour). It is never published as-is — NewPuzzle mirrors it.
+type Tactic struct {
+	FEN       string
+	Solution  []string // UCI, the winning line (engine PV)
+	Kind      string   // "played" | "missed"
+	Mate      bool
+	Sacrifice bool
+	Beauty    int
+	Source    string
+}
+
+// classify decides whether a position is a tactical point and, if so, whether
+// Alexandre found or missed it. Pure function → unit-tested without an engine.
+func classify(best, second, played Line) (isTactic bool, kind string, mate bool) {
+	b, s, p := best.Score(), second.Score(), played.Score()
+
+	decisive := best.Mate > 0 || b >= winCP
+	onlyMove := (b - s) >= gapCP
+	createsWin := s <= balancedCP
+	if !(decisive && onlyMove && createsWin) {
+		return false, "", false
+	}
+	mate = best.Mate > 0
+	switch {
+	case b-p <= foundEps:
+		return true, "played", mate
+	case b-p >= missCP:
+		return true, "missed", mate
+	default:
+		return false, "", false // borderline → skip to keep the set clean
+	}
+}
+
+// AnalyzeGame replays one game and returns the tactics found in Alexandre's
+// moves (played and missed).
+func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
+	pgnFn, err := chess.PGN(strings.NewReader(g.PGN))
+	if err != nil {
+		return nil, err
+	}
+	game := chess.NewGame(pgnFn)
+	positions := game.Positions()
+	moves := game.Moves()
+	mine := colorOf(g.MyColor)
+	uci := chess.UCINotation{}
+
+	var out []Tactic
+	for i, mv := range moves {
+		pos := positions[i]
+		if pos.Turn() != mine {
+			continue
+		}
+		fen := pos.String()
+		playedUCI := uci.Encode(pos, mv)
+
+		lines, err := ev.Lines(fen, 2)
+		if err != nil || len(lines) == 0 {
+			continue
+		}
+		best := lines[0]
+		second := best
+		if len(lines) > 1 {
+			second = lines[1]
+		}
+		played, err := ev.Move(fen, playedUCI)
+		if err != nil {
+			continue
+		}
+
+		isTactic, kind, mate := classify(best, second, played)
+		if !isTactic {
+			continue
+		}
+		sac := detectSacrifice(fen, best.PV)
+		out = append(out, Tactic{
+			FEN:       fen,
+			Solution:  best.PV,
+			Kind:      kind,
+			Mate:      mate,
+			Sacrifice: sac,
+			Beauty:    beautyScore(best, sac),
+			Source:    g.Source,
+		})
+	}
+	return out, nil
+}
+
+// TopPuzzles analyses all games, ranks tactics by beauty and returns the top n
+// as anonymised (mirrored) puzzles, de-duplicated by puzzle ID.
+func TopPuzzles(ev Evaluator, games []Game, n int) []Puzzle {
+	var all []Tactic
+	for _, g := range games {
+		ts, err := AnalyzeGame(ev, g)
+		if err != nil {
+			continue
+		}
+		all = append(all, ts...)
+	}
+	sort.SliceStable(all, func(i, j int) bool { return all[i].Beauty > all[j].Beauty })
+
+	seen := map[string]bool{}
+	var puzzles []Puzzle
+	for _, t := range all {
+		p := NewPuzzle(t.FEN, t.Solution, t.Kind, t.Source, t.Mate, t.Sacrifice, t.Beauty)
+		if seen[p.ID] {
+			continue
+		}
+		seen[p.ID] = true
+		puzzles = append(puzzles, p)
+		if len(puzzles) >= n {
+			break
+		}
+	}
+	return puzzles
+}
+
+func beautyScore(best Line, sacrifice bool) int {
+	score := 0
+	if best.Mate > 0 {
+		score += 25 - min(best.Mate, 12) // faster mate = prettier
+	}
+	cp := best.CP
+	if best.Mate > 0 {
+		cp = 1200
+	}
+	score += min(cp, 1500) / 100 // up to +15 for material swing
+	if sacrifice {
+		score += 12
+	}
+	score += min(len(best.PV), 12) // longer forced line
+	return score
+}
+
+func colorOf(c string) chess.Color {
+	if strings.EqualFold(c, "black") {
+		return chess.Black
+	}
+	return chess.White
+}
+
+var pieceValue = map[chess.PieceType]int{
+	chess.Pawn: 100, chess.Knight: 320, chess.Bishop: 330,
+	chess.Rook: 500, chess.Queen: 900, chess.King: 0,
+}
+
+// detectSacrifice replays the PV and reports whether Alexandre's material dips
+// at least a pawn below its starting value along the forced line (i.e. he
+// invested material) — the marker of a genuine sacrifice/combination.
+func detectSacrifice(fen string, pv []string) bool {
+	opt, err := chess.FEN(fen)
+	if err != nil {
+		return false
+	}
+	game := chess.NewGame(opt)
+	us := game.Position().Turn()
+	start := material(game.Position().Board(), us)
+	minMat := start
+	uci := chess.UCINotation{}
+	for _, mv := range pv {
+		m, err := uci.Decode(game.Position(), mv)
+		if err != nil {
+			break
+		}
+		if err := game.Move(m); err != nil {
+			break
+		}
+		if mat := material(game.Position().Board(), us); mat < minMat {
+			minMat = mat
+		}
+	}
+	return minMat <= start-100
+}
+
+func material(b *chess.Board, c chess.Color) int {
+	total := 0
+	for _, p := range b.SquareMap() {
+		if p.Color() == c {
+			total += pieceValue[p.Type()]
+		}
+	}
+	return total
+}

@@ -49,11 +49,35 @@ func main() {
 		fmt.Printf("  %-10s %d\n", c, byClass[c])
 	}
 
-	// TODO(next): analyse each game with Stockfish (UCI), detect played/missed
-	// combinations via eval-swing + only-move-gap thresholds, score "beauty",
-	// take top 10, build anonymised puzzles via tactics.NewPuzzle(...), and write
-	// content/tactiques/<year>-S<week>.json for the frontend to render.
-	fmt.Println("\nDétection Stockfish : à implémenter (prochaine étape).")
+	// Detection needs Stockfish. Skip cleanly if it isn't available.
+	enginePath := os.Getenv("STOCKFISH_PATH")
+	if enginePath == "" {
+		enginePath = "stockfish"
+	}
+	moveTime := 200 // ms per position; raise for stronger analysis
+	engine, err := tactics.NewStockfish(enginePath, moveTime)
+	if err != nil {
+		fmt.Printf("\nStockfish introuvable (%q) : détection sautée.\n", enginePath)
+		fmt.Println("Installe Stockfish ou définis STOCKFISH_PATH, puis relance.")
+		return
+	}
+	defer engine.Close()
+
+	fmt.Println("\nAnalyse Stockfish en cours…")
+	puzzles := tactics.TopPuzzles(engine, games, 10)
+
+	y, w := time.Now().ISOWeek()
+	week := fmt.Sprintf("%04d-S%02d", y, w)
+	outDir := os.Getenv("TACTICS_DIR")
+	if outDir == "" {
+		outDir = "../content/tactiques"
+	}
+	// Defense-in-depth: never write a file containing a username.
+	path, err := tactics.WritePuzzles(outDir, week, puzzles, []string{cfg.ChessComUser, cfg.LichessUser})
+	if err != nil {
+		log.Fatalf("write: %v", err)
+	}
+	fmt.Printf("%d tactiques écrites → %s\n", len(puzzles), path)
 }
 
 // loadDotEnv is a minimal .env loader for local runs (KEY=value lines). It never

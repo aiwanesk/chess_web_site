@@ -10,4 +10,5 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
+	github.com/notnil/chess v1.10.0 // indirect
 )
