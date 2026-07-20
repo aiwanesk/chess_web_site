@@ -31,7 +31,13 @@ Suivi des travaux restants. Coché = fait.
 - [x] NPA **1206** et e-mail **contact@iwanesko.ch** confirmés.
 - [ ] Coordonnées géo : approximatives (Florissant) — affiner si besoin pour le pin carte.
 - [x] `/tarifs` : prix réels en CHF (120 CHF/h · 1000 CHF le pack 10 · 60 CHF/pers groupe).
-- [ ] Articles de blog : **à réécrire** (les 4 actuels sont provisoires).
+- [x] Blog restructuré en 2 catégories : **Progresser** (guides/acquisition) et
+      **Carnet de tournoi** (journal de compet'). Templates dans `content/_templates/`.
+- [ ] **Écrire les vrais articles** en suivant `docs/plan-editorial-blog.md`.
+      Le guide « Sortir du plateau 1500 Elo » est amorcé : compléter l'anecdote vécue
+      (bloc `[À COMPLÉTER]`). Remplacer l'exemple de carnet par un vrai récit.
+- [ ] Carnet de tournoi : tu joues 2-3 tournois/mois → viser ~1 récit par tournoi
+      marquant (dupliquer `content/_templates/carnet.md`).
 - [ ] `/resultats` : témoignages **réels et attribuables** uniquement + vraies stats.
 - [ ] `public/og/` : images Open Graph 1200×630 par type de page (PNG).
 - [ ] Police **Inter variable** self-hostée dans `public/fonts/` + réactiver

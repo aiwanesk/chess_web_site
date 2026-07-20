@@ -108,25 +108,32 @@ curl -s http://localhost:8080/llms.txt          # résumé structuré pour les L
 ## Ajouter du contenu
 
 ### Un article de blog
-Créez `content/blog/mon-article.md` :
+Le plus simple : dupliquez un **template** de `content/_templates/` (`guide.md`
+pour un article de conseils, `carnet.md` pour une entrée du carnet de tournoi)
+dans `content/blog/mon-article.md`. Front-matter :
 
 ```markdown
 ---
 title: "Titre de l’article (≤ 60 car. idéalement)"
 description: "Meta description ≤ 155 caractères."
-author: "Alex Iwanesko"
+author: "Alexandre Iwanesko"
 date: "2026-07-20"
 updated: "2026-07-21"        # optionnel
-cluster: "adultes"            # silo de maillage interne (optionnel)
-clusterPath: "/cours-echecs-adultes-geneve"   # money page liée (optionnel)
+category: "progresser"        # progresser | carnet-de-tournoi  (voir src/lib/categories.ts)
+cluster: "adultes"            # adultes | tournoi | en-ligne | ados → lie à la money page
+clusterPath: "/cours-echecs-adultes-geneve"
 ---
 
 Corps en **Markdown**. Compilé en HTML au build ; la page est pré-rendue,
-ajoutée au sitemap et à llms.txt automatiquement.
+ajoutée à sa catégorie, au sitemap et à llms.txt automatiquement.
 ```
 
 Rien d’autre à faire : le slug vient du nom de fichier, la route `/blog/:slug`
 est pré-rendue via `getStaticPaths`.
+
+**Catégories** (browsables, dans `src/lib/categories.ts`) vs **clusters** (thème
+→ money page, pour le maillage) sont deux axes distincts. Les fichiers de
+`content/_templates/` ne sont **pas** publiés (le glob ne lit que `content/blog/`).
 
 ### Une nouvelle page (ex. une money page)
 1. Créez `frontend/src/pages/MaPage.tsx` exportant `function Component()`.

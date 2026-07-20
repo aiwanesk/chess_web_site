@@ -5,6 +5,7 @@
  * `marked` land only in the lazily-loaded blog chunks).
  */
 import { marked } from 'marked'
+import { DEFAULT_CATEGORY } from './categories'
 
 // Raw Markdown, eagerly inlined at build. Relative to this file: repo/content.
 const rawFiles = import.meta.glob('../../../content/blog/*.md', {
@@ -20,6 +21,7 @@ export interface PostMeta {
   author: string
   date: string // ISO yyyy-mm-dd
   updated?: string
+  category: string // browsable section (see categories.ts)
   cluster?: string // internal-linking silo, e.g. "adultes"
   clusterPath?: string // money page this article links to
   image?: string
@@ -65,6 +67,7 @@ function build(filePath: string, raw: string): Post {
     author: data.author ?? 'Alexandre Iwanesko',
     date: data.date ?? '1970-01-01',
     updated: data.updated,
+    category: data.category || DEFAULT_CATEGORY,
     cluster: data.cluster,
     clusterPath: data.clusterPath,
     image: data.image,

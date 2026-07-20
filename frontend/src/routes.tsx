@@ -1,6 +1,7 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './components/Layout'
 import { blogStaticPaths } from './lib/blogSlugs'
+import { categoryStaticPaths } from './lib/categories'
 
 /**
  * Route table — one entry per indexable URL. Pages are lazy-loaded so each
@@ -32,6 +33,11 @@ export const routes: RouteRecord[] = [
 
       // Blog
       { path: 'blog', lazy: () => import('./pages/Blog') },
+      {
+        path: 'blog/categorie/:cat',
+        lazy: () => import('./pages/BlogCategory'),
+        getStaticPaths: categoryStaticPaths,
+      },
       {
         path: 'blog/:slug',
         lazy: () => import('./pages/BlogPost'),

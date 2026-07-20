@@ -29,6 +29,7 @@ const COLUMNS = [
       { to: '/resultats', label: 'Résultats & avis' },
       { to: '/tarifs', label: 'Tarifs' },
       { to: '/blog', label: 'Blog échecs' },
+      { to: '/blog/categorie/carnet-de-tournoi', label: 'Carnet de tournoi' },
       { to: '/contact', label: 'Contact' },
     ],
   },

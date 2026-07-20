@@ -3,6 +3,8 @@
  * for internal linking (related articles) — it never pulls `marked` into those
  * chunks. Front matter only; the HTML body lives in content.ts.
  */
+import { DEFAULT_CATEGORY } from './categories'
+
 const rawFiles = import.meta.glob('../../../content/blog/*.md', {
   query: '?raw',
   import: 'default',
@@ -14,7 +16,8 @@ export interface PostMeta {
   title: string
   description: string
   date: string
-  cluster?: string
+  category: string // browsable section (see categories.ts)
+  cluster?: string // theme → money page (SEO silo)
   clusterPath?: string
 }
 
@@ -41,6 +44,7 @@ export const postsMeta: PostMeta[] = Object.entries(rawFiles)
       title: fm.title ?? '',
       description: fm.description ?? '',
       date: fm.date ?? '1970-01-01',
+      category: fm.category || DEFAULT_CATEGORY,
       cluster: fm.cluster,
       clusterPath: fm.clusterPath,
     }
@@ -50,4 +54,17 @@ export const postsMeta: PostMeta[] = Object.entries(rawFiles)
 /** Articles belonging to a given content silo (by `cluster` front-matter). */
 export function postsByCluster(cluster: string, limit = 3): PostMeta[] {
   return postsMeta.filter((p) => p.cluster === cluster).slice(0, limit)
+}
+
+/** Articles in a browsable category (by `category` front-matter). */
+export function postsByCategory(category: string, limit?: number): PostMeta[] {
+  const list = postsMeta.filter((p) => p.category === category)
+  return limit ? list.slice(0, limit) : list
+}
+
+/** Count of published articles per category slug. */
+export function categoryCounts(): Record<string, number> {
+  const counts: Record<string, number> = {}
+  for (const p of postsMeta) counts[p.category] = (counts[p.category] ?? 0) + 1
+  return counts
 }

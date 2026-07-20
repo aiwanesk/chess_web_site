@@ -6,6 +6,7 @@ import { Section } from '../components/ui'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { getPost } from '../lib/content'
 import { postsByCluster } from '../lib/postMeta'
+import { getCategory } from '../lib/categories'
 import { articleSchema, breadcrumbSchema, type Crumb } from '../lib/schema'
 
 export function Component() {
@@ -31,12 +32,14 @@ export function Component() {
   }
 
   const path = `/blog/${post.slug}`
+  const category = getCategory(post.category)
   const related = post.cluster
     ? postsByCluster(post.cluster, 4).filter((p) => p.slug !== post.slug).slice(0, 3)
     : []
   const crumbs: Crumb[] = [
     { name: 'Accueil', path: '/' },
     { name: 'Blog', path: '/blog' },
+    ...(category ? [{ name: category.short, path: `/blog/categorie/${category.slug}` }] : []),
     { name: post.title, path },
   ]
 
@@ -67,6 +70,14 @@ export function Component() {
           <article>
             <header className="mx-auto max-w-[68ch]">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-gold-700">
+                {category ? (
+                  <>
+                    <Link to={`/blog/categorie/${category.slug}`} className="hover:text-gold-600">
+                      {category.short}
+                    </Link>
+                    {' · '}
+                  </>
+                ) : null}
                 <time dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString('fr-CH', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </time>

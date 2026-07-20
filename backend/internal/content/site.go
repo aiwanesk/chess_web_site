@@ -51,6 +51,10 @@ var StaticPages = []Page{
 		"Contacter Alexandre Iwanesko pour un cours d'échecs à Genève ou en ligne : premier échange pour définir vos objectifs."},
 	{"/blog", "Blog échecs", "weekly", 0.7,
 		"Articles d'échecs : stratégie, ouvertures, préparation tournoi et progression pour joueurs intermédiaires et avancés."},
+	{"/blog/categorie/progresser", "Progresser aux échecs — guides", "weekly", 0.7,
+		"Guides d'un Maître FIDE pour progresser aux échecs : ouvertures, finales, tactique, préparation de tournoi et mental."},
+	{"/blog/categorie/carnet-de-tournoi", "Carnet de tournoi", "weekly", 0.6,
+		"Le journal de compétition d'Alexandre Iwanesko, Maître FIDE : parties marquantes, décisions sous pression et leçons de tournoi."},
 }
 
 // BlogPost is the metadata parsed from a Markdown file's front matter.
