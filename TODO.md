@@ -2,6 +2,21 @@
 
 Suivi des travaux restants. Coché = fait.
 
+## Tactiques de la semaine (batch auto) — EN COURS
+
+- [x] Confidentialité : pseudos dans `.env` (gitignoré) / GitHub Secrets — **jamais
+      commités** (repo public). Vérifié : 0 pseudo dans les fichiers suivis.
+- [x] `backend/internal/tactics` : config (env), **inversion 100 % FEN/coups**
+      (`MirrorFEN`/`MirrorUCIMove` + tests), modèle `Puzzle` anonyme (test anti-fuite),
+      clients chess.com + lichess (`FetchWeek`). `cmd/tactics` runnable.
+- [x] Fetch prouvé : 239 parties/semaine récupérées (bullet inclus).
+- [ ] **Détection Stockfish** (UCI) : combinaisons jouées vs ratées via seuils
+      swing d'éval + écart coup-unique ; scoring « beauté » ; top 10 ; écrire
+      `content/tactiques/<année>-S<semaine>.json`.
+- [ ] **Rendu interactif** (échiquier jouable) des puzzles + page « Tactiques de la semaine ».
+- [ ] **Stats privées** : événements d'interaction → `/admin` protégé par `ADMIN_TOKEN`.
+- [ ] **Cron hebdo** (GitHub Actions ou serveur) : batch → commit → redeploy.
+
 ## Différé (à traiter plus tard, décision utilisateur)
 
 ### Intégrations
