@@ -1,8 +1,8 @@
 package server
 
 import (
-	"fmt"
 	"io/fs"
+	"log/slog"
 	"net/http"
 
 	"github.com/CAFxX/httpcompression"
@@ -27,17 +27,19 @@ type Server struct {
 func New(cfg Config, static fs.FS) (*Server, error) {
 	s := &Server{cfg: cfg, static: static}
 	if cfg.DBPath != "" {
-		st, err := stats.Open(cfg.DBPath)
-		if err != nil {
-			return nil, fmt.Errorf("open stats db: %w", err)
+		// A DB failure (e.g. an unwritable /data volume) must NOT take the site
+		// down: log loudly and degrade — stats + newsletter simply stay off.
+		// They come back automatically once the path is fixed and the app boots.
+		if st, err := stats.Open(cfg.DBPath); err != nil {
+			slog.Error("stats DB unavailable — stats & newsletter disabled, site stays up", "path", cfg.DBPath, "err", err)
+		} else {
+			s.store = st
+			if nl, err := newsletter.Open(cfg.DBPath); err != nil {
+				slog.Error("newsletter DB unavailable — newsletter disabled", "path", cfg.DBPath, "err", err)
+			} else {
+				s.news = nl
+			}
 		}
-		s.store = st
-
-		nl, err := newsletter.Open(cfg.DBPath)
-		if err != nil {
-			return nil, fmt.Errorf("open newsletter db: %w", err)
-		}
-		s.news = nl
 	}
 	return s, nil
 }

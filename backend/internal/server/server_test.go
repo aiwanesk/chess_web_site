@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -188,6 +189,36 @@ func TestAdminRequiresValidToken(t *testing.T) {
 	h.ServeHTTP(recOK, ok)
 	if recOK.Code != http.StatusOK {
 		t.Fatalf("correct token: want 200, got %d", recOK.Code)
+	}
+}
+
+func TestServerSurvivesUnusableDB(t *testing.T) {
+	// Parent path is a regular file, so SQLite can't create the DB below it.
+	f := filepath.Join(t.TempDir(), "not-a-dir")
+	if err := os.WriteFile(f, []byte("x"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	badPath := filepath.Join(f, "nested", "stats.db")
+
+	static := fstest.MapFS{"index.html": {Data: []byte("<!doctype html><h1>Accueil</h1>")}}
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", DBPath: badPath, AdminToken: "tok"}, static)
+	if err != nil {
+		t.Fatalf("New must degrade, not fail, on an unusable DB: %v", err)
+	}
+	t.Cleanup(func() { _ = srv.Close() })
+	h := srv.Handler()
+
+	// Site stays up.
+	if rec := get(t, h, "/"); rec.Code != http.StatusOK {
+		t.Fatalf("site should stay up with a broken DB, got %d", rec.Code)
+	}
+	// Stats disabled → event endpoint is a silent no-op (not a 500).
+	if rec := postJSON(t, h, "/api/tactics/event", `{"week":"20-07-26","puzzleId":"abc","kind":"view"}`); rec.Code != http.StatusNoContent {
+		t.Fatalf("event with disabled stats: want 204, got %d", rec.Code)
+	}
+	// Newsletter disabled → subscribe reports unavailable, doesn't crash.
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true}`); rec.Code != http.StatusServiceUnavailable {
+		t.Fatalf("subscribe with disabled newsletter: want 503, got %d", rec.Code)
 	}
 }
 
