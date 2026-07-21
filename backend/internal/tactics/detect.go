@@ -166,20 +166,26 @@ func firstMoveQualifies(fen, uciMove string, sac bool) bool {
 	return false
 }
 
-// forcingLine returns the leading, forcing portion of a PV: it keeps the winning
-// side's moves only while each is a check or a capture (or delivers mate), plus
-// the opponent's forced replies, and stops before the first quiet winning move.
-// The result always ends on a completed pair (or at mate).
+// forcingLine returns the leading, forcing portion of a PV and — crucially —
+// makes the puzzle END on the SOLVER's decisive blow: a capture, a check, a
+// promotion, or mate (never a quiet move, never the opponent's passive reply).
+//
+// It walks solver moves + forced opponent replies, and returns the line cut at
+// the LAST solver move that was a capture/check/promotion (or mate). If no such
+// finishing move exists, it returns nil so the fizzling line is dropped.
 func forcingLine(fen string, pv []string) []string {
 	opt, err := chess.FEN(fen)
 	if err != nil {
-		return truncatePV(pv, maxSolutionPlies)
+		return nil
 	}
 	game := chess.NewGame(opt)
 	uci := chess.UCINotation{}
 
-	kept := 0
+	lastFinishing := 0 // length ending on the last solver capture/check/promotion/mate
 	for i, u := range pv {
+		if i >= maxSolutionPlies {
+			break
+		}
 		dec, err := uci.Decode(game.Position(), u)
 		if err != nil {
 			break
@@ -196,27 +202,27 @@ func forcingLine(fen string, pv []string) []string {
 			break
 		}
 		solverMove := i%2 == 0
-		forcing := m.HasTag(chess.Check) || m.HasTag(chess.Capture) || m.HasTag(chess.EnPassant)
-		if solverMove && !forcing {
-			break // the winning side would have to play a quiet move → stop here
+		forcing := m.HasTag(chess.Check) || m.HasTag(chess.Capture) ||
+			m.HasTag(chess.EnPassant) || m.Promo() != chess.NoPieceType
+		// After the first move, a quiet solver move ends the forcing sequence.
+		if solverMove && i > 0 && !forcing {
+			break
 		}
 		if err := game.Move(m); err != nil {
 			break
 		}
-		kept = i + 1
-		if game.Method() == chess.Checkmate {
+		mate := game.Method() == chess.Checkmate
+		if solverMove && (forcing || mate) {
+			lastFinishing = i + 1 // end the puzzle here — on the solver's blow
+		}
+		if mate {
 			break
 		}
 	}
-	// Trim a trailing solver move with no opponent reply (odd length) unless it
-	// was mate, so the puzzle always ends on the opponent's forced answer.
-	if kept%2 == 1 && game.Method() != chess.Checkmate {
-		kept--
-	}
-	if kept < 1 {
+	if lastFinishing < 1 {
 		return nil
 	}
-	return append([]string{}, pv[:kept]...)
+	return append([]string{}, pv[:lastFinishing]...)
 }
 
 // TopPuzzles analyses all games, ranks tactics by beauty and returns the top n

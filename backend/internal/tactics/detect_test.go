@@ -99,3 +99,21 @@ func TestAnalyzeGameFindsPlayedMate(t *testing.T) {
 		t.Fatalf("solution not mirrored: got %v", puzzles[0].Solution)
 	}
 }
+
+func TestForcingLineEndsOnSolverBlow(t *testing.T) {
+	// Ra8+ (check), Kh7 (forced reply), Ke2 (quiet) → the puzzle must END on the
+	// check, never on the opponent's reply or a quiet solver move.
+	fen := "6k1/5pp1/7p/8/8/8/8/R3K3 w - - 0 1"
+	got := forcingLine(fen, []string{"a1a8", "g8h7", "e1e2"})
+	if len(got) != 1 || got[0] != "a1a8" {
+		t.Fatalf("want [a1a8] (end on the check), got %v", got)
+	}
+
+	// If a later solver move is itself forcing, keep going and end on it.
+	// Ra8+ Kh7, Rxh8 (capture) → ends on the capture.
+	fen2 := "6kr/5pp1/7p/8/8/8/8/R3K3 w - - 0 1"
+	got2 := forcingLine(fen2, []string{"a1a8", "g8h7", "a8h8"})
+	if len(got2) != 3 || got2[2] != "a8h8" {
+		t.Fatalf("want the capture kept as the finish, got %v", got2)
+	}
+}
