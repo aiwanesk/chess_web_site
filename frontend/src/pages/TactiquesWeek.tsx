@@ -14,7 +14,7 @@ import { useLocale, homePath, t, type Locale } from '../lib/i18n'
 const STR: Record<Locale, {
   eyebrow: string; titlePrefix: string; lead: string; intro: string
   whiteWins: string; blackWins: string; mate: string; sac: string; notFound: string; back: string
-  board: { yourMove: string; solved: string; tryAgain: string; retry: string; whiteToPlay: string; blackToPlay: string }
+  board: { yourMove: string; solved: string; tryAgain: string; retry: string; whiteToPlay: string; blackToPlay: string; showSolution: string; solutionShown: string }
 }> = {
   fr: {
     eyebrow: 'Tactiques de la semaine', titlePrefix: 'Tactiques du',
@@ -22,7 +22,7 @@ const STR: Record<Locale, {
     intro: 'Chaque position vient d’une vraie partie. Cliquez la pièce puis sa case d’arrivée pour jouer la solution.',
     whiteWins: 'Les Blancs jouent et gagnent', blackWins: 'Les Noirs jouent et gagnent',
     mate: 'Mat', sac: 'Sacrifice', notFound: 'Cette série n’existe pas.', back: 'Toutes les semaines',
-    board: { yourMove: 'à vous de jouer', solved: 'Résolu !', tryAgain: 'Essayez encore', retry: 'Recommencer', whiteToPlay: 'Les Blancs jouent', blackToPlay: 'Les Noirs jouent' },
+    board: { yourMove: 'à vous de jouer', solved: 'Résolu !', tryAgain: 'Essayez encore', retry: 'Recommencer', whiteToPlay: 'Les Blancs jouent', blackToPlay: 'Les Noirs jouent', showSolution: 'Voir la solution', solutionShown: 'Solution affichée' },
   },
   en: {
     eyebrow: 'Tactics of the week', titlePrefix: 'Tactics of',
@@ -30,7 +30,7 @@ const STR: Record<Locale, {
     intro: 'Each position is from a real game. Click the piece, then its destination square, to play the solution.',
     whiteWins: 'White to play and win', blackWins: 'Black to play and win',
     mate: 'Mate', sac: 'Sacrifice', notFound: 'This set does not exist.', back: 'All weeks',
-    board: { yourMove: 'your move', solved: 'Solved!', tryAgain: 'Try again', retry: 'Restart', whiteToPlay: 'White to play', blackToPlay: 'Black to play' },
+    board: { yourMove: 'your move', solved: 'Solved!', tryAgain: 'Try again', retry: 'Restart', whiteToPlay: 'White to play', blackToPlay: 'Black to play', showSolution: 'Show solution', solutionShown: 'Solution shown' },
   },
 }
 

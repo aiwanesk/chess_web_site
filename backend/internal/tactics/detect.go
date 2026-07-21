@@ -15,7 +15,7 @@ const (
 	missCP     = 200 // best − played ≥ this → he missed it
 	foundEps   = 40  // best − played ≤ this → he found it
 
-	maxSolutionPlies = 10  // published solution length cap (a puzzle, not a dump)
+	maxSolutionPlies = 7   // published solution length cap — keep puzzles SHORT
 	sacWindowPlies   = 6   // only the forcing start counts for sacrifice detection
 	sacThreshold     = 250 // material must drop ≥ a minor piece to count as a sac
 )
@@ -101,15 +101,25 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 		if !isTactic {
 			continue
 		}
-		// A real tactic starts with a FORCING move: the first move of the
-		// solution must be a capture or a check (never a quiet/defensive move).
-		if len(best.PV) == 0 || !firstMoveForcing(fen, best.PV[0]) {
+		if len(best.PV) == 0 {
 			continue
 		}
 		sac := detectSacrifice(fen, best.PV)
+		// The first move must be a genuine tactical blow: a CHECK, or the start
+		// of a SACRIFICE. A plain material-winning capture ("just take the free
+		// piece") or a quiet move is rejected — those aren't interesting puzzles.
+		if !firstMoveQualifies(fen, best.PV[0], sac) {
+			continue
+		}
+		// Only publish the FORCING part of the line: cut it as soon as the winning
+		// side would have to play a non-forcing (quiet) move. Keeps solutions short.
+		sol := truncatePV(forcingLine(fen, best.PV), maxSolutionPlies)
+		if len(sol) == 0 {
+			continue
+		}
 		out = append(out, Tactic{
 			FEN:       fen,
-			Solution:  truncatePV(best.PV, maxSolutionPlies),
+			Solution:  sol,
 			Kind:      kind,
 			Mate:      mate,
 			Sacrifice: sac,
@@ -131,10 +141,10 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 	return []Tactic{top}, nil
 }
 
-// firstMoveForcing reports whether the move is a capture or a check. It matches
-// the move among the position's legal moves (which carry Capture/Check/EnPassant
-// tags set by the move generator).
-func firstMoveForcing(fen, uciMove string) bool {
+// firstMoveQualifies reports whether the solution may START with this move.
+// Accepted: a CHECK, or the first move of a SACRIFICE. Rejected: a plain
+// material-winning capture (avoid "just take the free piece") and quiet moves.
+func firstMoveQualifies(fen, uciMove string, sac bool) bool {
 	opt, err := chess.FEN(fen)
 	if err != nil {
 		return false
@@ -147,10 +157,66 @@ func firstMoveForcing(fen, uciMove string) bool {
 	}
 	for _, m := range game.ValidMoves() {
 		if m.S1() == target.S1() && m.S2() == target.S2() {
-			return m.HasTag(chess.Capture) || m.HasTag(chess.EnPassant) || m.HasTag(chess.Check)
+			if m.HasTag(chess.Check) {
+				return true // a check is always a valid forcing start
+			}
+			return sac // otherwise only a sacrifice qualifies (no plain captures)
 		}
 	}
 	return false
+}
+
+// forcingLine returns the leading, forcing portion of a PV: it keeps the winning
+// side's moves only while each is a check or a capture (or delivers mate), plus
+// the opponent's forced replies, and stops before the first quiet winning move.
+// The result always ends on a completed pair (or at mate).
+func forcingLine(fen string, pv []string) []string {
+	opt, err := chess.FEN(fen)
+	if err != nil {
+		return truncatePV(pv, maxSolutionPlies)
+	}
+	game := chess.NewGame(opt)
+	uci := chess.UCINotation{}
+
+	kept := 0
+	for i, u := range pv {
+		dec, err := uci.Decode(game.Position(), u)
+		if err != nil {
+			break
+		}
+		// uci.Decode does NOT set move tags; only ValidMoves() carry them.
+		var m *chess.Move
+		for _, vm := range game.ValidMoves() {
+			if vm.S1() == dec.S1() && vm.S2() == dec.S2() && vm.Promo() == dec.Promo() {
+				m = vm
+				break
+			}
+		}
+		if m == nil {
+			break
+		}
+		solverMove := i%2 == 0
+		forcing := m.HasTag(chess.Check) || m.HasTag(chess.Capture) || m.HasTag(chess.EnPassant)
+		if solverMove && !forcing {
+			break // the winning side would have to play a quiet move → stop here
+		}
+		if err := game.Move(m); err != nil {
+			break
+		}
+		kept = i + 1
+		if game.Method() == chess.Checkmate {
+			break
+		}
+	}
+	// Trim a trailing solver move with no opponent reply (odd length) unless it
+	// was mate, so the puzzle always ends on the opponent's forced answer.
+	if kept%2 == 1 && game.Method() != chess.Checkmate {
+		kept--
+	}
+	if kept < 1 {
+		return nil
+	}
+	return append([]string{}, pv[:kept]...)
 }
 
 // TopPuzzles analyses all games, ranks tactics by beauty and returns the top n
