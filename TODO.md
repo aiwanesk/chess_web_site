@@ -2,11 +2,10 @@
 
 Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 
-> ⚠️ **IMPORTANT — rien des dernières features n'est encore déployé.** `main` est
-> **en avance de 5 commits sur origin** (donc pas poussé) et le **seul tag est
-> `v0.1.0`**, antérieur au code stats/DB/newsletter. L'image live (`v0.1.0`) ne
-> sait **pas** créer la DB ni servir `/admin` ni la newsletter. → il faut
-> **push + tag `v0.2.0`** pour que tout ça arrive en ligne (voir Actions immédiates).
+> ✅ **`v0.2.0` poussé (main + tag)** — build Docker Hub déclenché. Contient
+> stats + `/admin` + newsletter + **garde-fou DB non-bloquant** (une DB inaccessible
+> ne casse plus le site). **Reste à faire (toi) : mettre à jour le conteneur Jelastic
+> sur la nouvelle image + définir `DB_PATH=/data/tactics.db`.**
 
 ---
 
@@ -43,14 +42,11 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 
 ## 🔴 Actions immédiates (toi)
 
-- [ ] **PUSH + TAG `v0.2.0`** = LA priorité. `main` a 5 commits non poussés et
-      l'image live est `v0.1.0` (sans stats/DB/admin/newsletter, ni image OG, nav,
-      carte contact, 10/10…).
-      → `git push origin main && git tag v0.2.0 && git push origin v0.2.0`
-      → release.yml build/push l'image → mettre à jour le conteneur Jelastic.
-      ⚠️ **Décision en attente** : appliquer d'abord le garde-fou « DB non-bloquante »
-      (si `/data` non inscriptible → log + désactive stats/newsletter au lieu de
-      crasher le site) avant de tagger ? (recommandé pour ce 1er déploiement DB).
+- [x] **PUSH + TAG `v0.2.0`** ✅ (garde-fou DB non-bloquant inclus). Build Docker Hub
+      en cours via release.yml (suivre onglet **Actions**).
+- [ ] **METTRE À JOUR LE CONTENEUR JELASTIC** sur la nouvelle image une fois le build
+      terminé (redéploiement / changement de tag d'image). C'est ce qui met en ligne
+      stats + `/admin` + newsletter + OG + nav + 10/10.
 - [ ] **Jelastic — volume + variables** (pour stats + newsletter) :
       volume `/data` en lecture/écriture **déjà en place** ✅ ; ajouter les variables
       `DB_PATH=/data/tactics.db` et `ADMIN_TOKEN=<token aléatoire>` (`ADMIN_TOKEN`
