@@ -2,10 +2,13 @@
 
 Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 
-> ✅ **`v0.2.0` poussé (main + tag)** — build Docker Hub déclenché. Contient
-> stats + `/admin` + newsletter + **garde-fou DB non-bloquant** (une DB inaccessible
-> ne casse plus le site). **Reste à faire (toi) : mettre à jour le conteneur Jelastic
-> sur la nouvelle image + définir `DB_PATH=/data/tactics.db`.**
+> ✅ **CAUSE RACINE des échecs de déploiement trouvée** : Virtuozzo/Jelastic injecte
+> `curl` + `iptables-persistent` via `apt` à chaque deploy → une image
+> scratch/distroless (sans apt ni shell) fait **échouer tout le déploiement** (et
+> casse le Web SSH). **Fix (`v0.2.1`)** : runtime rebasé sur `debian:bookworm-slim`
+> (+ ca-certificates, `mkdir /data`, root). Binaire Go pur inchangé.
+> **Reste à faire (toi) : redéployer le conteneur Jelastic sur `v0.2.1`.** Ensuite,
+> remettre le mount NFS `/data` proprement (persistance sur le storage).
 
 ---
 
