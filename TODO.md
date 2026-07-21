@@ -38,6 +38,12 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
       Route de Florissant 2, 1206 Genève) → pour le *local pack* « coach échecs Genève ».
 - [ ] **Search Console** : Inspection d'URL → **Demander l'indexation** des pages clés
       (home, cours adultes) pour accélérer.
+- [ ] **Secrets GitHub pour le cron tactiques** (Settings → Secrets → Actions) :
+      `CHESSCOM_USERNAME`, `LICHESS_USERNAME` (+ `LICHESS_TOKEN` facultatif). Sans
+      eux, le cron hebdo échoue. → Puis Actions → « Tactics (weekly) » → **Run workflow**
+      pour tester tout de suite.
+- [ ] **Jelastic auto-update** sur nouveau `:latest` (ou webhook) → pour que l'article
+      hebdo parte en ligne sans intervention. Sinon, redéploiement manuel après le cron.
 
 ---
 
@@ -54,9 +60,9 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
       corps limité + validation stricte ; rate-limit (déjà en place) ; HTTPS only ;
       zéro secret dans les logs. `/admin` derrière le même token ; `POST /api/tactics/event`
       public mais validé + rate-limité.
-- [ ] **Cron hebdo** (GitHub Actions, `cron: '0 5 * * 1'` ≈ lundi 6-7h Genève) :
-      `apt-get install stockfish` + secrets pseudos → `go run ./cmd/tactics` →
-      `POST /api/admin/tactics`. (Texte de la page déjà générique.)
+- [x] **Cron hebdo** (`.github/workflows/tactics-weekly.yml`, lundi 05:00 UTC) :
+      Stockfish + go run cmd/tactics → commit `content/tactiques/JJ-MM-AA.json` →
+      rebuild image. ⚠️ Nécessite les secrets pseudos (voir Actions immédiates).
 - [ ] Affiner les seuils de détection sur un plus gros échantillon (movetime ↑).
 
 ---
