@@ -34,6 +34,7 @@ export const PAGES = {
   home: { fr: '/', en: '/en' },
   coursAdultes: { fr: '/cours-echecs-adultes-geneve', en: '/en/adult-chess-lessons-geneva' },
   tarifs: { fr: '/tarifs', en: '/en/pricing' },
+  tactiques: { fr: '/tactiques', en: '/en/tactics' },
   contact: { fr: '/contact', en: '/en/contact' },
 } satisfies Record<string, PagePaths>
 

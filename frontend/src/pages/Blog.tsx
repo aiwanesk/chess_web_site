@@ -26,7 +26,7 @@ export function Component() {
   return (
     <>
       <Seo
-        title="Blog échecs — progresser & carnet de tournoi"
+        title="Blog échecs — progresser & carnet"
         description="Guides d’un Maître FIDE pour progresser aux échecs (ouvertures, finales, préparation tournoi) et le carnet de tournoi d’Alexandre Iwanesko."
         path="/blog"
         jsonLd={[breadcrumbSchema(crumbs)]}

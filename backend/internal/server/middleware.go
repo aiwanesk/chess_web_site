@@ -126,5 +126,6 @@ func cspHeader(nonce string) string {
 		"connect-src 'self'; " +
 		"base-uri 'self'; " +
 		"form-action 'self'; " +
+		"frame-src https://www.openstreetmap.org; " + // contact page map
 		"frame-ancestors 'none'"
 }

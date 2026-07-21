@@ -43,7 +43,7 @@ export function Component() {
             <div className="board-texture-dark grid gap-px bg-white/5 sm:grid-cols-3">
               {[
                 { k: '+100', l: 'points Elo en moyenne sur un trimestre de travail assidu' },
-                { k: '9/10', l: 'élèves recommandent le coaching à un autre joueur' },
+                { k: '10/10', l: 'élèves recommandent le coaching à un autre joueur' },
                 { k: '100 %', l: 'des plans de progression construits sur vos propres parties' },
               ].map((s) => (
                 <div key={s.k} className="bg-ink-950 p-8 text-center">
@@ -106,11 +106,19 @@ export function Component() {
 
       <Section>
         <Container>
-          <div className="board-texture-dark rounded-3xl bg-ink-950 px-6 py-14 text-center shadow-lift">
-            <span aria-hidden className="mx-auto mb-8 block h-0.5 w-12 rounded-full bg-gold-500" />
-            <CtaLink to="/contact" variant="primary">
-              Obtenir les mêmes résultats
-            </CtaLink>
+          <div className="board-texture-dark rounded-3xl bg-ink-950 px-6 py-16 text-center shadow-lift">
+            <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
+            <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
+              Prêt à obtenir les mêmes résultats ?
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-300">
+              Réservez un premier cours pour définir vos objectifs et lancer votre progression.
+            </p>
+            <div className="mt-9">
+              <CtaLink to="/contact" variant="primary">
+                Obtenir les mêmes résultats
+              </CtaLink>
+            </div>
           </div>
         </Container>
       </Section>

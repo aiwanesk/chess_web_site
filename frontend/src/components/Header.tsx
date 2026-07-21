@@ -9,19 +9,19 @@ type NavItem = { to: string; key: keyof ReturnType<typeof t>['nav'] }
 
 // FR links to every page; EN links only to pages already translated (grows
 // as the i18n rollout continues). Labels come from the locale dictionary.
+// Top nav kept compact so nothing wraps; secondary pages live in the footer.
 const NAV_FR: NavItem[] = [
   { to: '/cours-echecs-adultes-geneve', key: 'adultes' },
   { to: '/preparation-tournoi-echecs', key: 'tournoi' },
-  { to: '/cours-echecs-en-ligne', key: 'enligne' },
   { to: '/tarifs', key: 'tarifs' },
   { to: '/tactiques', key: 'tactiques' },
-  { to: '/resultats', key: 'resultats' },
   { to: '/blog', key: 'blog' },
   { to: '/contact', key: 'contact' },
 ]
 const NAV_EN: NavItem[] = [
   { to: '/en/adult-chess-lessons-geneva', key: 'adultes' },
   { to: '/en/pricing', key: 'tarifs' },
+  { to: '/en/tactics', key: 'tactiques' },
   { to: '/en/contact', key: 'contact' },
 ]
 
@@ -67,13 +67,13 @@ export function Header() {
       <Container className="flex h-[4.5rem] items-center justify-between gap-4">
         <Brand locale={locale} />
 
-        <nav aria-label="Navigation" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Navigation" className="hidden items-center gap-6 xl:flex">
           {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `relative text-sm font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-gold-500 after:transition-all after:duration-300 hover:text-ink-950 ${
+                `relative whitespace-nowrap text-sm font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-gold-500 after:transition-all after:duration-300 hover:text-ink-950 ${
                   isActive ? 'text-ink-950 after:w-full' : 'text-ink-600 after:w-0 hover:after:w-full'
                 }`
               }
@@ -82,12 +82,12 @@ export function Header() {
             </NavLink>
           ))}
           <LangSwitch locale={locale} label={s.langLabel} />
-          <CtaLink to={contactPath} variant="primary" className="!px-5 !py-2.5">
+          <CtaLink to={contactPath} variant="primary" className="!px-5 !py-2.5 whitespace-nowrap">
             {s.reserve}
           </CtaLink>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <LangSwitch locale={locale} label={s.langLabel} />
           <button
             type="button"
@@ -111,7 +111,7 @@ export function Header() {
       </Container>
 
       {open ? (
-        <nav id="mobile-nav" aria-label="Navigation" className="border-t border-ink-100 bg-white lg:hidden">
+        <nav id="mobile-nav" aria-label="Navigation" className="border-t border-ink-100 bg-white xl:hidden">
           <Container className="flex flex-col gap-0.5 py-3">
             {nav.map((item) => (
               <NavLink

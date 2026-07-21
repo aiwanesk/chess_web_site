@@ -29,6 +29,7 @@ export const routes: RouteRecord[] = [
       { path: 'en', lazy: () => import('./pages/Home') },
       { path: 'en/adult-chess-lessons-geneva', lazy: () => import('./pages/CoursAdultesGeneve') },
       { path: 'en/pricing', lazy: () => import('./pages/Tarifs') },
+      { path: 'en/tactics', lazy: () => import('./pages/Tactiques') },
       { path: 'en/contact', lazy: () => import('./pages/Contact') },
 
       // Info pages

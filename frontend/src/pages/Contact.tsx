@@ -10,7 +10,7 @@ import { useLocale, homePath, t, type Locale } from '../lib/i18n'
 
 const C: Record<Locale, {
   path: string; title: string; description: string; eyebrow: string; h1: string; lead: string
-  coords: string; emailL: string; phoneL: string; addressL: string; areaL: string; areaJoin: string; mapTodo: string
+  coords: string; emailL: string; phoneL: string; addressL: string; areaL: string; areaJoin: string; mapTitle: string; mapOpen: string
 }> = {
   fr: {
     path: '/contact', title: 'Contact',
@@ -18,7 +18,7 @@ const C: Record<Locale, {
     eyebrow: 'Contact', h1: 'Parlons de vos objectifs',
     lead: 'Décrivez votre niveau et ce que vous souhaitez travailler. Je vous réponds rapidement pour définir le format le plus adapté — présentiel à Genève ou en ligne.',
     coords: 'Coordonnées', emailL: 'E-mail', phoneL: 'Téléphone', addressL: 'Adresse', areaL: 'Zone',
-    areaJoin: 'et', mapTodo: 'Carte de Genève (chargement différé) — à intégrer',
+    areaJoin: 'et', mapTitle: 'Carte — Route de Florissant 2, Genève', mapOpen: 'Ouvrir dans OpenStreetMap',
   },
   en: {
     path: '/en/contact', title: 'Contact',
@@ -26,13 +26,18 @@ const C: Record<Locale, {
     eyebrow: 'Contact', h1: 'Let’s talk about your goals',
     lead: 'Tell me your level and what you’d like to work on. I’ll reply quickly to define the best format — in person in Geneva or online.',
     coords: 'Contact details', emailL: 'Email', phoneL: 'Phone', addressL: 'Address', areaL: 'Area',
-    areaJoin: 'and', mapTodo: 'Map of Geneva (lazy-loaded) — to be added',
+    areaJoin: 'and', mapTitle: 'Map — Route de Florissant 2, Geneva', mapOpen: 'Open in OpenStreetMap',
   },
 }
 
 export function Component() {
   const locale = useLocale()
   const c = C[locale]
+  // OpenStreetMap embed (free, no key). Coordinates from SITE.address.geo.
+  const { lat, lng } = SITE.address.geo
+  const bbox = `${lng - 0.008}%2C${lat - 0.004}%2C${lng + 0.008}%2C${lat + 0.004}`
+  const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`
+  const osmLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=17/${lat}/${lng}`
   const crumbs: Crumb[] = [
     { name: t(locale).breadcrumbHome, path: homePath(locale) },
     { name: c.title, path: c.path },
@@ -91,9 +96,23 @@ export function Component() {
                 </span>
               </p>
             </address>
-            <div className="mt-7 flex aspect-video items-center justify-center rounded-2xl border border-dashed border-ink-300 bg-white text-center text-sm text-ink-500">
-              {c.mapTodo}
+            <div className="mt-7 overflow-hidden rounded-2xl border border-ink-200">
+              <iframe
+                title={c.mapTitle}
+                src={mapSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="block h-56 w-full border-0"
+              />
             </div>
+            <a
+              href={osmLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-xs font-medium text-gold-700 hover:underline"
+            >
+              {c.mapOpen} →
+            </a>
           </aside>
         </Container>
       </Section>

@@ -66,7 +66,7 @@ function DeroulementEN() {
 const FR: MoneyPageProps = {
   path: '/cours-echecs-adultes-geneve',
   title: 'Cours d’échecs pour adultes à Genève',
-  metaTitle: 'Cours d’échecs adultes à Genève — Maître FIDE',
+  metaTitle: 'Cours d’échecs adultes à Genève',
   description:
     'Cours d’échecs pour adultes (1200–2200 Elo) à Genève avec un Maître FIDE. Méthode structurée, plan de progression, présentiel et en ligne.',
   cluster: 'adultes',
