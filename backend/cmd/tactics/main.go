@@ -72,6 +72,10 @@ func main() {
 
 	fmt.Println("\nAnalyse Stockfish en cours…")
 	puzzles := tactics.TopPuzzles(engine, games, 10)
+	if len(puzzles) == 0 {
+		fmt.Println("Aucune tactique retenue cette semaine — rien à publier.")
+		return
+	}
 
 	// Article slug = the Monday of the current week, format JJ-MM-AA.
 	now := time.Now()
