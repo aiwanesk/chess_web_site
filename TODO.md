@@ -2,11 +2,20 @@
 
 Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-22.
 
-> 🚀 **`v0.2.4` = dernier tag, à déployer.** Il embarque TOUT : fix déploiement
-> (base Debian, voir ci-dessous), stats + `/admin`, newsletter RGPD, accusé de
-> réception contact, **rollout EN complet + blog bilingue**, tarif groupe (60 min),
-> et le **pin GPS précis** de la carte. → **Action (toi) : mettre à jour le conteneur
-> Jelastic sur `v0.2.4`** (les tags v0.2.0→v0.2.3 sont superseded).
+> 🚀 **`v0.2.5` = dernier tag, à déployer.** Il embarque TOUT : fix déploiement
+> (base Debian), stats + `/admin`, newsletter RGPD (+ notif d'abonnement à Alexandre),
+> accusé de réception contact, **rollout EN complet + blog bilingue**, tarif groupe,
+> pin GPS carte, **échiquier tactiques façon lichess** (grille 8×8, coords, coup
+> surligné, état résolu clair, bouton « Voir la solution »), **détection tactiques
+> améliorée** (1er coup = échec/sacrifice, solutions courtes limitées aux coups
+> forcés), alignement carte contact, doublon « Genève » corrigé, templates d'articles
+> supprimés. → **Action (toi) : mettre à jour le conteneur Jelastic sur `v0.2.5`.**
+>
+> ⚠️ **Puzzles actuels** (`content/tactiques/20-07-26.json`) : générés avec les
+> ANCIENNES règles (prises en 1, lignes longues). Le nouvel échiquier les affiche
+> bien, mais pour un contenu conforme aux nouvelles règles → **régénérer** : Actions
+> → « Tactics (weekly) » → Run workflow (nécessite les secrets pseudos), ou attendre
+> le cron de lundi.
 >
 > ✅ **CAUSE RACINE des échecs de déploiement** : Virtuozzo/Jelastic injecte
 > `curl` + `iptables-persistent` via `apt` à chaque deploy → une image
