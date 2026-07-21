@@ -49,17 +49,18 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
 
 ## 🟠 Prochain chantier dev : tactiques (stats + auto)
 
-- [ ] **Stats privées (SQLite)** : `modernc.org/sqlite` (pur Go, compat distroless)
-      sur `DB_PATH=/data/tactics.db` (volume Jelastic `/data`). `POST /api/tactics/event`
-      (vues/tentatives/résolu) + **tableau de bord `/admin`** protégé par `ADMIN_TOKEN`.
-      Câbler `onSolved`/`onAttempt` de `PuzzleBoard`.
-- [ ] **Ingestion runtime** : `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`) → le
-      batch pousse les puzzles **sans redeploy** (modèle A) ; le serveur lit depuis `/data`.
-      🔒 **Sécurité (hyper important)** : `ADMIN_TOKEN` obligatoire (vide → endpoint
-      **désactivé**) ; comparaison **constant-time** (`subtle.ConstantTimeCompare`) ;
-      corps limité + validation stricte ; rate-limit (déjà en place) ; HTTPS only ;
-      zéro secret dans les logs. `/admin` derrière le même token ; `POST /api/tactics/event`
-      public mais validé + rate-limité.
+- [x] **Stats privées (SQLite)** ✅ : `internal/stats` (`modernc.org/sqlite`, pur Go,
+      compat distroless). `POST /api/tactics/event` (vues/tentatives/résolu, validé +
+      rate-limité + corps ≤ 1KB) et **tableau de bord `/admin`**. `onView`/`onAttempt`/
+      `onSolved` câblés dans `PuzzleBoard` → `lib/tacticsEvents.ts` (fire-and-forget).
+      🔒 Sécurité : `ADMIN_TOKEN` obligatoire (vide → `/admin` **404, désactivé**),
+      Basic Auth **constant-time** (`subtle.ConstantTimeCompare`), `noindex`/`no-store` ;
+      compteurs agrégés uniquement (pas d'IP, pas d'identifiant). Tests inclus.
+      ⚠️ **En prod** : définir `DB_PATH=/data/tactics.db` sur le volume persistant
+      Jelastic `/data` + `ADMIN_TOKEN` (secret). Vide en local → stats désactivées.
+- [ ] *(Option future)* **Ingestion runtime** `POST /api/admin/tactics` (Bearer
+      `ADMIN_TOKEN`) pour pousser les puzzles **sans redeploy** — non fait, le cron
+      commite + rebuild l'image (modèle actuel suffisant).
 - [x] **Cron hebdo** (`.github/workflows/tactics-weekly.yml`, lundi 05:00 UTC) :
       Stockfish + go run cmd/tactics → commit `content/tactiques/JJ-MM-AA.json` →
       rebuild image. ⚠️ Nécessite les secrets pseudos (voir Actions immédiates).
