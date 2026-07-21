@@ -40,16 +40,32 @@ const COLUMNS_FR: Column[] = [
   },
 ]
 
-// EN columns grow as pages are translated.
 const COLUMNS_EN: Column[] = [
   {
     title: 'Lessons',
-    links: [{ to: '/en/adult-chess-lessons-geneva', label: 'Adult chess lessons in Geneva' }],
+    links: [
+      { to: '/en/adult-chess-lessons-geneva', label: 'Adult chess lessons in Geneva' },
+      { to: '/en/online-chess-lessons', label: 'Online chess lessons' },
+      { to: '/en/group-chess-lessons-geneva', label: 'Group chess lessons' },
+      { to: '/en/junior-chess-coaching', label: 'Junior chess coaching' },
+    ],
+  },
+  {
+    title: 'Going further',
+    links: [
+      { to: '/en/tournament-preparation', label: 'Tournament preparation' },
+      { to: '/en/chess-camps-geneva', label: 'Chess camps in Geneva' },
+      { to: '/en/corporate-chess-talks', label: 'Corporate talks' },
+      { to: '/en/chess-team-building-geneva', label: 'Team building' },
+    ],
   },
   {
     title: 'Information',
     links: [
+      { to: '/en/about', label: 'About' },
+      { to: '/en/results', label: 'Results & reviews' },
       { to: '/en/pricing', label: 'Pricing' },
+      { to: '/en/tactics', label: 'Weekly tactics' },
       { to: '/en/contact', label: 'Contact' },
       { to: '/en/privacy', label: 'Privacy' },
     ],

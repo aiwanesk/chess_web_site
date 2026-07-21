@@ -33,8 +33,18 @@ export interface PagePaths {
 export const PAGES = {
   home: { fr: '/', en: '/en' },
   coursAdultes: { fr: '/cours-echecs-adultes-geneve', en: '/en/adult-chess-lessons-geneva' },
+  preparationTournoi: { fr: '/preparation-tournoi-echecs', en: '/en/tournament-preparation' },
+  coursEnLigne: { fr: '/cours-echecs-en-ligne', en: '/en/online-chess-lessons' },
+  coursGroupe: { fr: '/cours-echecs-groupe-geneve', en: '/en/group-chess-lessons-geneva' },
+  coursAdos: { fr: '/cours-echecs-ados-competition', en: '/en/junior-chess-coaching' },
+  stages: { fr: '/stages-echecs-geneve', en: '/en/chess-camps-geneva' },
+  conferences: { fr: '/conferences-echecs-entreprise', en: '/en/corporate-chess-talks' },
+  teamBuilding: { fr: '/team-building-echecs-geneve', en: '/en/chess-team-building-geneva' },
+  apropos: { fr: '/a-propos', en: '/en/about' },
+  resultats: { fr: '/resultats', en: '/en/results' },
   tarifs: { fr: '/tarifs', en: '/en/pricing' },
   tactiques: { fr: '/tactiques', en: '/en/tactics' },
+  blog: { fr: '/blog', en: '/en/blog' },
   contact: { fr: '/contact', en: '/en/contact' },
   confidentialite: { fr: '/confidentialite', en: '/en/privacy' },
 } satisfies Record<string, PagePaths>
