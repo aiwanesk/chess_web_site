@@ -101,6 +101,11 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 		if !isTactic {
 			continue
 		}
+		// A real tactic starts with a FORCING move: the first move of the
+		// solution must be a capture or a check (never a quiet/defensive move).
+		if len(best.PV) == 0 || !firstMoveForcing(fen, best.PV[0]) {
+			continue
+		}
 		sac := detectSacrifice(fen, best.PV)
 		out = append(out, Tactic{
 			FEN:       fen,
@@ -112,7 +117,40 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 			Source:    g.Source,
 		})
 	}
-	return out, nil
+
+	// At most ONE position per game: keep the most beautiful.
+	if len(out) == 0 {
+		return nil, nil
+	}
+	top := out[0]
+	for _, t := range out[1:] {
+		if t.Beauty > top.Beauty {
+			top = t
+		}
+	}
+	return []Tactic{top}, nil
+}
+
+// firstMoveForcing reports whether the move is a capture or a check. It matches
+// the move among the position's legal moves (which carry Capture/Check/EnPassant
+// tags set by the move generator).
+func firstMoveForcing(fen, uciMove string) bool {
+	opt, err := chess.FEN(fen)
+	if err != nil {
+		return false
+	}
+	game := chess.NewGame(opt)
+	uci := chess.UCINotation{}
+	target, err := uci.Decode(game.Position(), uciMove)
+	if err != nil {
+		return false
+	}
+	for _, m := range game.ValidMoves() {
+		if m.S1() == target.S1() && m.S2() == target.S2() {
+			return m.HasTag(chess.Capture) || m.HasTag(chess.EnPassant) || m.HasTag(chess.Check)
+		}
+	}
+	return false
 }
 
 // TopPuzzles analyses all games, ranks tactics by beauty and returns the top n
