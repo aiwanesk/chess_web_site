@@ -24,6 +24,7 @@ type contactRequest struct {
 	Level   string `json:"level"`   // e.g. Elo range or self-assessment
 	Goal    string `json:"goal"`    // what the person wants to achieve
 	Message string `json:"message"`
+	Lang    string `json:"lang"` // "fr" | "en" — for the acknowledgement e-mail
 	// Honeypot must stay empty; bots tend to fill every field.
 	Honeypot string `json:"company"`
 }
@@ -54,11 +55,15 @@ func (s *Server) handleContact(w http.ResponseWriter, r *http.Request) {
 			// Don't leak infra errors; the lead is logged below regardless.
 		}
 	}
-	// Send the email to Alexandre asynchronously so the visitor gets a fast
-	// response; the lead is logged synchronously so nothing is lost on failure.
+	// Send the email to Alexandre and the acknowledgement to the visitor
+	// asynchronously so the visitor gets a fast response; the lead is logged
+	// synchronously so nothing is lost on failure.
 	go func(req contactRequest) {
 		if err := s.sendContactEmail(req); err != nil {
 			slog.Error("contact email failed", "err", err)
+		}
+		if err := s.sendContactAck(req); err != nil {
+			slog.Error("contact acknowledgement failed", "err", err)
 		}
 	}(req)
 	slog.Info("contact lead", "name", req.Name, "email", req.Email, "level", req.Level)

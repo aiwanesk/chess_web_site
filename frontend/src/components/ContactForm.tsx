@@ -31,7 +31,8 @@ const STR: Record<Locale, {
  * hydration. Includes a honeypot field ("company") to deter bots.
  */
 export function ContactForm() {
-  const s = STR[useLocale()]
+  const locale = useLocale()
+  const s = STR[locale]
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
@@ -44,7 +45,7 @@ export function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, lang: locale }),
       })
       if (res.ok) {
         setStatus('ok')
