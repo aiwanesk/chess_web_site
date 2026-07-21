@@ -17,10 +17,12 @@ const NAV_FR: NavItem[] = [
   { to: '/tactiques', key: 'tactiques' },
   { to: '/resultats', key: 'resultats' },
   { to: '/blog', key: 'blog' },
+  { to: '/contact', key: 'contact' },
 ]
 const NAV_EN: NavItem[] = [
   { to: '/en/adult-chess-lessons-geneva', key: 'adultes' },
   { to: '/en/pricing', key: 'tarifs' },
+  { to: '/en/contact', key: 'contact' },
 ]
 
 function Brand({ locale }: { locale: Locale }) {

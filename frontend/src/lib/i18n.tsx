@@ -63,7 +63,7 @@ export function altPath(pathname: string): string | undefined {
 // --- Shared UI strings ------------------------------------------------------
 
 type Dict = {
-  nav: { adultes: string; tournoi: string; enligne: string; tarifs: string; resultats: string; blog: string; tactiques: string }
+  nav: { adultes: string; tournoi: string; enligne: string; tarifs: string; resultats: string; blog: string; tactiques: string; contact: string }
   reserve: string
   reserveFirst: string
   viewPricing: string
@@ -92,7 +92,7 @@ type Dict = {
 
 export const UI: Record<Locale, Dict> = {
   fr: {
-    nav: { adultes: 'Cours adultes', tournoi: 'Préparation tournoi', enligne: 'En ligne', tarifs: 'Tarifs', resultats: 'Résultats', blog: 'Blog', tactiques: 'Tactiques' },
+    nav: { adultes: 'Cours adultes', tournoi: 'Préparation tournoi', enligne: 'En ligne', tarifs: 'Tarifs', resultats: 'Résultats', blog: 'Blog', tactiques: 'Tactiques', contact: 'Contact' },
     reserve: 'Réserver un cours',
     reserveFirst: 'Réserver un premier cours',
     viewPricing: 'Voir les tarifs',
@@ -119,7 +119,7 @@ export const UI: Record<Locale, Dict> = {
     },
   },
   en: {
-    nav: { adultes: 'Adult lessons', tournoi: 'Tournament prep', enligne: 'Online', tarifs: 'Pricing', resultats: 'Results', blog: 'Blog', tactiques: 'Tactics' },
+    nav: { adultes: 'Adult lessons', tournoi: 'Tournament prep', enligne: 'Online', tarifs: 'Pricing', resultats: 'Results', blog: 'Blog', tactiques: 'Tactics', contact: 'Contact' },
     reserve: 'Book a lesson',
     reserveFirst: 'Book a first lesson',
     viewPricing: 'View pricing',

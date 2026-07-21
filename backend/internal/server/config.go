@@ -24,6 +24,15 @@ type Config struct {
 	// TacticsDir holds the weekly anonymised puzzle files (AAAA-Sxx.json) served
 	// at /api/tactics. Empty disables the endpoint.
 	TacticsDir string
+
+	// SMTP settings for sending contact-form emails. If SMTPHost/SMTPUser are
+	// empty, email sending is skipped (the lead is still logged/forwarded).
+	SMTPHost string
+	SMTPPort string
+	SMTPUser string
+	SMTPPass string
+	MailFrom string // sender address (defaults to SMTPUser)
+	MailTo   string // recipient (defaults to alexandre@iwanesko.ch)
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -35,6 +44,12 @@ func LoadConfig() Config {
 		ContentDir:        env("CONTENT_DIR", "../content/blog"),
 		ContactWebhookURL: os.Getenv("CONTACT_WEBHOOK_URL"),
 		TacticsDir:        env("TACTICS_DIR", "../content/tactiques"),
+		SMTPHost:          os.Getenv("SMTP_HOST"),
+		SMTPPort:          env("SMTP_PORT", "587"),
+		SMTPUser:          os.Getenv("SMTP_USER"),
+		SMTPPass:          os.Getenv("SMTP_PASS"),
+		MailFrom:          env("MAIL_FROM", os.Getenv("SMTP_USER")),
+		MailTo:            env("MAIL_TO", "alexandre@iwanesko.ch"),
 	}
 }
 
