@@ -41,8 +41,8 @@ export const SITE = {
     region: 'GE',
     postalCode: '1206',
     country: 'CH',
-    // Approx. Route de Florissant / Genève.
-    geo: { lat: 46.1986, lng: 6.1668 },
+    // Route de Florissant 2, 1206 Genève (coordonnées précises).
+    geo: { lat: 46.196817, lng: 6.153666 },
   },
   areaServed: ['Genève', 'Vaud', 'Arc lémanique', 'France voisine'],
   priceRange: 'CHF',
