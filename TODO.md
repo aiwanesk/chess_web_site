@@ -68,6 +68,27 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
 
 ---
 
+## 🟢 Newsletter (RGPD + nLPD) ✅
+
+- [x] **Liste d'abonnés conforme, sans service payant** : `internal/newsletter`
+      (même DB SQLite que les stats). Consentement **explicite + double opt-in**
+      (case non pré-cochée → mail de confirmation → statut `confirmed`).
+      Minimisation : on stocke **uniquement** e-mail + langue + statut + 2 jetons
+      + horodatages (pas d'IP, pas de nom, jamais loggé). Désinscription 1 clic
+      (suppression = droit à l'effacement) + en-têtes `List-Unsubscribe`.
+- [x] **Envoi 100% automatique à la publication** : au démarrage, le serveur
+      scanne blog + tactiques + `content/events.json` et notifie les abonnés
+      confirmés pour tout contenu **nouveau**. 1er run = *seed* (marque l'existant
+      comme déjà notifié → aucun envoi en masse du back-catalogue). Throttle SMTP.
+- [x] **Formulaire** dans le footer + page **/confidentialite** (FR) et
+      **/en/privacy** (EN), liées depuis le footer + la case de consentement.
+      ⚠️ **En prod** : nécessite `DB_PATH` **et** le SMTP configuré (sinon
+      inscription stockée mais mail de confirmation non envoyé). Pour annoncer un
+      stage : ajouter une entrée dans `content/events.json` (`{id,title,url,...}`)
+      puis redéployer.
+
+---
+
 ## 📝 Contenu à fournir (toi)
 
 - [ ] **Articles de blog** réels (voir `docs/plan-editorial-blog.md`). Le guide
