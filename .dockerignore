@@ -19,6 +19,7 @@ backend/dist/assets
 .vscode
 scripts
 docs
+assets
 README.md
 TODO.md
 Lancer-*.cmd

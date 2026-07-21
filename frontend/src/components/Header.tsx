@@ -3,7 +3,6 @@ import { Link, NavLink } from 'vite-react-ssg'
 import { useLocation } from 'react-router-dom'
 import { Container } from './Container'
 import { CtaLink } from './ui'
-import { IconKnight } from './icons'
 import { useLocale, t, homePath, altPath, PAGES, type Locale } from '../lib/i18n'
 
 type NavItem = { to: string; key: keyof ReturnType<typeof t>['nav'] }
@@ -27,9 +26,7 @@ const NAV_EN: NavItem[] = [
 function Brand({ locale }: { locale: Locale }) {
   return (
     <Link to={homePath(locale)} className="flex items-center gap-2.5 font-bold text-ink-900">
-      <span aria-hidden className="flex h-9 w-9 items-center justify-center rounded-full bg-ink-900 text-gold-500 ring-1 ring-inset ring-gold-500/30">
-        <IconKnight size={19} />
-      </span>
+      <img src="/logo-128.png" alt="" width={36} height={36} className="h-9 w-9 rounded-lg" />
       <span className="leading-none">
         <span className="font-display text-[1.05rem] tracking-tight">Alexandre&nbsp;Iwanesko</span>
         <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-gold-700">

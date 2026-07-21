@@ -4,7 +4,6 @@ import { Seo } from '../lib/seo'
 import { Container } from '../components/Container'
 import { Section, Eyebrow, CtaLink } from '../components/ui'
 import { PageHero, FactCard } from '../components/PageHero'
-import { ChessMotif } from '../components/ChessMotif'
 import { IconGraduation, IconTrophy, IconMonitor, IconUsers, IconSpark, IconBoard, IconCheck, IconArrowRight } from '../components/icons'
 import { personSchema, localBusinessSchema, faqSchema, breadcrumbSchema, type FaqItem } from '../lib/schema'
 import { useLocale, homePath, t, PAGES, type Locale } from '../lib/i18n'
@@ -86,7 +85,7 @@ export function Component() {
           : (<>Coaching d’échecs pour <strong>adultes (1200–1900 Elo)</strong> et <strong>ados en compétition</strong>. Une méthode claire, un plan de progression et un vrai suivi — en présentiel à Genève ou en ligne.</>)}
         primaryCta={{ to: contactPath, label: c.ctaBtn }}
         secondaryCta={{ to: locale === 'en' ? PAGES.coursAdultes.en : '/cours-echecs-adultes-geneve', label: locale === 'en' ? 'Discover adult lessons' : 'Découvrir les cours adultes' }}
-        aside={<div className="relative"><ChessMotif className="mx-auto w-56 text-ink-900 drop-shadow-xl sm:w-64" /><div className="mt-6"><FactCard facts={c.facts} /></div></div>}
+        aside={<div className="relative"><img src="/brand-lockup.svg" alt="Alexandre Iwanesko — Outhink Outplay" width={520} height={600} className="mx-auto w-52 drop-shadow-xl sm:w-60" /><div className="mt-6"><FactCard facts={c.facts} /></div></div>}
       />
 
       <Section>
