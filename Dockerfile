@@ -25,19 +25,32 @@ COPY --from=frontend /app/frontend/dist ./dist
 # Static, stripped binary.
 RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /server .
 
-# ---------- Stage 3: minimal runtime ----------
-FROM gcr.io/distroless/static-debian12:nonroot
+# ---------- Stage 3: runtime ----------
+# Debian base (NOT scratch/distroless): the Virtuozzo/Jelastic platform injects
+# its integration packages (curl for health-checks, iptables-persistent for the
+# network layer) via apt on every deploy. A shell-less, apt-less image makes that
+# step fail → the whole deployment errors out. A Debian base has apt + a shell,
+# so deploys succeed and the Web SSH works. The Go binary runs identically.
+FROM debian:bookworm-slim
 WORKDIR /app
+# ca-certificates → TLS for outbound SMTP (Infomaniak) and HTTPS.
+# curl + iptables-persistent → expected by the Virtuozzo integration layer.
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        ca-certificates curl iptables-persistent \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=backend /server /app/server
 # Blog Markdown is read at runtime for sitemap.xml / llms.txt generation.
 COPY --from=frontend /app/content /app/content
-# Persistent volume for runtime state (SQLite: stats + published puzzles). On
-# Jelastic, mount /data as a persistent volume so it survives redeploys.
+# Create /data so SQLite can write even before a persistent volume is mounted
+# over it (prevents "unable to open database file" on first boot).
+RUN mkdir -p /data
+# On Jelastic, mount /data as a persistent volume so it survives redeploys.
 VOLUME /data
 ENV ADDR=":8080" \
     CONTENT_DIR="/app/content/blog" \
     TACTICS_DIR="/app/content/tactiques" \
     DB_PATH="/data/tactics.db"
 EXPOSE 8080
-USER nonroot:nonroot
+# Runs as root: the platform's deploy-time apt injection needs it (and it lets
+# SQLite write to a freshly-mounted /data without uid-permission friction).
 ENTRYPOINT ["/app/server"]

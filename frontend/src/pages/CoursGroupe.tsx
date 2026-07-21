@@ -19,7 +19,7 @@ export function Component() {
       facts={[
         { label: 'Taille', value: '3 à 6 joueurs' },
         { label: 'Niveau', value: 'Groupes homogènes' },
-        { label: 'Séance', value: '90 minutes' },
+        { label: 'Séance', value: '60 minutes' },
         { label: 'Lieu', value: 'Genève' },
       ]}
       intro={
@@ -48,7 +48,7 @@ export function Component() {
           'Cours d’échecs en petit groupe (3 à 6 joueurs) de niveau homogène à Genève, encadrés par un Maître FIDE.',
         url: '/cours-echecs-groupe-geneve',
         price: 60,
-        priceUnit: 'par personne et par séance de 90 min',
+        priceUnit: 'par personne et par séance de 60 min',
         courseMode: 'onsite',
       }}
       related={[
