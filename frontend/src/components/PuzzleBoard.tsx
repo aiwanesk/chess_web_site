@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 /**
  * Lightweight interactive chess puzzle. No client-side chess engine: the
@@ -12,6 +12,7 @@ export interface PuzzleBoardProps {
   solution: string[] // UCI moves, solver plays even indices
   onSolved?: () => void
   onAttempt?: (correct: boolean) => void
+  onView?: () => void
   labels: { yourMove: string; solved: string; tryAgain: string; retry: string; whiteToPlay: string; blackToPlay: string }
 }
 
@@ -70,10 +71,18 @@ function applyMoves(fen: string, moves: string[]): Pieces {
   return moves.reduce((acc, m) => applyMove(acc, m), parseFen(fen))
 }
 
-export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, labels }: PuzzleBoardProps) {
+export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, onView, labels }: PuzzleBoardProps) {
   const [applied, setApplied] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
   const [wrong, setWrong] = useState(false)
+
+  // Count one "view" the first time the board is mounted in the browser.
+  const viewed = useRef(false)
+  useEffect(() => {
+    if (viewed.current) return
+    viewed.current = true
+    onView?.()
+  }, [onView])
 
   const pieces = useMemo(() => applyMoves(fen, solution.slice(0, applied)), [fen, solution, applied])
   const solved = applied >= solution.length

@@ -30,6 +30,7 @@ func main() {
 		slog.Error("failed to build server", "err", err)
 		os.Exit(1)
 	}
+	defer srv.Close()
 
 	httpServer := &http.Server{
 		Addr:              cfg.Addr,

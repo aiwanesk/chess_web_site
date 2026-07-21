@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"strings"
 	"testing"
 	"testing/fstest"
@@ -131,5 +132,93 @@ func TestContactHoneypot(t *testing.T) {
 		strings.NewReader(`{"name":"Bot","email":"b@b.com","message":"x","company":"spam"}`)))
 	if rec.Code != http.StatusOK {
 		t.Fatalf("honeypot should silently succeed, got %d", rec.Code)
+	}
+}
+
+// statsServer builds a server backed by a real (temp-file) SQLite store so the
+// event → admin round-trip is exercised end to end.
+func statsServer(t *testing.T, adminToken string) http.Handler {
+	t.Helper()
+	static := fstest.MapFS{"index.html": {Data: []byte("x")}}
+	srv, err := New(Config{
+		BaseURL:    "https://iwanesko.ch",
+		ContentDir: "does-not-exist",
+		DBPath:     filepath.Join(t.TempDir(), "stats.db"),
+		AdminToken: adminToken,
+	}, static)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = srv.Close() })
+	return srv.Handler()
+}
+
+func postJSON(t *testing.T, h http.Handler, path, body string) *httptest.ResponseRecorder {
+	t.Helper()
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest(http.MethodPost, path, strings.NewReader(body)))
+	return rec
+}
+
+func TestAdminDisabledWithoutToken(t *testing.T) {
+	// No ADMIN_TOKEN → route must not exist at all (404, not 401).
+	if rec := get(t, statsServer(t, ""), "/admin"); rec.Code != http.StatusNotFound {
+		t.Fatalf("admin without token: want 404, got %d", rec.Code)
+	}
+}
+
+func TestAdminRequiresValidToken(t *testing.T) {
+	h := statsServer(t, "s3cret-token")
+
+	if rec := get(t, h, "/admin"); rec.Code != http.StatusUnauthorized {
+		t.Fatalf("no auth: want 401, got %d", rec.Code)
+	}
+
+	wrong := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	wrong.SetBasicAuth("admin", "nope")
+	recWrong := httptest.NewRecorder()
+	h.ServeHTTP(recWrong, wrong)
+	if recWrong.Code != http.StatusUnauthorized {
+		t.Fatalf("wrong token: want 401, got %d", recWrong.Code)
+	}
+
+	ok := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	ok.SetBasicAuth("admin", "s3cret-token")
+	recOK := httptest.NewRecorder()
+	h.ServeHTTP(recOK, ok)
+	if recOK.Code != http.StatusOK {
+		t.Fatalf("correct token: want 200, got %d", recOK.Code)
+	}
+}
+
+func TestTacticsEventRecordsAndSurfacesInAdmin(t *testing.T) {
+	h := statsServer(t, "tok")
+
+	for _, k := range []string{"view", "attempt", "solved"} {
+		rec := postJSON(t, h, "/api/tactics/event",
+			`{"week":"20-07-26","puzzleId":"abc123","kind":"`+k+`"}`)
+		if rec.Code != http.StatusNoContent {
+			t.Fatalf("event %q: want 204, got %d", k, rec.Code)
+		}
+	}
+
+	// Bad kind and bad token are rejected.
+	if rec := postJSON(t, h, "/api/tactics/event",
+		`{"week":"20-07-26","puzzleId":"abc123","kind":"hack"}`); rec.Code != http.StatusBadRequest {
+		t.Fatalf("bad kind: want 400, got %d", rec.Code)
+	}
+	if rec := postJSON(t, h, "/api/tactics/event",
+		`{"week":"../etc","puzzleId":"abc123","kind":"view"}`); rec.Code != http.StatusBadRequest {
+		t.Fatalf("bad week token: want 400, got %d", rec.Code)
+	}
+
+	// The recorded interaction shows up in the dashboard.
+	req := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	req.SetBasicAuth("admin", "tok")
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, req)
+	body := rec.Body.String()
+	if rec.Code != http.StatusOK || !strings.Contains(body, "20-07-26") || !strings.Contains(body, "abc123") {
+		t.Fatalf("admin dashboard missing recorded event: code=%d body=%q", rec.Code, body)
 	}
 }

@@ -7,6 +7,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs'
 import { PageHero } from '../components/PageHero'
 import { PuzzleBoard } from '../components/PuzzleBoard'
 import { getWeek, formatWeek } from '../lib/tactics'
+import { recordTacticsEvent } from '../lib/tacticsEvents'
 import { breadcrumbSchema, type Crumb } from '../lib/schema'
 import { useLocale, homePath, t, type Locale } from '../lib/i18n'
 
@@ -85,7 +86,15 @@ export function Component() {
                   </span>
                 </div>
                 <p className="mb-3 text-sm font-medium text-ink-600">{p.sideToMove === 'w' ? s.whiteWins : s.blackWins}</p>
-                <PuzzleBoard fen={p.fen} sideToMove={p.sideToMove} solution={p.solution} labels={s.board} />
+                <PuzzleBoard
+                  fen={p.fen}
+                  sideToMove={p.sideToMove}
+                  solution={p.solution}
+                  labels={s.board}
+                  onView={() => recordTacticsEvent(week.slug, p.id, 'view')}
+                  onAttempt={(correct) => { if (correct) recordTacticsEvent(week.slug, p.id, 'attempt') }}
+                  onSolved={() => recordTacticsEvent(week.slug, p.id, 'solved')}
+                />
               </li>
             ))}
           </ol>

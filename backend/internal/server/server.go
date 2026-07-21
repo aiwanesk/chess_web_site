@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"io/fs"
 	"net/http"
 
@@ -9,18 +10,36 @@ import (
 	stdgzip "github.com/CAFxX/httpcompression/contrib/compress/gzip"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
 // Server wires the HTTP handler.
 type Server struct {
 	cfg    Config
 	static fs.FS
+	store  *stats.Store // nil if stats are disabled (no DB_PATH)
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
 // build or on-disk dev directory), provided by the caller.
 func New(cfg Config, static fs.FS) (*Server, error) {
-	return &Server{cfg: cfg, static: static}, nil
+	s := &Server{cfg: cfg, static: static}
+	if cfg.DBPath != "" {
+		st, err := stats.Open(cfg.DBPath)
+		if err != nil {
+			return nil, fmt.Errorf("open stats db: %w", err)
+		}
+		s.store = st
+	}
+	return s, nil
+}
+
+// Close releases resources (the stats DB).
+func (s *Server) Close() error {
+	if s.store != nil {
+		return s.store.Close()
+	}
+	return nil
 }
 
 // Handler returns the fully-configured HTTP handler.
@@ -49,7 +68,11 @@ func (s *Server) Handler() http.Handler {
 		api.Get("/health", s.handleHealth)
 		api.Post("/contact", s.handleContact)
 		api.Get("/tactics", s.handleTactics)
+		api.Post("/tactics/event", s.handleTacticsEvent)
 	})
+
+	// Private stats dashboard — Basic Auth with ADMIN_TOKEN (disabled if unset).
+	r.With(s.adminAuth).Get("/admin", s.handleAdmin)
 
 	// Everything else is the pre-rendered SSG site.
 	r.NotFound(s.handleStatic)

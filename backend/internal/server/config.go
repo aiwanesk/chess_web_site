@@ -33,6 +33,11 @@ type Config struct {
 	SMTPPass string
 	MailFrom string // sender address (defaults to SMTPUser)
 	MailTo   string // recipient (defaults to alexandre@iwanesko.ch)
+
+	// DBPath is the SQLite file for private stats. Empty disables stats.
+	DBPath string
+	// AdminToken protects the /admin dashboard + stats. Empty disables /admin.
+	AdminToken string
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -50,6 +55,8 @@ func LoadConfig() Config {
 		SMTPPass:          os.Getenv("SMTP_PASS"),
 		MailFrom:          env("MAIL_FROM", os.Getenv("SMTP_USER")),
 		MailTo:            env("MAIL_TO", "alexandre@iwanesko.ch"),
+		DBPath:            os.Getenv("DB_PATH"),
+		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 	}
 }
 
