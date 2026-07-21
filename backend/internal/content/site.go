@@ -49,6 +49,8 @@ var StaticPages = []Page{
 		"Tarifs des cours d'échecs à Genève : cours particuliers, en groupe, en ligne et forfaits de préparation tournoi."},
 	{"/contact", "Contact", "yearly", 0.6,
 		"Contacter Alexandre Iwanesko pour un cours d'échecs à Genève ou en ligne : premier échange pour définir vos objectifs."},
+	{"/confidentialite", "Politique de confidentialité", "yearly", 0.3,
+		"Traitement des données personnelles sur iwanesko.ch (contact et newsletter), conforme au RGPD et à la LPD suisse."},
 	{"/blog", "Blog échecs", "weekly", 0.7,
 		"Articles d'échecs : stratégie, ouvertures, préparation tournoi et progression pour joueurs intermédiaires et avancés."},
 	{"/tactiques", "Tactiques de la semaine", "weekly", 0.7,

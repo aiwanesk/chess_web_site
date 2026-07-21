@@ -32,6 +32,9 @@ func main() {
 	}
 	defer srv.Close()
 
+	// Auto-announce newly published content to confirmed newsletter subscribers.
+	srv.StartAnnouncer()
+
 	httpServer := &http.Server{
 		Addr:              cfg.Addr,
 		Handler:           srv.Handler(),

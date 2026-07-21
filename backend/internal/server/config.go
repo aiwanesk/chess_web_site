@@ -35,9 +35,13 @@ type Config struct {
 	MailTo   string // recipient (defaults to alexandre@iwanesko.ch)
 
 	// DBPath is the SQLite file for private stats. Empty disables stats.
+	// The newsletter re-uses the same file (separate tables).
 	DBPath string
 	// AdminToken protects the /admin dashboard + stats. Empty disables /admin.
 	AdminToken string
+	// EventsFile is an optional JSON file of stages/events used for newsletter
+	// announcements (see internal/server/announce.go).
+	EventsFile string
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -57,6 +61,7 @@ func LoadConfig() Config {
 		MailTo:            env("MAIL_TO", "alexandre@iwanesko.ch"),
 		DBPath:            os.Getenv("DB_PATH"),
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
+		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 	}
 }
 

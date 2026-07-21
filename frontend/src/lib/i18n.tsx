@@ -36,6 +36,7 @@ export const PAGES = {
   tarifs: { fr: '/tarifs', en: '/en/pricing' },
   tactiques: { fr: '/tactiques', en: '/en/tactics' },
   contact: { fr: '/contact', en: '/en/contact' },
+  confidentialite: { fr: '/confidentialite', en: '/en/privacy' },
 } satisfies Record<string, PagePaths>
 
 export type PageKey = keyof typeof PAGES

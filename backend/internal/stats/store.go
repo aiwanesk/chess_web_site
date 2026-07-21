@@ -35,11 +35,12 @@ type Store struct{ db *sql.DB }
 
 // Open opens (creating if needed) the database at path and ensures the schema.
 func Open(path string) (*Store, error) {
-	db, err := sql.Open("sqlite", path)
+	db, err := sql.Open("sqlite", path+"?_pragma=busy_timeout(5000)")
 	if err != nil {
 		return nil, err
 	}
-	db.SetMaxOpenConns(1) // SQLite: serialise writes
+	db.SetMaxOpenConns(1) // SQLite: serialise writes (busy_timeout lets the
+	// newsletter handle on the same file wait rather than error on contention).
 	if _, err := db.Exec(schema); err != nil {
 		_ = db.Close()
 		return nil, err

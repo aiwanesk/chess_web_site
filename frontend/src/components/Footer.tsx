@@ -1,5 +1,6 @@
 import { Link } from 'vite-react-ssg'
 import { Container } from './Container'
+import { NewsletterSignup } from './NewsletterSignup'
 import { SITE } from '../lib/site'
 import { IconKnight, IconMail, IconPhone, IconPin } from './icons'
 import { useLocale, t, type Locale } from '../lib/i18n'
@@ -34,6 +35,7 @@ const COLUMNS_FR: Column[] = [
       { to: '/blog', label: 'Blog échecs' },
       { to: '/blog/categorie/carnet-de-tournoi', label: 'Carnet de tournoi' },
       { to: '/contact', label: 'Contact' },
+      { to: '/confidentialite', label: 'Confidentialité' },
     ],
   },
 ]
@@ -49,6 +51,7 @@ const COLUMNS_EN: Column[] = [
     links: [
       { to: '/en/pricing', label: 'Pricing' },
       { to: '/en/contact', label: 'Contact' },
+      { to: '/en/privacy', label: 'Privacy' },
     ],
   },
 ]
@@ -64,6 +67,14 @@ export function Footer() {
 
   return (
     <footer className="mt-8 border-t-2 border-gold-500/60 bg-ink-950 text-ink-300">
+      <div className="border-b border-white/10">
+        <Container className="py-12">
+          <div className="max-w-md">
+            <NewsletterSignup />
+          </div>
+        </Container>
+      </div>
+
       <Container className="grid gap-12 py-16 md:grid-cols-4">
         {/* NAP block — must stay consistent with the Google Business Profile. */}
         <div>

@@ -10,6 +10,7 @@ import (
 	stdgzip "github.com/CAFxX/httpcompression/contrib/compress/gzip"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
@@ -17,7 +18,8 @@ import (
 type Server struct {
 	cfg    Config
 	static fs.FS
-	store  *stats.Store // nil if stats are disabled (no DB_PATH)
+	store  *stats.Store      // nil if stats are disabled (no DB_PATH)
+	news   *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
@@ -30,16 +32,28 @@ func New(cfg Config, static fs.FS) (*Server, error) {
 			return nil, fmt.Errorf("open stats db: %w", err)
 		}
 		s.store = st
+
+		nl, err := newsletter.Open(cfg.DBPath)
+		if err != nil {
+			return nil, fmt.Errorf("open newsletter db: %w", err)
+		}
+		s.news = nl
 	}
 	return s, nil
 }
 
-// Close releases resources (the stats DB).
+// Close releases resources (the SQLite handles).
 func (s *Server) Close() error {
+	var err error
 	if s.store != nil {
-		return s.store.Close()
+		err = s.store.Close()
 	}
-	return nil
+	if s.news != nil {
+		if e := s.news.Close(); e != nil && err == nil {
+			err = e
+		}
+	}
+	return err
 }
 
 // Handler returns the fully-configured HTTP handler.
@@ -69,7 +83,14 @@ func (s *Server) Handler() http.Handler {
 		api.Post("/contact", s.handleContact)
 		api.Get("/tactics", s.handleTactics)
 		api.Post("/tactics/event", s.handleTacticsEvent)
+		api.Post("/newsletter/subscribe", s.handleSubscribe)
 	})
+
+	// Newsletter double opt-in links (from e-mails) — server-rendered pages,
+	// no rate limiter needed (idempotent, token-guarded, no enumeration value).
+	r.Get("/newsletter/confirm", s.handleNewsletterConfirm)
+	r.Get("/newsletter/unsubscribe", s.handleUnsubscribe)
+	r.Post("/newsletter/unsubscribe", s.handleUnsubscribe) // RFC 8058 one-click
 
 	// Private stats dashboard — Basic Auth with ADMIN_TOKEN (disabled if unset).
 	// Rate-limited BEFORE auth so failed attempts count: ~1 try / 5s per IP,

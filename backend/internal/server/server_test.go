@@ -191,6 +191,47 @@ func TestAdminRequiresValidToken(t *testing.T) {
 	}
 }
 
+func TestNewsletterSubscribeValidation(t *testing.T) {
+	h := statsServer(t, "tok") // DBPath set → newsletter enabled; no SMTP → confirm mail is a no-op
+
+	// Missing explicit consent → rejected.
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":false}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("no consent: want 422, got %d", rec.Code)
+	}
+	// Invalid e-mail → rejected.
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"nope","consent":true}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("bad email: want 422, got %d", rec.Code)
+	}
+	// Honeypot filled → silently accepted (no leak).
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true,"company":"spam"}`); rec.Code != http.StatusOK {
+		t.Fatalf("honeypot: want 200, got %d", rec.Code)
+	}
+	// Valid → 200 pending.
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true,"lang":"fr"}`); rec.Code != http.StatusOK {
+		t.Fatalf("valid: want 200, got %d", rec.Code)
+	}
+}
+
+func TestNewsletterLinksRenderOnUnknownToken(t *testing.T) {
+	h := statsServer(t, "tok")
+	if rec := get(t, h, "/newsletter/confirm?token=nope"); rec.Code != http.StatusOK {
+		t.Fatalf("confirm unknown token: want 200 page, got %d", rec.Code)
+	}
+	if rec := get(t, h, "/newsletter/unsubscribe?token=nope"); rec.Code != http.StatusOK {
+		t.Fatalf("unsubscribe unknown token: want 200 page, got %d", rec.Code)
+	}
+}
+
+func TestNewsletterDisabledWithoutDB(t *testing.T) {
+	h := testServer(t) // no DBPath → newsletter disabled
+	if rec := get(t, h, "/newsletter/confirm?token=x"); rec.Code != http.StatusNotFound {
+		t.Fatalf("confirm without DB: want 404, got %d", rec.Code)
+	}
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true}`); rec.Code != http.StatusServiceUnavailable {
+		t.Fatalf("subscribe without DB: want 503, got %d", rec.Code)
+	}
+}
+
 func TestAdminBruteForceIsRateLimited(t *testing.T) {
 	h := statsServer(t, "s3cret-token")
 

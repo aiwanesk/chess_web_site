@@ -38,6 +38,8 @@ export const routes: RouteRecord[] = [
       { path: 'resultats', lazy: () => import('./pages/Resultats') },
       { path: 'tarifs', lazy: () => import('./pages/Tarifs') },
       { path: 'contact', lazy: () => import('./pages/Contact') },
+      { path: 'confidentialite', lazy: () => import('./pages/Confidentialite') },
+      { path: 'en/privacy', lazy: () => import('./pages/Confidentialite') },
 
       // Tactiques de la semaine — index + article hebdo (/tactiques/JJ-MM-AA)
       { path: 'tactiques', lazy: () => import('./pages/Tactiques') },
