@@ -2,11 +2,78 @@ package server
 
 import (
 	"log/slog"
+	"net"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/go-chi/chi/v5/middleware"
 )
+
+// ipRateLimiter is a tiny in-memory per-IP token bucket protecting the API from
+// abuse/spam. No external dependency; fine for a single-instance service.
+type ipRateLimiter struct {
+	mu      sync.Mutex
+	buckets map[string]*tokenBucket
+	rate    float64 // tokens refilled per second
+	burst   float64 // max tokens
+}
+
+type tokenBucket struct {
+	tokens float64
+	last   time.Time
+}
+
+func newIPRateLimiter(rate, burst float64) *ipRateLimiter {
+	return &ipRateLimiter{buckets: make(map[string]*tokenBucket), rate: rate, burst: burst}
+}
+
+func (l *ipRateLimiter) allow(ip string) bool {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	if len(l.buckets) > 50000 { // crude unbounded-growth guard
+		l.buckets = make(map[string]*tokenBucket)
+	}
+	now := time.Now()
+	b := l.buckets[ip]
+	if b == nil {
+		b = &tokenBucket{tokens: l.burst, last: now}
+		l.buckets[ip] = b
+	}
+	b.tokens += now.Sub(b.last).Seconds() * l.rate
+	if b.tokens > l.burst {
+		b.tokens = l.burst
+	}
+	b.last = now
+	if b.tokens < 1 {
+		return false
+	}
+	b.tokens--
+	return true
+}
+
+// rateLimit returns middleware that 429s clients exceeding the limiter.
+func rateLimit(l *ipRateLimiter) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if !l.allow(clientIP(r)) {
+				w.Header().Set("Retry-After", "2")
+				http.Error(w, "trop de requêtes", http.StatusTooManyRequests)
+				return
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
+}
+
+// clientIP extracts the client IP. middleware.RealIP has already populated
+// RemoteAddr from X-Forwarded-For / X-Real-IP behind the proxy.
+func clientIP(r *http.Request) string {
+	if host, _, err := net.SplitHostPort(r.RemoteAddr); err == nil {
+		return host
+	}
+	return r.RemoteAddr
+}
 
 // requestLogger emits a structured line per request.
 func requestLogger(next http.Handler) http.Handler {

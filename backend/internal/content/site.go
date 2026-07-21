@@ -24,9 +24,9 @@ type Page struct {
 // frontend router in frontend/src/routes.tsx.
 var StaticPages = []Page{
 	{"/", "Accueil — Alexandre Iwanesko, Maître FIDE & coach d'échecs à Genève", "weekly", 1.0,
-		"Coach d'échecs à Genève, Maître FIDE. Cours pour adultes 1200–1900 Elo et ados en compétition, préparation tournoi, en présentiel et en ligne."},
+		"Coach d'échecs à Genève, Maître FIDE. Cours pour adultes 1200–2200 Elo et ados en compétition, préparation tournoi, en présentiel et en ligne."},
 	{"/cours-echecs-adultes-geneve", "Cours d'échecs pour adultes à Genève", "monthly", 0.9,
-		"Cours d'échecs pour adultes (1200–1900 Elo) à Genève avec un Maître FIDE : méthode structurée, plan de progression, présentiel et en ligne."},
+		"Cours d'échecs pour adultes (1200–2200 Elo) à Genève avec un Maître FIDE : méthode structurée, plan de progression, présentiel et en ligne."},
 	{"/preparation-tournoi-echecs", "Préparation tournoi d'échecs", "monthly", 0.9,
 		"Préparation ciblée aux tournois d'échecs : ouvertures, gestion du temps, préparation adverse et mental de compétition."},
 	{"/cours-echecs-en-ligne", "Cours d'échecs en ligne", "monthly", 0.8,
@@ -60,9 +60,9 @@ var StaticPages = []Page{
 
 	// English (EN) — grows as the i18n rollout continues.
 	{"/en", "Chess coach in Geneva — Alexandre Iwanesko, FIDE Master", "weekly", 0.9,
-		"Chess coach in Geneva, FIDE Master. Lessons for adults (1200–1900 Elo) and competitive teens, tournament prep, in person and online."},
+		"Chess coach in Geneva, FIDE Master. Lessons for adults (1200–2200 Elo) and competitive teens, tournament prep, in person and online."},
 	{"/en/adult-chess-lessons-geneva", "Adult chess lessons in Geneva", "monthly", 0.8,
-		"Chess lessons for adults (1200–1900 Elo) in Geneva with a FIDE Master: structured method, progression plan, in person and online."},
+		"Chess lessons for adults (1200–2200 Elo) in Geneva with a FIDE Master: structured method, progression plan, in person and online."},
 	{"/en/pricing", "Chess lesson pricing", "monthly", 0.7,
 		"Chess lesson pricing in Geneva: private lessons, group lessons, online and packages."},
 	{"/en/contact", "Contact", "yearly", 0.6,

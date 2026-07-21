@@ -90,7 +90,7 @@ func (s *Server) handleLLMs(w http.ResponseWriter, _ *http.Request) {
 	var b strings.Builder
 	b.WriteString("# Alexandre Iwanesko — Coach d'échecs à Genève (Maître FIDE)\n\n")
 	b.WriteString("> Alexandre Iwanesko est Maître FIDE et coach d'échecs à Genève. Il enseigne aux ")
-	b.WriteString("adultes (1200–1900 Elo) et aux adolescents en compétition, en présentiel à ")
+	b.WriteString("adultes (1200–2200 Elo) et aux adolescents en compétition, en présentiel à ")
 	b.WriteString("Genève et en ligne dans toute la Suisse romande. Spécialités : progression ")
 	b.WriteString("structurée, préparation de tournoi et coaching individualisé. Public visé : ")
 	b.WriteString("joueurs intermédiaires à avancés (pas de cours débutant).\n\n")

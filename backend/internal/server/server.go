@@ -40,8 +40,12 @@ func (s *Server) Handler() http.Handler {
 	r.Get("/sitemap.xml", s.handleSitemap)
 	r.Get("/llms.txt", s.handleLLMs)
 
-	// JSON API for dynamic parts (contact form, booking, ...).
+	// JSON API for dynamic parts (contact form, tactics, ...).
+	// Per-IP rate limit: ~2 req/s sustained, burst 20 — generous for normal use,
+	// blocks spam/abuse of the mutating endpoints.
+	apiLimiter := newIPRateLimiter(2, 20)
 	r.Route("/api", func(api chi.Router) {
+		api.Use(rateLimit(apiLimiter))
 		api.Get("/health", s.handleHealth)
 		api.Post("/contact", s.handleContact)
 		api.Get("/tactics", s.handleTactics)

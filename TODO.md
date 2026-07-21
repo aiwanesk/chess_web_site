@@ -47,6 +47,12 @@ Point de reprise. Coché = fait. Dernière mise à jour : session du 2026-07-21.
 - [ ] **Ingestion runtime** : `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`) pour
       que le batch pousse les puzzles **sans redeploy** (modèle A). Le serveur lit
       alors depuis `/data` au lieu du fichier bâti.
+      🔒 **Sécurité (hyper important)** : `ADMIN_TOKEN` obligatoire (vide → endpoint
+      **désactivé**, jamais de défaut) ; comparaison **constant-time**
+      (`subtle.ConstantTimeCompare`) ; taille de corps limitée + validation stricte
+      du JSON ; **rate limit** (déjà en place sur `/api`) ; HTTPS only (TLS Jelastic) ;
+      logs sans secret. `/admin` (dashboard) derrière le même token. `POST
+      /api/tactics/event` public mais validé + rate-limité (anti-triche des stats).
 - [ ] **Cron hebdo** (GitHub Actions) : `apt-get install stockfish` + secrets
       pseudos → `go run ./cmd/tactics` → `POST /api/admin/tactics`.
 - [ ] Affiner les seuils de détection sur un plus gros échantillon (movetime ↑,
@@ -62,6 +68,7 @@ Point de reprise. Coché = fait. Dernière mise à jour : session du 2026-07-21.
 - [ ] **Carnet de tournoi** : ~1 récit par tournoi marquant (2-3/mois) —
       dupliquer `content/_templates/carnet.md`.
 - [ ] `/resultats` : témoignages **réels et attribuables** + vraies stats.
+      → Témoignage de **Flavius** (élève) à intégrer dès réception.
 - [ ] **Portrait** d'Alexandre (Home / À propos).
 - [ ] `public/og/` : images Open Graph 1200×630 (PNG).
 - [ ] Police **Inter variable** self-hostée (`public/fonts/` + `@font-face`).

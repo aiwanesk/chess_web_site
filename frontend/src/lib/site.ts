@@ -20,7 +20,7 @@ export const SITE = {
     jobTitle: 'Coach d’échecs, Maître FIDE',
     honorific: 'Maître FIDE',
     description:
-      'Maître FIDE et coach d’échecs à Genève, spécialisé dans la progression des adultes (1200–1900 Elo) et des adolescents en compétition.',
+      'Maître FIDE et coach d’échecs à Genève, spécialisé dans la progression des adultes (1200–2200 Elo) et des adolescents en compétition.',
     // Entity disambiguation for GEO / knowledge graph — official FIDE profile only.
     // (lichess / chess.com intentionally not listed.) Add LinkedIn if desired.
     sameAs: [

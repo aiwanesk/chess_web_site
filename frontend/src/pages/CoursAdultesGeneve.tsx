@@ -68,18 +68,18 @@ const FR: MoneyPageProps = {
   title: 'Cours d’échecs pour adultes à Genève',
   metaTitle: 'Cours d’échecs adultes à Genève — Maître FIDE',
   description:
-    'Cours d’échecs pour adultes (1200–1900 Elo) à Genève avec un Maître FIDE. Méthode structurée, plan de progression, présentiel et en ligne.',
+    'Cours d’échecs pour adultes (1200–2200 Elo) à Genève avec un Maître FIDE. Méthode structurée, plan de progression, présentiel et en ligne.',
   cluster: 'adultes',
   eyebrow: 'Cours pour adultes · Genève',
   lead: (
     <>
       Vous jouez déjà et vous stagnez&nbsp;? Ces cours d’échecs pour adultes à Genève, encadrés par un{' '}
-      <strong>Maître&nbsp;FIDE</strong>, s’adressent aux joueurs de <strong>1200 à 1900 Elo</strong> qui veulent une
+      <strong>Maître&nbsp;FIDE</strong>, s’adressent aux joueurs de <strong>1200 à 2200 Elo</strong> qui veulent une
       progression réelle et mesurable — pas une remise à niveau pour débutants.
     </>
   ),
   facts: [
-    { label: 'Public', value: '1200–1900 Elo' },
+    { label: 'Public', value: '1200–2200 Elo' },
     { label: 'Format', value: 'Individuel / en ligne' },
     { label: 'Séance', value: '60 minutes' },
     { label: 'Langue', value: 'FR (EN possible)' },
@@ -109,7 +109,7 @@ const FR: MoneyPageProps = {
   course: {
     name: 'Cours d’échecs pour adultes à Genève',
     description:
-      'Cours particuliers d’échecs pour adultes 1200–1900 Elo à Genève, avec un Maître FIDE : diagnostic, plan de progression, ouvertures, calcul et finales.',
+      'Cours particuliers d’échecs pour adultes 1200–2200 Elo à Genève, avec un Maître FIDE : diagnostic, plan de progression, ouvertures, calcul et finales.',
     url: '/cours-echecs-adultes-geneve',
     price: 120,
     priceUnit: 'la séance individuelle de 60 min',
@@ -122,7 +122,7 @@ const FR: MoneyPageProps = {
     { to: '/tarifs', label: 'Consulter les tarifs et forfaits' },
   ],
   faq: [
-    { question: 'À partir de quel niveau ces cours sont-ils adaptés ?', answer: 'Ils s’adressent aux joueurs adultes d’environ 1200 à 1900 Elo. Si vous connaissez les règles et jouez déjà en ligne ou en club, vous êtes au bon endroit. Les grands débutants ne sont pas le public visé.' },
+    { question: 'À partir de quel niveau ces cours sont-ils adaptés ?', answer: 'Ils s’adressent aux joueurs adultes d’environ 1200 à 2200 Elo. Si vous connaissez les règles et jouez déjà en ligne ou en club, vous êtes au bon endroit. Les grands débutants ne sont pas le public visé.' },
     { question: 'Combien coûte un cours d’échecs pour adultes à Genève ?', answer: 'La séance individuelle de 60 minutes est à 120 CHF, et un pack de 10 séances est à 1000 CHF (soit 100 CHF la séance). Le détail figure sur la page Tarifs.' },
     { question: 'Les cours ont-ils lieu en présentiel ou en ligne ?', answer: 'Les deux. En présentiel à Genève, ou en ligne par visioconférence avec un échiquier partagé — même méthode, même qualité de suivi.' },
     { question: 'En combien de temps peut-on gagner des points Elo ?', answer: 'La plupart des élèves assidus constatent une progression sur 2 à 3 mois de travail régulier. Le rythme dépend de votre point de départ et du temps consacré aux exercices.' },
@@ -136,17 +136,17 @@ const EN: MoneyPageProps = {
   title: 'Adult chess lessons in Geneva',
   metaTitle: 'Adult chess lessons in Geneva — FIDE Master',
   description:
-    'Chess lessons for adults (1200–1900 Elo) in Geneva with a FIDE Master. Structured method, progression plan, in person and online.',
+    'Chess lessons for adults (1200–2200 Elo) in Geneva with a FIDE Master. Structured method, progression plan, in person and online.',
   eyebrow: 'Adult lessons · Geneva',
   lead: (
     <>
       Already playing but stuck at a plateau? These adult chess lessons in Geneva, taught by a{' '}
-      <strong>FIDE&nbsp;Master</strong>, are for players from <strong>1200 to 1900 Elo</strong> who want real,
+      <strong>FIDE&nbsp;Master</strong>, are for players from <strong>1200 to 2200 Elo</strong> who want real,
       measurable progress — not a beginner refresher.
     </>
   ),
   facts: [
-    { label: 'Level', value: '1200–1900 Elo' },
+    { label: 'Level', value: '1200–2200 Elo' },
     { label: 'Format', value: 'One-to-one / online' },
     { label: 'Session', value: '60 minutes' },
     { label: 'Language', value: 'EN / FR' },
@@ -176,7 +176,7 @@ const EN: MoneyPageProps = {
   course: {
     name: 'Adult chess lessons in Geneva',
     description:
-      'Private chess lessons for adults 1200–1900 Elo in Geneva with a FIDE Master: diagnosis, progression plan, openings, calculation and endgames.',
+      'Private chess lessons for adults 1200–2200 Elo in Geneva with a FIDE Master: diagnosis, progression plan, openings, calculation and endgames.',
     url: '/en/adult-chess-lessons-geneva',
     price: 120,
     priceUnit: 'per one-to-one 60-min session',
@@ -184,7 +184,7 @@ const EN: MoneyPageProps = {
   },
   related: [{ to: '/en/pricing', label: 'See pricing & packages' }],
   faq: [
-    { question: 'What level are these lessons for?', answer: 'For adult players roughly 1200 to 1900 Elo. If you know the rules and already play online or in a club, you’re in the right place. Complete beginners are not the target audience.' },
+    { question: 'What level are these lessons for?', answer: 'For adult players roughly 1200 to 2200 Elo. If you know the rules and already play online or in a club, you’re in the right place. Complete beginners are not the target audience.' },
     { question: 'How much does an adult chess lesson in Geneva cost?', answer: 'A one-to-one 60-minute session is 120 CHF, and a 10-session package is 1000 CHF (i.e. 100 CHF per session). Full details are on the Pricing page.' },
     { question: 'Are lessons in person or online?', answer: 'Both. In person in Geneva, or online via video call with a shared board — same method, same quality of follow-up.' },
     { question: 'How fast can I gain Elo?', answer: 'Most committed students see progress within 2 to 3 months of regular work. The pace depends on your starting point and the time spent on exercises.' },

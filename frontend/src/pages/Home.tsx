@@ -11,7 +11,7 @@ import { useLocale, homePath, t, PAGES, type Locale } from '../lib/i18n'
 type Offer = { fr: string; en: string; key?: string; icon: typeof IconGraduation; desc: { fr: string; en: string }; title: { fr: string; en: string } }
 
 const OFFERS: Offer[] = [
-  { fr: '/cours-echecs-adultes-geneve', en: PAGES.coursAdultes.en, key: 'coursAdultes', icon: IconGraduation, title: { fr: 'Cours pour adultes', en: 'Adult lessons' }, desc: { fr: 'Progression structurée pour joueurs 1200–1900 Elo.', en: 'Structured progress for 1200–1900 Elo players.' } },
+  { fr: '/cours-echecs-adultes-geneve', en: PAGES.coursAdultes.en, key: 'coursAdultes', icon: IconGraduation, title: { fr: 'Cours pour adultes', en: 'Adult lessons' }, desc: { fr: 'Progression structurée pour joueurs 1200–2200 Elo.', en: 'Structured progress for 1200–2200 Elo players.' } },
   { fr: '/preparation-tournoi-echecs', en: '/preparation-tournoi-echecs', icon: IconTrophy, title: { fr: 'Préparation tournoi', en: 'Tournament prep' }, desc: { fr: 'Répertoire, gestion du temps et mental de compétition.', en: 'Repertoire, time management and competitive mindset.' } },
   { fr: '/cours-echecs-en-ligne', en: '/cours-echecs-en-ligne', icon: IconMonitor, title: { fr: 'Cours en ligne', en: 'Online lessons' }, desc: { fr: 'Même méthode à distance, partout en Suisse romande.', en: 'Same method remotely, anywhere in French-speaking Switzerland.' } },
   { fr: '/cours-echecs-groupe-geneve', en: '/cours-echecs-groupe-geneve', icon: IconUsers, title: { fr: 'Cours en groupe', en: 'Group lessons' }, desc: { fr: 'Petits groupes de niveau homogène, tarif partagé.', en: 'Small level-matched groups, shared rate.' } },
@@ -21,12 +21,12 @@ const OFFERS: Offer[] = [
 
 const FAQ: Record<Locale, FaqItem[]> = {
   fr: [
-    { question: 'À qui s’adressent les cours d’Alexandre Iwanesko ?', answer: 'Aux adultes de 1200 à 1900 Elo et aux adolescents en compétition. Ce sont des cours de perfectionnement : les grands débutants ne sont pas le public visé.' },
+    { question: 'À qui s’adressent les cours d’Alexandre Iwanesko ?', answer: 'Aux adultes de 1200 à 2200 Elo et aux adolescents en compétition. Ce sont des cours de perfectionnement : les grands débutants ne sont pas le public visé.' },
     { question: 'Qui est Alexandre Iwanesko ?', answer: 'Alexandre Iwanesko est Maître FIDE et coach d’échecs à Genève. Il enseigne aux joueurs intermédiaires et avancés, en présentiel et en ligne.' },
     { question: 'Les cours ont-ils lieu à Genève ou en ligne ?', answer: 'Les deux : en présentiel à Genève et en ligne pour toute la Suisse romande et la France voisine.' },
   ],
   en: [
-    { question: 'Who are Alexandre Iwanesko’s lessons for?', answer: 'For adults from 1200 to 1900 Elo and competitive teenagers. These are improvement lessons: complete beginners are not the target audience.' },
+    { question: 'Who are Alexandre Iwanesko’s lessons for?', answer: 'For adults from 1200 to 2200 Elo and competitive teenagers. These are improvement lessons: complete beginners are not the target audience.' },
     { question: 'Who is Alexandre Iwanesko?', answer: 'Alexandre Iwanesko is a FIDE Master and chess coach in Geneva. He coaches intermediate and advanced players, in person and online.' },
     { question: 'Are lessons in Geneva or online?', answer: 'Both: in person in Geneva and online across French-speaking Switzerland and neighbouring France.' },
   ],
@@ -40,7 +40,7 @@ const T: Record<Locale, {
 }> = {
   fr: {
     metaTitle: 'Coach d’échecs à Genève — Alexandre Iwanesko, Maître FIDE',
-    metaDesc: 'Coach d’échecs à Genève, Maître FIDE. Cours pour adultes (1200–1900 Elo) et ados en compétition, préparation tournoi, en présentiel et en ligne.',
+    metaDesc: 'Coach d’échecs à Genève, Maître FIDE. Cours pour adultes (1200–2200 Elo) et ados en compétition, préparation tournoi, en présentiel et en ligne.',
     heroEyebrow: 'Maître FIDE · Genève & en ligne', heroTitle: 'Progressez aux échecs avec un Maître FIDE à Genève',
     formats: 'Formats', formatsTitle: 'Trouvez le cours qui vous correspond',
     whyEyebrow: 'Pourquoi un Maître FIDE', whyTitle: 'Une expertise de titre, une pédagogie de coach',
@@ -49,11 +49,11 @@ const T: Record<Locale, {
     bullets: ['Diagnostic de vos parties classées pour cibler les vrais leviers.', 'Plan de progression sur 8 à 12 semaines avec objectifs Elo.', 'Présentiel à Genève ou en ligne, au même niveau d’exigence.', 'Public sérieux : joueurs qui veulent progresser, pas s’initier.'],
     faqTitle: 'Questions fréquentes', ctaTitle: 'Envie de franchir un palier ?',
     ctaLead: 'Réservez un premier cours à Genève ou en ligne pour définir vos objectifs.', ctaBtn: 'Réserver un premier cours',
-    facts: [{ label: 'Titre', value: 'Maître FIDE' }, { label: 'Public', value: '1200–1900 Elo' }, { label: 'Lieu', value: 'Genève / en ligne' }, { label: 'Langues', value: 'FR · EN' }],
+    facts: [{ label: 'Titre', value: 'Maître FIDE' }, { label: 'Public', value: '1200–2200 Elo' }, { label: 'Lieu', value: 'Genève / en ligne' }, { label: 'Langues', value: 'FR · EN' }],
   },
   en: {
     metaTitle: 'Chess coach in Geneva — Alexandre Iwanesko, FIDE Master',
-    metaDesc: 'Chess coach in Geneva, FIDE Master. Lessons for adults (1200–1900 Elo) and competitive teens, tournament prep, in person and online.',
+    metaDesc: 'Chess coach in Geneva, FIDE Master. Lessons for adults (1200–2200 Elo) and competitive teens, tournament prep, in person and online.',
     heroEyebrow: 'FIDE Master · Geneva & online', heroTitle: 'Improve your chess with a FIDE Master in Geneva',
     formats: 'Formats', formatsTitle: 'Find the lesson that fits you',
     whyEyebrow: 'Why a FIDE Master', whyTitle: 'A titled expertise, a coach’s teaching',
@@ -62,7 +62,7 @@ const T: Record<Locale, {
     bullets: ['Diagnosis of your rated games to target the real levers.', 'An 8–12 week progression plan with Elo goals.', 'In person in Geneva or online, at the same standard.', 'A serious audience: players who want to improve, not to start out.'],
     faqTitle: 'Frequently asked questions', ctaTitle: 'Ready to reach the next level?',
     ctaLead: 'Book a first lesson in Geneva or online to define your goals.', ctaBtn: 'Book a first lesson',
-    facts: [{ label: 'Title', value: 'FIDE Master' }, { label: 'Level', value: '1200–1900 Elo' }, { label: 'Where', value: 'Geneva / online' }, { label: 'Languages', value: 'EN · FR' }],
+    facts: [{ label: 'Title', value: 'FIDE Master' }, { label: 'Level', value: '1200–2200 Elo' }, { label: 'Where', value: 'Geneva / online' }, { label: 'Languages', value: 'EN · FR' }],
   },
 }
 
@@ -81,8 +81,8 @@ export function Component() {
         eyebrow={c.heroEyebrow}
         title={c.heroTitle}
         lead={locale === 'en'
-          ? (<>Chess coaching for <strong>adults (1200–1900 Elo)</strong> and <strong>competitive teens</strong>. A clear method, a progression plan and real follow-up — in person in Geneva or online.</>)
-          : (<>Coaching d’échecs pour <strong>adultes (1200–1900 Elo)</strong> et <strong>ados en compétition</strong>. Une méthode claire, un plan de progression et un vrai suivi — en présentiel à Genève ou en ligne.</>)}
+          ? (<>Chess coaching for <strong>adults (1200–2200 Elo)</strong> and <strong>competitive teens</strong>. A clear method, a progression plan and real follow-up — in person in Geneva or online.</>)
+          : (<>Coaching d’échecs pour <strong>adultes (1200–2200 Elo)</strong> et <strong>ados en compétition</strong>. Une méthode claire, un plan de progression et un vrai suivi — en présentiel à Genève ou en ligne.</>)}
         primaryCta={{ to: contactPath, label: c.ctaBtn }}
         secondaryCta={{ to: locale === 'en' ? PAGES.coursAdultes.en : '/cours-echecs-adultes-geneve', label: locale === 'en' ? 'Discover adult lessons' : 'Découvrir les cours adultes' }}
         aside={<div className="relative"><img src="/brand-lockup.svg" alt="Alexandre Iwanesko — Outhink Outplay" width={520} height={600} className="mx-auto w-52 drop-shadow-xl sm:w-60" /><div className="mt-6"><FactCard facts={c.facts} /></div></div>}

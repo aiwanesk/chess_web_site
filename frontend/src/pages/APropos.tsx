@@ -48,7 +48,7 @@ export function Component() {
               votre progression.
             </p>
             <p>
-              J’enseigne aux <strong>adultes de 1200 à 1900 Elo</strong> et aux{' '}
+              J’enseigne aux <strong>adultes de 1200 à 2200 Elo</strong> et aux{' '}
               <strong>adolescents en compétition</strong>. Mon approche est structurée : on part de
               vos parties réelles, on identifie les leviers de progrès les plus rentables, et on
               construit un plan de travail sur plusieurs semaines.
@@ -97,7 +97,7 @@ export function Component() {
               <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4">
                 {[
                   { label: 'Titre', value: 'Maître FIDE' },
-                  { label: 'Public', value: '1200–1900 Elo' },
+                  { label: 'Public', value: '1200–2200 Elo' },
                   { label: 'Lieu', value: 'Genève / en ligne' },
                   { label: 'Langues', value: 'FR · EN' },
                 ].map((f) => (
