@@ -1,6 +1,12 @@
 # TODO — iwanesko.ch
 
-Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
+Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
+
+> ⚠️ **IMPORTANT — rien des dernières features n'est encore déployé.** `main` est
+> **en avance de 5 commits sur origin** (donc pas poussé) et le **seul tag est
+> `v0.1.0`**, antérieur au code stats/DB/newsletter. L'image live (`v0.1.0`) ne
+> sait **pas** créer la DB ni servir `/admin` ni la newsletter. → il faut
+> **push + tag `v0.2.0`** pour que tout ça arrive en ligne (voir Actions immédiates).
 
 ---
 
@@ -25,15 +31,31 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (soir).
 - **Bandeau « site en construction »** (à retirer au lancement : `<SiteBanner/>` dans `Layout.tsx`).
 - **CI** vert (lint/test/build + Lighthouse, gates a11y/BP/CLS). **Release** sur tag `v*` → Docker Hub.
 
+### 🛠️ Codé + committé en local, mais PAS encore déployé (attend `v0.2.0`)
+- **Stats privées + `/admin`** : `internal/stats`, `POST /api/tactics/event`,
+  dashboard Basic Auth (token constant-time, rate-limité anti-brute-force).
+- **Newsletter RGPD/nLPD** : `internal/newsletter`, double opt-in, désabo 1 clic,
+  envoi **auto** à la publication (blog + tactiques + `content/events.json`),
+  formulaire dans le footer, page **/confidentialite** (+ `/en/privacy`).
+- **DB SQLite** créée automatiquement au boot si `DB_PATH` défini (sinon désactivée).
+
 ---
 
 ## 🔴 Actions immédiates (toi)
 
-- [ ] **REDÉPLOYER** : le site live tourne une image plus ancienne. Les derniers
-      correctifs ne sont **pas encore en ligne** (image OG — actuellement **404** en
-      live → pas d'aperçu au partage social —, nav qui ne wrap plus, carte contact,
-      titres ≤60, 10/10, message CTA Résultats).
-      → `git tag v0.1.1 && git push origin v0.1.1` puis mettre à jour le conteneur Jelastic.
+- [ ] **PUSH + TAG `v0.2.0`** = LA priorité. `main` a 5 commits non poussés et
+      l'image live est `v0.1.0` (sans stats/DB/admin/newsletter, ni image OG, nav,
+      carte contact, 10/10…).
+      → `git push origin main && git tag v0.2.0 && git push origin v0.2.0`
+      → release.yml build/push l'image → mettre à jour le conteneur Jelastic.
+      ⚠️ **Décision en attente** : appliquer d'abord le garde-fou « DB non-bloquante »
+      (si `/data` non inscriptible → log + désactive stats/newsletter au lieu de
+      crasher le site) avant de tagger ? (recommandé pour ce 1er déploiement DB).
+- [ ] **Jelastic — volume + variables** (pour stats + newsletter) :
+      volume `/data` en lecture/écriture **déjà en place** ✅ ; ajouter les variables
+      `DB_PATH=/data/tactics.db` et `ADMIN_TOKEN=<token aléatoire>` (`ADMIN_TOKEN`
+      déjà posé). La DB se crée seule au 1er boot dans `/data` (volume persistant,
+      survit aux redeploys ; local = mieux que NFS pour SQLite).
 - [ ] **Google Business Profile** : créer/aligner (NAP **identique** au footer :
       Route de Florissant 2, 1206 Genève) → pour le *local pack* « coach échecs Genève ».
 - [ ] **Search Console** : Inspection d'URL → **Demander l'indexation** des pages clés
