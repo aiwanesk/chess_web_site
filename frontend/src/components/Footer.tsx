@@ -66,6 +66,7 @@ const COLUMNS_EN: Column[] = [
       { to: '/en/results', label: 'Results & reviews' },
       { to: '/en/pricing', label: 'Pricing' },
       { to: '/en/tactics', label: 'Weekly tactics' },
+      { to: '/en/blog', label: 'Blog' },
       { to: '/en/contact', label: 'Contact' },
       { to: '/en/privacy', label: 'Privacy' },
     ],

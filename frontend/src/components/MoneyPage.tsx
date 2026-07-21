@@ -75,7 +75,7 @@ export function MoneyPage(props: MoneyPageProps) {
     { name: props.title, path: props.path },
   ]
 
-  const articles = props.cluster ? postsByCluster(props.cluster) : []
+  const articles = props.cluster ? postsByCluster(props.cluster, 3, locale) : []
 
   const jsonLd = [
     breadcrumbSchema(crumbs),

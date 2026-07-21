@@ -6,9 +6,16 @@
  */
 import { marked } from 'marked'
 import { DEFAULT_CATEGORY } from './categories'
+import type { Locale } from './i18n'
 
-// Raw Markdown, eagerly inlined at build. Relative to this file: repo/content.
-const rawFiles = import.meta.glob('../../../content/blog/*.md', {
+// Raw Markdown, eagerly inlined at build. FR at repo/content/blog, EN under /en.
+const frFiles = import.meta.glob('../../../content/blog/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>
+
+const enFiles = import.meta.glob('../../../content/blog/en/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,
@@ -21,9 +28,11 @@ export interface PostMeta {
   author: string
   date: string // ISO yyyy-mm-dd
   updated?: string
-  category: string // browsable section (see categories.ts)
+  lang: Locale
+  category: string // browsable section key (see categories.ts)
   cluster?: string // internal-linking silo, e.g. "adultes"
   clusterPath?: string // money page this article links to
+  altSlug?: string // counterpart slug in the other locale (for hreflang)
   image?: string
   readingMinutes: number
 }
@@ -57,7 +66,7 @@ function slugFromPath(filePath: string): string {
   return filePath.split('/').pop()!.replace(/\.md$/, '')
 }
 
-function build(filePath: string, raw: string): Post {
+function build(filePath: string, raw: string, lang: Locale): Post {
   const { data, body } = parseFrontMatter(raw)
   const words = body.split(/\s+/).filter(Boolean).length
   return {
@@ -67,18 +76,21 @@ function build(filePath: string, raw: string): Post {
     author: data.author ?? 'Alexandre Iwanesko',
     date: data.date ?? '1970-01-01',
     updated: data.updated,
+    lang,
     category: data.category || DEFAULT_CATEGORY,
     cluster: data.cluster,
     clusterPath: data.clusterPath,
+    altSlug: data.altSlug,
     image: data.image,
     readingMinutes: Math.max(1, Math.round(words / 200)),
     html: marked.parse(body) as string,
   }
 }
 
-const posts: Post[] = Object.entries(rawFiles)
-  .map(([path, raw]) => build(path, raw))
-  .sort((a, b) => (a.date < b.date ? 1 : -1))
+const posts: Post[] = [
+  ...Object.entries(frFiles).map(([path, raw]) => build(path, raw, 'fr')),
+  ...Object.entries(enFiles).map(([path, raw]) => build(path, raw, 'en')),
+].sort((a, b) => (a.date < b.date ? 1 : -1))
 
 export function allPosts(): Post[] {
   return posts

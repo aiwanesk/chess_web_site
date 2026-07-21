@@ -58,7 +58,7 @@ const COPY: Record<Locale, {
       {
         h: 'Hébergement et sous-traitants',
         p: [
-          'Le site et la base d’abonnés sont hébergés sur une infrastructure en Europe. L’envoi des e-mails passe par un prestateur de messagerie (Infomaniak, Suisse). Aucune donnée n’est transmise à des fins commerciales à des tiers.',
+          'Le site et la base d’abonnés sont hébergés en Suisse chez Infomaniak, qui assure aussi l’envoi des e-mails. Aucune donnée n’est transmise à des fins commerciales à des tiers.',
         ],
       },
     ],
@@ -109,7 +109,7 @@ const COPY: Record<Locale, {
       {
         h: 'Hosting and processors',
         p: [
-          'The site and the subscriber database are hosted on infrastructure in Europe. E-mails are sent through a mail provider (Infomaniak, Switzerland). No data is shared with third parties for commercial purposes.',
+          'The site and the subscriber database are hosted in Switzerland by Infomaniak, which also handles e-mail delivery. No data is shared with third parties for commercial purposes.',
         ],
       },
     ],

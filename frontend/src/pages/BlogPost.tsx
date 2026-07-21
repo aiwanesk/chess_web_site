@@ -6,23 +6,53 @@ import { Section } from '../components/ui'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { getPost } from '../lib/content'
 import { postsByCluster } from '../lib/postMeta'
-import { getCategory } from '../lib/categories'
+import { catView, categoryPath, getCategory } from '../lib/categories'
 import { articleSchema, breadcrumbSchema, type Crumb } from '../lib/schema'
+import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
+
+const STR: Record<Locale, {
+  notFoundTitle: string; notFoundBody: string; back: string; by: string; min: string
+  practiceTitle: string; practiceBody: string; practiceLink: string; alsoRead: string
+}> = {
+  fr: {
+    notFoundTitle: 'Article introuvable',
+    notFoundBody: 'Cet article n’existe pas.',
+    back: 'Retour au blog',
+    by: 'Par', min: 'min',
+    practiceTitle: 'Envie de passer à la pratique ?',
+    practiceBody: 'Ce sujet se travaille en cours.',
+    practiceLink: 'Découvrir le coaching associé',
+    alsoRead: 'À lire aussi',
+  },
+  en: {
+    notFoundTitle: 'Article not found',
+    notFoundBody: 'This article does not exist.',
+    back: 'Back to the blog',
+    by: 'By', min: 'min',
+    practiceTitle: 'Ready to put it into practice?',
+    practiceBody: 'This topic is worked on in lessons.',
+    practiceLink: 'Discover the related coaching',
+    alsoRead: 'Also worth reading',
+  },
+}
 
 export function Component() {
+  const locale = useLocale()
+  const s = STR[locale]
   const { slug = '' } = useParams()
   const post = getPost(slug)
+  const blogPath = pathFor('blog', locale)
 
   if (!post) {
     return (
       <Section>
         <Container>
-          <Seo title="Article introuvable" description="Cet article n’existe pas ou a été déplacé." path={`/blog/${slug}`} noindex />
-          <h1 className="text-2xl font-bold text-ink-900">Article introuvable</h1>
+          <Seo title={s.notFoundTitle} description={s.notFoundBody} path={`${blogPath}/${slug}`} noindex />
+          <h1 className="text-2xl font-bold text-ink-900">{s.notFoundTitle}</h1>
           <p className="mt-3 text-ink-600">
-            Cet article n’existe pas.{' '}
-            <Link to="/blog" className="text-gold-600 underline">
-              Retour au blog
+            {s.notFoundBody}{' '}
+            <Link to={blogPath} className="text-gold-600 underline">
+              {s.back}
             </Link>
             .
           </p>
@@ -31,15 +61,15 @@ export function Component() {
     )
   }
 
-  const path = `/blog/${post.slug}`
+  const path = `${blogPath}/${post.slug}`
   const category = getCategory(post.category)
   const related = post.cluster
-    ? postsByCluster(post.cluster, 4).filter((p) => p.slug !== post.slug).slice(0, 3)
+    ? postsByCluster(post.cluster, 4, locale).filter((p) => p.slug !== post.slug).slice(0, 3)
     : []
   const crumbs: Crumb[] = [
-    { name: 'Accueil', path: '/' },
-    { name: 'Blog', path: '/blog' },
-    ...(category ? [{ name: category.short, path: `/blog/categorie/${category.slug}` }] : []),
+    { name: t(locale).breadcrumbHome, path: homePath(locale) },
+    { name: 'Blog', path: blogPath },
+    ...(category ? [{ name: catView(category, locale).short, path: categoryPath(category.key, locale) }] : []),
     { name: post.title, path },
   ]
 
@@ -72,17 +102,21 @@ export function Component() {
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-gold-700">
                 {category ? (
                   <>
-                    <Link to={`/blog/categorie/${category.slug}`} className="hover:text-gold-600">
-                      {category.short}
+                    <Link to={categoryPath(category.key, locale)} className="hover:text-gold-600">
+                      {catView(category, locale).short}
                     </Link>
                     {' · '}
                   </>
                 ) : null}
                 <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString('fr-CH', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-GB' : 'fr-CH', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
                 </time>
                 {' · '}
-                {post.readingMinutes} min · Par {post.author}
+                {post.readingMinutes} {s.min} · {s.by} {post.author}
               </p>
               <h1 className="mt-3 font-display text-[2rem] font-bold leading-[1.12] tracking-tight text-ink-900 sm:text-[2.6rem]">
                 {post.title}
@@ -100,11 +134,11 @@ export function Component() {
             {/* Cluster internal link back to the related money page. */}
             {post.clusterPath ? (
               <aside className="mx-auto mt-12 max-w-[68ch] rounded-2xl border border-gold-500/40 bg-gold-500/5 p-6">
-                <p className="font-semibold text-ink-900">Envie de passer à la pratique ?</p>
+                <p className="font-semibold text-ink-900">{s.practiceTitle}</p>
                 <p className="mt-1 text-ink-600">
-                  Ce sujet se travaille en cours.{' '}
+                  {s.practiceBody}{' '}
                   <Link to={post.clusterPath} className="font-semibold text-gold-700 underline">
-                    Découvrir le coaching associé
+                    {s.practiceLink}
                   </Link>
                   .
                 </p>
@@ -113,12 +147,12 @@ export function Component() {
 
             {related.length > 0 ? (
               <div className="mx-auto mt-12 max-w-[68ch]">
-                <h2 className="text-xl font-bold text-ink-900">À lire aussi</h2>
+                <h2 className="text-xl font-bold text-ink-900">{s.alsoRead}</h2>
                 <ul className="mt-4 space-y-3">
                   {related.map((r) => (
                     <li key={r.slug}>
                       <Link
-                        to={`/blog/${r.slug}`}
+                        to={`${blogPath}/${r.slug}`}
                         className="flex items-center justify-between gap-4 rounded-lg border border-ink-200 px-5 py-4 font-medium text-ink-800 transition-colors hover:border-gold-500 hover:text-ink-950"
                       >
                         {r.title}

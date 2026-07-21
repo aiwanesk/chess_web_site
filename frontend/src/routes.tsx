@@ -1,7 +1,7 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './components/Layout'
-import { blogStaticPaths } from './lib/blogSlugs'
-import { categoryStaticPaths } from './lib/categories'
+import { blogStaticPaths, blogStaticPathsEN } from './lib/blogSlugs'
+import { categoryStaticPaths, categoryStaticPathsEN } from './lib/categories'
 import { weekStaticPaths } from './lib/tactics'
 
 /**
@@ -70,6 +70,19 @@ export const routes: RouteRecord[] = [
         path: 'blog/:slug',
         lazy: () => import('./pages/BlogPost'),
         getStaticPaths: blogStaticPaths,
+      },
+
+      // Blog (EN)
+      { path: 'en/blog', lazy: () => import('./pages/Blog') },
+      {
+        path: 'en/blog/category/:cat',
+        lazy: () => import('./pages/BlogCategory'),
+        getStaticPaths: categoryStaticPathsEN,
+      },
+      {
+        path: 'en/blog/:slug',
+        lazy: () => import('./pages/BlogPost'),
+        getStaticPaths: blogStaticPathsEN,
       },
 
       // Concrete /404 so the SSG build emits dist/404.html (served by the Go

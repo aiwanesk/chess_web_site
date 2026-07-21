@@ -85,6 +85,8 @@ var StaticPages = []Page{
 		"Student results and testimonials: Elo progress, tournament performances and feedback."},
 	{"/en/tactics", "Tactics of the week", "weekly", 0.6,
 		"Solve the best chess tactics of the week, hand-picked by a FIDE Master. New puzzles every week."},
+	{"/en/blog", "Chess blog", "weekly", 0.6,
+		"Guides from a FIDE Master to improve at chess (openings, endgames, tournament prep) and Alexandre Iwanesko's tournament diary."},
 	{"/en/pricing", "Chess lesson pricing", "monthly", 0.7,
 		"Chess lesson pricing in Geneva: private lessons, group lessons, online and packages."},
 	{"/en/contact", "Contact", "yearly", 0.6,
