@@ -26,8 +26,8 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 - **SEO/GEO** : titres (≤60) + meta + canonical + **un seul H1** + hreflang FR↔EN ;
   `/sitemap.xml`, `/robots.txt` (crawlers IA), `/llms.txt` en ligne ; **image OG**
   1200×630 générée ; **Search Console + sitemap soumis** ✅.
-- **Bilingue (partiel)** : FR + EN (`/en/…`) sur Home, Cours adultes, Tarifs,
-  Contact, Tactics — sélecteur de langue + hreflang.
+- **Bilingue COMPLET** : FR + EN (`/en/…`) sur **toutes** les pages + **blog bilingue**
+  — sélecteur de langue + hreflang FR↔EN. (Committé, arrive en ligne avec `v0.2.3`.)
 - **Tactiques** : fetch parties (chess.com + lichess), détection Stockfish, anonymisation
   (inversion 100 % prouvée légale), **échiquier interactif** `/tactiques` + `GET /api/tactics`.
 - **Bandeau « site en construction »** (à retirer au lancement : `<SiteBanner/>` dans `Layout.tsx`).
@@ -44,6 +44,12 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 ---
 
 ## 🔴 Actions immédiates (toi)
+
+- [ ] **⚠️ ADRESSE À CORRIGER** : « Route de Florissant 2, 1206 Genève » est fausse.
+      Me donner la bonne adresse → elle est utilisée partout (footer, contact, carte
+      OSM, JSON-LD LocalBusiness/Person, page confidentialité) et doit être **identique**
+      au Google Business Profile (cohérence NAP = local SEO). Source unique : `src/lib/site.ts`.
+      À corriger AVANT le prochain tag pour ne pas propager l'erreur.
 
 - [x] **PUSH + TAG `v0.2.0`** ✅ (garde-fou DB non-bloquant inclus). Build Docker Hub
       en cours via release.yml (suivre onglet **Actions**).
@@ -125,13 +131,17 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
 
 ---
 
-## 🌐 Parké (décision : « oublie le rollout EN complet » pour l'instant)
+## 🌐 Rollout EN COMPLET ✅ (fait — attend `v0.2.3`)
 
-- [ ] Traduire le reste en EN : money pages (tournoi, en-ligne, groupe, ados, stages,
-      conférences, team building), pages info (à-propos, résultats), **articles de blog**
-      (structure blog i18n), compléter nav/footer EN.
-      → Pattern posé : ajouter dans `PAGES` (`src/lib/i18n.tsx`) + route EN. (Déjà fait :
-      Home, Cours adultes, Tarifs, Contact, Tactics.)
+- [x] **Toutes les pages traduites** : money pages (tournoi, en-ligne, groupe, ados,
+      stages, conférences, team building) + à-propos + résultats + tarifs + contact +
+      tactiques + confidentialité. Routes EN, `PAGES`/hreflang FR↔EN, sitemap EN, footer EN.
+- [x] **Blog bilingue** : catégories locale-aware (clé stable + slug/label FR/EN),
+      loaders (`content/blog` FR, `content/blog/en` EN), PostCard, index, archives,
+      articles. Routes `/en/blog`, `/en/blog/category/:cat`, `/en/blog/:slug`.
+      Article « Breaking the 1500 Elo plateau » traduit + gabarit carnet EN.
+- [ ] *(Mineur)* hreflang réciproque sur les articles de blog individuels (l'`altSlug`
+      est déjà dans le frontmatter, il reste à le brancher sur `<Seo>`).
 
 ---
 
