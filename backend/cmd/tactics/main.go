@@ -73,8 +73,10 @@ func main() {
 	fmt.Println("\nAnalyse Stockfish en cours…")
 	puzzles := tactics.TopPuzzles(engine, games, 10)
 
-	y, w := time.Now().ISOWeek()
-	week := fmt.Sprintf("%04d-S%02d", y, w)
+	// Article slug = the Monday of the current week, format JJ-MM-AA.
+	now := time.Now()
+	monday := now.AddDate(0, 0, -((int(now.Weekday())+6)%7))
+	week := monday.Format("02-01-06")
 	outDir := os.Getenv("TACTICS_DIR")
 	if outDir == "" {
 		outDir = "../content/tactiques"

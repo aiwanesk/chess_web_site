@@ -2,6 +2,7 @@ import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './components/Layout'
 import { blogStaticPaths } from './lib/blogSlugs'
 import { categoryStaticPaths } from './lib/categories'
+import { weekStaticPaths } from './lib/tactics'
 
 /**
  * Route table — one entry per indexable URL. Pages are lazy-loaded so each
@@ -38,8 +39,14 @@ export const routes: RouteRecord[] = [
       { path: 'tarifs', lazy: () => import('./pages/Tarifs') },
       { path: 'contact', lazy: () => import('./pages/Contact') },
 
-      // Tactiques de la semaine (puzzles interactifs)
+      // Tactiques de la semaine — index + article hebdo (/tactiques/JJ-MM-AA)
       { path: 'tactiques', lazy: () => import('./pages/Tactiques') },
+      { path: 'tactiques/:date', lazy: () => import('./pages/TactiquesWeek'), getStaticPaths: weekStaticPaths },
+      {
+        path: 'en/tactics/:date',
+        lazy: () => import('./pages/TactiquesWeek'),
+        getStaticPaths: () => weekStaticPaths().map((p) => '/en/tactics/' + p.split('/').pop()),
+      },
 
       // Blog
       { path: 'blog', lazy: () => import('./pages/Blog') },
