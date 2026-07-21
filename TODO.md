@@ -1,14 +1,19 @@
 # TODO — iwanesko.ch
 
-Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
+Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-22.
 
-> ✅ **CAUSE RACINE des échecs de déploiement trouvée** : Virtuozzo/Jelastic injecte
+> 🚀 **`v0.2.4` = dernier tag, à déployer.** Il embarque TOUT : fix déploiement
+> (base Debian, voir ci-dessous), stats + `/admin`, newsletter RGPD, accusé de
+> réception contact, **rollout EN complet + blog bilingue**, tarif groupe (60 min),
+> et le **pin GPS précis** de la carte. → **Action (toi) : mettre à jour le conteneur
+> Jelastic sur `v0.2.4`** (les tags v0.2.0→v0.2.3 sont superseded).
+>
+> ✅ **CAUSE RACINE des échecs de déploiement** : Virtuozzo/Jelastic injecte
 > `curl` + `iptables-persistent` via `apt` à chaque deploy → une image
 > scratch/distroless (sans apt ni shell) fait **échouer tout le déploiement** (et
-> casse le Web SSH). **Fix (`v0.2.1`)** : runtime rebasé sur `debian:bookworm-slim`
+> casse le Web SSH). **Fix** : runtime rebasé sur `debian:bookworm-slim`
 > (+ ca-certificates, `mkdir /data`, root). Binaire Go pur inchangé.
-> **Reste à faire (toi) : redéployer le conteneur Jelastic sur `v0.2.1`.** Ensuite,
-> remettre le mount NFS `/data` proprement (persistance sur le storage).
+> Après déploiement OK : remettre le mount NFS `/data` proprement (persistance).
 
 ---
 
@@ -27,35 +32,35 @@ Point de reprise. Coché = fait. Dernière mise à jour : 2026-07-21 (nuit).
   `/sitemap.xml`, `/robots.txt` (crawlers IA), `/llms.txt` en ligne ; **image OG**
   1200×630 générée ; **Search Console + sitemap soumis** ✅.
 - **Bilingue COMPLET** : FR + EN (`/en/…`) sur **toutes** les pages + **blog bilingue**
-  — sélecteur de langue + hreflang FR↔EN. (Committé, arrive en ligne avec `v0.2.3`.)
+  — sélecteur de langue + hreflang FR↔EN. (Committé, arrive en ligne avec `v0.2.4`.)
 - **Tactiques** : fetch parties (chess.com + lichess), détection Stockfish, anonymisation
   (inversion 100 % prouvée légale), **échiquier interactif** `/tactiques` + `GET /api/tactics`.
 - **Bandeau « site en construction »** (à retirer au lancement : `<SiteBanner/>` dans `Layout.tsx`).
 - **CI** vert (lint/test/build + Lighthouse, gates a11y/BP/CLS). **Release** sur tag `v*` → Docker Hub.
 
-### 🛠️ Codé + committé en local, mais PAS encore déployé (attend `v0.2.0`)
+### 🛠️ Committé (dans `v0.2.4`), en ligne dès le redéploiement Jelastic
 - **Stats privées + `/admin`** : `internal/stats`, `POST /api/tactics/event`,
   dashboard Basic Auth (token constant-time, rate-limité anti-brute-force).
 - **Newsletter RGPD/nLPD** : `internal/newsletter`, double opt-in, désabo 1 clic,
   envoi **auto** à la publication (blog + tactiques + `content/events.json`),
   formulaire dans le footer, page **/confidentialite** (+ `/en/privacy`).
-- **DB SQLite** créée automatiquement au boot si `DB_PATH` défini (sinon désactivée).
+- **DB SQLite** créée automatiquement au boot si `DB_PATH` défini (garde-fou
+  non-bloquant : une DB inaccessible désactive stats/newsletter sans casser le site).
+- **Accusé de réception** e-mail au visiteur après le formulaire de contact.
+- **Rollout EN complet** (toutes pages + blog bilingue) + **pin GPS carte** précis.
 
 ---
 
 ## 🔴 Actions immédiates (toi)
 
-- [ ] **⚠️ ADRESSE À CORRIGER** : « Route de Florissant 2, 1206 Genève » est fausse.
-      Me donner la bonne adresse → elle est utilisée partout (footer, contact, carte
-      OSM, JSON-LD LocalBusiness/Person, page confidentialité) et doit être **identique**
-      au Google Business Profile (cohérence NAP = local SEO). Source unique : `src/lib/site.ts`.
-      À corriger AVANT le prochain tag pour ne pas propager l'erreur.
-
-- [x] **PUSH + TAG `v0.2.0`** ✅ (garde-fou DB non-bloquant inclus). Build Docker Hub
-      en cours via release.yml (suivre onglet **Actions**).
-- [ ] **METTRE À JOUR LE CONTENEUR JELASTIC** sur la nouvelle image une fois le build
-      terminé (redéploiement / changement de tag d'image). C'est ce qui met en ligne
-      stats + `/admin` + newsletter + OG + nav + 10/10.
+- [x] **Adresse** ✅ : « Route de Florissant 2, 1206 Genève » confirmée exacte dans le
+      code (`src/lib/site.ts`) — le « faux » vu en ligne = l'ancienne image `v0.1.0`.
+      Pin GPS carte corrigé (46.196817, 6.153666).
+- [x] **PUSH + TAG `v0.2.4`** ✅ (dernier tag ; supersede v0.2.0→v0.2.3). Build Docker
+      Hub via release.yml (suivre onglet **Actions**).
+- [ ] **⭐ METTRE À JOUR LE CONTENEUR JELASTIC sur `v0.2.4`** une fois le build terminé.
+      C'est ce qui met en ligne : fix déploiement Debian, stats + `/admin`, newsletter,
+      accusé de réception, **EN complet + blog bilingue**, tarif groupe, adresse + pin.
 - [ ] **Jelastic — volume + variables** (pour stats + newsletter) :
       volume `/data` en lecture/écriture **déjà en place** ✅ ; ajouter les variables
       `DB_PATH=/data/tactics.db` et `ADMIN_TOKEN=<token aléatoire>` (`ADMIN_TOKEN`
