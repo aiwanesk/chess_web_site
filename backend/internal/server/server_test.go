@@ -191,6 +191,28 @@ func TestAdminRequiresValidToken(t *testing.T) {
 	}
 }
 
+func TestAdminBruteForceIsRateLimited(t *testing.T) {
+	h := statsServer(t, "s3cret-token")
+
+	// Hammer with wrong credentials from the same IP. The limiter (burst 5) must
+	// start returning 429 before we've made many guesses.
+	throttled := false
+	for i := 0; i < 30; i++ {
+		req := httptest.NewRequest(http.MethodGet, "/admin", nil)
+		req.RemoteAddr = "203.0.113.7:1234"
+		req.SetBasicAuth("admin", "guess")
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, req)
+		if rec.Code == http.StatusTooManyRequests {
+			throttled = true
+			break
+		}
+	}
+	if !throttled {
+		t.Fatal("brute-force on /admin was never rate-limited (expected 429)")
+	}
+}
+
 func TestTacticsEventRecordsAndSurfacesInAdmin(t *testing.T) {
 	h := statsServer(t, "tok")
 

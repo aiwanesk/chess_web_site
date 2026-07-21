@@ -72,7 +72,11 @@ func (s *Server) Handler() http.Handler {
 	})
 
 	// Private stats dashboard — Basic Auth with ADMIN_TOKEN (disabled if unset).
-	r.With(s.adminAuth).Get("/admin", s.handleAdmin)
+	// Rate-limited BEFORE auth so failed attempts count: ~1 try / 5s per IP,
+	// burst 5. Brute-force guard (defence in depth — the real defence is a long
+	// random ADMIN_TOKEN). The limiter runs first, so wrong passwords are throttled.
+	adminLimiter := newIPRateLimiter(0.2, 5)
+	r.With(rateLimit(adminLimiter), s.adminAuth).Get("/admin", s.handleAdmin)
 
 	// Everything else is the pre-rendered SSG site.
 	r.NotFound(s.handleStatic)
