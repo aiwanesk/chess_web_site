@@ -62,7 +62,7 @@ export function Component() {
             </div>
           </div>
 
-          <aside className="h-fit rounded-3xl border border-ink-200/80 bg-cream-100 p-7 shadow-soft">
+          <aside className="h-fit rounded-3xl border border-ink-200/80 bg-cream-100 p-7 shadow-soft lg:mt-[3.25rem]">
             <h2 className="font-display text-xl font-bold text-ink-900">{c.coords}</h2>
             <address className="mt-6 space-y-5 not-italic text-ink-700">
               <p className="flex items-start gap-3">
@@ -92,7 +92,7 @@ export function Component() {
                 <span aria-hidden className={iconWrap}><IconPin size={18} /></span>
                 <span>
                   <span className={labelC}>{c.areaL}</span>
-                  {SITE.address.locality} {c.areaJoin} {SITE.areaServed.join(', ')}.
+                  {SITE.areaServed.join(', ')}.
                 </span>
               </p>
             </address>

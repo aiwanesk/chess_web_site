@@ -86,9 +86,17 @@ func (s *Server) handleNewsletterConfirm(w http.ResponseWriter, r *http.Request)
 		http.NotFound(w, r)
 		return
 	}
-	_, lang, ok, err := s.news.Confirm(r.URL.Query().Get("token"))
+	email, lang, ok, err := s.news.Confirm(r.URL.Query().Get("token"))
 	if err != nil {
 		slog.Error("newsletter confirm failed", "err", err)
+	}
+	if ok {
+		// Heads-up to Alexandre that someone just joined the list.
+		go func(email, lang string) {
+			if err := s.sendSubscriberNotice(email, lang); err != nil {
+				slog.Error("newsletter subscriber notice failed", "err", err)
+			}
+		}(email, lang)
 	}
 	if lang != "en" {
 		lang = "fr"
@@ -162,6 +170,14 @@ func (s *Server) sendNewsletterMail(to, subject, body string, extra []string) er
 
 	auth := smtp.PlainAuth("", c.SMTPUser, c.SMTPPass, c.SMTPHost)
 	return smtp.SendMail(c.SMTPHost+":"+c.SMTPPort, auth, from, []string{to}, []byte(b.String()))
+}
+
+// sendSubscriberNotice tells Alexandre (MailTo) that a new subscriber just
+// confirmed. Fire-and-forget; no-op if SMTP is unconfigured.
+func (s *Server) sendSubscriberNotice(email, lang string) error {
+	body := fmt.Sprintf("Un nouvel abonné vient de confirmer son inscription à la newsletter.\r\n\r\n"+
+		"E-mail : %s\r\nLangue : %s\r\n", email, lang)
+	return s.sendNewsletterMail(s.cfg.MailTo, "Nouvel abonné à la newsletter", body, nil)
 }
 
 func (s *Server) sendConfirmationEmail(email, lang, confirmURL string) error {
