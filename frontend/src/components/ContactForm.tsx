@@ -1,5 +1,6 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useLocale, type Locale } from '../lib/i18n'
+import { getFormToken, postWithToken } from '../lib/formToken'
 
 type Status = 'idle' | 'submitting' | 'ok' | 'error'
 
@@ -36,17 +37,17 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
+  useEffect(() => {
+    void getFormToken() // prefetch the anti-spam token
+  }, [])
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus('submitting')
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form).entries())
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, lang: locale }),
-      })
+      const res = await postWithToken('/api/contact', { ...data, lang: locale })
       if (res.ok) {
         setStatus('ok')
         setMessage(s.ok)

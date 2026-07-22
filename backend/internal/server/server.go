@@ -22,12 +22,13 @@ type Server struct {
 	store    *stats.Store      // nil if stats are disabled (no DB_PATH)
 	news     *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
 	bookings *booking.Store    // nil if bookings are disabled (no DB_PATH)
+	formKey  []byte            // HMAC key for anti-spam form tokens (per-process)
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
 // build or on-disk dev directory), provided by the caller.
 func New(cfg Config, static fs.FS) (*Server, error) {
-	s := &Server{cfg: cfg, static: static}
+	s := &Server{cfg: cfg, static: static, formKey: newFormKey()}
 	if cfg.DBPath != "" {
 		// A DB failure (e.g. an unwritable /data volume) must NOT take the site
 		// down: log loudly and degrade — stats + newsletter simply stay off.
@@ -94,14 +95,18 @@ func (s *Server) Handler() http.Handler {
 	// Per-IP rate limit: ~2 req/s sustained, burst 20 — generous for normal use,
 	// blocks spam/abuse of the mutating endpoints.
 	apiLimiter := newIPRateLimiter(2, 20)
+	// Stricter per-IP budget for form submissions (shared across the 3 forms):
+	// ~6 up front, then 1 every 20 s. Plenty for a human, painful for a spammer.
+	submitLimiter := newIPRateLimiter(0.05, 6)
 	r.Route("/api", func(api chi.Router) {
 		api.Use(rateLimit(apiLimiter))
 		api.Get("/health", s.handleHealth)
-		api.Post("/contact", s.handleContact)
+		api.Get("/form-token", s.handleFormToken)
 		api.Get("/tactics", s.handleTactics)
 		api.Post("/tactics/event", s.handleTacticsEvent)
-		api.Post("/newsletter/subscribe", s.handleSubscribe)
-		api.Post("/booking", s.handleBooking)
+		api.With(rateLimit(submitLimiter)).Post("/contact", s.handleContact)
+		api.With(rateLimit(submitLimiter)).Post("/newsletter/subscribe", s.handleSubscribe)
+		api.With(rateLimit(submitLimiter)).Post("/booking", s.handleBooking)
 	})
 
 	// Newsletter double opt-in links (from e-mails) — server-rendered pages,

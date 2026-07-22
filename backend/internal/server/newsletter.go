@@ -20,6 +20,7 @@ type subscribeRequest struct {
 	Email   string `json:"email"`
 	Lang    string `json:"lang"`
 	Consent bool   `json:"consent"`
+	Token   string `json:"token"`   // anti-spam form token
 	Company string `json:"company"` // honeypot — must stay empty
 }
 
@@ -38,6 +39,10 @@ func (s *Server) handleSubscribe(w http.ResponseWriter, r *http.Request) {
 	// Honeypot: pretend success, do nothing.
 	if strings.TrimSpace(req.Company) != "" {
 		writeJSON(w, http.StatusOK, map[string]string{"status": "pending"})
+		return
+	}
+	if !s.validFormToken(req.Token) {
+		writeJSON(w, http.StatusForbidden, map[string]string{"error": "Session expirée, merci de réessayer.", "code": "token"})
 		return
 	}
 	if !req.Consent {

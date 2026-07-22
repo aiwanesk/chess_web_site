@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -9,6 +10,22 @@ import (
 	"testing"
 	"testing/fstest"
 )
+
+// formToken fetches a valid anti-spam token so tests can exercise the forms.
+func formToken(t *testing.T, h http.Handler) string {
+	t.Helper()
+	rec := get(t, h, "/api/form-token")
+	if rec.Code != http.StatusOK {
+		t.Fatalf("form-token: got %d", rec.Code)
+	}
+	var b struct {
+		Token string `json:"token"`
+	}
+	if err := json.Unmarshal(rec.Body.Bytes(), &b); err != nil || b.Token == "" {
+		t.Fatalf("form-token decode: %v (%q)", err, rec.Body.String())
+	}
+	return b.Token
+}
 
 func testServer(t *testing.T) http.Handler {
 	t.Helper()
@@ -111,19 +128,20 @@ func TestLLMsTxt(t *testing.T) {
 
 func TestContactValidation(t *testing.T) {
 	h := testServer(t)
+	tok := formToken(t, h)
 
-	rec := httptest.NewRecorder()
-	h.ServeHTTP(rec, httptest.NewRequest(http.MethodPost, "/api/contact",
-		strings.NewReader(`{"name":"","email":"bad","message":""}`)))
-	if rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/contact",
+		`{"name":"","email":"bad","message":"","token":"`+tok+`"}`); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("want 422 for invalid contact, got %d", rec.Code)
 	}
-
-	rec = httptest.NewRecorder()
-	h.ServeHTTP(rec, httptest.NewRequest(http.MethodPost, "/api/contact",
-		strings.NewReader(`{"name":"Jean","email":"jean@example.com","message":"Bonjour"}`)))
-	if rec.Code != http.StatusOK {
-		t.Fatalf("want 200 for valid contact, got %d body=%s", rec.Code, rec.Body.String())
+	if rec := postJSON(t, h, "/api/contact",
+		`{"name":"Jean","email":"jean@example.com","message":"Bonjour","token":"`+tok+`"}`); rec.Code != http.StatusOK {
+		t.Fatalf("want 200 for valid contact, got %d", rec.Code)
+	}
+	// No token → rejected as spam.
+	if rec := postJSON(t, h, "/api/contact",
+		`{"name":"Jean","email":"jean@example.com","message":"Bonjour"}`); rec.Code != http.StatusForbidden {
+		t.Fatalf("missing token: want 403, got %d", rec.Code)
 	}
 }
 
@@ -225,22 +243,27 @@ func TestServerSurvivesUnusableDB(t *testing.T) {
 
 func TestNewsletterSubscribeValidation(t *testing.T) {
 	h := statsServer(t, "tok") // DBPath set → newsletter enabled; no SMTP → confirm mail is a no-op
+	tok := formToken(t, h)
 
 	// Missing explicit consent → rejected.
-	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":false}`); rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":false,"token":"`+tok+`"}`); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("no consent: want 422, got %d", rec.Code)
 	}
 	// Invalid e-mail → rejected.
-	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"nope","consent":true}`); rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"nope","consent":true,"token":"`+tok+`"}`); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("bad email: want 422, got %d", rec.Code)
 	}
-	// Honeypot filled → silently accepted (no leak).
+	// Honeypot filled → silently accepted (no leak, no token needed).
 	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true,"company":"spam"}`); rec.Code != http.StatusOK {
 		t.Fatalf("honeypot: want 200, got %d", rec.Code)
 	}
 	// Valid → 200 pending.
-	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true,"lang":"fr"}`); rec.Code != http.StatusOK {
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true,"lang":"fr","token":"`+tok+`"}`); rec.Code != http.StatusOK {
 		t.Fatalf("valid: want 200, got %d", rec.Code)
+	}
+	// No token → rejected as spam.
+	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"c@b.com","consent":true}`); rec.Code != http.StatusForbidden {
+		t.Fatalf("missing token: want 403, got %d", rec.Code)
 	}
 }
 
@@ -266,27 +289,33 @@ func TestNewsletterDisabledWithoutDB(t *testing.T) {
 
 func TestBookingHandler(t *testing.T) {
 	h := statsServer(t, "tok") // DBPath set → bookings enabled; no SMTP → emails are no-ops
+	tok := formToken(t, h)
+	body := func(fields string) string { return "{" + fields + `,"token":"` + tok + `"}` }
 
 	// Valid 17:30–19:30 = 2h → 240 CHF.
-	rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"17:30","end":"19:30","name":"Jean","email":"j@e.com"}`)
+	rec := postJSON(t, h, "/api/booking", body(`"date":"2999-01-01","start":"17:30","end":"19:30","name":"Jean","email":"j@e.com"`))
 	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), "240") {
 		t.Fatalf("valid booking: want 200 + price 240, got %d body=%s", rec.Code, rec.Body.String())
 	}
 	// Overlapping the same slot → 409.
-	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"18:00","end":"19:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusConflict {
+	if rec := postJSON(t, h, "/api/booking", body(`"date":"2999-01-01","start":"18:00","end":"19:00","name":"X","email":"x@e.com"`)); rec.Code != http.StatusConflict {
 		t.Fatalf("overlap: want 409, got %d", rec.Code)
 	}
 	// end <= start → 422.
-	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"18:00","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/booking", body(`"date":"2999-01-01","start":"18:00","end":"18:00","name":"X","email":"x@e.com"`)); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("empty slot: want 422, got %d", rec.Code)
 	}
 	// Outside 17:30–20:00 → 422.
-	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"17:00","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/booking", body(`"date":"2999-01-01","start":"17:00","end":"18:00","name":"X","email":"x@e.com"`)); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("out of range: want 422, got %d", rec.Code)
 	}
 	// Past date → 422.
-	if rec := postJSON(t, h, "/api/booking", `{"date":"2000-01-01","start":"17:30","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+	if rec := postJSON(t, h, "/api/booking", body(`"date":"2000-01-01","start":"17:30","end":"18:00","name":"X","email":"x@e.com"`)); rec.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("past date: want 422, got %d", rec.Code)
+	}
+	// No token → rejected as spam.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-02","start":"17:30","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusForbidden {
+		t.Fatalf("missing token: want 403, got %d", rec.Code)
 	}
 }
 

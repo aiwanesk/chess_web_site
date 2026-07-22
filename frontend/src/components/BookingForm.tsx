@@ -1,6 +1,7 @@
-import { useMemo, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link } from 'vite-react-ssg'
 import { useLocale, pathFor, type Locale } from '../lib/i18n'
+import { getFormToken, postWithToken } from '../lib/formToken'
 
 type Status = 'idle' | 'submitting' | 'ok' | 'error'
 
@@ -55,6 +56,10 @@ export function BookingForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
+  useEffect(() => {
+    void getFormToken()
+  }, [])
+
   const endOptions = useMemo(() => TIMES.filter((t) => toMin(t) > toMin(start)), [start])
   const minutes = Math.max(0, toMin(end) - toMin(start))
   const hours = minutes / 60
@@ -80,10 +85,14 @@ export function BookingForm() {
     }
     setStatus('submitting')
     try {
-      const res = await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date, start, end, name: data.name, email: data.email, lang: locale, company: data.company }),
+      const res = await postWithToken('/api/booking', {
+        date,
+        start,
+        end,
+        name: data.name,
+        email: data.email,
+        lang: locale,
+        company: data.company,
       })
       if (res.ok) {
         const body = (await res.json().catch(() => ({}))) as { price?: number }

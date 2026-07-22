@@ -24,7 +24,8 @@ type contactRequest struct {
 	Level   string `json:"level"` // e.g. Elo range or self-assessment
 	Goal    string `json:"goal"`  // what the person wants to achieve
 	Message string `json:"message"`
-	Lang    string `json:"lang"` // "fr" | "en" — for the acknowledgement e-mail
+	Lang    string `json:"lang"`  // "fr" | "en" — for the acknowledgement e-mail
+	Token   string `json:"token"` // anti-spam form token
 	// Honeypot must stay empty; bots tend to fill every field.
 	Honeypot string `json:"company"`
 }
@@ -38,6 +39,15 @@ func (s *Server) handleContact(w http.ResponseWriter, r *http.Request) {
 
 	if strings.TrimSpace(req.Honeypot) != "" {
 		// Silently accept to avoid teaching bots the honeypot exists.
+		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+		return
+	}
+	if !s.validFormToken(req.Token) {
+		writeJSON(w, http.StatusForbidden, map[string]string{"error": "Session expirée, merci de réessayer.", "code": "token"})
+		return
+	}
+	if looksSpammy(req.Message) || looksSpammy(req.Goal) {
+		// Link-spam → silently accept (do nothing) so bots learn nothing.
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 		return
 	}

@@ -28,6 +28,7 @@ type bookingRequest struct {
 	Name    string `json:"name"`
 	Email   string `json:"email"`
 	Lang    string `json:"lang"`
+	Token   string `json:"token"`   // anti-spam form token
 	Company string `json:"company"` // honeypot
 }
 
@@ -45,6 +46,10 @@ func (s *Server) handleBooking(w http.ResponseWriter, r *http.Request) {
 	}
 	if strings.TrimSpace(req.Company) != "" { // honeypot
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+		return
+	}
+	if !s.validFormToken(req.Token) {
+		writeJSON(w, http.StatusForbidden, map[string]string{"error": "Session expirée, merci de réessayer.", "code": "token"})
 		return
 	}
 

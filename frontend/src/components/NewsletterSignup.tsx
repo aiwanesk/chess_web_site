@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'vite-react-ssg'
 import { useLocale, pathFor, type Locale } from '../lib/i18n'
+import { getFormToken, postWithToken } from '../lib/formToken'
 
 type Status = 'idle' | 'submitting' | 'ok' | 'error'
 
@@ -46,6 +47,10 @@ export function NewsletterSignup() {
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
+  useEffect(() => {
+    void getFormToken()
+  }, [])
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.currentTarget
@@ -57,10 +62,11 @@ export function NewsletterSignup() {
     }
     setStatus('submitting')
     try {
-      const res = await fetch('/api/newsletter/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: data.email, lang: locale, consent: true, company: data.company }),
+      const res = await postWithToken('/api/newsletter/subscribe', {
+        email: data.email,
+        lang: locale,
+        consent: true,
+        company: data.company,
       })
       if (res.ok) {
         setStatus('ok')
