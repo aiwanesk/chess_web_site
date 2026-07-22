@@ -209,3 +209,55 @@ tester pour un public romand.
 > ⚠️ Chiffres GEO datés de janv.–fév. 2026 (à revérifier ~tous les 6 mois). Le fond
 > pédagogique s'appuie sur des blogs de coaching mainstream (recommandations
 > classiques, pas des faits universels). Volumes de recherche FR non mesurés.
+
+---
+
+## 🔄 Rafraîchissement 2026 — tendances & questions actuelles
+
+> Angles portés par le contexte 2026 (boom du contenu échecs, outils IA/moteurs,
+> retour des adultes au jeu). À croiser avec les volumes FR réels avant d'arbitrer.
+> Chaque idée garde le principe « réponse d'abord + angle vécu de MF ».
+
+### N1 — Faut-il analyser ses parties avec Stockfish ? (le bon usage) 🔴 HAUTE
+- **Requête** : « analyser ses parties stockfish », « utiliser un moteur d'échecs pour progresser ».
+- **Tendance** : tout le monde a un moteur ; la vraie question = comment s'en servir SANS s'abrutir.
+- **Info** : d'abord analyser SANS moteur (formuler ses idées), puis vérifier avec le moteur ; ne pas mémoriser les coups « +0.3 », comprendre le POURQUOI.
+- **Vécu** : *ce que le moteur t'a appris — et le piège dans lequel tu es tombé au début.*
+- **Lien** : cluster adultes.
+
+### N2 — Apprendre les échecs sur YouTube/Twitch, ça marche vraiment ? 🟠 MOYENNE-HAUTE
+- **Requête** : « apprendre les échecs youtube », « progresser en regardant des parties ».
+- **Tendance** : le boom du contenu (streamers) a amené une vague de joueurs ; beaucoup regardent mais ne progressent pas.
+- **Info** : regarder ≠ s'entraîner ; comment transformer le visionnage passif en pratique active.
+- **Vécu** : *un élève « biberonné au contenu » et ce qui a débloqué sa vraie progression.*
+- **Lien** : cluster en-ligne.
+
+### N3 — S'entraîner contre les bots (chess.com/lichess) : utile ou piège ? 🟡 MOYENNE
+- **Requête** : « jouer contre des bots échecs », « les bots font-ils progresser ».
+- **Info** : les bots pour driller une ouverture / un type de position, mais le bot ne remplace pas un humain (ni la pendule, ni le stress OTB).
+- **Vécu** : *comment TU utilises (ou pas) les bots dans ta prépa.*
+- **Lien** : cluster en-ligne / tournoi.
+
+### N4 — Commencer (ou reprendre) les échecs adulte : trop tard ? 🔴 HAUTE (acquisition)
+- **Requête** : « commencer les échecs adulte », « progresser aux échecs à 30/40 ans ».
+- **Tendance** : forte vague d'adultes qui (re)prennent le jeu ; question anxiogène récurrente.
+- **Info** : non, pas trop tard — ce qu'un adulte peut viser réalistement, ses avantages (méthode, discipline) vs les jeunes.
+- **Vécu** : *un adulte débutant/reprenant que tu as amené loin.*
+- **Lien** : cluster adultes (money page).
+
+### N5 — Échecs et concentration : ce que ça change vraiment 🟡 MOYENNE (GEO/branding)
+- **Requête** : « bienfaits des échecs », « échecs concentration/cerveau ».
+- **Info** : rester factuel (ce qui est étayé vs les mythes) ; l'angle « discipline mentale » transférable.
+- **Vécu** : *ce que la compétition t'a appris sur la gestion de l'attention.*
+- **Lien** : soft, vers adultes/ados. (Attention : sujet à mythes — rester prudent et sourcé.)
+
+### N6 — Les 5 gaffes qui coûtent le plus de parties (1200–1800) 🔴 HAUTE
+- **Requête** : « erreurs échecs débutant intermédiaire », « pourquoi je perds aux échecs ».
+- **Tendance** : format « top erreurs » très cliqué + très citable par les IA.
+- **Info** : les schémas d'erreur récurrents (pièce en prise, roi non sécurisé, pion faible, tempo, finales) + le correctif de chacun.
+- **Vécu** : *ta gaffe la plus douloureuse en tournoi.*
+- **Lien** : cluster adultes.
+
+> **Où commencer côté 2026** : **N4** (adulte qui (re)commence → acquisition directe money page)
+> et **N1** (usage du moteur → ultra-recherché, gap FR d'un MF). Puis **N6** (format « top gaffes »
+> = trafic + citations IA).
