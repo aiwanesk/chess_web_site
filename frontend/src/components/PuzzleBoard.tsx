@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 
 /**
  * Lightweight interactive chess puzzle, styled like a lichess board. No
@@ -86,6 +86,13 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
   const [wrong, setWrong] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const timers = useRef<number[]>([])
+
+  // Pointer-based drag (lichess-style): a piece that follows the cursor, not the
+  // native HTML5 drag ghost (which drags the whole coloured square).
+  const boardRef = useRef<HTMLDivElement>(null)
+  const [drag, setDrag] = useState<{ from: string; glyph: string; white: boolean; x: number; y: number; size: number } | null>(null)
+  const movedRef = useRef(false)
+  const wasSelectedRef = useRef(false)
 
   // Count one "view" the first time the board is mounted in the browser.
   const viewed = useRef(false)
@@ -180,6 +187,63 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
     attemptMove(from, target)
   }
 
+  // Which square is under a client coordinate (given the current orientation)?
+  function squareAt(clientX: number, clientY: number): string | null {
+    const el = boardRef.current
+    if (!el) return null
+    const r = el.getBoundingClientRect()
+    const col = Math.floor(((clientX - r.left) / r.width) * 8)
+    const row = Math.floor(((clientY - r.top) / r.height) * 8)
+    if (col < 0 || col > 7 || row < 0 || row > 7) return null
+    return files[col]! + ranks[row]!
+  }
+
+  function onSquarePointerDown(sq: string, e: ReactPointerEvent) {
+    if (!solverTurn) return
+    if (pieces[sq] && isSolver(pieces[sq]!)) {
+      e.preventDefault()
+      movedRef.current = false
+      wasSelectedRef.current = selected === sq
+      setSelected(sq)
+      const r = boardRef.current?.getBoundingClientRect()
+      setDrag({
+        from: sq,
+        glyph: GLYPH[pieces[sq]!.toLowerCase()]!,
+        white: pieces[sq] === pieces[sq]!.toUpperCase(),
+        x: e.clientX,
+        y: e.clientY,
+        size: r ? r.width / 8 : 40,
+      })
+      boardRef.current?.setPointerCapture(e.pointerId)
+    }
+    // taps on empty/enemy squares are resolved on pointer-up (click-to-move)
+  }
+
+  function onBoardPointerMove(e: ReactPointerEvent) {
+    if (!drag) return
+    movedRef.current = true
+    setDrag((d) => (d ? { ...d, x: e.clientX, y: e.clientY } : d))
+  }
+
+  function onBoardPointerUp(e: ReactPointerEvent) {
+    const target = squareAt(e.clientX, e.clientY)
+    if (drag) {
+      boardRef.current?.releasePointerCapture(e.pointerId)
+      const from = drag.from
+      setDrag(null)
+      if (movedRef.current && target && target !== from) {
+        dropOn(target, from) // a real drag → play it
+      } else if (!movedRef.current && wasSelectedRef.current) {
+        setSelected(null) // tapped the already-selected piece → deselect
+      }
+      return
+    }
+    // pointer started on an empty/enemy square → click-to-move to it
+    if (selected && target && target !== selected && !(pieces[target] && isSolver(pieces[target]!))) {
+      attemptMove(selected, target)
+    }
+  }
+
   const ringClass = finishedByUser
     ? 'ring-2 ring-green-500'
     : wrong
@@ -188,8 +252,32 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
 
   return (
     <div>
+      {/* Floating piece that follows the cursor while dragging (position:fixed so
+          it escapes the board's overflow-hidden). */}
+      {drag ? (
+        <span
+          aria-hidden
+          className="pointer-events-none fixed z-50 select-none leading-none"
+          style={{
+            left: drag.x,
+            top: drag.y,
+            transform: 'translate(-50%, -50%)',
+            fontSize: drag.size * 0.82,
+            color: drag.white ? '#f8f8f8' : '#3a3a38',
+            textShadow: drag.white
+              ? '0 0 1px #000, 0 0 2px #000, 0 2px 4px rgba(0,0,0,.5)'
+              : '0 0 1px rgba(255,255,255,.4), 0 1px 2px rgba(0,0,0,.35)',
+          }}
+        >
+          {drag.glyph}
+        </span>
+      ) : null}
+
       <div
-        className={`relative mx-auto grid aspect-square w-full max-w-[26rem] select-none grid-cols-8 grid-rows-8 overflow-hidden rounded-lg shadow-md ${ringClass}`}
+        ref={boardRef}
+        onPointerMove={onBoardPointerMove}
+        onPointerUp={onBoardPointerUp}
+        className={`relative mx-auto grid aspect-square w-full max-w-[26rem] select-none touch-none grid-cols-8 grid-rows-8 overflow-hidden rounded-lg shadow-md ${ringClass}`}
         role="group"
         aria-label="Échiquier du puzzle"
       >
@@ -208,15 +296,11 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
               <button
                 key={sq}
                 type="button"
-                onClick={() => clickSquare(sq)}
+                onPointerDown={(e) => onSquarePointerDown(sq, e)}
+                onClick={(e) => {
+                  if (e.detail === 0) clickSquare(sq) // keyboard activation only (mouse/touch go through pointer events)
+                }}
                 disabled={!solverTurn}
-                onDragOver={(e) => {
-                  if (solverTurn) e.preventDefault() // allow drop
-                }}
-                onDrop={(e) => {
-                  e.preventDefault()
-                  dropOn(sq, e.dataTransfer.getData('text/plain'))
-                }}
                 aria-label={sq + (piece ? ` ${piece}` : '')}
                 className={`relative flex items-center justify-center ${
                   solverTurn && piece && isSolver(piece) ? 'cursor-grab' : solverTurn ? 'cursor-pointer' : 'cursor-default'
@@ -240,15 +324,10 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
                 ) : null}
                 {piece ? (
                   <span
-                    draggable={solverTurn && isSolver(piece)}
-                    onDragStart={(e) => {
-                      if (!(solverTurn && isSolver(piece))) return
-                      setSelected(sq)
-                      e.dataTransfer.setData('text/plain', sq)
-                      e.dataTransfer.effectAllowed = 'move'
-                    }}
-                    className="relative select-none text-[9vw] leading-none sm:text-[2.25rem]"
+                    aria-hidden
+                    className="pointer-events-none relative select-none text-[9vw] leading-none sm:text-[2.25rem]"
                     style={{
+                      opacity: drag && drag.from === sq ? 0.25 : 1, // ghost the piece being dragged
                       color: piece === piece.toUpperCase() ? '#f8f8f8' : '#3a3a38',
                       textShadow:
                         piece === piece.toUpperCase()
