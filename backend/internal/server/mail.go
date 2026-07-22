@@ -1,11 +1,25 @@
 package server
 
 import (
+	"crypto/rand"
+	"encoding/base64"
 	"fmt"
 	"net/smtp"
 	"strings"
 	"time"
 )
+
+// messageID builds a unique RFC 5322 Message-ID from the sender's domain.
+// Mail with no Message-ID is a common spam signal, so every message gets one.
+func messageID(from string) string {
+	domain := "localhost"
+	if i := strings.LastIndex(from, "@"); i >= 0 {
+		domain = from[i+1:]
+	}
+	b := make([]byte, 12)
+	_, _ = rand.Read(b)
+	return "<" + base64.RawURLEncoding.EncodeToString(b) + "@" + hdr(domain) + ">"
+}
 
 // sendContactEmail sends the contact submission to MailTo over SMTP (STARTTLS on
 // port 587). No-op if SMTP isn't configured — the lead is still logged/forwarded.
@@ -31,6 +45,7 @@ func (s *Server) sendContactEmail(req contactRequest) error {
 	}
 	fmt.Fprintf(&b, "Subject: %s\r\n", subject)
 	fmt.Fprintf(&b, "Date: %s\r\n", time.Now().Format(time.RFC1123Z))
+	fmt.Fprintf(&b, "Message-ID: %s\r\n", messageID(from))
 	b.WriteString("MIME-Version: 1.0\r\n")
 	b.WriteString("Content-Type: text/plain; charset=UTF-8\r\n")
 	b.WriteString("\r\n")
@@ -88,6 +103,7 @@ func (s *Server) sendContactAck(req contactRequest) error {
 	fmt.Fprintf(&b, "Reply-To: %s\r\n", hdr(c.MailTo))
 	fmt.Fprintf(&b, "Subject: %s\r\n", hdr(subject))
 	fmt.Fprintf(&b, "Date: %s\r\n", time.Now().Format(time.RFC1123Z))
+	fmt.Fprintf(&b, "Message-ID: %s\r\n", messageID(from))
 	b.WriteString("MIME-Version: 1.0\r\n")
 	b.WriteString("Content-Type: text/plain; charset=UTF-8\r\n\r\n")
 	b.WriteString(body)

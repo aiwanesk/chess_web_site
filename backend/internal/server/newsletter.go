@@ -166,6 +166,7 @@ func (s *Server) sendNewsletterMail(to, subject, body string, extra []string) er
 	fmt.Fprintf(&b, "Reply-To: %s\r\n", hdr(c.MailTo))
 	fmt.Fprintf(&b, "Subject: %s\r\n", hdr(subject))
 	fmt.Fprintf(&b, "Date: %s\r\n", time.Now().Format(time.RFC1123Z))
+	fmt.Fprintf(&b, "Message-ID: %s\r\n", messageID(from))
 	for _, h := range extra {
 		b.WriteString(hdr(h) + "\r\n")
 	}

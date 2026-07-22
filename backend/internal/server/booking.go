@@ -204,6 +204,7 @@ func sendPlain(c Config, from, to, replyTo, subject, body string) error {
 	}
 	fmt.Fprintf(&b, "Subject: %s\r\n", hdr(subject))
 	fmt.Fprintf(&b, "Date: %s\r\n", time.Now().Format(time.RFC1123Z))
+	fmt.Fprintf(&b, "Message-ID: %s\r\n", messageID(from))
 	b.WriteString("MIME-Version: 1.0\r\n")
 	b.WriteString("Content-Type: text/plain; charset=UTF-8\r\n\r\n")
 	b.WriteString(body)
