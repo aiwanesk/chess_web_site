@@ -4,12 +4,15 @@ Ce fichier ne garde que **le reste à faire**. Tout ce qui est **terminé** est 
 dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Dernière mise
 à jour : 2026-07-22.
 
-> 🚀 **Dernier tag = `v0.2.9`** (à déployer sur Jelastic ; remplace v0.2.8 —
-> corrige le drag-and-drop : seule la pièce flotte, plus la case). Ajoute depuis v0.2.7 :
-> durcissement anti-scan, **détection tactiques revue** (sac juste, pas de prise de
-> dame en 1, ≥ 3 coups, fin sur le coup décisif, deux camps analysés), **drag-and-drop**
-> sur l'échiquier, **nav EN complétée** (Tournament prep + Blog), **Event JSON-LD**
-> complété (alertes Search Console), et les **puzzles régénérés** (8, conformes).
+> 🚀 **Dernier tag = `v0.3.0`** (à déployer sur Jelastic). Nouveautés majeures :
+> **analytics full-privacy** (server-side, dans `/admin`), **réservation de cours**
+> `/reserver` (calendrier 17h30–20h, calcul du prix, e-mails, `/admin`), **anti-spam
+> fait maison** (jeton HMAC + filtre liens + rate-limit), security.txt, hreflang blog.
+> ⚙️ **Nouvelles variables prod utiles** : `HOURLY_RATE` (défaut 120). Booking + newsletter
+> nécessitent `DB_PATH` + SMTP. **Tester la réservation** (envoie de vrais mails) avant lancement.
+>
+> Précédent (v0.2.9, inclus) : détection tactiques revue, échiquier lichess + drag-and-drop,
+> nav EN, Event JSON-LD, durcissement anti-scan, puzzles régénérés.
 
 ---
 
