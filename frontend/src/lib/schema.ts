@@ -113,26 +113,41 @@ export interface EventInput {
   startDate: string // ISO
   endDate?: string
   price?: number
+  image?: string // defaults to the site OG image
+  validFrom?: string // offer valid-from (ISO); defaults to Jan 1 of the event year
 }
 
 export function eventSchema(e: EventInput): JsonLd {
+  const image = absoluteUrl(e.image ?? SITE.defaultOgImage)
+  const validFrom = e.validFrom ?? `${e.startDate.slice(0, 4)}-01-01`
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: e.name,
     description: e.description,
+    image: [image],
     url: absoluteUrl(e.url),
     startDate: e.startDate,
     ...(e.endDate ? { endDate: e.endDate } : {}),
+    eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
       name: 'Genève',
       address: { '@type': 'PostalAddress', addressLocality: 'Genève', addressCountry: 'CH' },
     },
-    organizer: { '@id': BUSINESS_ID },
+    organizer: { '@type': 'Organization', '@id': BUSINESS_ID, name: SITE.person.name, url: SITE.url },
     ...(e.price != null
-      ? { offers: { '@type': 'Offer', price: e.price, priceCurrency: 'CHF', url: absoluteUrl(e.url) } }
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: e.price,
+            priceCurrency: 'CHF',
+            availability: 'https://schema.org/InStock',
+            validFrom,
+            url: absoluteUrl(e.url),
+          },
+        }
       : {}),
   }
 }
