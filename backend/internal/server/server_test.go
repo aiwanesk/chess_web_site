@@ -344,6 +344,13 @@ func TestTacticsEventRecordsAndSurfacesInAdmin(t *testing.T) {
 	}
 }
 
+func TestSecurityTxt(t *testing.T) {
+	rec := get(t, testServer(t), "/.well-known/security.txt")
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), "Contact: mailto:") {
+		t.Fatalf("security.txt: code=%d body=%q", rec.Code, rec.Body.String())
+	}
+}
+
 func TestScannerPathsAreBlocked(t *testing.T) {
 	for _, p := range []string{"/wp-login.php", "/xmlrpc.php", "/.env", "/.git/config", "/wp-admin/", "/phpmyadmin/"} {
 		if !isScannerPath(p) {

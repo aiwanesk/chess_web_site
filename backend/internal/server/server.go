@@ -88,6 +88,7 @@ func (s *Server) Handler() http.Handler {
 	r.Get("/robots.txt", s.handleRobots)
 	r.Get("/sitemap.xml", s.handleSitemap)
 	r.Get("/llms.txt", s.handleLLMs)
+	r.Get("/.well-known/security.txt", s.handleSecurityTxt)
 
 	// JSON API for dynamic parts (contact form, tactics, ...).
 	// Per-IP rate limit: ~2 req/s sustained, burst 20 — generous for normal use,

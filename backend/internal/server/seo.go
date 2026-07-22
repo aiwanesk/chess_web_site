@@ -88,6 +88,15 @@ func (s *Server) handleRobots(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte(b.String()))
 }
 
+// --- security.txt (RFC 9116) -----------------------------------------------
+
+func (s *Server) handleSecurityTxt(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Cache-Control", "public, max-age=86400")
+	fmt.Fprintf(w, "Contact: mailto:%s\nExpires: 2027-12-31T23:59:59.000Z\nPreferred-Languages: fr, en\nCanonical: %s\n",
+		s.cfg.MailTo, s.abs("/.well-known/security.txt"))
+}
+
 // --- llms.txt (GEO) --------------------------------------------------------
 
 // handleLLMs implements the emerging /llms.txt convention: a concise, machine-
