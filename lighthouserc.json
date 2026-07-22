@@ -6,7 +6,7 @@
         "http://localhost/index.html",
         "http://localhost/cours-echecs-adultes-geneve.html",
         "http://localhost/tarifs.html",
-        "http://localhost/blog/sortir-du-plateau-1500-elo.html"
+        "http://localhost/blog.html"
       ],
       "numberOfRuns": 3
     },
