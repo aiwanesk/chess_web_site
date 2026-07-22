@@ -37,14 +37,12 @@ dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Der
 
 ## 🟠 Dev — reste à faire
 
-- [ ] Affiner les seuils de détection tactiques sur un plus gros échantillon (movetime ↑).
-- [ ] *(Mineur)* hreflang réciproque sur les articles de blog individuels (l'`altSlug`
-      est déjà dans le frontmatter, à brancher sur `<Seo>`).
 - [ ] *(Option future)* **Ingestion runtime** `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`)
       pour pousser les puzzles **sans redeploy** — non fait, le modèle cron+rebuild suffit.
-- [ ] **Prise de RDV** : Cal.com (self-host) ou lien externe sur `/contact`.
-- [ ] **Analytics privacy-first** : Plausible/Umami self-host (cohérent CSP).
-- [ ] Anti-spam renforcé optionnel (Turnstile) sur contact/newsletter.
+- [ ] Anti-spam renforcé optionnel (Turnstile) sur contact / réservation / newsletter.
+- [x] ~~Prise de RDV~~ ✅ **fait maison** (`/reserver`, calcul du prix, e-mails) → voir `done.md`.
+- [x] ~~Analytics privacy-first~~ ✅ **fait maison** (server-side, dans `/admin`) → voir `done.md`.
+- [x] ~~hreflang articles blog~~ ✅ / ~~movetime tactiques~~ ✅ (400) → voir `done.md`.
 
 ---
 
@@ -67,4 +65,7 @@ dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Der
   en root → la DB SQLite se crée seule au boot sur le volume `/data` (persistant).
 - Newsletter : nécessite `DB_PATH` **et** SMTP configuré. Pour annoncer un stage → entrée
   dans `content/events.json` puis redéploie (l'annonce part auto au boot).
+- **Réservation `/reserver`** : nécessite `DB_PATH` + SMTP (sinon la résa est stockée mais
+  les e-mails ne partent pas). Tarif via `HOURLY_RATE` (défaut 120). Les résas + l'analytics
+  (fréquentation, top pages) apparaissent dans **`/admin`**. **À tester avant lancement** (envoie de vrais mails).
 - Détail de tout le terminé → **[`done.md`](./done.md)**.

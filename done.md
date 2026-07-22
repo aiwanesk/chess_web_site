@@ -46,6 +46,20 @@ l'historique git. Dernière mise à jour : 2026-07-22.
   dashboard **`/admin`** Basic Auth **constant-time**, `ADMIN_TOKEN` obligatoire (vide → 404),
   compteurs agrégés only (pas d'IP/identifiant). Garde-fou : DB inaccessible → stats désactivées, site debout.
 
+## Analytics & réservation (full privacy)
+- **Analytics self-hosté** : comptage des pages vues côté serveur (agrégats `(jour, path)`,
+  zéro IP/cookie/tiers), affiché dans `/admin` (fréquentation 14 j + top pages).
+- **Réservation de cours** : `internal/booking` (SQLite, anti-double-réservation),
+  `POST /api/booking` (créneaux 17h30–20h00 par 30 min, calcul du montant via `HOURLY_RATE`,
+  e-mail au visiteur + à Alexandre), page **/reserver** (+ **/en/book**) avec calendrier
+  et prix en direct, CTA « Réserver » du header pointant dessus, réservations listées dans `/admin`.
+
+## Divers SEO / sécu
+- **security.txt** (`/.well-known/security.txt`, RFC 9116), servi par le backend.
+- **hreflang** sur les articles de blog (via `altSlug` du frontmatter) + articles EN dans le sitemap.
+- Durcissement anti-scan (404 silencieux sur wp-login.php, .env, etc.). Movetime tactiques 250→400.
+- **Event JSON-LD** complété (eventStatus, image, organizer.name, offers.availability/validFrom).
+
 ## Newsletter (RGPD + nLPD)
 - `internal/newsletter` (même DB) : **double opt-in**, minimisation (email+langue+jetons),
   **désabo 1 clic** (suppression) + `List-Unsubscribe`, page **/confidentialite** (+ `/en/privacy`).
