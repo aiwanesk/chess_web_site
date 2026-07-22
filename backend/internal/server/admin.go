@@ -4,6 +4,9 @@ import (
 	"crypto/subtle"
 	"html/template"
 	"net/http"
+	"time"
+
+	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
 // adminAuth guards the dashboard. If ADMIN_TOKEN is unset the route is disabled
@@ -28,6 +31,15 @@ func (s *Server) adminAuth(next http.Handler) http.Handler {
 type adminView struct {
 	Rows                                   []adminRow
 	TotalViews, TotalAttempts, TotalSolved int
+	TopPages                               []stats.PageRow
+	DailyViews                             []stats.DayRow
+	TotalPageviews                         int
+	Bookings                               []bookingRow
+}
+
+type bookingRow struct {
+	Date, Time, Name, Email string
+	Price                   int
 }
 
 type adminRow struct {
@@ -62,24 +74,75 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 		view.TotalAttempts += r.Attempts
 		view.TotalSolved += r.Solved
 	}
+
+	view.TopPages, _ = s.store.TopPages(20)
+	view.DailyViews, _ = s.store.DailyViews(14)
+	for _, d := range view.DailyViews {
+		view.TotalPageviews += d.Count
+	}
+
+	if s.bookings != nil {
+		bs, _ := s.bookings.Upcoming(time.Now().Format("2006-01-02"), 40)
+		for _, b := range bs {
+			view.Bookings = append(view.Bookings, bookingRow{
+				Date:  b.Date,
+				Time:  minToHHMM(b.StartMin) + "–" + minToHHMM(b.EndMin),
+				Name:  b.Name,
+				Email: b.Email,
+				Price: b.Price,
+			})
+		}
+	}
 	_ = adminTmpl.Execute(w, view)
 }
 
 var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="robots" content="noindex">
-<title>Stats tactiques — privé</title>
+<title>Tableau de bord — privé</title>
 <style>
  body{font:15px/1.5 system-ui,sans-serif;color:#1e293b;max-width:960px;margin:2rem auto;padding:0 1rem}
- h1{font-size:1.4rem} .sub{color:#64748b}
- table{border-collapse:collapse;width:100%;margin-top:1rem;font-variant-numeric:tabular-nums}
- th,td{padding:.5rem .75rem;border-bottom:1px solid #e2e8f0;text-align:right}
+ h1{font-size:1.4rem} h2{font-size:1.05rem;margin-top:2.25rem} .sub{color:#64748b}
+ .grid{display:grid;gap:1.5rem;grid-template-columns:1fr 1fr}
+ @media(max-width:640px){.grid{grid-template-columns:1fr}}
+ table{border-collapse:collapse;width:100%;margin-top:.6rem;font-variant-numeric:tabular-nums}
+ th,td{padding:.45rem .7rem;border-bottom:1px solid #e2e8f0;text-align:right}
  th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
- thead th{border-bottom:2px solid #cbd5e1;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#64748b}
+ thead th{border-bottom:2px solid #cbd5e1;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#64748b}
  tfoot td{font-weight:700;border-top:2px solid #cbd5e1}
- .empty{color:#94a3b8;margin-top:1rem}
+ .empty{color:#94a3b8;margin-top:.6rem}
+ td.p{max-width:16rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style></head><body>
-<h1>Stats tactiques <span class="sub">— privé</span></h1>
-<p class="sub">Vues : {{.TotalViews}} · Tentatives : {{.TotalAttempts}} · Résolus : {{.TotalSolved}}</p>
+<h1>Tableau de bord <span class="sub">— privé</span></h1>
+
+<h2>Fréquentation <span class="sub">— {{.TotalPageviews}} vues sur 14 jours (sans cookie, sans tiers)</span></h2>
+<div class="grid">
+ <div>
+  {{if .DailyViews}}
+  <table>
+   <thead><tr><th>Jour</th><th>Vues</th></tr></thead>
+   <tbody>{{range .DailyViews}}<tr><td>{{.Day}}</td><td>{{.Count}}</td></tr>{{end}}</tbody>
+  </table>
+  {{else}}<p class="empty">Aucune visite enregistrée.</p>{{end}}
+ </div>
+ <div>
+  {{if .TopPages}}
+  <table>
+   <thead><tr><th>Page (top)</th><th>Vues</th></tr></thead>
+   <tbody>{{range .TopPages}}<tr><td class="p">{{.Path}}</td><td>{{.Count}}</td></tr>{{end}}</tbody>
+  </table>
+  {{end}}
+ </div>
+</div>
+
+<h2>Réservations à venir <span class="sub">— {{len .Bookings}}</span></h2>
+{{if .Bookings}}
+<table>
+ <thead><tr><th>Date</th><th>Horaire</th><th>Élève</th><th>E-mail</th><th>Montant</th></tr></thead>
+ <tbody>{{range .Bookings}}<tr><td>{{.Date}}</td><td>{{.Time}}</td><td>{{.Name}}</td><td class="p">{{.Email}}</td><td>{{.Price}} CHF</td></tr>{{end}}</tbody>
+</table>
+{{else}}<p class="empty">Aucune réservation à venir.</p>{{end}}
+
+<h2>Tactiques <span class="sub">— Vues {{.TotalViews}} · Tentatives {{.TotalAttempts}} · Résolus {{.TotalSolved}}</span></h2>
 {{if .Rows}}
 <table>
  <thead><tr><th>Semaine</th><th>Puzzle</th><th>Vues</th><th>Tentatives</th><th>Résolus</th><th>Taux</th></tr></thead>

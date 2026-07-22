@@ -49,6 +49,8 @@ var StaticPages = []Page{
 		"Tarifs des cours d'échecs à Genève : cours particuliers, en groupe, en ligne et forfaits de préparation tournoi."},
 	{"/contact", "Contact", "yearly", 0.6,
 		"Contacter Alexandre Iwanesko pour un cours d'échecs à Genève ou en ligne : premier échange pour définir vos objectifs."},
+	{"/reserver", "Réserver un cours d'échecs", "monthly", 0.8,
+		"Réserver un cours d'échecs particulier avec Alexandre Iwanesko, Maître FIDE, en soirée (17h30-20h00). Confirmation immédiate par e-mail."},
 	{"/confidentialite", "Politique de confidentialité", "yearly", 0.3,
 		"Traitement des données personnelles sur iwanesko.ch (contact et newsletter), conforme au RGPD et à la LPD suisse."},
 	{"/blog", "Blog échecs", "weekly", 0.7,
@@ -91,6 +93,8 @@ var StaticPages = []Page{
 		"Chess lesson pricing in Geneva: private lessons, group lessons, online and packages."},
 	{"/en/contact", "Contact", "yearly", 0.6,
 		"Contact Alexandre Iwanesko, FIDE Master, for chess lessons in Geneva or online."},
+	{"/en/book", "Book a chess lesson", "monthly", 0.7,
+		"Book a private chess lesson with Alexandre Iwanesko, FIDE Master, in the evening (17:30-20:00). Instant e-mail confirmation."},
 	{"/en/privacy", "Privacy policy", "yearly", 0.3,
 		"How personal data is handled on iwanesko.ch (contact and newsletter), GDPR and Swiss FADP compliant."},
 }

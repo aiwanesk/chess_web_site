@@ -62,7 +62,7 @@ export function Header() {
   const locale = useLocale()
   const s = t(locale)
   const nav = locale === 'en' ? NAV_EN : NAV_FR
-  const contactPath = PAGES.contact[locale]
+  const reservePath = PAGES.reserver[locale]
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
@@ -84,7 +84,7 @@ export function Header() {
             </NavLink>
           ))}
           <LangSwitch locale={locale} label={s.langLabel} />
-          <CtaLink to={contactPath} variant="primary" className="!px-5 !py-2.5 whitespace-nowrap">
+          <CtaLink to={reservePath} variant="primary" className="!px-5 !py-2.5 whitespace-nowrap">
             {s.reserve}
           </CtaLink>
         </nav>
@@ -129,7 +129,7 @@ export function Header() {
                 {s.nav[item.key]}
               </NavLink>
             ))}
-            <CtaLink to={contactPath} variant="primary" className="mt-3 w-full">
+            <CtaLink to={reservePath} variant="primary" className="mt-3 w-full">
               {s.reserve}
             </CtaLink>
           </Container>

@@ -43,6 +43,7 @@ export const PAGES = {
   apropos: { fr: '/a-propos', en: '/en/about' },
   resultats: { fr: '/resultats', en: '/en/results' },
   tarifs: { fr: '/tarifs', en: '/en/pricing' },
+  reserver: { fr: '/reserver', en: '/en/book' },
   tactiques: { fr: '/tactiques', en: '/en/tactics' },
   blog: { fr: '/blog', en: '/en/blog' },
   contact: { fr: '/contact', en: '/en/contact' },

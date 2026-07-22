@@ -21,8 +21,8 @@ func (s *Server) handleHealth(w http.ResponseWriter, _ *http.Request) {
 type contactRequest struct {
 	Name    string `json:"name"`
 	Email   string `json:"email"`
-	Level   string `json:"level"`   // e.g. Elo range or self-assessment
-	Goal    string `json:"goal"`    // what the person wants to achieve
+	Level   string `json:"level"` // e.g. Elo range or self-assessment
+	Goal    string `json:"goal"`  // what the person wants to achieve
 	Message string `json:"message"`
 	Lang    string `json:"lang"` // "fr" | "en" — for the acknowledgement e-mail
 	// Honeypot must stay empty; bots tend to fill every field.

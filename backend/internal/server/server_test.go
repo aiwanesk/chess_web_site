@@ -146,6 +146,7 @@ func statsServer(t *testing.T, adminToken string) http.Handler {
 		ContentDir: "does-not-exist",
 		DBPath:     filepath.Join(t.TempDir(), "stats.db"),
 		AdminToken: adminToken,
+		HourlyRate: 120,
 	}, static)
 	if err != nil {
 		t.Fatal(err)
@@ -260,6 +261,32 @@ func TestNewsletterDisabledWithoutDB(t *testing.T) {
 	}
 	if rec := postJSON(t, h, "/api/newsletter/subscribe", `{"email":"a@b.com","consent":true}`); rec.Code != http.StatusServiceUnavailable {
 		t.Fatalf("subscribe without DB: want 503, got %d", rec.Code)
+	}
+}
+
+func TestBookingHandler(t *testing.T) {
+	h := statsServer(t, "tok") // DBPath set → bookings enabled; no SMTP → emails are no-ops
+
+	// Valid 17:30–19:30 = 2h → 240 CHF.
+	rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"17:30","end":"19:30","name":"Jean","email":"j@e.com"}`)
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), "240") {
+		t.Fatalf("valid booking: want 200 + price 240, got %d body=%s", rec.Code, rec.Body.String())
+	}
+	// Overlapping the same slot → 409.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"18:00","end":"19:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusConflict {
+		t.Fatalf("overlap: want 409, got %d", rec.Code)
+	}
+	// end <= start → 422.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"18:00","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("empty slot: want 422, got %d", rec.Code)
+	}
+	// Outside 17:30–20:00 → 422.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-01-01","start":"17:00","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("out of range: want 422, got %d", rec.Code)
+	}
+	// Past date → 422.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2000-01-01","start":"17:30","end":"18:00","name":"X","email":"x@e.com"}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("past date: want 422, got %d", rec.Code)
 	}
 }
 

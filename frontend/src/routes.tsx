@@ -47,6 +47,8 @@ export const routes: RouteRecord[] = [
       { path: 'resultats', lazy: () => import('./pages/Resultats') },
       { path: 'tarifs', lazy: () => import('./pages/Tarifs') },
       { path: 'contact', lazy: () => import('./pages/Contact') },
+      { path: 'reserver', lazy: () => import('./pages/Reserver') },
+      { path: 'en/book', lazy: () => import('./pages/Reserver') },
       { path: 'confidentialite', lazy: () => import('./pages/Confidentialite') },
       { path: 'en/privacy', lazy: () => import('./pages/Confidentialite') },
 

@@ -2,6 +2,7 @@ package server
 
 import (
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -42,6 +43,9 @@ type Config struct {
 	// EventsFile is an optional JSON file of stages/events used for newsletter
 	// announcements (see internal/server/announce.go).
 	EventsFile string
+	// HourlyRate is the individual-lesson price in CHF, used by the booking form
+	// to compute the amount due.
+	HourlyRate int
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -62,6 +66,7 @@ func LoadConfig() Config {
 		DBPath:            os.Getenv("DB_PATH"),
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
+		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
 	}
 }
 
@@ -79,4 +84,15 @@ func env(key, def string) string {
 		return v
 	}
 	return def
+}
+
+func atoi(s string, def int) int {
+	if s == "" {
+		return def
+	}
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		return def
+	}
+	return n
 }

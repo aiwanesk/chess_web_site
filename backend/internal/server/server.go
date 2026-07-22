@@ -10,16 +10,18 @@ import (
 	stdgzip "github.com/CAFxX/httpcompression/contrib/compress/gzip"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/iwanesko/chess-web-site/backend/internal/booking"
 	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
 // Server wires the HTTP handler.
 type Server struct {
-	cfg    Config
-	static fs.FS
-	store  *stats.Store      // nil if stats are disabled (no DB_PATH)
-	news   *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
+	cfg      Config
+	static   fs.FS
+	store    *stats.Store      // nil if stats are disabled (no DB_PATH)
+	news     *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
+	bookings *booking.Store    // nil if bookings are disabled (no DB_PATH)
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
@@ -39,6 +41,11 @@ func New(cfg Config, static fs.FS) (*Server, error) {
 			} else {
 				s.news = nl
 			}
+			if bk, err := booking.Open(cfg.DBPath); err != nil {
+				slog.Error("booking DB unavailable — booking disabled", "path", cfg.DBPath, "err", err)
+			} else {
+				s.bookings = bk
+			}
 		}
 	}
 	return s, nil
@@ -55,6 +62,11 @@ func (s *Server) Close() error {
 			err = e
 		}
 	}
+	if s.bookings != nil {
+		if e := s.bookings.Close(); e != nil && err == nil {
+			err = e
+		}
+	}
 	return err
 }
 
@@ -66,6 +78,7 @@ func (s *Server) Handler() http.Handler {
 	r.Use(middleware.RequestID)
 	r.Use(blockScanners) // quietly drop bot-scan noise before it hits the logger
 	r.Use(requestLogger)
+	r.Use(s.countPageviews) // privacy-first, aggregate page-view analytics
 	r.Use(middleware.Recoverer)
 	r.Use(securityHeaders)
 	r.Use(s.compression())
@@ -87,6 +100,7 @@ func (s *Server) Handler() http.Handler {
 		api.Get("/tactics", s.handleTactics)
 		api.Post("/tactics/event", s.handleTacticsEvent)
 		api.Post("/newsletter/subscribe", s.handleSubscribe)
+		api.Post("/booking", s.handleBooking)
 	})
 
 	// Newsletter double opt-in links (from e-mails) — server-rendered pages,

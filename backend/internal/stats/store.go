@@ -7,6 +7,7 @@ package stats
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	_ "modernc.org/sqlite"
 )
@@ -28,6 +29,12 @@ CREATE TABLE IF NOT EXISTS puzzle_stats (
 	attempts  INTEGER NOT NULL DEFAULT 0,
 	solved    INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY (week, puzzle_id)
+);
+CREATE TABLE IF NOT EXISTS pageviews (
+	day   TEXT NOT NULL,
+	path  TEXT NOT NULL,
+	count INTEGER NOT NULL DEFAULT 0,
+	PRIMARY KEY (day, path)
 );`
 
 // Store wraps the SQLite database.
@@ -69,6 +76,69 @@ func (s *Store) Record(week, puzzleID, kind string) error {
 type Row struct {
 	Week, PuzzleID          string
 	Views, Attempts, Solved int
+}
+
+// --- privacy-first page-view analytics ------------------------------------
+// Only aggregate counts per (day, path) are stored — no IP, no user-agent, no
+// cookie, no per-visitor record. Pure self-hosted, RGPD-clean.
+
+// RecordPageview increments today's counter for a page path.
+func (s *Store) RecordPageview(path string) error {
+	day := time.Now().UTC().Format("2006-01-02")
+	_, err := s.db.Exec(`
+		INSERT INTO pageviews (day, path, count) VALUES (?, ?, 1)
+		ON CONFLICT(day, path) DO UPDATE SET count = count + 1`, day, path)
+	return err
+}
+
+// PageRow is one path's total views.
+type PageRow struct {
+	Path  string
+	Count int
+}
+
+// TopPages returns the most-viewed paths (all time), busiest first.
+func (s *Store) TopPages(limit int) ([]PageRow, error) {
+	rows, err := s.db.Query(`SELECT path, SUM(count) AS c FROM pageviews
+		GROUP BY path ORDER BY c DESC LIMIT ?`, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []PageRow
+	for rows.Next() {
+		var r PageRow
+		if err := rows.Scan(&r.Path, &r.Count); err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, rows.Err()
+}
+
+// DayRow is one day's total views.
+type DayRow struct {
+	Day   string
+	Count int
+}
+
+// DailyViews returns per-day totals, most recent first.
+func (s *Store) DailyViews(days int) ([]DayRow, error) {
+	rows, err := s.db.Query(`SELECT day, SUM(count) AS c FROM pageviews
+		GROUP BY day ORDER BY day DESC LIMIT ?`, days)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []DayRow
+	for rows.Next() {
+		var r DayRow
+		if err := rows.Scan(&r.Day, &r.Count); err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, rows.Err()
 }
 
 // Summary returns every puzzle's counters, newest week first.
