@@ -20,8 +20,10 @@ const NAV_FR: NavItem[] = [
 ]
 const NAV_EN: NavItem[] = [
   { to: '/en/adult-chess-lessons-geneva', key: 'adultes' },
+  { to: '/en/tournament-preparation', key: 'tournoi' },
   { to: '/en/pricing', key: 'tarifs' },
   { to: '/en/tactics', key: 'tactiques' },
+  { to: '/en/blog', key: 'blog' },
   { to: '/en/contact', key: 'contact' },
 ]
 

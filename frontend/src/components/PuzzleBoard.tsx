@@ -134,6 +134,26 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
     if (step < solution.length) timers.current.push(window.setTimeout(advance, 350))
   }
 
+  // attemptMove compares a from→to move to the expected solution move and
+  // advances (or flashes wrong). Shared by click-to-move and drag-and-drop.
+  function attemptMove(from: string, to: string) {
+    const expected = solution[applied]!
+    if (expected.slice(0, 4) === from + to) {
+      onAttempt?.(true)
+      setSelected(null)
+      setWrong(false)
+      const next = applied + 1
+      setApplied(next)
+      if (next >= solution.length) onSolved?.()
+      else timers.current.push(window.setTimeout(() => setApplied(next + 1), 350)) // opponent's forced reply
+    } else {
+      onAttempt?.(false)
+      setWrong(true)
+      setSelected(null)
+      timers.current.push(window.setTimeout(() => setWrong(false), 600))
+    }
+  }
+
   function clickSquare(sq: string) {
     if (!solverTurn) return
     if (!selected) {
@@ -144,24 +164,20 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
       setSelected(null)
       return
     }
-    const expected = solution[applied]!
-    const candidate = selected + sq
-    if (expected.slice(0, 4) === candidate) {
-      onAttempt?.(true)
-      setSelected(null)
-      setWrong(false)
-      const next = applied + 1
-      setApplied(next)
-      if (next >= solution.length) onSolved?.()
-      else timers.current.push(window.setTimeout(() => setApplied(next + 1), 350)) // opponent's forced reply
-    } else if (pieces[sq] && isSolver(pieces[sq]!)) {
+    if (pieces[sq] && isSolver(pieces[sq]!)) {
       setSelected(sq) // reselect own piece
-    } else {
-      onAttempt?.(false)
-      setWrong(true)
-      setSelected(null)
-      timers.current.push(window.setTimeout(() => setWrong(false), 600))
+      return
     }
+    attemptMove(selected, sq)
+  }
+
+  function dropOn(target: string, from: string) {
+    if (!solverTurn || !from || from === target) return
+    if (pieces[target] && isSolver(pieces[target]!)) {
+      setSelected(null) // dropped back onto an own piece → cancel
+      return
+    }
+    attemptMove(from, target)
   }
 
   const ringClass = finishedByUser
@@ -194,8 +210,23 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
                 type="button"
                 onClick={() => clickSquare(sq)}
                 disabled={!solverTurn}
+                draggable={solverTurn && !!piece && isSolver(piece)}
+                onDragStart={(e) => {
+                  setSelected(sq)
+                  e.dataTransfer.setData('text/plain', sq)
+                  e.dataTransfer.effectAllowed = 'move'
+                }}
+                onDragOver={(e) => {
+                  if (solverTurn) e.preventDefault() // allow drop
+                }}
+                onDrop={(e) => {
+                  e.preventDefault()
+                  dropOn(sq, e.dataTransfer.getData('text/plain'))
+                }}
                 aria-label={sq + (piece ? ` ${piece}` : '')}
-                className={`relative flex items-center justify-center ${solverTurn ? 'cursor-pointer' : 'cursor-default'}`}
+                className={`relative flex items-center justify-center ${
+                  solverTurn && piece && isSolver(piece) ? 'cursor-grab' : solverTurn ? 'cursor-pointer' : 'cursor-default'
+                }`}
                 style={{ backgroundColor: base }}
               >
                 {/* last-move tint */}

@@ -16,8 +16,7 @@ const (
 	foundEps   = 40  // best − played ≤ this → he found it
 
 	maxSolutionPlies = 7   // published solution length cap — keep puzzles SHORT
-	sacWindowPlies   = 6   // only the forcing start counts for sacrifice detection
-	sacThreshold     = 250 // material must drop ≥ a minor piece to count as a sac
+	sacThreshold     = 200 // end-of-line material deficit (cp) to count as a real sac
 )
 
 func truncatePV(pv []string, max int) []string {
@@ -27,8 +26,8 @@ func truncatePV(pv []string, max int) []string {
 	return pv
 }
 
-// Tactic is a detected combination in ORIGINAL orientation (side to move is
-// Alexandre's colour). It is never published as-is — NewPuzzle mirrors it.
+// Tactic is a detected combination in ORIGINAL orientation (from either side of
+// one of Alexandre's games). It is never published as-is — NewPuzzle mirrors it.
 type Tactic struct {
 	FEN       string
 	Solution  []string // UCI, the winning line (engine PV)
@@ -61,8 +60,8 @@ func classify(best, second, played Line) (isTactic bool, kind string, mate bool)
 	}
 }
 
-// AnalyzeGame replays one game and returns the tactics found in Alexandre's
-// moves (played and missed).
+// AnalyzeGame replays one game and returns the tactics found in it — for BOTH
+// sides (Alexandre's shots and the opponent's), played and missed.
 func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 	pgnFn, err := chess.PGN(strings.NewReader(g.PGN))
 	if err != nil {
@@ -71,15 +70,11 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 	game := chess.NewGame(pgnFn)
 	positions := game.Positions()
 	moves := game.Moves()
-	mine := colorOf(g.MyColor)
 	uci := chess.UCINotation{}
 
 	var out []Tactic
 	for i, mv := range moves {
 		pos := positions[i]
-		if pos.Turn() != mine {
-			continue
-		}
 		fen := pos.String()
 		playedUCI := uci.Encode(pos, mv)
 
@@ -104,17 +99,16 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 		if len(best.PV) == 0 {
 			continue
 		}
-		sac := detectSacrifice(fen, best.PV)
-		// The first move must be a genuine tactical blow: a CHECK, or the start
-		// of a SACRIFICE. A plain material-winning capture ("just take the free
-		// piece") or a quiet move is rejected — those aren't interesting puzzles.
-		if !firstMoveQualifies(fen, best.PV[0], sac) {
-			continue
-		}
-		// Only publish the FORCING part of the line: cut it as soon as the winning
-		// side would have to play a non-forcing (quiet) move. Keeps solutions short.
+		// Publish only the FORCING line, ending on the solver's decisive blow.
 		sol := truncatePV(forcingLine(fen, best.PV), maxSolutionPlies)
 		if len(sol) == 0 {
+			continue
+		}
+		sac := detectSacrifice(fen, sol)
+		// The first move must be a genuine tactical blow: a CHECK (that doesn't
+		// simply grab the queen), or the start of a real SACRIFICE. Plain
+		// material-winning captures and quiet moves are rejected.
+		if !firstMoveQualifies(fen, sol[0], sac) {
 			continue
 		}
 		out = append(out, Tactic{
@@ -142,8 +136,9 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 }
 
 // firstMoveQualifies reports whether the solution may START with this move.
-// Accepted: a CHECK, or the first move of a SACRIFICE. Rejected: a plain
-// material-winning capture (avoid "just take the free piece") and quiet moves.
+// Accepted: a CHECK, or the first move of a real SACRIFICE. Rejected: plain
+// material-winning captures, quiet moves, and — always — grabbing the opponent's
+// QUEEN on move one ("just take the queen" is never an interesting puzzle).
 func firstMoveQualifies(fen, uciMove string, sac bool) bool {
 	opt, err := chess.FEN(fen)
 	if err != nil {
@@ -153,6 +148,10 @@ func firstMoveQualifies(fen, uciMove string, sac bool) bool {
 	uci := chess.UCINotation{}
 	target, err := uci.Decode(game.Position(), uciMove)
 	if err != nil {
+		return false
+	}
+	// Reject capturing a queen on the first move, even with check.
+	if p, ok := game.Position().Board().SquareMap()[target.S2()]; ok && p.Type() == chess.Queen {
 		return false
 	}
 	for _, m := range game.ValidMoves() {
@@ -271,37 +270,31 @@ func beautyScore(best Line, sacrifice bool) int {
 	return score
 }
 
-func colorOf(c string) chess.Color {
-	if strings.EqualFold(c, "black") {
-		return chess.Black
-	}
-	return chess.White
-}
-
 var pieceValue = map[chess.PieceType]int{
 	chess.Pawn: 100, chess.Knight: 320, chess.Bishop: 330,
 	chess.Rook: 500, chess.Queen: 900, chess.King: 0,
 }
 
-// detectSacrifice replays the PV and reports whether Alexandre's material dips
-// at least a pawn below its starting value along the forced line (i.e. he
-// invested material) — the marker of a genuine sacrifice/combination.
-func detectSacrifice(fen string, pv []string) bool {
+// detectSacrifice reports whether the solver ends the forcing line DOWN material
+// yet winning — the mark of a genuine sacrifice. It compares the material balance
+// (solver minus opponent) at the start vs the end of the solution, so ordinary
+// trades and material-winning combinations are NOT mislabelled as sacrifices
+// (e.g. capturing a queen and being recaptured stays balanced → not a sac).
+func detectSacrifice(fen string, solution []string) bool {
 	opt, err := chess.FEN(fen)
 	if err != nil {
 		return false
 	}
 	game := chess.NewGame(opt)
 	us := game.Position().Turn()
-	start := material(game.Position().Board(), us)
-	minMat := start
+	them := us.Other()
+	balance := func() int {
+		b := game.Position().Board()
+		return material(b, us) - material(b, them)
+	}
+	start := balance()
 	uci := chess.UCINotation{}
-	// Only the forcing start of the line: a real sacrifice invests material
-	// early; deep exchanges later are just normal play, not a sac.
-	for i, mv := range pv {
-		if i >= sacWindowPlies {
-			break
-		}
+	for _, mv := range solution {
 		m, err := uci.Decode(game.Position(), mv)
 		if err != nil {
 			break
@@ -309,11 +302,8 @@ func detectSacrifice(fen string, pv []string) bool {
 		if err := game.Move(m); err != nil {
 			break
 		}
-		if mat := material(game.Position().Board(), us); mat < minMat {
-			minMat = mat
-		}
 	}
-	return minMat <= start-sacThreshold
+	return balance() <= start-sacThreshold
 }
 
 func material(b *chess.Board, c chess.Color) int {
