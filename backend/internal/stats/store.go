@@ -35,6 +35,21 @@ CREATE TABLE IF NOT EXISTS pageviews (
 	path  TEXT NOT NULL,
 	count INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY (day, path)
+);
+CREATE TABLE IF NOT EXISTS traffic (
+	day   TEXT NOT NULL,
+	kind  TEXT NOT NULL,   -- 'human' | 'bot'
+	count INTEGER NOT NULL DEFAULT 0,
+	PRIMARY KEY (day, kind)
+);
+CREATE TABLE IF NOT EXISTS geo (
+	country TEXT PRIMARY KEY, -- 2-letter code (offline lookup, no IP stored)
+	count   INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS visitors (
+	day TEXT NOT NULL,
+	fp  TEXT NOT NULL,        -- salted daily hash of IP+UA (non-reversible, no IP)
+	PRIMARY KEY (day, fp)
 );`
 
 // Store wraps the SQLite database.
@@ -82,16 +97,103 @@ type Row struct {
 // Only aggregate counts per (day, path) are stored — no IP, no user-agent, no
 // cookie, no per-visitor record. Pure self-hosted, RGPD-clean.
 
-// RecordPageview increments today's counter for a page path.
-func (s *Store) RecordPageview(path string) error {
+// RecordPageview records one page view. Bots are counted in `traffic` only;
+// humans also count toward the page's views, the day's unique visitors (by a
+// non-reversible daily fingerprint — no IP stored) and the country tally.
+func (s *Store) RecordPageview(path, country string, isBot bool, fp string) error {
 	if len(path) > 200 { // defensive cap against pathological URLs
 		path = path[:200]
 	}
 	day := time.Now().UTC().Format("2006-01-02")
-	_, err := s.db.Exec(`
-		INSERT INTO pageviews (day, path, count) VALUES (?, ?, 1)
-		ON CONFLICT(day, path) DO UPDATE SET count = count + 1`, day, path)
-	return err
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() { _ = tx.Rollback() }()
+
+	bump := func(q string, args ...any) error { _, e := tx.Exec(q, args...); return e }
+
+	kind := "human"
+	if isBot {
+		kind = "bot"
+	}
+	if err := bump(`INSERT INTO traffic (day, kind, count) VALUES (?, ?, 1)
+		ON CONFLICT(day, kind) DO UPDATE SET count = count + 1`, day, kind); err != nil {
+		return err
+	}
+	if !isBot {
+		if err := bump(`INSERT INTO pageviews (day, path, count) VALUES (?, ?, 1)
+			ON CONFLICT(day, path) DO UPDATE SET count = count + 1`, day, path); err != nil {
+			return err
+		}
+		if country != "" {
+			if err := bump(`INSERT INTO geo (country, count) VALUES (?, 1)
+				ON CONFLICT(country) DO UPDATE SET count = count + 1`, country); err != nil {
+				return err
+			}
+		}
+		if fp != "" {
+			if err := bump(`INSERT INTO visitors (day, fp) VALUES (?, ?) ON CONFLICT DO NOTHING`, day, fp); err != nil {
+				return err
+			}
+		}
+	}
+	return tx.Commit()
+}
+
+// CountryRow is one country's human view tally.
+type CountryRow struct {
+	Country string
+	Count   int
+}
+
+// TopCountries returns the busiest visitor countries (all time).
+func (s *Store) TopCountries(limit int) ([]CountryRow, error) {
+	rows, err := s.db.Query(`SELECT country, count FROM geo ORDER BY count DESC LIMIT ?`, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []CountryRow
+	for rows.Next() {
+		var r CountryRow
+		if err := rows.Scan(&r.Country, &r.Count); err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, rows.Err()
+}
+
+// TrafficRow is a day's human vs bot split.
+type TrafficRow struct {
+	Day                 string
+	Human, Bot, Uniques int
+}
+
+// Traffic returns per-day human/bot totals + unique human visitors, recent first.
+func (s *Store) Traffic(days int) ([]TrafficRow, error) {
+	rows, err := s.db.Query(`
+		SELECT d.day,
+		  COALESCE(SUM(CASE WHEN t.kind='human' THEN t.count END), 0),
+		  COALESCE(SUM(CASE WHEN t.kind='bot'   THEN t.count END), 0),
+		  COALESCE((SELECT COUNT(*) FROM visitors v WHERE v.day = d.day), 0)
+		FROM (SELECT DISTINCT day FROM traffic) d
+		LEFT JOIN traffic t ON t.day = d.day
+		GROUP BY d.day ORDER BY d.day DESC LIMIT ?`, days)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []TrafficRow
+	for rows.Next() {
+		var r TrafficRow
+		if err := rows.Scan(&r.Day, &r.Human, &r.Bot, &r.Uniques); err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, rows.Err()
 }
 
 // PageRow is one path's total views.
