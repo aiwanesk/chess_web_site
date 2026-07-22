@@ -103,6 +103,7 @@ func (s *Server) Handler() http.Handler {
 		api.Get("/health", s.handleHealth)
 		api.Get("/form-token", s.handleFormToken)
 		api.Get("/tactics", s.handleTactics)
+		api.Get("/booking-config", s.handleBookingConfig)
 		api.Post("/tactics/event", s.handleTacticsEvent)
 		api.With(rateLimit(submitLimiter)).Post("/contact", s.handleContact)
 		api.With(rateLimit(submitLimiter)).Post("/newsletter/subscribe", s.handleSubscribe)

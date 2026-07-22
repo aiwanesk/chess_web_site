@@ -319,6 +319,37 @@ func TestBookingHandler(t *testing.T) {
 	}
 }
 
+func TestBookingRules(t *testing.T) {
+	static := fstest.MapFS{"index.html": {Data: []byte("x")}}
+	srv, err := New(Config{
+		BaseURL: "https://iwanesko.ch", DBPath: filepath.Join(t.TempDir(), "b.db"),
+		HourlyRate: 120, BookingMinDate: "2999-06-01",
+	}, static)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = srv.Close() })
+	h := srv.Handler()
+	tok := formToken(t, h)
+
+	// booking-config advertises the opening date + minimum duration.
+	if rec := get(t, h, "/api/booking-config"); !strings.Contains(rec.Body.String(), "2999-06-01") || !strings.Contains(rec.Body.String(), "60") {
+		t.Fatalf("booking-config: %s", rec.Body.String())
+	}
+	// Before the opening date → rejected.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-05-01","start":"17:30","end":"18:30","name":"X","email":"x@e.com","token":"`+tok+`"}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("before opening date: want 422, got %d", rec.Code)
+	}
+	// After opening, a full hour → accepted.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-06-02","start":"17:30","end":"18:30","name":"X","email":"x@e.com","token":"`+tok+`"}`); rec.Code != http.StatusOK {
+		t.Fatalf("1h after opening: want 200, got %d", rec.Code)
+	}
+	// Under one hour → rejected.
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-06-03","start":"17:30","end":"18:00","name":"X","email":"x@e.com","token":"`+tok+`"}`); rec.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("under 1h: want 422, got %d", rec.Code)
+	}
+}
+
 func TestAdminBruteForceIsRateLimited(t *testing.T) {
 	h := statsServer(t, "s3cret-token")
 

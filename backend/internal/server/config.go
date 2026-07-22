@@ -46,6 +46,9 @@ type Config struct {
 	// HourlyRate is the individual-lesson price in CHF, used by the booking form
 	// to compute the amount due.
 	HourlyRate int
+	// BookingMinDate (YYYY-MM-DD) is the earliest date open to booking. Empty =
+	// today. Once it's in the past it has no effect (floor falls back to today).
+	BookingMinDate string
 }
 
 // LoadConfig reads configuration from the environment, applying safe defaults.
@@ -67,6 +70,7 @@ func LoadConfig() Config {
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
+		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),
 	}
 }
 

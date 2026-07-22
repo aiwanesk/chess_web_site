@@ -50,6 +50,8 @@ export function BookingForm() {
   const s = STR[locale]
   const today = new Date().toISOString().slice(0, 10)
 
+  // Server-driven constraints (opening date, minimum duration, hourly rate).
+  const [cfg, setCfg] = useState({ minDate: today, minMinutes: 60, hourlyRate: HOURLY_RATE })
   const [date, setDate] = useState('')
   const [start, setStart] = useState('17:30')
   const [end, setEnd] = useState('18:30')
@@ -58,18 +60,33 @@ export function BookingForm() {
 
   useEffect(() => {
     void getFormToken()
-  }, [])
+    fetch('/api/booking-config')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((c: { minDate?: string; minMinutes?: number; hourlyRate?: number } | null) => {
+        if (!c) return
+        setCfg({
+          minDate: c.minDate || today,
+          minMinutes: c.minMinutes || 60,
+          hourlyRate: c.hourlyRate || HOURLY_RATE,
+        })
+        setDate((d) => d || c.minDate || '') // pre-fill the first open day
+      })
+      .catch(() => {})
+  }, [today])
 
-  const endOptions = useMemo(() => TIMES.filter((t) => toMin(t) > toMin(start)), [start])
+  const endOptions = useMemo(
+    () => TIMES.filter((t) => toMin(t) >= toMin(start) + cfg.minMinutes),
+    [start, cfg.minMinutes],
+  )
   const minutes = Math.max(0, toMin(end) - toMin(start))
   const hours = minutes / 60
-  const price = Math.round((HOURLY_RATE * minutes) / 60)
-  const valid = minutes > 0
+  const price = Math.round((cfg.hourlyRate * minutes) / 60)
+  const valid = minutes >= cfg.minMinutes
 
   function onStartChange(v: string) {
     setStart(v)
-    if (toMin(end) <= toMin(v)) {
-      const next = TIMES.find((t) => toMin(t) > toMin(v))
+    if (toMin(end) < toMin(v) + cfg.minMinutes) {
+      const next = TIMES.find((t) => toMin(t) >= toMin(v) + cfg.minMinutes)
       if (next) setEnd(next)
     }
   }
@@ -99,7 +116,7 @@ export function BookingForm() {
         setStatus('ok')
         setMessage(s.ok(body.price ?? price))
         form.reset()
-        setDate('')
+        setDate(cfg.minDate)
       } else {
         const body = (await res.json().catch(() => ({}))) as { error?: string }
         setStatus('error')
@@ -125,7 +142,7 @@ export function BookingForm() {
 
       <div>
         <label htmlFor="bk-date" className={label}>{s.date} <span className="text-gold-700">*</span></label>
-        <input id="bk-date" name="date" type="date" required min={today} value={date} onChange={(e) => setDate(e.target.value)} className={field} />
+        <input id="bk-date" name="date" type="date" required min={cfg.minDate} value={date} onChange={(e) => setDate(e.target.value)} className={field} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

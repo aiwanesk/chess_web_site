@@ -16,9 +16,10 @@ import (
 
 // Lesson slots run 17:30–20:00, in 30-minute steps.
 const (
-	dayStartMin = 17*60 + 30 // 17:30
-	dayEndMin   = 20 * 60    // 20:00
-	slotStep    = 30
+	dayStartMin  = 17*60 + 30 // 17:30
+	dayEndMin    = 20 * 60    // 20:00
+	slotStep     = 30
+	minLessonMin = 60 // a lesson lasts at least one hour
 )
 
 type bookingRequest struct {
@@ -61,8 +62,8 @@ func (s *Server) handleBooking(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusUnprocessableEntity, map[string]string{"error": "Date invalide."})
 		return
 	}
-	if req.Date < time.Now().Format("2006-01-02") {
-		writeJSON(w, http.StatusUnprocessableEntity, map[string]string{"error": "La date est déjà passée."})
+	if req.Date < s.bookingFloor() {
+		writeJSON(w, http.StatusUnprocessableEntity, map[string]string{"error": "Cette date n’est pas encore ouverte à la réservation."})
 		return
 	}
 	start, ok1 := parseHHMM(req.Start)
@@ -72,6 +73,10 @@ func (s *Server) handleBooking(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusUnprocessableEntity, map[string]string{
 			"error": "Créneau invalide (17h30–20h00, par tranches de 30 min).",
 		})
+		return
+	}
+	if end-start < minLessonMin {
+		writeJSON(w, http.StatusUnprocessableEntity, map[string]string{"error": "Un cours dure au minimum 1 heure."})
 		return
 	}
 
@@ -102,6 +107,26 @@ func (s *Server) handleBooking(w http.ResponseWriter, r *http.Request) {
 		"status":  "ok",
 		"price":   price,
 		"message": "Cours réservé ! Tu vas recevoir un e-mail de confirmation.",
+	})
+}
+
+// bookingFloor is the earliest bookable date (later of today and the configured
+// opening date).
+func (s *Server) bookingFloor() string {
+	today := time.Now().Format("2006-01-02")
+	if s.cfg.BookingMinDate > today {
+		return s.cfg.BookingMinDate
+	}
+	return today
+}
+
+// handleBookingConfig exposes the constraints the booking form needs.
+func (s *Server) handleBookingConfig(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Cache-Control", "no-store")
+	writeJSON(w, http.StatusOK, map[string]any{
+		"minDate":    s.bookingFloor(),
+		"minMinutes": minLessonMin,
+		"hourlyRate": s.cfg.HourlyRate,
 	})
 }
 
