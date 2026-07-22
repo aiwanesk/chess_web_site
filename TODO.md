@@ -4,7 +4,9 @@ Ce fichier ne garde que **le reste à faire**. Tout ce qui est **terminé** est 
 dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Dernière mise
 à jour : 2026-07-22.
 
-> 🚀 **Dernier tag = `v0.3.0`** (à déployer sur Jelastic). Nouveautés majeures :
+> 🚀 **Dernier tag = `v0.3.1`** (à déployer sur Jelastic ; corrige juste la CI
+> Lighthouse qui pointait sur l'article de blog supprimé — l'image v0.3.0 était
+> déjà OK). Nouveautés majeures :
 > **analytics full-privacy** (server-side, dans `/admin`), **réservation de cours**
 > `/reserver` (calendrier 17h30–20h, calcul du prix, e-mails, `/admin`), **anti-spam
 > fait maison** (jeton HMAC + filtre liens + rate-limit), security.txt, hreflang blog.
