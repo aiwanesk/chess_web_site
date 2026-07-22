@@ -210,12 +210,6 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
                 type="button"
                 onClick={() => clickSquare(sq)}
                 disabled={!solverTurn}
-                draggable={solverTurn && !!piece && isSolver(piece)}
-                onDragStart={(e) => {
-                  setSelected(sq)
-                  e.dataTransfer.setData('text/plain', sq)
-                  e.dataTransfer.effectAllowed = 'move'
-                }}
                 onDragOver={(e) => {
                   if (solverTurn) e.preventDefault() // allow drop
                 }}
@@ -246,6 +240,13 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
                 ) : null}
                 {piece ? (
                   <span
+                    draggable={solverTurn && isSolver(piece)}
+                    onDragStart={(e) => {
+                      if (!(solverTurn && isSolver(piece))) return
+                      setSelected(sq)
+                      e.dataTransfer.setData('text/plain', sq)
+                      e.dataTransfer.effectAllowed = 'move'
+                    }}
                     className="relative select-none text-[9vw] leading-none sm:text-[2.25rem]"
                     style={{
                       color: piece === piece.toUpperCase() ? '#f8f8f8' : '#3a3a38',
