@@ -120,6 +120,31 @@ func (s *Server) bookingFloor() string {
 	return today
 }
 
+// handleAvailability returns the already-booked slots for a day (occupied time
+// ranges only — never names or e-mails), so the form can grey them out.
+func (s *Server) handleAvailability(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cache-Control", "no-store")
+	if s.bookings == nil {
+		writeJSON(w, http.StatusOK, map[string]any{"taken": []any{}})
+		return
+	}
+	date := r.URL.Query().Get("date")
+	if _, err := time.Parse("2006-01-02", date); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "date invalide"})
+		return
+	}
+	slots, err := s.bookings.TakenOn(date)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "erreur"})
+		return
+	}
+	taken := make([]map[string]string, 0, len(slots))
+	for _, sl := range slots {
+		taken = append(taken, map[string]string{"start": minToHHMM(sl.StartMin), "end": minToHHMM(sl.EndMin)})
+	}
+	writeJSON(w, http.StatusOK, map[string]any{"taken": taken})
+}
+
 // handleBookingConfig exposes the constraints the booking form needs.
 func (s *Server) handleBookingConfig(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")

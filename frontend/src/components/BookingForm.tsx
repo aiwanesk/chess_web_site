@@ -8,14 +8,17 @@ type Status = 'idle' | 'submitting' | 'ok' | 'error'
 // 30-min boundaries from 17:30 to 20:00. A lesson is a contiguous range.
 const TIMES = ['17:30', '18:00', '18:30', '19:00', '19:30', '20:00']
 const HOURLY_RATE = 120 // CHF/h (indicative — the server recomputes authoritatively)
+const DAY_END = 20 * 60
 
 const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3))
+const fmt = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`
 
 const STR: Record<Locale, {
   intro: string; date: string; from: string; to: string; name: string; email: string
   duration: string; total: string; submit: string; sending: string
   ok: (p: number) => string; errSlot: string; errFields: string; conflict: string; net: string
   hoursLabel: (h: number) => string; consent: string; privacy: string
+  taken: string; bookedLabel: string
 }> = {
   fr: {
     intro: 'Choisis un jour et un créneau entre 17h30 et 20h00. Séance individuelle à ' + HOURLY_RATE + ' CHF/h.',
@@ -29,6 +32,7 @@ const STR: Record<Locale, {
     hoursLabel: (h) => (Number.isInteger(h) ? `${h} h` : `${Math.floor(h)} h 30`),
     consent: 'En réservant, j’accepte le traitement de mes données pour gérer ce cours (voir la ',
     privacy: 'politique de confidentialité',
+    taken: 'pris', bookedLabel: 'Déjà réservé ce jour :',
   },
   en: {
     intro: 'Pick a day and a slot between 17:30 and 20:00. One-to-one lesson at ' + HOURLY_RATE + ' CHF/h.',
@@ -42,6 +46,7 @@ const STR: Record<Locale, {
     hoursLabel: (h) => (Number.isInteger(h) ? `${h} h` : `${Math.floor(h)} h 30`),
     consent: 'By booking, I agree to my data being processed to manage this lesson (see the ',
     privacy: 'privacy policy',
+    taken: 'booked', bookedLabel: 'Already booked that day:',
   },
 }
 
@@ -55,6 +60,7 @@ export function BookingForm() {
   const [date, setDate] = useState('')
   const [start, setStart] = useState('17:30')
   const [end, setEnd] = useState('18:30')
+  const [taken, setTaken] = useState<{ start: number; end: number }[]>([])
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
 
@@ -74,19 +80,60 @@ export function BookingForm() {
       .catch(() => {})
   }, [today])
 
-  const endOptions = useMemo(
-    () => TIMES.filter((t) => toMin(t) >= toMin(start) + cfg.minMinutes),
-    [start, cfg.minMinutes],
-  )
+  // Load already-booked slots whenever the chosen day changes.
+  useEffect(() => {
+    if (!date) {
+      setTaken([])
+      return
+    }
+    let cancelled = false
+    fetch('/api/booking/availability?date=' + encodeURIComponent(date))
+      .then((r) => (r.ok ? r.json() : { taken: [] }))
+      .then((b: { taken?: { start: string; end: string }[] }) => {
+        if (!cancelled) setTaken((b.taken || []).map((t) => ({ start: toMin(t.start), end: toMin(t.end) })))
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [date])
+
+  const isStartTaken = (m: number) => taken.some((t) => m >= t.start && m < t.end)
+  // A booked block after `m` caps how far a lesson starting at `m` can run.
+  const boundaryAfter = (m: number) => taken.filter((t) => t.start >= m).reduce((b, t) => Math.min(b, t.start), DAY_END)
+  const startTaken = (t: string) => {
+    const m = toMin(t)
+    return isStartTaken(m) || boundaryAfter(m) - m < cfg.minMinutes
+  }
+
+  const endOptions = useMemo(() => {
+    const bound = boundaryAfter(toMin(start))
+    return TIMES.filter((t) => toMin(t) >= toMin(start) + cfg.minMinutes && toMin(t) <= bound)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start, cfg.minMinutes, taken])
+
+  // If the current selection is no longer valid (day changed), jump to a free slot.
+  useEffect(() => {
+    if (!startTaken(start) && toMin(end) <= boundaryAfter(toMin(start)) && toMin(end) - toMin(start) >= cfg.minMinutes) return
+    const freeStart = TIMES.slice(0, -1).find((t) => !startTaken(t))
+    if (!freeStart) return
+    setStart(freeStart)
+    const e = TIMES.find((t) => toMin(t) >= toMin(freeStart) + cfg.minMinutes && toMin(t) <= boundaryAfter(toMin(freeStart)))
+    if (e) setEnd(e)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taken, cfg.minMinutes])
+
   const minutes = Math.max(0, toMin(end) - toMin(start))
   const hours = minutes / 60
   const price = Math.round((cfg.hourlyRate * minutes) / 60)
-  const valid = minutes >= cfg.minMinutes
+  const overlapsTaken = taken.some((t) => toMin(start) < t.end && toMin(end) > t.start)
+  const valid = minutes >= cfg.minMinutes && !isStartTaken(toMin(start)) && !overlapsTaken
 
   function onStartChange(v: string) {
     setStart(v)
-    if (toMin(end) < toMin(v) + cfg.minMinutes) {
-      const next = TIMES.find((t) => toMin(t) >= toMin(v) + cfg.minMinutes)
+    const bound = boundaryAfter(toMin(v))
+    if (toMin(end) < toMin(v) + cfg.minMinutes || toMin(end) > bound) {
+      const next = TIMES.find((t) => toMin(t) >= toMin(v) + cfg.minMinutes && toMin(t) <= bound)
       if (next) setEnd(next)
     }
   }
@@ -149,7 +196,12 @@ export function BookingForm() {
         <div>
           <label htmlFor="bk-start" className={label}>{s.from}</label>
           <select id="bk-start" value={start} onChange={(e) => onStartChange(e.target.value)} className={field}>
-            {TIMES.slice(0, -1).map((t) => <option key={t} value={t}>{t}</option>)}
+            {TIMES.slice(0, -1).map((t) => (
+              <option key={t} value={t} disabled={startTaken(t)}>
+                {t}
+                {startTaken(t) ? ` — ${s.taken}` : ''}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -159,6 +211,12 @@ export function BookingForm() {
           </select>
         </div>
       </div>
+
+      {taken.length > 0 ? (
+        <p className="text-xs text-ink-500" role="status">
+          {s.bookedLabel} {taken.map((t) => `${fmt(t.start)}–${fmt(t.end)}`).join(', ')}
+        </p>
+      ) : null}
 
       {/* Live duration + price */}
       <div className="flex items-center justify-between rounded-xl bg-cream-100 px-4 py-3 text-sm">

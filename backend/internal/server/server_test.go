@@ -319,6 +319,20 @@ func TestBookingHandler(t *testing.T) {
 	}
 }
 
+func TestBookingAvailability(t *testing.T) {
+	h := statsServer(t, "tok")
+	tok := formToken(t, h)
+	if rec := postJSON(t, h, "/api/booking", `{"date":"2999-07-01","start":"18:00","end":"19:00","name":"X","email":"x@e.com","token":"`+tok+`"}`); rec.Code != http.StatusOK {
+		t.Fatalf("seed booking: %d %s", rec.Code, rec.Body.String())
+	}
+	if rec := get(t, h, "/api/booking/availability?date=2999-07-01"); !strings.Contains(rec.Body.String(), "18:00") || !strings.Contains(rec.Body.String(), "19:00") {
+		t.Fatalf("availability must list the booked slot: %s", rec.Body.String())
+	}
+	if rec := get(t, h, "/api/booking/availability?date=2999-07-02"); !strings.Contains(rec.Body.String(), `"taken":[]`) {
+		t.Fatalf("empty day should be free: %s", rec.Body.String())
+	}
+}
+
 func TestBookingRules(t *testing.T) {
 	static := fstest.MapFS{"index.html": {Data: []byte("x")}}
 	srv, err := New(Config{

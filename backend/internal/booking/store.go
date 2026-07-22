@@ -92,6 +92,27 @@ func (s *Store) Create(b Booking) error {
 	return tx.Commit()
 }
 
+// Slot is an occupied time range (minutes from midnight), no personal data.
+type Slot struct{ StartMin, EndMin int }
+
+// TakenOn returns the occupied slots for a given day, earliest first.
+func (s *Store) TakenOn(date string) ([]Slot, error) {
+	rows, err := s.db.Query(`SELECT start_min, end_min FROM bookings WHERE date = ? ORDER BY start_min`, date)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Slot
+	for rows.Next() {
+		var sl Slot
+		if err := rows.Scan(&sl.StartMin, &sl.EndMin); err != nil {
+			return nil, err
+		}
+		out = append(out, sl)
+	}
+	return out, rows.Err()
+}
+
 // Upcoming returns bookings on or after fromDate (YYYY-MM-DD), soonest first.
 func (s *Store) Upcoming(fromDate string, limit int) ([]Booking, error) {
 	rows, err := s.db.Query(`SELECT id, date, start_min, end_min, name, email, price
