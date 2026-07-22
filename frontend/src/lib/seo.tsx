@@ -18,6 +18,9 @@ export interface SeoProps {
   isHome?: boolean
   /** One or more JSON-LD objects injected as <script type="application/ld+json">. */
   jsonLd?: Array<Record<string, unknown>>
+  /** Explicit FR/EN counterpart paths (root-relative) for pages not in the PAGES
+   *  registry — e.g. blog articles. Overrides the PAGES-based hreflang. */
+  alternates?: { fr: string; en: string }
 }
 
 /**
@@ -34,15 +37,21 @@ export function Seo({
   noindex = false,
   isHome = false,
   jsonLd = [],
+  alternates,
 }: SeoProps) {
   const fullTitle = isHome ? title : `${title} | ${SITE.person.name}`
   const canonical = absoluteUrl(path)
   const ogImage = absoluteUrl(image)
   const locale = localeFromPath(path)
   const ogLocale = locale === 'en' ? 'en_US' : SITE.locale
-  // hreflang: if this page has a translated counterpart, advertise both.
+  // hreflang: explicit alternates (e.g. blog articles) win; otherwise fall back
+  // to the PAGES registry when this page has a translated counterpart.
   const key = keyForPath(path)
-  const alt = altPath(path)
+  const pair = alternates
+    ? { fr: absoluteUrl(alternates.fr), en: absoluteUrl(alternates.en) }
+    : key && altPath(path)
+      ? { fr: absoluteUrl(PAGES[key].fr), en: absoluteUrl(PAGES[key].en) }
+      : null
 
   return (
     <Head>
@@ -71,10 +80,10 @@ export function Seo({
       {/* hreflang — advertise the FR/EN pair when this page is translated.
           NOTE: no React Fragment here — react-helmet ignores fragment-wrapped
           children, so each <link> is emitted as a direct child of <Head>. */}
-      {key && alt ? <link rel="alternate" hrefLang="fr" href={absoluteUrl(PAGES[key].fr)} /> : null}
-      {key && alt ? <link rel="alternate" hrefLang="en" href={absoluteUrl(PAGES[key].en)} /> : null}
-      {key && alt ? <link rel="alternate" hrefLang="x-default" href={absoluteUrl(PAGES[key].fr)} /> : null}
-      {key && alt ? null : <link rel="alternate" hrefLang={locale} href={canonical} />}
+      {pair ? <link rel="alternate" hrefLang="fr" href={pair.fr} /> : null}
+      {pair ? <link rel="alternate" hrefLang="en" href={pair.en} /> : null}
+      {pair ? <link rel="alternate" hrefLang="x-default" href={pair.fr} /> : null}
+      {pair ? null : <link rel="alternate" hrefLang={locale} href={canonical} />}
 
       {jsonLd.map((data, i) => (
         <script key={i} type="application/ld+json">

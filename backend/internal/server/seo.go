@@ -38,20 +38,26 @@ func (s *Server) handleSitemap(w http.ResponseWriter, _ *http.Request) {
 		})
 	}
 
-	if posts, err := content.LoadBlogPosts(s.cfg.ContentDir); err == nil {
+	addPosts := func(dir, prefix string) {
+		posts, err := content.LoadBlogPosts(dir)
+		if err != nil {
+			return
+		}
 		for _, post := range posts {
 			last := today
 			if !post.Updated.IsZero() {
 				last = post.Updated.Format("2006-01-02")
 			}
 			set.URLs = append(set.URLs, urlEntry{
-				Loc:        s.abs("/blog/" + post.Slug),
+				Loc:        s.abs(prefix + post.Slug),
 				LastMod:    last,
 				ChangeFreq: "yearly",
 				Priority:   0.6,
 			})
 		}
 	}
+	addPosts(s.cfg.ContentDir, "/blog/")          // FR
+	addPosts(s.cfg.ContentDir+"/en", "/en/blog/") // EN
 
 	w.Header().Set("Content-Type", "application/xml; charset=utf-8")
 	w.Header().Set("Cache-Control", "public, max-age=3600")

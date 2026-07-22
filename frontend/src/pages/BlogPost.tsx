@@ -62,6 +62,12 @@ export function Component() {
   }
 
   const path = `${blogPath}/${post.slug}`
+  // hreflang pair when a translated counterpart exists (frontmatter altSlug).
+  const alternates = post.altSlug
+    ? locale === 'en'
+      ? { fr: `/blog/${post.altSlug}`, en: `/en/blog/${post.slug}` }
+      : { fr: `/blog/${post.slug}`, en: `/en/blog/${post.altSlug}` }
+    : undefined
   const category = getCategory(post.category)
   const related = post.cluster
     ? postsByCluster(post.cluster, 4, locale).filter((p) => p.slug !== post.slug).slice(0, 3)
@@ -81,6 +87,7 @@ export function Component() {
         path={path}
         ogType="article"
         image={post.image}
+        alternates={alternates}
         jsonLd={[
           breadcrumbSchema(crumbs),
           articleSchema({

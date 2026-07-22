@@ -38,7 +38,7 @@ jobs:
           LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
           STOCKFISH_PATH: stockfish
           TACTICS_DIR: ../content/tactiques
-          MOVETIME_MS: '250'
+          MOVETIME_MS: '400'
           MAX_GAMES: '60'
         run: go run ./cmd/tactics
 
