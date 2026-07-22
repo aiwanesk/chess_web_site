@@ -84,6 +84,9 @@ type Row struct {
 
 // RecordPageview increments today's counter for a page path.
 func (s *Store) RecordPageview(path string) error {
+	if len(path) > 200 { // defensive cap against pathological URLs
+		path = path[:200]
+	}
 	day := time.Now().UTC().Format("2006-01-02")
 	_, err := s.db.Exec(`
 		INSERT INTO pageviews (day, path, count) VALUES (?, ?, 1)

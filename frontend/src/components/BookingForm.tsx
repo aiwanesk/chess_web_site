@@ -219,7 +219,7 @@ export function BookingForm() {
       ) : null}
 
       {/* Live duration + price */}
-      <div className="flex items-center justify-between rounded-xl bg-cream-100 px-4 py-3 text-sm">
+      <div className="flex items-center justify-between rounded-xl bg-cream-100 px-4 py-3 text-sm" aria-live="polite">
         <span className="text-ink-600">{s.duration} : <strong className="text-ink-900">{s.hoursLabel(hours)}</strong></span>
         <span className="text-ink-600">{s.total} : <strong className="text-ink-900">{price} CHF</strong></span>
       </div>
