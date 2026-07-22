@@ -54,6 +54,13 @@ l'historique git. Dernière mise à jour : 2026-07-22.
   e-mail au visiteur + à Alexandre), page **/reserver** (+ **/en/book**) avec calendrier
   et prix en direct, CTA « Réserver » du header pointant dessus, réservations listées dans `/admin`.
 
+## Anti-spam (fait maison, zéro tiers)
+- **Jeton HMAC** : `GET /api/form-token` signe un jeton court ; contact/newsletter/réservation
+  l'exigent → un bot qui POST direct sur l'API (sans jeton) est **403**. Front : jeton
+  préchargé au montage + refresh transparent sur 403.
+- **Filtre anti-liens** sur le texte libre du contact (silencieusement ignoré).
+- **Rate-limit resserré** partagé sur les 3 formulaires (~6 puis 1 / 20 s) + honeypot existant.
+
 ## Divers SEO / sécu
 - **security.txt** (`/.well-known/security.txt`, RFC 9116), servi par le backend.
 - **hreflang** sur les articles de blog (via `altSlug` du frontmatter) + articles EN dans le sitemap.

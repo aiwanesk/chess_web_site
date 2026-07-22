@@ -39,7 +39,8 @@ dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Der
 
 - [ ] *(Option future)* **Ingestion runtime** `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`)
       pour pousser les puzzles **sans redeploy** — non fait, le modèle cron+rebuild suffit.
-- [ ] Anti-spam renforcé optionnel (Turnstile) sur contact / réservation / newsletter.
+- [x] ~~Anti-spam renforcé~~ ✅ **fait maison** (jeton HMAC `/api/form-token` + filtre
+      anti-liens + rate-limit resserré, en plus du honeypot) → voir `done.md`. Turnstile plus nécessaire.
 - [x] ~~Prise de RDV~~ ✅ **fait maison** (`/reserver`, calcul du prix, e-mails) → voir `done.md`.
 - [x] ~~Analytics privacy-first~~ ✅ **fait maison** (server-side, dans `/admin`) → voir `done.md`.
 - [x] ~~hreflang articles blog~~ ✅ / ~~movetime tactiques~~ ✅ (400) → voir `done.md`.
