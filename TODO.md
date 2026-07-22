@@ -4,7 +4,8 @@ Ce fichier ne garde que **le reste à faire**. Tout ce qui est **terminé** est 
 dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Dernière mise
 à jour : 2026-07-22.
 
-> 🚀 **Dernier tag = `v0.2.8`** (à déployer sur Jelastic). Ajoute depuis v0.2.7 :
+> 🚀 **Dernier tag = `v0.2.9`** (à déployer sur Jelastic ; remplace v0.2.8 —
+> corrige le drag-and-drop : seule la pièce flotte, plus la case). Ajoute depuis v0.2.7 :
 > durcissement anti-scan, **détection tactiques revue** (sac juste, pas de prise de
 > dame en 1, ≥ 3 coups, fin sur le coup décisif, deux camps analysés), **drag-and-drop**
 > sur l'échiquier, **nav EN complétée** (Tournament prep + Blog), **Event JSON-LD**
