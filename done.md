@@ -54,6 +54,20 @@ l'historique git. Dernière mise à jour : 2026-07-22.
   e-mail au visiteur + à Alexandre), page **/reserver** (+ **/en/book**) avec calendrier
   et prix en direct, CTA « Réserver » du header pointant dessus, réservations listées dans `/admin`.
 
+## Réservation — affichage des dispos + règles
+- **Créneaux pris affichés** : `GET /api/booking/availability?date=` renvoie les plages
+  occupées (horaires only, jamais d'identité) → le formulaire les **grise** et empêche
+  de choisir un créneau qui chevauche (plus d'erreur 409 après coup).
+- **Ouverture des résas** configurable (`BOOKING_MIN_DATE`, défaut 2026-08-10) + **durée
+  minimale 1 h**. `/api/booking-config` alimente le formulaire (date, durée, tarif).
+
+## Hardening & audit
+- **Go 1.26.5** pinné en CI/build (corrige `GO-2026-5856` crypto/tls) + **govulncheck**
+  en CI (informel). Path d'analytics borné. Prix de réservation en région `aria-live`.
+- Revue sécu des features : SQL paramétré, `/admin` auto-échappé, réservation sans race
+  (SQLite writer unique + transaction), en-têtes e-mail assainis. (Alerte npm esbuild =
+  dev-server only, sans impact prod ; fix vite@8 = rupture, volontairement non appliqué.)
+
 ## Anti-spam (fait maison, zéro tiers)
 - **Jeton HMAC** : `GET /api/form-token` signe un jeton court ; contact/newsletter/réservation
   l'exigent → un bot qui POST direct sur l'API (sans jeton) est **403**. Front : jeton

@@ -42,6 +42,11 @@ dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Der
 
 ## 🟠 Dev — reste à faire
 
+> Le backlog « code autonome » est **essentiellement vide** — la suite dépend de toi
+> (déploiement + contenu) ou de choix d'UI à valider.
+
+- [ ] *(Choix d'UI, à valider)* **Calendrier mensuel visuel** pour `/reserver` (grille de
+      jours cliquables) à la place du sélecteur de date actuel. Faisable self-made — dis si tu veux.
 - [ ] *(Option future)* **Ingestion runtime** `POST /api/admin/tactics` (Bearer `ADMIN_TOKEN`)
       pour pousser les puzzles **sans redeploy** — non fait, le modèle cron+rebuild suffit.
 - [x] ~~Anti-spam renforcé~~ ✅ **fait maison** (jeton HMAC `/api/form-token` + filtre
