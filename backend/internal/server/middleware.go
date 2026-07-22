@@ -4,11 +4,50 @@ import (
 	"log/slog"
 	"net"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 
 	"github.com/go-chi/chi/v5/middleware"
 )
+
+// scannerPrefixes are path prefixes hit only by automated vulnerability scanners
+// (there is no PHP/WordPress/admin panel here).
+var scannerPrefixes = []string{
+	"/wp-", "/wordpress", "/phpmyadmin", "/vendor/", "/cgi-bin/",
+	"/administrator", "/phpunit", "/.aws", "/actuator",
+}
+
+// isScannerPath reports whether a path is obvious bot-scan noise: any *.php URL,
+// any hidden dot-path (except the legitimate /.well-known/), or a known probe
+// prefix. The real site never uses these.
+func isScannerPath(p string) bool {
+	if strings.HasSuffix(p, ".php") {
+		return true
+	}
+	if strings.HasPrefix(p, "/.") && !strings.HasPrefix(p, "/.well-known/") {
+		return true
+	}
+	for _, s := range scannerPrefixes {
+		if strings.HasPrefix(p, s) {
+			return true
+		}
+	}
+	return false
+}
+
+// blockScanners quietly 404s bot-scan probes. Registered BEFORE requestLogger so
+// this constant background noise (wp-login.php, xmlrpc.php, /.env, …) never spams
+// the logs — real traffic and genuine anomalies stay visible.
+func blockScanners(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if isScannerPath(r.URL.Path) {
+			http.NotFound(w, r)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
 
 // ipRateLimiter is a tiny in-memory per-IP token bucket protecting the API from
 // abuse/spam. No external dependency; fine for a single-instance service.

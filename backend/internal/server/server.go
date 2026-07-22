@@ -64,6 +64,7 @@ func (s *Server) Handler() http.Handler {
 
 	r.Use(middleware.RealIP)
 	r.Use(middleware.RequestID)
+	r.Use(blockScanners) // quietly drop bot-scan noise before it hits the logger
 	r.Use(requestLogger)
 	r.Use(middleware.Recoverer)
 	r.Use(securityHeaders)

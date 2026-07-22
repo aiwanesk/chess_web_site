@@ -316,3 +316,20 @@ func TestTacticsEventRecordsAndSurfacesInAdmin(t *testing.T) {
 		t.Fatalf("admin dashboard missing recorded event: code=%d body=%q", rec.Code, body)
 	}
 }
+
+func TestScannerPathsAreBlocked(t *testing.T) {
+	for _, p := range []string{"/wp-login.php", "/xmlrpc.php", "/.env", "/.git/config", "/wp-admin/", "/phpmyadmin/"} {
+		if !isScannerPath(p) {
+			t.Errorf("expected %q to be treated as a scanner path", p)
+		}
+	}
+	for _, p := range []string{"/", "/tarifs", "/api/contact", "/blog/x", "/.well-known/security.txt"} {
+		if isScannerPath(p) {
+			t.Errorf("legit path %q wrongly flagged as scanner", p)
+		}
+	}
+	// End-to-end: a scanner probe still 404s (now without logging).
+	if rec := get(t, testServer(t), "/wp-login.php"); rec.Code != http.StatusNotFound {
+		t.Fatalf("scanner probe: want 404, got %d", rec.Code)
+	}
+}
