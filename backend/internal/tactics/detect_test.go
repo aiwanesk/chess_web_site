@@ -2,8 +2,6 @@ package tactics
 
 import (
 	"testing"
-
-	"github.com/notnil/chess"
 )
 
 func TestClassify(t *testing.T) {
@@ -43,60 +41,61 @@ func TestClassify(t *testing.T) {
 	}
 }
 
-// mockEval returns a canned mate at one specific position, and quiet evals
-// everywhere else — so detection is verified without a real engine.
-type mockEval struct{ tacticFEN, playedUCI string }
+// mockEval returns a canned decisive line at one specific position, and quiet
+// evals everywhere else — so detection is verified without a real engine.
+type mockEval struct {
+	tacticFEN, playedUCI string
+	pv                   []string
+	cp                   int
+}
 
 func (m mockEval) Lines(fen string, _ int) ([]Line, error) {
 	if fen == m.tacticFEN {
-		return []Line{{Mate: 1, PV: []string{m.playedUCI}}, {CP: 50}}, nil
+		return []Line{{CP: m.cp, PV: m.pv}, {CP: 40}}, nil
 	}
 	return []Line{{CP: 20}, {CP: 10}}, nil
 }
 func (m mockEval) Move(fen, _ string) (Line, error) {
 	if fen == m.tacticFEN {
-		return Line{Mate: 1}, nil
+		return Line{CP: m.cp}, nil
 	}
 	return Line{CP: 15}, nil
 }
 
-func TestAnalyzeGameFindsPlayedMate(t *testing.T) {
-	// Fool's mate: Alexandre is Black and plays Qh4#.
-	setup := chess.NewGame()
-	for _, m := range []string{"f3", "e5", "g4"} {
-		if err := setup.MoveStr(m); err != nil {
-			t.Fatal(err)
-		}
-	}
-	tacticFEN := setup.Position().String()
+func TestAnalyzeGameFindsTactic(t *testing.T) {
+	// A 3-ply forcing win: Ra8+ Kh7 Rxh8+ (check, forced reply, capture+check).
+	// One-movers are filtered, so this exercises the ≥3-ply path end to end.
+	fen := "6kr/5pp1/7p/8/8/8/8/R3K3 w - - 0 1"
+	line := []string{"a1a8", "g8h7", "a8h8"}
+	pgn := "[SetUp \"1\"]\n[FEN \"" + fen + "\"]\n\n1. Ra8+ Kh7 2. Rxh8+ *\n"
+	game := Game{PGN: pgn, MyColor: "white", Source: "lichess"}
+	ev := mockEval{tacticFEN: fen, playedUCI: "a1a8", pv: line, cp: 500}
 
-	game := Game{
-		PGN:     `[Event "?"]` + "\n\n" + `1. f3 e5 2. g4 Qh4# 0-1`,
-		MyColor: "black",
-		Source:  "lichess",
-	}
-	tactics, err := AnalyzeGame(mockEval{tacticFEN: tacticFEN, playedUCI: "d8h4"}, game)
+	tactics, err := AnalyzeGame(ev, game)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(tactics) != 1 {
 		t.Fatalf("want exactly 1 tactic, got %d: %+v", len(tactics), tactics)
 	}
-	if tactics[0].Kind != "played" || !tactics[0].Mate {
-		t.Fatalf("want played mate, got kind=%q mate=%v", tactics[0].Kind, tactics[0].Mate)
+	if got := len(tactics[0].Solution); got != 3 {
+		t.Fatalf("want a 3-ply solution, got %d: %v", got, tactics[0].Solution)
+	}
+	if tactics[0].Sacrifice {
+		t.Fatalf("winning a rook is not a sacrifice, but it was tagged as one")
 	}
 
-	// End-to-end: the published puzzle must be mirrored (Black-to-move original
-	// → White-to-move puzzle) with the solution mirrored too.
-	puzzles := TopPuzzles(mockEval{tacticFEN: tacticFEN, playedUCI: "d8h4"}, []Game{game}, 10)
+	// End-to-end: the published puzzle is mirrored (White-to-move original →
+	// Black-to-move puzzle) and stays 3-ply.
+	puzzles := TopPuzzles(ev, []Game{game}, 10)
 	if len(puzzles) != 1 {
 		t.Fatalf("want 1 puzzle, got %d", len(puzzles))
 	}
-	if puzzles[0].SideToMove != "w" {
-		t.Fatalf("original was Black to move → puzzle should be White to move, got %q", puzzles[0].SideToMove)
+	if puzzles[0].SideToMove != "b" {
+		t.Fatalf("original White to move → mirrored puzzle should be Black to move, got %q", puzzles[0].SideToMove)
 	}
-	if puzzles[0].Solution[0] != "d1h5" { // d8h4 mirrored
-		t.Fatalf("solution not mirrored: got %v", puzzles[0].Solution)
+	if len(puzzles[0].Solution) != 3 {
+		t.Fatalf("mirrored solution should stay 3-ply, got %v", puzzles[0].Solution)
 	}
 }
 

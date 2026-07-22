@@ -16,6 +16,7 @@ const (
 	foundEps   = 40  // best − played ≤ this → he found it
 
 	maxSolutionPlies = 7   // published solution length cap — keep puzzles SHORT
+	minSolutionPlies = 3   // drop trivial one-movers (mate-in-1 / single winning check)
 	sacThreshold     = 200 // end-of-line material deficit (cp) to count as a real sac
 )
 
@@ -100,8 +101,9 @@ func AnalyzeGame(ev Evaluator, g Game) ([]Tactic, error) {
 			continue
 		}
 		// Publish only the FORCING line, ending on the solver's decisive blow.
+		// Skip one-movers — too trivial for the target audience.
 		sol := truncatePV(forcingLine(fen, best.PV), maxSolutionPlies)
-		if len(sol) == 0 {
+		if len(sol) < minSolutionPlies {
 			continue
 		}
 		sac := detectSacrifice(fen, sol)
