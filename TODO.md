@@ -18,24 +18,28 @@ dans **[`done.md`](./done.md)** (une ligne par élément, pour référence). Der
 
 ---
 
+## ✅ Site déployé & vérifié en ligne (2026-07-22)
+Réservation, analytics, anti-spam, EN complet, tactiques : **tout est live et testé**
+(cf. `done.md`). Le **backlog de code autonome est vide**. La suite = **toi** (ci-dessous).
+
+---
+
 ## 🔴 Actions immédiates (toi)
 
-- [ ] **⭐ DÉPLOYER le conteneur Jelastic sur le dernier `:latest`/tag** (`v0.2.7`).
-      Met en ligne : fix Debian, stats + `/admin`, newsletter, accusé de réception,
-      EN complet + blog bilingue, tarif groupe, adresse + pin, échiquier + détection tactiques.
-- [ ] **Auto-republish Jelastic — OPTION A (recommandée)** : activer **Automatic Updates**
-      sur le conteneur Chess (dashboard → réglages du nœud → Automatic Updates), intervalle
-      quotidien/horaire, tag **`:latest`**. Jelastic compare le digest de `:latest` et
-      **redéploie tout seul** quand il change (après le push du cron), **volumes `/data`
-      préservés**. → l'article tactiques du lundi part en ligne sans intervention.
-      (Option B, immédiat via API Jelastic depuis GitHub Actions : dispo si besoin, nécessite
-      un token API en secret GitHub — non fait, l'option A suffit pour du hebdo.)
+- [ ] **⚠️ DÉLIVRABILITÉ E-MAIL (mails en spam)** : la confirmation de résa arrive bien
+      mais **tombe en spam** (testé). Correctif = **SPF + DKIM + DMARC** pour iwanesko.ch
+      chez Infomaniak (Manager → service Mail → SPF/DKIM souvent en 1 clic si le DNS est
+      chez eux) + record DMARC. **Vérifier le score sur mail-tester.com**. (Le code envoie
+      déjà correctement + Message-ID ajouté ; le reste est du DNS.)
+- [ ] **Confirmer la date d'ouverture** des résas = **10 août 2026** (sinon `BOOKING_MIN_DATE`).
+- [ ] **Auto-update Jelastic (Option A)** : activer **Automatic Updates** sur le conteneur
+      Chess (tag `:latest`, intervalle quotidien) → l'article tactiques du lundi + les futurs
+      builds partent en ligne sans intervention (volumes `/data` préservés).
 - [ ] **Secrets GitHub pour le cron tactiques** (Settings → Secrets → Actions) :
-      `CHESSCOM_USERNAME`, `LICHESS_USERNAME` (+ `LICHESS_TOKEN` facultatif). Sans eux,
-      le cron du lundi échoue. (La régénération manuelle locale, elle, tourne déjà.)
-- [ ] **Google Business Profile** : créer/aligner (NAP **identique** au footer :
-      Route de Florissant 2, 1206 Genève) → *local pack* « coach échecs Genève ».
-- [ ] **Search Console** : Inspection d'URL → **Demander l'indexation** des pages clés.
+      `CHESSCOM_USERNAME`, `LICHESS_USERNAME` (+ `LICHESS_TOKEN`). Sans eux, le cron du lundi échoue.
+- [ ] **Google Business Profile** (NAP **identique** au footer : Route de Florissant 2,
+      1206 Genève) → *local pack* « coach échecs Genève ».
+- [ ] **Search Console** : demander l'indexation des pages clés + **valider les corrections Event**.
 - [ ] **Retirer le bandeau « site en construction »** au lancement (`<SiteBanner/>` dans `Layout.tsx`).
 
 ---

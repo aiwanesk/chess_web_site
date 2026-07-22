@@ -4,6 +4,10 @@ Ce fichier liste ce qui est **fait** (référencé depuis `TODO.md`, qui ne gard
 le reste-à-faire). Une ligne = une chose terminée ; le détail est dans le code et
 l'historique git. Dernière mise à jour : 2026-07-22.
 
+> ✅ **DÉPLOYÉ ET VÉRIFIÉ EN LIGNE** (2026-07-22) : `iwanesko.ch/reserver` (200),
+> `/api/booking-config` (`minDate: 2026-08-10`, min 1h, 120 CHF/h), `/.well-known/security.txt`
+> répondent correctement. Toutes les features (réservation, analytics, anti-spam) sont live.
+
 ## Socle / infra
 - **Site + SSG** : toutes les routes pré-rendues (meta + JSON-LD), design premium,
   logo/favicon, maillage interne. Backend Go (chi) sert le front embarqué (`go:embed`).
