@@ -15,7 +15,7 @@ image: "/images/blog/pontevedra-2026/og-pontevedra.svg"
 
 Du **25 au 31 juillet 2026**, la ville de **Pontevedra** (Galice, Espagne) accueille un Open international d'échecs réunissant plus de 100 joueurs venus de toute l'Europe et d'Amérique latine. Cadence classique FIDE, 9 rondes, un plateau relevé.
 
-Mon objectif : gagner du Elo, enchaîner des parties solides et continuer à progresser contre des joueurs titrés.
+Mes objectifs : prendre du plaisir à jouer, ne pas saccager des positions égales, et être solide.
 
 ---
 
