@@ -131,7 +131,7 @@ Partie en cours contre un **jeune Maître International colombien**. Mise à jou
       <td style="padding:0.75rem 1rem;">Roselli Mailhe, Bernardo</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127486;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2310</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
     </tr>
     <tr style="background:#f7f4ee;">
