@@ -97,41 +97,51 @@ Partie en cours contre un **jeune Maître International colombien**. Mise à jou
 <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:0.75rem;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);font-size:0.95rem;">
   <thead>
     <tr style="background:#1a1a1a;color:#f5f0e8;">
-      <th style="padding:0.85rem 1.2rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Ronde</th>
-      <th style="padding:0.85rem 1.2rem;text-align:left;font-weight:600;letter-spacing:0.02em;">Adversaire</th>
-      <th style="padding:0.85rem 1.2rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Elo</th>
-      <th style="padding:0.85rem 1.2rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Couleur</th>
-      <th style="padding:0.85rem 1.2rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Résultat</th>
+      <th style="padding:0.85rem 1rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Rd</th>
+      <th style="padding:0.85rem 0.8rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Titre</th>
+      <th style="padding:0.85rem 1rem;text-align:left;font-weight:600;letter-spacing:0.02em;">Adversaire</th>
+      <th style="padding:0.85rem 0.6rem;text-align:center;font-weight:600;letter-spacing:0.02em;"></th>
+      <th style="padding:0.85rem 1rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Elo</th>
+      <th style="padding:0.85rem 0.8rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Couleur</th>
+      <th style="padding:0.85rem 1rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Résultat</th>
     </tr>
   </thead>
   <tbody>
     <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-weight:700;">1</td>
-      <td style="padding:0.75rem 1.2rem;">Jeune Portugais</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-family:monospace;">1800</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">1 — 0</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">1</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td style="padding:0.75rem 1rem;">Montenegro, Matias</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1812</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">1 — 0</span></td>
     </tr>
     <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-weight:700;">2</td>
-      <td style="padding:0.75rem 1.2rem;">Espoir espagnol</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-family:monospace;">2365</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;">&#9823;</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">2</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td style="padding:0.75rem 1rem;">Tabuenca Mendataurigoitia, Daniel</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2365</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
     </tr>
     <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-weight:700;">3</td>
-      <td style="padding:0.75rem 1.2rem;">MI uruguayen</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-family:monospace;">2310</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">3</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td style="padding:0.75rem 1rem;">Roselli Mailhe, Bernardo</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127486;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2310</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
     </tr>
     <tr style="background:#f7f4ee;">
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-weight:700;">4</td>
-      <td style="padding:0.75rem 1.2rem;">MI colombien</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;font-family:monospace;">—</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;">&#9823;</td>
-      <td style="padding:0.75rem 1.2rem;text-align:center;"><span style="background:#d97706;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">En cours</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">4</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td style="padding:0.75rem 1rem;">Cordoba Roa, Angel Gabriel</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127464;&#127476;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2334</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#d97706;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">En cours</span></td>
     </tr>
   </tbody>
 </table>
