@@ -19,7 +19,7 @@ Mes objectifs : prendre du plaisir à jouer, ne pas saccager des positions égal
 
 ---
 
-## Ronde 1 — Victoire technique contre un jeune Portugais (1800)
+## Ronde 1 — Partie technique contre un jeune Portugais
 
 **Date :** Vendredi 25 juillet 2026
 
@@ -38,7 +38,7 @@ Une première ronde de mise en jambes face à un jeune joueur portugais classé 
 
 ---
 
-## Ronde 2 — Défense solide face à un espoir espagnol (2365)
+## Ronde 2 — Défense solide face à un espoir espagnol
 
 **Date :** Samedi 26 juillet 2026
 
@@ -57,7 +57,7 @@ Changement de registre radical. Face à un jeune espoir espagnol classé **2365 
 
 ---
 
-## Ronde 3 — Nulle solide contre un MI uruguayen (2310)
+## Ronde 3 — Face à un MI uruguayen expérimenté
 
 **Date :** Samedi 26 juillet 2026 (après-midi)
 
@@ -76,7 +76,7 @@ Affrontement contre un **Maître International expérimenté** d'Uruguay, class�
 
 ---
 
-## Ronde 4 — Quand on se prend pour Tal (0-1 vs IM Cordoba Roa)
+## Ronde 4 — Quand on se prend pour Tal
 
 **Date :** Dimanche 27 juillet 2026
 
@@ -91,7 +91,7 @@ Une Najdorf des deux côtés de l'échiquier. J'obtiens un avantage stratégique
 
 ---
 
-## Ronde 5 — Contre-grind à l'expérience (1-0 vs Rey Chimera)
+## Ronde 5 — Contre-grind à l'expérience
 
 **Date :** Lundi 28 juillet 2026
 
@@ -111,7 +111,7 @@ Après la défaite de la veille, il fallait rebondir. Face à un jeune espagnol 
 
 ---
 
-## Ronde 6 — Grindé par l'énergie d'un jeune (0-1 vs FM Casalaspro)
+## Ronde 6 — Grindé par l'énergie d'un jeune
 
 **Date :** Lundi 28 juillet 2026 (après-midi)
 
@@ -149,7 +149,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1812</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">1 — 0</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
     <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">2</td>
@@ -158,7 +158,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2365</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
     <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">3</td>
@@ -167,7 +167,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127486;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2310</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
     <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">4</td>
@@ -176,7 +176,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127464;&#127476;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2334</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">0 — 1</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
     <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">5</td>
@@ -185,7 +185,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2076</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">1 — 0</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
     <tr style="background:#f7f4ee;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">6</td>
@@ -193,8 +193,8 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 1rem;">Casalaspro, Mathias Andre</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127463;&#127479;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2340</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">0 — 1</span></td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
   </tbody>
 </table>
