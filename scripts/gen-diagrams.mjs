@@ -146,9 +146,24 @@ const diagrams = [
   },
   {
     file: 'ronde4-diagramme.svg',
-    fen: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2',
-    lastMove: 'g8f6',
-  }
+    fen: 'r1b2rk1/1pq1bppp/p1nppn2/8/3NPP2/2N1B3/PPP1B1PP/R2Q1RK1 w - - 0 12',
+    lastMove: 'e7e6',
+  },
+  {
+    file: 'ronde5-diagramme1.svg',
+    fen: 'r4rk1/pp2bppp/2p1pn2/q2p4/3P1B2/2NBPN2/PP3PPP/R2Q1RK1 w - - 0 12',
+    lastMove: 'a7a5',
+  },
+  {
+    file: 'ronde5-diagramme2.svg',
+    fen: 'r4rk1/1p2bppp/2p1pn2/p2pN3/3P1B2/2NBP3/PP3PPP/R2Q1RK1 b - - 1 13',
+    lastMove: 'f3e5',
+  },
+  {
+    file: 'ronde6-diagramme.svg',
+    fen: 'rn1qkb1r/pp2pppp/2p2n2/3p1b2/3P4/2N2N2/PPP1BPPP/R1BQK2R w KQkq - 2 5',
+    lastMove: 'c8f5',
+  },
 ];
 
 console.log('Generating diagrams with official Lichess cburnett pieces…\n');

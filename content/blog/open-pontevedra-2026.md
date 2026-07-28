@@ -76,18 +76,53 @@ Affrontement contre un **Maître International expérimenté** d'Uruguay, class�
 
 ---
 
-## Ronde 4 — En cours contre un jeune MI colombien
+## Ronde 4 — Quand on se prend pour Tal (0-1 vs IM Cordoba Roa)
 
 **Date :** Dimanche 27 juillet 2026
 
-Partie en cours contre un **jeune Maître International colombien**. Mise à jour dès la fin de la ronde.
+Une Najdorf des deux côtés de l'échiquier. J'obtiens un avantage stratégique clair — meilleure structure, pièces mieux coordonnées. Et c'est là que ça dérape : au lieu de convertir tranquillement, je me prends pour Tal et je lance un sacrifice douteux. Le MI colombien défend froidement et punit l'excès d'optimisme.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme.svg" alt="Ronde 4 — partie en cours" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position en cours — analyse à venir.</p>
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme.svg" alt="Ronde 4 — position dominante avant le sacrifice raté" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position dominante avant le sacrifice — il fallait simplement maintenir la pression.</p>
 </div>
 
-*Article mis à jour après chaque ronde.*
+**Leçon :** ne pas saccager une position égale ou supérieure par impatience. Quand on domine stratégiquement, on convertit — on n'improvise pas des sacrifices à la Tal.
+
+---
+
+## Ronde 5 — Contre-grind à l'expérience (1-0 vs Rey Chimera)
+
+**Date :** Lundi 28 juillet 2026
+
+Après la défaite de la veille, il fallait rebondir. Face à un jeune espagnol classé 2076, je joue l'ouverture en autopilote — pas le choix, il faut économiser l'énergie. Mais l'expérience fait la différence dans le milieu de jeu : je le contre-grind patiemment, provoque des imprécisions et convertis proprement.
+
+<div class="diagram-container" style="text-align:center;margin:2rem 0;">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme1.svg" alt="Ronde 5 — pression positionnelle croissante" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">La pression positionnelle s'accumule — les Blancs prennent le contrôle.</p>
+</div>
+
+<div class="diagram-container" style="text-align:center;margin:2rem 0;">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme2.svg" alt="Ronde 5 — conversion technique" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Conversion propre — l'expérience fait la différence.</p>
+</div>
+
+**Leçon :** après une défaite, ne pas chercher à se venger sur l'échiquier — jouer solide, laisser l'adversaire craquer.
+
+---
+
+## Ronde 6 — Grindé par l'énergie d'un jeune (0-1 vs FM Casalaspro)
+
+**Date :** Lundi 28 juillet 2026 (après-midi)
+
+Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brésilien ne lâche rien — il grind, grind, grind avec une énergie inépuisable. À un moment, la fatigue s'installe et les imprécisions s'accumulent. Il finit par trouver une brèche et convertir.
+
+<div class="diagram-container" style="text-align:center;margin:2rem 0;">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme.svg" alt="Ronde 6 — position égale qui s'effrite" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position égale — mais l'énergie du jeune Brésilien fera la différence.</p>
+</div>
+
+**Leçon :** l'énergie physique est un facteur concret en tournoi. Contre un jeune qui grind, il faut simplifier et ne pas se laisser entraîner dans des complications inutiles.
 
 ---
 
@@ -134,14 +169,32 @@ Partie en cours contre un **jeune Maître International colombien**. Mise à jou
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">½ — ½</span></td>
     </tr>
-    <tr style="background:#f7f4ee;">
+    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">4</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
       <td style="padding:0.75rem 1rem;">Cordoba Roa, Angel Gabriel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127464;&#127476;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2334</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
-      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#d97706;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">En cours</span></td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">0 — 1</span></td>
+    </tr>
+    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">5</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td style="padding:0.75rem 1rem;">Rey Chimera, Luca</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2076</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">1 — 0</span></td>
+    </tr>
+    <tr style="background:#f7f4ee;">
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">6</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td style="padding:0.75rem 1rem;">Casalaspro, Mathias Andre</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127463;&#127479;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2340</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">0 — 1</span></td>
     </tr>
   </tbody>
 </table>
@@ -149,10 +202,13 @@ Partie en cours contre un **jeune Maître International colombien**. Mise à jou
 
 ---
 
-## Ce que j'en retiens (à mi-parcours)
+## Ce que j'en retiens (après 6 rondes)
 
-1. **La technique paie** — pas besoin de coups brillants, la précision suffit.
-2. **La défense est une arme** — contre les plus forts, tenir solidement crée des opportunités.
-3. **Accepter la nulle au bon moment** — un demi-point contre un MI, c'est un résultat positif.
+1. **Ne pas saccager les positions gagnantes** — la ronde 4 le prouve : quand on domine, on convertit, on n'improvise pas.
+2. **L'expérience est une arme** — la ronde 5 montre qu'en contre-grindant patiemment, les jeunes finissent par craquer.
+3. **L'énergie physique compte** — la ronde 6 rappelle que face à un jeune qui grind, la fatigue est un facteur réel.
+4. **La défense est sous-cotée** — les nulles contre le FM espagnol et le MI uruguayen sont des demi-points solides.
 
-*Prochain update : résultat de la ronde 4 et suite du tournoi.*
+**Score : 3/6** — le tournoi continue, tout reste à jouer.
+
+*Prochain update : rondes 7 à 9.*
