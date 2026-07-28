@@ -126,6 +126,21 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
 
 ---
 
+## Ronde 7 — Manque de réussite et de technique
+
+**Date :** Lundi 28 juillet 2026 (soir)
+
+Une partie frustrante. La position offre des possibilités, mais la réussite n'est pas au rendez-vous et la technique fait défaut dans les moments clés. Le genre de nulle qui laisse un goût amer — on sent qu'il y avait mieux à faire, mais l'exécution ne suit pas.
+
+<div class="diagram-container" style="text-align:center;margin:2rem 0;">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme.svg" alt="Ronde 7 — position prometteuse mal exploitée" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position où la technique devait faire la différence — mais pas cette fois.</p>
+</div>
+
+**Leçon :** la technique en finale ne s'improvise pas — c'est un travail de fond qui se prépare à la maison, pas sur l'échiquier en tournoi.
+
+---
+
 ## Bilan provisoire
 
 <div style="overflow-x:auto;margin:2rem 0;">
@@ -187,7 +202,7 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
-    <tr style="background:#f7f4ee;">
+    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">6</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
       <td style="padding:0.75rem 1rem;">Casalaspro, Mathias Andre</td>
@@ -196,19 +211,29 @@ Caro-Kann. J'égalise vite, la position est confortable. Mais le jeune FM brési
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
+    <tr style="background:#fdfbf7;">
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">7</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td style="padding:0.75rem 1rem;">Del Valle Crespo, Javier</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2074</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
+    </tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Ce que j'en retiens (après 6 rondes)
+## Ce que j'en retiens (après 7 rondes)
 
 1. **Ne pas saccager les positions gagnantes** — la ronde 4 le prouve : quand on domine, on convertit, on n'improvise pas.
 2. **L'expérience est une arme** — la ronde 5 montre qu'en contre-grindant patiemment, les jeunes finissent par craquer.
 3. **L'énergie physique compte** — la ronde 6 rappelle que face à un jeune qui grind, la fatigue est un facteur réel.
-4. **La défense est sous-cotée** — les nulles contre le FM espagnol et le MI uruguayen sont des demi-points solides.
+4. **La technique se travaille à la maison** — la ronde 7 montre que le manque de technique en finale coûte des demi-points.
+5. **La défense est sous-cotée** — les nulles contre le FM espagnol et le MI uruguayen sont des demi-points solides.
 
-**Score : 3/6** — le tournoi continue, tout reste à jouer.
+**Score : 3.5/7** — deux rondes à jouer.
 
-*Prochain update : rondes 7 à 9.*
+*Prochain update : rondes 8 et 9.*

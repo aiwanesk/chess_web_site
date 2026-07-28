@@ -164,6 +164,11 @@ const diagrams = [
     fen: 'rn1qkb1r/pp2pppp/2p2n2/3p1b2/3P4/2N2N2/PPP1BPPP/R1BQK2R w KQkq - 2 5',
     lastMove: 'c8f5',
   },
+  {
+    file: 'ronde7-diagramme.svg',
+    fen: '3r2k1/pp3ppp/2p2n2/4p3/4P3/2N2P2/PPP3PP/3R2K1 w - - 0 20',
+    lastMove: 'f8d8',
+  },
 ];
 
 console.log('Generating diagrams with official Lichess cburnett pieces…\n');
