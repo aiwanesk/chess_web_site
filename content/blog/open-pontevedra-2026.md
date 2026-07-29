@@ -141,6 +141,21 @@ Une partie frustrante. La position offre des possibilités, mais la réussite n'
 
 ---
 
+## Ronde 8 — À mon tour de grind
+
+**Date :** Mardi 29 juillet 2026
+
+Après avoir subi le grind en ronde 6, c'est à mon tour de l'infliger. Face à un joueur portugais classé 1907, je m'installe dans la position et je presse sans relâche. Pas de coup spectaculaire, juste de la pression constante, des petites menaces qui s'accumulent, et un adversaire qui finit par craquer sous le poids de la position.
+
+<div class="diagram-container" style="text-align:center;margin:2rem 0;">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme.svg" alt="Ronde 8 — pression constante sur la position adverse" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Pression constante — le grind finit par payer.</p>
+</div>
+
+**Leçon :** le grind, c'est dans les deux sens. Quand on a l'énergie et la position, il faut savoir l'imposer à l'adversaire.
+
+---
+
 ## Bilan provisoire
 
 <div style="overflow-x:auto;margin:2rem 0;">
@@ -211,7 +226,7 @@ Une partie frustrante. La position offre des possibilités, mais la réussite n'
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
-    <tr style="background:#fdfbf7;">
+    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">7</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
       <td style="padding:0.75rem 1rem;">Del Valle Crespo, Javier</td>
@@ -220,20 +235,29 @@ Une partie frustrante. La position offre des possibilités, mais la réussite n'
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
+    <tr style="background:#f7f4ee;">
+      <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">8</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td style="padding:0.75rem 1rem;">Tenreiro, Manuel</td>
+      <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1907</td>
+      <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
+      <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
+    </tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Ce que j'en retiens (après 7 rondes)
+## Ce que j'en retiens (après 8 rondes)
 
 1. **Ne pas saccager les positions gagnantes** — la ronde 4 le prouve : quand on domine, on convertit, on n'improvise pas.
 2. **L'expérience est une arme** — la ronde 5 montre qu'en contre-grindant patiemment, les jeunes finissent par craquer.
 3. **L'énergie physique compte** — la ronde 6 rappelle que face à un jeune qui grind, la fatigue est un facteur réel.
 4. **La technique se travaille à la maison** — la ronde 7 montre que le manque de technique en finale coûte des demi-points.
-5. **La défense est sous-cotée** — les nulles contre le FM espagnol et le MI uruguayen sont des demi-points solides.
+5. **Le grind, ça marche dans les deux sens** — la ronde 8 prouve qu'on peut aussi être celui qui impose la pression.
 
-**Score : 3.5/7** — deux rondes à jouer.
+**Score : 4.5/8** — dernière ronde à jouer.
 
-*Prochain update : rondes 8 et 9.*
+*Prochain update : ronde 9 et bilan final.*
