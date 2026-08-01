@@ -7,6 +7,7 @@ category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/preparation-tournoi-echecs"
 image: "/images/blog/pontevedra-2026/og-pontevedra.svg"
+altSlug: "open-pontevedra-2026"
 ---
 
 **En une phrase :** un Open international dense à Pontevedra avec des adversaires de tous horizons — Portugal, Espagne, Uruguay, Colombie — et des leçons techniques à chaque ronde.
