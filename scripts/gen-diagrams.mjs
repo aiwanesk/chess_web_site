@@ -129,14 +129,40 @@ function generateBoardSVG(fen, options = {}) {
 
 const diagrams = [
   {
-    file: 'ronde1-diagramme.svg',
-    fen: 'r2r2k1/pp2bppp/2n1p3/3pP3/3P1B2/2NB4/PP3PPP/R4RK1 w - - 0 24',
-    lastMove: 'c1f4',
+    file: 'ronde1-diagramme1.svg',
+    fen: 'r1bq1rk1/p3npb1/1pnp2pp/1Pp1p3/2P5/P1NP1NP1/4PPBP/1RBQ1RK1 b - - 0 11',
+    lastMove: 'a4b5',
   },
   {
-    file: 'ronde2-diagramme.svg',
-    fen: 'r1bqk2r/pp3ppp/2nbpn2/3p4/3P1B2/2N1PN2/PP2BPPP/R2QK2R b KQkq - 0 18',
-    lastMove: 'f1e2',
+    file: 'ronde1-diagramme2.svg',
+    fen: '2bq1rk1/p3npb1/1p1p2pp/1Pp5/2P5/P1pP2P1/4PPBP/1RBQ1RK1 b - - 1 14',
+  },
+  {
+    file: 'ronde1-diagramme3.svg',
+    fen: '5k2/p2b1p2/1p4p1/7p/3BP3/P2P2P1/4KP1P/8 w - - 1 31',
+  },
+  {
+    file: 'ronde1-diagramme4.svg',
+    fen: '8/p4p2/1p1k1Bp1/3P3p/4PKPP/P4P2/8/7b b - - 0 38',
+  },
+  {
+    file: 'ronde2-diagramme1.svg',
+    fen: '1rr5/pp3p1p/4nkp1/8/8/1P4P1/P3RPBP/R6K b - - 1 22',
+    flip: true,
+  },
+  {
+    file: 'ronde2-diagramme2.svg',
+    fen: '8/5p2/1p1rnkpp/p1r5/P1B4P/1P2R1P1/5PK1/4R3 b - - 2 29',
+    flip: true,
+  },
+  {
+    file: 'ronde2-diagramme3.svg',
+    fen: '8/5p2/1p1rnk1p/p1r3p1/P1B3PP/1P2R1K1/5P2/4R3 w - - 0 32',
+    flip: true,
+  },
+  {
+    file: 'ronde2-diagramme4.svg',
+    fen: '8/5p2/1p2nk1p/p1r3p1/P1BrR1PP/1P4K1/5P2/4R3 w - - 2 33',
     flip: true,
   },
   {
@@ -145,34 +171,145 @@ const diagrams = [
     lastMove: 'd1c2',
   },
   {
-    file: 'ronde4-diagramme.svg',
-    fen: 'r1b2rk1/1pq1bppp/p1nppn2/8/3NPP2/2N1B3/PPP1B1PP/R2Q1RK1 w - - 0 12',
-    lastMove: 'e7e6',
+    file: 'ronde4-diagramme1.svg',
+    fen: 'r1r3k1/1pq1bppp/p2pbn2/4p3/P3P3/1PNQ2PP/2PB1PB1/R3R1K1 b - - 0 15',
+  },
+  {
+    file: 'ronde4-diagramme2.svg',
+    fen: 'r1r3k1/1pq2ppp/pb1pbn2/4p3/P3PP2/1P1Q2PP/2PBN1BK/R1R5 b - - 2 19',
+  },
+  {
+    file: 'ronde4-diagramme3.svg',
+    fen: 'r2r2k1/1p3pp1/p1q1bn1p/8/P1P1pP2/1P2Q1PP/4N1BK/R1R5 b - - 2 28',
+  },
+  {
+    file: 'ronde4-diagramme4.svg',
+    fen: '3r2k1/1p3pp1/p1q2n1p/8/P1P1pP2/1P1r2PB/4NQ1K/R1R5 w - - 3 31',
   },
   {
     file: 'ronde5-diagramme1.svg',
-    fen: 'r4rk1/pp2bppp/2p1pn2/q2p4/3P1B2/2NBPN2/PP3PPP/R2Q1RK1 w - - 0 12',
-    lastMove: 'a7a5',
+    fen: 'r4rk1/pp2b1pp/1nq2p2/2p1p3/2P1P3/1P2NPP1/1B4KP/R3QR2 b - - 0 19',
   },
   {
     file: 'ronde5-diagramme2.svg',
-    fen: 'r4rk1/1p2bppp/2p1pn2/p2pN3/3P1B2/2NBP3/PP3PPP/R2Q1RK1 b - - 1 13',
-    lastMove: 'f3e5',
+    fen: 'r2r2k1/1p1q2pp/3b1p2/p1pP4/2P1R3/1P4P1/1B2Q1KP/R7 b - - 2 25',
   },
   {
-    file: 'ronde6-diagramme.svg',
-    fen: 'rn1qkb1r/pp2pppp/2p2n2/3p1b2/3P4/2N2N2/PPP1BPPP/R1BQK2R w KQkq - 2 5',
-    lastMove: 'c8f5',
+    file: 'ronde5-diagramme3.svg',
+    fen: '4R3/1p1q1kpp/3b1p2/r1pP4/2P5/1P4P1/1B2Q1KP/8 w - - 1 28',
   },
   {
-    file: 'ronde7-diagramme.svg',
-    fen: '3r2k1/pp3ppp/2p2n2/4p3/4P3/2N2P2/PPP3PP/3R2K1 w - - 0 20',
-    lastMove: 'f8d8',
+    file: 'ronde5-diagramme4.svg',
+    fen: '5k2/1p1q2pp/3bRp2/2pP4/2P5/1P4P1/rBQ4P/6K1 b - - 6 30',
   },
   {
-    file: 'ronde8-diagramme.svg',
-    fen: '2r3k1/1p3ppp/p1b1pn2/2Pp4/1P1P4/P3PN2/5PPP/2R2BK1 w - - 0 18',
-    lastMove: 'b8c8',
+    file: 'ronde5-diagramme5.svg',
+    fen: '6k1/6p1/2R4p/2pP4/2P5/6P1/r6P/6K1 b - - 0 38',
+  },
+  {
+    file: 'ronde6-diagramme1.svg',
+    fen: 'r1bqk1nr/1p2p1bp/p1n3p1/4P3/3p1B2/5N1P/PP2NPP1/R2QKB1R b KQkq - 1 11',
+  },
+  {
+    file: 'ronde6-diagramme2.svg',
+    fen: 'r1b1k1nr/1p2p2p/p5p1/8/3N4/7P/PP3PP1/R3KB1R b KQkq - 0 16',
+    flip: true,
+  },
+  {
+    file: 'ronde6-diagramme3.svg',
+    fen: '4k3/1p2p2p/p2n2p1/8/2r3P1/7P/PPN1RPK1/8 b - - 6 30',
+    flip: true,
+  },
+  {
+    file: 'ronde6-diagramme4.svg',
+    fen: '8/1p2k2p/p3p1n1/6p1/6P1/6NP/PP1R1PK1/2r5 w - - 10 39',
+    flip: true,
+  },
+  {
+    file: 'ronde6-diagramme5.svg',
+    fen: '8/1p2k2p/p3p1n1/6p1/6P1/5K1P/PP1RNP2/4r3 b - - 17 42',
+    flip: true,
+  },
+  {
+    file: 'ronde6-diagramme6.svg',
+    fen: '8/1p5p/p3pkn1/6p1/6P1/5PKP/PP1RN3/7r w - - 1 46',
+    flip: true,
+  },
+  {
+    file: 'ronde7-diagramme1.svg',
+    fen: '1rbq1rk1/3nbpp1/2n1p2p/2ppP2P/1p6/3P1NP1/1PP2PB1/R1BQRNK1 w - - 0 15',
+  },
+  {
+    file: 'ronde7-diagramme2.svg',
+    fen: '2b1qrk1/4b1p1/2n1p2p/2ppN2P/5B2/2PP2PB/5P2/3QR1K1 b - - 4 25',
+  },
+  {
+    file: 'ronde7-diagramme3.svg',
+    fen: '2b3k1/3q2p1/4pr1p/3pR2P/3P4/6PB/4QP2/6K1 b - - 0 31',
+  },
+  {
+    file: 'ronde7-diagramme4.svg',
+    fen: 'R7/3b2pk/4pr1p/3p3P/2qP4/2Q3PB/5P2/6K1 w - - 13 38',
+  },
+  {
+    file: 'ronde7-diagramme5.svg',
+    fen: '4b3/3r3k/4p2p/6pP/2RP4/6P1/5PB1/6K1 w - - 1 43',
+  },
+  {
+    file: 'ronde7-diagramme6.svg',
+    fen: '8/5k2/8/5R1P/3pr1p1/6P1/5P2/5K2 b - - 1 53',
+  },
+  {
+    file: 'ronde7-diagramme7.svg',
+    fen: '8/8/4k3/4r2P/3p1Rp1/6P1/5P2/5K2 w - - 4 55',
+  },
+  {
+    file: 'ronde7-diagramme8.svg',
+    fen: '8/4r3/7P/5k2/3R2p1/6P1/5P2/5K2 w - - 1 57',
+  },
+  {
+    file: 'ronde8-diagramme1.svg',
+    fen: 'r2q1rk1/1p2bppp/p1npb3/2nNp3/2P1P3/2NBB3/PP3PPP/R2Q1RK1 w - - 12 13',
+  },
+  {
+    file: 'ronde8-diagramme2.svg',
+    fen: 'r2q1rk1/1p2bppp/p1n1b3/2p1p3/2P1P3/2NBB3/P4PPP/1R1Q1RK1 w - - 0 16',
+  },
+  {
+    file: 'ronde8-diagramme3.svg',
+    fen: 'r2q1rk1/1p3ppp/p3b3/2b1p3/1NP1P3/3B4/P4PPP/1R1Q1RK1 b - - 0 18',
+  },
+  {
+    file: 'ronde8-diagramme4.svg',
+    fen: '2b2rk1/1p3pp1/p2r4/2bNp2p/2P1P3/3B2PP/P5P1/1R3R1K b - - 0 24',
+  },
+  {
+    file: 'ronde8-diagramme5.svg',
+    fen: '2b2r2/1p3pk1/p2r2p1/2bNp2p/2P1P3/3B1RPP/P5P1/5R1K b - - 3 26',
+  },
+  {
+    file: 'ronde8-diagramme6.svg',
+    fen: '1r6/5pk1/p3b1p1/1p1Np3/2PbP3/7P/P3B1P1/5R1K b - - 1 33',
+  },
+  {
+    file: 'ronde8-diagramme7.svg',
+    fen: '8/5pk1/B3b1p1/3Np3/3bP3/7P/r5P1/5R1K w - - 0 36',
+  },
+  {
+    file: 'ronde9-diagramme1.svg',
+    fen: '1r1r2k1/ppq1bpp1/2n1bn1p/P3p3/Q1p1P3/2P2NP1/1P3PBP/R1B1RNK1 w - - 0 16',
+  },
+  {
+    file: 'ronde9-diagramme2.svg',
+    fen: '2qr2k1/pp3pp1/4b3/P7/2pP1B2/6Pp/1P3PBP/R3R1K1 w - - 0 26',
+  },
+  {
+    file: 'ronde9-diagramme3.svg',
+    fen: '8/1p3ppk/1B2b3/P7/2pR4/5qPp/1P3P1P/5BK1 b - - 4 33',
+  },
+  {
+    file: 'ronde9-diagramme4.svg',
+    fen: '8/1p3p1k/1B6/P4bp1/8/4RP1p/4BK1P/2q5 b - - 3 40',
     flip: true,
   },
 ];
@@ -185,7 +322,7 @@ for (const d of diagrams) {
   console.log(`  ✓ ${d.file}`);
 }
 
-writeFileSync(join(outDir, 'og-pontevedra.svg'), generateBoardSVG(diagrams[0].fen, { lastMove: diagrams[0].lastMove }), 'utf-8');
+writeFileSync(join(outDir, 'og-pontevedra.svg'), generateBoardSVG(diagrams[0].fen, { lastMove: diagrams[0].lastMove, flip: diagrams[0].flip }), 'utf-8');
 console.log(`  ✓ og-pontevedra.svg`);
 
 console.log(`\nDone! public/images/blog/pontevedra-2026/`);
