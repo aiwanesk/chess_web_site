@@ -592,4 +592,4 @@ Voilà ce que je ramène dans mes valises :
 
 6. **Dormir** — je ne rigole qu'à moitié. La ronde 9 est la conséquence directe d'une mauvaise nuit. Pas de sommeil, pas de lucidité, pas de résultat. C'est aussi bête que ça.
 
-**Score final : 4.5/9** — décevant, mais instructif. Le prochain tournoi sera mieux préparé. Physiquement, techniquement, et avec un oreiller de meilleure qualité.
+**Score final : 4.5/9** — décevant, mais instructif. Pas le temps de ressasser : j'enchaîne directement avec **Badalona**. Le repos attendra.

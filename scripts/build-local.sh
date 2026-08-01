@@ -13,4 +13,5 @@ cp -r "$root/frontend/dist" "$root/backend/dist"
 echo "==> Building Go binary…"
 (cd "$root/backend" && CGO_ENABLED=0 go build -trimpath -ldflags='-s -w' -o "$root/server" .)
 
-echo "Done. Run: ./server  (set BASE_URL, ADDR as needed)"
+echo "==> Starting server…"
+exec "$root/server"
