@@ -96,6 +96,7 @@ export function allPosts(): Post[] {
   return posts
 }
 
-export function getPost(slug: string): Post | undefined {
+export function getPost(slug: string, locale?: Locale): Post | undefined {
+  if (locale) return posts.find((p) => p.slug === slug && p.lang === locale)
   return posts.find((p) => p.slug === slug)
 }

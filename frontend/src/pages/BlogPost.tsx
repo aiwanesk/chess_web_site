@@ -40,7 +40,7 @@ export function Component() {
   const locale = useLocale()
   const s = STR[locale]
   const { slug = '' } = useParams()
-  const post = getPost(slug)
+  const post = getPost(slug, locale)
   const blogPath = pathFor('blog', locale)
 
   if (!post) {
