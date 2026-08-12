@@ -295,6 +295,8 @@ Je me prends **Td7** et là, dans le zeitnot, mon cerveau décide de prendre sa 
 
 Bravo à lui. À 13 ans, grinder un MF fatigué dans une salle surchauffée, c'est exactement ce qu'il faut faire pour progresser. Moi, j'aurais surtout dû boire plus d'eau.
 
+Cela dit, avec un nom pareil — **Casalaspro** — j'aurais peut-être dû me méfier dès la feuille d'appariement. Je m'en serais sans doute largement sorti contre *Casals-amateur*, voire contre *Casals-semi-pro*… mais *Casals-**pro***, là, c'est tout de suite beaucoup trop sérieux pour moi.
+
 **Leçon :** la condition physique n'est pas un bonus en tournoi — c'est un prérequis. Quand le corps lâche, la lucidité suit, et les coups qu'on voit, on n'ose plus les jouer.
 
 ---

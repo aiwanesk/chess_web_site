@@ -295,6 +295,8 @@ I get hit with **Rd7** and then, in time trouble, my brain decides to take its l
 
 Hats off to him. At 13, grinding down a tired FM in a sweltering hall is exactly what you need to do to improve. As for me, I mostly should have drunk more water.
 
+That said, with a name like that — **Casalaspro** — I probably should have taken the hint straight off the pairing sheet. I'd likely have been more than fine against *Casals-amateur*, or even *Casals-semi-pro*… but *Casals-**pro***, well, that's immediately far too serious for me.
+
 **Takeaway:** physical fitness isn't a bonus in tournament chess — it's a prerequisite. When the body quits, clarity follows, and the moves you see, you no longer dare to play.
 
 ---

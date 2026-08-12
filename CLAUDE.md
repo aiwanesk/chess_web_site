@@ -13,6 +13,7 @@
 - **altSlug**: frontmatter field to link FR ↔ EN versions (enables hreflang)
 
 ## Blog Writing Style (Tournament Diaries)
+- **VOICE — read first**: Before writing OR rewriting any tournament diary (`content/blog/**`, FR and EN), read [`docs/voix-carnet-tournoi.md`](docs/voix-carnet-tournoi.md) and apply it on the FIRST draft (don't write "clean" then fix later). It is the canonical tone reference: bans reporting connectors ("À partir de là", "Le problème c'est que", "Vient alors le moment-clé", "Nouveau carrefour", "Résultat :"…), requires showing emotions via concrete detail rather than declaring them, favours self-deprecation, reader address and lived imagery. Gold standard: `content/blog/open-pontevedra-2026.md`. Does NOT apply to SEO/informational articles (see `docs/plan-editorial-blog.md`).
 - **Tone**: Self-deprecating humor, storytelling, honest about mistakes
 - **Framework per round**:
   1. How you felt before the game (fatigue, motivation, mental state)
