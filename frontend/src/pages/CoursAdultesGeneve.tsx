@@ -111,7 +111,7 @@ const FR: MoneyPageProps = {
     description:
       'Cours particuliers d’échecs pour adultes 1200–2200 Elo à Genève, avec un Maître FIDE : diagnostic, plan de progression, ouvertures, calcul et finales.',
     url: '/cours-echecs-adultes-geneve',
-    price: 120,
+    price: 60,
     priceUnit: 'la séance individuelle de 60 min',
     courseMode: 'blended',
   },
@@ -123,7 +123,7 @@ const FR: MoneyPageProps = {
   ],
   faq: [
     { question: 'À partir de quel niveau ces cours sont-ils adaptés ?', answer: 'Ils s’adressent aux joueurs adultes d’environ 1200 à 2200 Elo. Si vous connaissez les règles et jouez déjà en ligne ou en club, vous êtes au bon endroit. Les grands débutants ne sont pas le public visé.' },
-    { question: 'Combien coûte un cours d’échecs pour adultes à Genève ?', answer: 'La séance individuelle de 60 minutes est à 120 CHF, et un pack de 10 séances est à 1000 CHF (soit 100 CHF la séance). Le détail figure sur la page Tarifs.' },
+    { question: 'Combien coûte un cours d’échecs pour adultes à Genève ?', answer: 'La séance individuelle de 60 minutes est à 60 CHF, et un pack de 10 séances est à 550 CHF (soit 55 CHF la séance). Le détail figure sur la page Tarifs.' },
     { question: 'Les cours ont-ils lieu en présentiel ou en ligne ?', answer: 'Les deux. En présentiel à Genève, ou en ligne par visioconférence avec un échiquier partagé — même méthode, même qualité de suivi.' },
     { question: 'En combien de temps peut-on gagner des points Elo ?', answer: 'La plupart des élèves assidus constatent une progression sur 2 à 3 mois de travail régulier. Le rythme dépend de votre point de départ et du temps consacré aux exercices.' },
     { question: 'Qu’est-ce qu’un Maître FIDE ?', answer: 'Un Maître FIDE (FIDE Master) est un titre international décerné par la Fédération internationale des échecs, attribué aux joueurs ayant atteint un niveau Elo élevé et stable.' },
@@ -178,14 +178,14 @@ const EN: MoneyPageProps = {
     description:
       'Private chess lessons for adults 1200–2200 Elo in Geneva with a FIDE Master: diagnosis, progression plan, openings, calculation and endgames.',
     url: '/en/adult-chess-lessons-geneva',
-    price: 120,
+    price: 60,
     priceUnit: 'per one-to-one 60-min session',
     courseMode: 'blended',
   },
   related: [{ to: '/en/pricing', label: 'See pricing & packages' }],
   faq: [
     { question: 'What level are these lessons for?', answer: 'For adult players roughly 1200 to 2200 Elo. If you know the rules and already play online or in a club, you’re in the right place. Complete beginners are not the target audience.' },
-    { question: 'How much does an adult chess lesson in Geneva cost?', answer: 'A one-to-one 60-minute session is 120 CHF, and a 10-session package is 1000 CHF (i.e. 100 CHF per session). Full details are on the Pricing page.' },
+    { question: 'How much does an adult chess lesson in Geneva cost?', answer: 'A one-to-one 60-minute session is 60 CHF, and a 10-session package is 550 CHF (i.e. 55 CHF per session). Full details are on the Pricing page.' },
     { question: 'Are lessons in person or online?', answer: 'Both. In person in Geneva, or online via video call with a shared board — same method, same quality of follow-up.' },
     { question: 'How fast can I gain Elo?', answer: 'Most committed students see progress within 2 to 3 months of regular work. The pace depends on your starting point and the time spent on exercises.' },
     { question: 'What is a FIDE Master?', answer: 'A FIDE Master is an international title awarded by the International Chess Federation to players who have reached a high, stable Elo level.' },

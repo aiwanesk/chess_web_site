@@ -107,7 +107,7 @@ const FR: MoneyPageProps = {
     description:
       'Cours d’échecs en petit groupe (3 à 6 joueurs) de niveau homogène à Genève, encadrés par un Maître FIDE.',
     url: '/cours-echecs-groupe-geneve',
-    price: 60,
+    price: 40,
     priceUnit: 'par personne et par séance de 60 min',
     courseMode: 'onsite',
   },
@@ -190,7 +190,7 @@ const EN: MoneyPageProps = {
     description:
       'Small-group chess lessons (3 to 6 players) of matched level in Geneva, taught by a FIDE Master.',
     url: '/en/group-chess-lessons-geneva',
-    price: 60,
+    price: 40,
     priceUnit: 'per person per 60-min session',
     courseMode: 'onsite',
   },

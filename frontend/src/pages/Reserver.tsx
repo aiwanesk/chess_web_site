@@ -16,7 +16,7 @@ const COPY: Record<Locale, { title: string; description: string; eyebrow: string
     asideTitle: 'Comment ça marche',
     aside: [
       'Créneaux tous les soirs de 17h30 à 20h00, par tranches de 30 minutes.',
-      'Sélectionne une plage (ex. 17h30–19h30) : le tarif se calcule automatiquement (120 CHF/h).',
+      'Sélectionne une plage (ex. 17h30–19h30) : le tarif se calcule automatiquement (60 CHF/h).',
       'Confirmation immédiate par e-mail, à toi et à Alexandre.',
       'Le paiement se règle avec Alexandre (présentiel à Genève ou en ligne).',
     ],
@@ -29,7 +29,7 @@ const COPY: Record<Locale, { title: string; description: string; eyebrow: string
     asideTitle: 'How it works',
     aside: [
       'Slots every evening from 17:30 to 20:00, in 30-minute steps.',
-      'Select a range (e.g. 17:30–19:30): the price is computed automatically (120 CHF/h).',
+      'Select a range (e.g. 17:30–19:30): the price is computed automatically (60 CHF/h).',
       'Instant e-mail confirmation, to you and to Alexandre.',
       'Payment is arranged with Alexandre (in person in Geneva or online).',
     ],

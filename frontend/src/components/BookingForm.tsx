@@ -7,7 +7,7 @@ type Status = 'idle' | 'submitting' | 'ok' | 'error'
 
 // 30-min boundaries from 17:30 to 20:00. A lesson is a contiguous range.
 const TIMES = ['17:30', '18:00', '18:30', '19:00', '19:30', '20:00']
-const HOURLY_RATE = 120 // CHF/h (indicative — the server recomputes authoritatively)
+const HOURLY_RATE = 60 // CHF/h (indicative — the server recomputes authoritatively)
 const DAY_END = 20 * 60
 
 const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3))

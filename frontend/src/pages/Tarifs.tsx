@@ -25,9 +25,9 @@ const DATA: Record<Locale, TData> = {
     enterprise: 'Conférences et team building en entreprise sur devis.',
     faqTitle: 'Questions sur les tarifs', featured: '★ Le plus choisi',
     plans: [
-      { name: 'Séance individuelle', price: '120 CHF', unit: '/ 60 min', features: ['Diagnostic personnalisé', 'Présentiel Genève ou en ligne', 'Exercices entre séances'], cta: 'Réserver une séance', featured: false },
-      { name: 'Pack 10 séances', price: '1000 CHF', unit: '10 × 60 min · soit 100 CHF/séance', features: ['Plan de progression complet', 'Suivi Elo & points de contrôle', 'Tarif horaire réduit'], cta: 'Choisir le pack', featured: true },
-      { name: 'Cours en groupe', price: '60 CHF', unit: '/ pers. / 60 min', features: ['Petit groupe de niveau', 'Émulation collective', 'À Genève'], cta: 'Rejoindre un groupe', featured: false },
+      { name: 'Séance individuelle', price: '60 CHF', unit: '/ 60 min', features: ['Diagnostic personnalisé', 'Présentiel Genève ou en ligne', 'Exercices entre séances'], cta: 'Réserver une séance', featured: false },
+      { name: 'Pack 10 séances', price: '550 CHF', unit: '10 × 60 min · soit 55 CHF/séance', features: ['Plan de progression complet', 'Suivi Elo & points de contrôle', 'Tarif horaire réduit'], cta: 'Choisir le pack', featured: true },
+      { name: 'Cours en groupe', price: '40 CHF', unit: '/ pers. / 60 min', features: ['Petit groupe de niveau', 'Émulation collective', 'À Genève'], cta: 'Rejoindre un groupe', featured: false },
     ],
     faq: [
       { question: 'Quels sont les moyens de paiement acceptés ?', answer: 'Paiement par TWINT, virement bancaire ou espèces. Les forfaits sont réglés à l’avance ; le détail est confirmé lors du premier contact.' },
@@ -44,9 +44,9 @@ const DATA: Record<Locale, TData> = {
     enterprise: 'Corporate talks and team building on request.',
     faqTitle: 'Pricing questions', featured: '★ Most chosen',
     plans: [
-      { name: 'Single session', price: '120 CHF', unit: '/ 60 min', features: ['Personalised diagnosis', 'In person in Geneva or online', 'Exercises between sessions'], cta: 'Book a session', featured: false },
-      { name: '10-session package', price: '1000 CHF', unit: '10 × 60 min · i.e. 100 CHF/session', features: ['Full progression plan', 'Elo tracking & checkpoints', 'Reduced hourly rate'], cta: 'Choose the package', featured: true },
-      { name: 'Group lesson', price: '60 CHF', unit: '/ person / 60 min', features: ['Small level-matched group', 'Collective momentum', 'In Geneva'], cta: 'Join a group', featured: false },
+      { name: 'Single session', price: '60 CHF', unit: '/ 60 min', features: ['Personalised diagnosis', 'In person in Geneva or online', 'Exercises between sessions'], cta: 'Book a session', featured: false },
+      { name: '10-session package', price: '550 CHF', unit: '10 × 60 min · i.e. 55 CHF/session', features: ['Full progression plan', 'Elo tracking & checkpoints', 'Reduced hourly rate'], cta: 'Choose the package', featured: true },
+      { name: 'Group lesson', price: '40 CHF', unit: '/ person / 60 min', features: ['Small level-matched group', 'Collective momentum', 'In Geneva'], cta: 'Join a group', featured: false },
     ],
     faq: [
       { question: 'What payment methods are accepted?', answer: 'Payment by TWINT, bank transfer or cash. Packages are paid in advance; details are confirmed at first contact.' },

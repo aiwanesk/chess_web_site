@@ -101,7 +101,7 @@ const FR: MoneyPageProps = {
     description:
       'Cours particuliers d’échecs en ligne avec un Maître FIDE, par visioconférence et échiquier partagé, pour toute la Suisse romande.',
     url: '/cours-echecs-en-ligne',
-    price: 120,
+    price: 60,
     priceUnit: 'la séance en ligne de 60 min',
     courseMode: 'online',
   },
@@ -185,7 +185,7 @@ const EN: MoneyPageProps = {
     description:
       'Private online chess lessons with a FIDE Master, over video call and a shared board, for the whole of French-speaking Switzerland.',
     url: '/en/online-chess-lessons',
-    price: 120,
+    price: 60,
     priceUnit: 'per online 60-min session',
     courseMode: 'online',
   },

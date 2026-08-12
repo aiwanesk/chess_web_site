@@ -69,7 +69,7 @@ func LoadConfig() Config {
 		DBPath:            os.Getenv("DB_PATH"),
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
-		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
+		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 60),
 		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),
 	}
 }
