@@ -34,25 +34,25 @@ Première ronde, et toujours ce petit pincement au moment de s'asseoir. En face,
 
 Il évite soigneusement les grands schémas théoriques et pose un setup tranquille, **d3 et g3**, façon anglaise à couleurs inversées. Pas de duel de variantes apprises par cœur : on va devoir jouer aux échecs pour de vrai.
 
-Et là, je prends une décision un peu gourmande — décidée sur l'échiquier, pas dans mes livres : je **rends la paire de fous pour le centre**. `…Bxf3`, `…e5`, `…d5`, et mon cavalier vient planter son drapeau en d5. Objectivement, je suis sans doute un poil moins bien — la paire de fous, ça se paie toujours, mais plus tard, quand on a oublié pourquoi. En attendant, la position est très jouable et j'ai un plan clair. Ça me suffit amplement.
+Je passe donc mon premier long moment de réflexion à peser deux façons d'aborder la position : rester tranquille et laisser venir, ou aller chercher le centre tout de suite. Je choisis la version gourmande — décidée sur l'échiquier, pas dans mes livres : je **rends la paire de fous pour le centre**. `…Fxf3`, `…e5`, `…d5`, et mon cavalier vient planter son drapeau en d5. Objectivement, je suis sans doute un poil moins bien — la paire de fous, ça se paie toujours, mais plus tard, quand on a oublié pourquoi. En attendant, la position est très jouable et j'ai un plan clair. Ça me suffit amplement.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme1.svg" alt="Ronde 1 — setup ambitieux : paire de fous rendue pour le centre, cavalier en d5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Le centre contre la paire de fous — un peu moins bien sur le papier, mais parfaitement jouable.</p>
 </div>
 
-Mon adversaire, lui, décide que mon roi a l'air un peu trop tranquille à son goût. Il pousse ses pions — `h4`, `h5`, `hxg6` — pour aérer mon roque. Sur le papier, ça ressemble à une vraie attaque. Sauf que je l'ai vue arriver depuis un bon moment, et je reste étonnamment serein : je sais déjà ce que je vais répondre.
+Mon adversaire, lui, décide que mon roi a l'air un peu trop tranquille. Il pousse ses pions — `h4`, `h5`, `hxg6` — pour aérer mon roque. Trois coups, et mon abri ressemble à un chantier : colonne h grande ouverte, pion g6 en équilibre, roi qui prend l'air qu'il n'avait pas demandé. De quoi faire transpirer n'importe qui. J'attends surtout qu'il aille jusqu'au bout.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme2.svg" alt="Ronde 1 — les Blancs ont poussé h4-h5-hxg6, les Noirs vont répondre f4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Il pousse hxg6 sur mon roi… et c'est justement le moment de contre-attaquer.</p>
 </div>
 
-La réponse, je ne mets pas longtemps à la trouver :
+Et je pose enfin le coup que je gardais au chaud depuis dix coups :
 
 > **…f4 !**
 
-Celui-là, je me félicite tout seul de l'avoir vu. Depuis dix coups, c'est lui qui poussait ses pions vers mon roi ; je lui retourne poliment la politesse et j'ouvre les lignes vers le sien. Pas besoin de calculer un mat : à chaque coup, une pièce noire de plus vient s'inviter devant son roque, et lui court derrière sans jamais reprendre son souffle. À ce stade, j'ai arrêté de regarder ma pendule.
+Celui-là, je m'accorde une petite tape sur l'épaule. C'est lui qui poussait ses pions vers mon roi ; je lui rends la pareille et j'ouvre les lignes vers le sien. Pas besoin de calculer un mat : à chaque coup, une pièce noire de plus vient s'inviter devant son roque, et il passe le reste de la partie à parer celle du coup d'avant. À ce stade, j'ai arrêté de regarder ma pendule.
 
 Quelques coups plus tard, toute la petite troupe noire est braquée sur le roi blanc : la dame en h3, la tour en f4, le fou en g7, un cavalier qui piaffe. En face, plus rien ne répond ; il tente de colmater comme il peut avec `25.Cf1`.
 
@@ -65,14 +65,14 @@ S'ensuit une séquence tactique où tout s'enchaîne, et la partie se conclut pa
 
 > **25.Cf1 Tg4+ 26.Cg3 Txg3+ ! 27.fxg3 Tf1#**
 
-Le sacrifice de tour `…Txg3+ !` fait sauter le dernier rempart : le pion `f2` est détourné, la colonne f s'ouvre en grand, et pendant ce temps ma dame en h3 tient g2 et h2 sous clé. La tour se pose en f1 — mat. Le détail qui me fait sourire : la tour blanche en a1 assiste à toute la scène sans pouvoir reprendre, bloquée par son propre fou en c1. Elle aura tout raté, y compris la fin.
+Le sacrifice de tour `…Txg3+ !` fait sauter le dernier rempart : le pion `f2` est détourné, la colonne f s'ouvre en grand, et pendant ce temps ma dame en h3 tient g2 et h2 sous clé. La tour se pose en f1 — mat. Le détail qui me fait sourire : la tour blanche en a1, qui n'aura pas bougé une seule fois de la partie, assiste à toute la scène sans pouvoir reprendre, bloquée par son propre fou en c1. Elle aura tout raté, y compris la fin.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme4.svg" alt="Ronde 1 — la position finale de mat après Tf1#" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">27…Tf1# — le roi blanc est pris dans ses propres meubles.</p>
 </div>
 
-**Leçon :** la mise en jambe parfaite. Un point dans la poche dès la première ronde, contre un joueur d'expérience, avec mon ouverture fétiche et une attaque menée d'un bout à l'autre. Difficile de rêver meilleur départ dans un tournoi de neuf rondes — surtout quand on débarque fatigué et pas franchement sûr de ses sensations. Comme quoi, dans le doute, autant faire confiance à ce qu'on connaît par cœur.
+**Leçon :** la mise en jambe parfaite. Un point dans la poche dès la première ronde, contre un joueur d'expérience, avec mon ouverture fétiche et une attaque menée de bout en bout. Difficile de rêver meilleur départ dans un tournoi de neuf rondes — surtout quand on débarque fatigué et pas franchement sûr de ses sensations. Comme quoi, dans le doute, mieux vaut enfiler les chaussons qu'on connaît.
 
 ---
 
@@ -80,7 +80,7 @@ Le sacrifice de tour `…Txg3+ !` fait sauter le dernier rempart : le pion `f2` 
 
 **Date :** Lundi 3 août 2026 · **Blancs** contre **Tripulskiy, Mark** (Ukraine, 1792) · **Victoire**
 
-Petit rituel d'avant-ronde : je cherche mon adversaire sur internet. Et là, fun fact — je tombe sur sa fiche **IMDb avant sa fiche ChessBase**. Le garçon a tourné dans **deux films**. C'est bien la première fois que je prépare un acteur professionnel avant un joueur d'échecs. Assez rare pour être noté.
+Petit rituel d'avant-ronde : je cherche mon adversaire sur internet. Et là, fun fact — je tombe sur sa fiche **IMDb avant sa fiche ChessBase**. Le garçon a tourné dans **deux films**. C'est bien la première fois que ma prépa d'avant-ronde ressemble à une fiche de casting. Assez rare pour être noté.
 
 En face, donc, un jeune Ukrainien avec de vrais **yeux de tueur** — le regard concentré, déterminé, qui ne cille pas. Et honnêtement, voir autant de détermination chez un jeune joueur, je trouve ça plutôt cool. Côté forme, tout va bien : ronde de 17h, je suis reposé et d'attaque.
 
@@ -91,7 +91,7 @@ Je n'avais pas beaucoup d'informations sur son répertoire, alors je décide de 
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Je me sens déjà très bien ici — et l'ordinateur me donnera raison.</p>
 </div>
 
-Je me sens confiant. Pour être tout à fait honnête, je me sens même **TRÈS malin** — vous savez, cet état un peu dangereux où l'on est convaincu d'avoir tout compris à la position. L'ordinateur me donnera raison sur l'avantage… et tort sur le reste. Je me lance dans un plan **très ambitieux**, `g4!?`, histoire d'enfermer ses pièces et de leur retirer jusqu'à l'air qu'elles respirent.
+Je me sens confiant. Pour être tout à fait honnête, je me sens même **TRÈS malin** — vous savez, cet état un peu dangereux où l'on est convaincu d'avoir tout compris à la position. L'ordinateur me donnera raison sur l'avantage… et tort sur le reste. Je me lance dans un plan **très ambitieux**, `g4!?`, histoire d'enfermer ses pièces et, si tout va bien, de leur retirer jusqu'à l'air qu'elles respirent.
 
 Et ça marche. Je grignote des cases, je pèse sur chacune de ses pièces, et à deux ou trois reprises je menace même de plier l'affaire sur-le-champ. Il finit par lâcher son **fou de cases noires contre mon cavalier** — le genre de concession qu'on ne signe jamais le sourire aux lèvres.
 
@@ -100,21 +100,21 @@ Et ça marche. Je grignote des cases, je pèse sur chacune de ses pièces, et à
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Db1 — discret, mais venimeux : la dame noire manque cruellement de cases.</p>
 </div>
 
-Ici, je trouve le très précis **Db1**, avec une idée simple mais désagréable : jouer sur le **manque de cases de sa dame**. Tout va bien… jusqu'à ce que je me laisse tenter par le **trop ambitieux `a4`**.
+Ici, je trouve le très précis **Db1**, avec une idée simple et parfaitement désagréable pour lui : jouer sur le **manque de cases de sa dame**. Une pièce de plus à qui je coupe l'oxygène ; il commence à en avoir un joli paquet. Tout va bien… jusqu'à ce que je me laisse tenter par le **trop ambitieux `a4`**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde2-diagramme3.svg" alt="Ronde 2 — le trop ambitieux a4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">a4 — ambitieux, un peu trop : ça devient très chaud pour tout le monde.</p>
 </div>
 
-Et là, fini le calme plat : ça devient **très chaud pour tout le monde**, et chaque coup se calcule au cordeau. Le verdict tombe — je vais **perdre mon pion a4**. Sauf que je le troque contre des pièces noires épouvantablement placées : le temps que son cavalier parte le chercher au bout du monde en a4, je **remets tranquillement toutes mes pièces à l'endroit**.
+D'un coup, fini le calme plat : ça devient **très chaud pour tout le monde**, et chaque coup se calcule au cordeau. Je compte, je recompte, je cherche une échappatoire dans tous les sens — et j'arrive toujours à la même conclusion : je vais **perdre mon pion a4**. Mais je ne le perds pas pour rien. Le temps que son cavalier parte le chercher au bout du monde en a4, je **remets tranquillement toutes mes pièces à l'endroit**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde2-diagramme4.svg" alt="Ronde 2 — pièces replacées, sur le point de jouer Ff3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Il a le pion a4 ; moi j'ai un fou en d4, un cavalier en d2 et un plan. Le change est très avantageux.</p>
 </div>
 
-Je termine d'améliorer mes pièces avec **Ff3 !**… et il craque avec **e5??**. Une décision qui ouvre exactement les lignes dont je rêvais.
+Je finis de replacer mes pièces avec **Ff3 !**… et il craque avec **e5??**. Une décision qui ouvre exactement les lignes dont je rêvais.
 
 S'ensuivent quelques petits échanges, et il faut alors trouver la rupture précise :
 
@@ -125,7 +125,7 @@ S'ensuivent quelques petits échanges, et il faut alors trouver la rupture préc
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">e5 !! — la rupture qui fait s'effondrer la maison noire.</p>
 </div>
 
-Après ça, toutes les pièces noires sont d'un coup **misérables** : un cavalier en exil à a4, une tour spectatrice à a6, un fou et un roi qui se cherchent une contenance. Il ne me reste plus qu'à améliorer les miennes et à venir cueillir les pions un par un : **Fg4**, **Cf3**, **Ch4**.
+Après ça, toutes les pièces noires sont d'un coup **misérables** : un cavalier en exil en a4, une tour spectatrice en a6, un fou et un roi qui se cherchent une contenance. Il ne me reste plus qu'à améliorer les miennes et à venir cueillir les pions un par un : **Fg4**, **Cf3**, **Ch4**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde2-diagramme6.svg" alt="Ronde 2 — pièces noires horribles, les Blancs vont ramasser les pions" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -134,9 +134,9 @@ Après ça, toutes les pièces noires sont d'un coup **misérables** : un cavali
 
 Les pions noirs tombent alors comme des fruits mûrs, et le reste n'est plus qu'une **formalité technique**.
 
-Petite note sympa de cette journée : mon ami **Nathan Berthelot** (1950 Elo) place une préparation dans l'Italienne, avec une petite idée bien vicieuse, contre une jeune Indienne classée 2150 — et ça passe **tout droit, comme à la maison**. Une très belle perf pour lui. Le tournoi commence bien pour la délégation française.
+Petite note sympa de cette journée : mon ami **Nathan Berthelot** (1950 Elo) place une préparation dans l'Italienne, avec une petite idée bien vicieuse, contre une jeune Indienne classée 2150 — et ça passe tout droit, exactement comme à la maison. Une très belle perf pour lui. Le tournoi commence bien pour la délégation française.
 
-**Leçon :** contre un jeune joueur plus faible mais mordant, la solidité et un plan clair valent de l'or — à condition de canaliser l'ambition. Mon `a4` était un poil trop gourmand ; ce qui a sauvé la position, ce n'est pas l'intuition mais le **calcul précis** au moment chaud. Se sentir « très malin », c'est agréable ; encore faut-il le prouver coup après coup sur l'échiquier.
+**Leçon :** contre un jeune joueur plus faible mais mordant, la solidité et un plan clair valent de l'or — à condition de canaliser l'ambition. Mon `a4` était un poil trop gourmand ; ce qui a sauvé la position, ce n'est pas l'intuition mais le **calcul précis** au moment chaud. Se sentir « très malin », c'est agréable — mais l'échiquier, lui, redemande la preuve à chaque coup.
 
 ---
 
@@ -408,7 +408,7 @@ Je peux alors améliorer mes pièces sans me presser, pendant qu'il cherche par 
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Cxa5 — un pion en poche, et une petite série précise pour tout verrouiller.</p>
 </div>
 
-Suit une petite série de coups précis pour tout stabiliser : un pion en plus, mes cavaliers vissés sur leurs cases, et une position que je tiens d'un bout à l'autre.
+Suit une petite série de coups précis pour tout stabiliser : un pion en plus, mes cavaliers vissés sur leurs cases, et une position que je tiens de bout en bout.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde7-diagramme5.svg" alt="Ronde 7 — la conclusion Cc2 pour manger d4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />

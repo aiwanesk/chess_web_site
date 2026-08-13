@@ -55,6 +55,40 @@ Ces tournures alourdissent et donnent le côté « scolaire ». Les supprimer et
 
 ---
 
+## Les 8 pièges de relecture
+
+Les principes ci-dessus produisent un premier jet vivant. Ces huit défauts-là survivent au premier jet et ne se
+voient qu'en relisant — les traquer explicitement.
+
+1. **Pas de bascule sans appui.** « Et là, je prends une décision… » exige une hésitation *montrée* juste avant
+   (deux plans pesés, un long moment de réflexion). Sans ça, « Et là » marque une causalité que rien ne porte.
+   → Poser la situation, puis basculer.
+2. **Ne pas désamorcer sa propre tension.** Soit le danger a l'air réel et le lecteur découvre qu'il ne l'était
+   pas, soit on annonce d'emblée que ce n'est rien — **jamais les deux**. ❌ « Sur le papier ça ressemble à une
+   attaque… mais je l'avais vue venir et je reste *étonnamment* serein » (rien d'étonnant, justement).
+3. **Traquer la redondance implicite.** Si « il décide », c'est forcément « à son goût ». Si « je me félicite »,
+   c'est forcément « tout seul ». « Retourner *poliment* la politesse » double la politesse.
+   → Couper le mot qui répète l'idée déjà contenue dans le verbe.
+4. **Tenir ses propres promesses.** Ne pas « mettre du temps à trouver » un coup après avoir dit qu'on savait
+   déjà. Ne pas conclure « faire confiance à ce qu'on connaît par cœur » après avoir vanté une partie jouée
+   *sans* variantes apprises par cœur. Chaque affirmation doit rester compatible avec le paragraphe d'avant.
+5. **Un verdict se mérite.** « Le verdict tombe : je perds le pion » arrive trop sec — montrer d'abord la
+   délibération (« je compte, je recompte, je cherche une échappatoire »).
+   Idem : on **perd** un pion ou on le **troque**, pas les deux dans la même phrase. Choisir le registre.
+6. **Une image doit être lisible du premier coup.** ❌ « lui court derrière sans jamais reprendre son
+   souffle » (qui court derrière quoi ?) → ✅ « il passe le reste de la partie à parer celle du coup d'avant ».
+   Et toute pièce personnifiée mérite **sa case** : « un cavalier qui piaffe **en e5** ».
+7. **Planter l'objet qui portera la chute.** La tour a1 qui « aura tout raté, y compris la fin » n'est drôle que
+   si sa présence a été signalée avant (ou dans la même phrase : « qui n'aura pas bougé de la partie »).
+8. **Le gras sert l'enjeu échiquéen**, pas les vannes. Mettre en gras un coup, une évaluation, une bascule —
+   jamais une pointe d'humour, qui doit fonctionner sans typographie.
+
+**Idiomes à ne pas rater :** « de bout en bout » (pas « d'un bout à l'autre » sans complément) · une pièce est
+**en** a4 (jamais « à a4 ») · notation **française** (C, F, T, D, R) dans tout article FR, y compris les coups
+cités entre backticks.
+
+---
+
 ## Exemples avant / après (tirés de Badalona)
 
 **Avant (journalistique) :**
@@ -62,10 +96,11 @@ Ces tournures alourdissent et donnent le côté « scolaire ». Les supprimer et
 > aile roi, je retourne la situation. À partir de là, j'ai le sentiment d'avoir une belle attaque en permanence.
 
 **Après (voix carnet) :**
-> …f4 ! Celui-là, je me félicite tout seul de l'avoir vu. Depuis dix coups, c'est lui qui poussait ses pions
-> vers mon roi ; je lui retourne poliment la politesse et j'ouvre les lignes vers le sien. Pas besoin de
-> calculer un mat : à chaque coup, une pièce de plus vient s'inviter devant son roque. À ce stade, j'ai
-> arrêté de regarder ma pendule.
+> Et je pose enfin le coup que je gardais au chaud depuis dix coups : …f4 ! Celui-là, je m'accorde une petite
+> tape sur l'épaule. C'est lui qui poussait ses pions vers mon roi ; je lui rends la pareille et j'ouvre les
+> lignes vers le sien. Pas besoin de calculer un mat : à chaque coup, une pièce noire de plus vient s'inviter
+> devant son roque, et il passe le reste de la partie à parer celle du coup d'avant. À ce stade, j'ai arrêté
+> de regarder ma pendule.
 
 **Avant :**
 > Je joue Fc5. Effectivement, il choisit …Te8, et après Fd4 je suis très content de ma position.
@@ -82,5 +117,8 @@ Relire chaque paragraphe et se demander :
 1. Y a-t-il un connecteur de reportage à couper ?
 2. Une émotion est-elle *déclarée* alors qu'on pourrait la *montrer* ?
 3. Sent-on le joueur (doute, fatigue, humour) — ou seulement l'analyste ?
+4. Chaque bascule est-elle **préparée** par ce qui précède (piège 1) ?
+5. Une phrase contredit-elle une promesse faite plus haut (piège 4) ?
+6. Un mot répète-t-il une idée déjà portée par son verbe (piège 3) ?
 
 Si le passage pourrait figurer tel quel dans un compte-rendu de fédération, c'est qu'il manque la voix.
