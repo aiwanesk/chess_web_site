@@ -52,6 +52,11 @@ export const routes: RouteRecord[] = [
       { path: 'confidentialite', lazy: () => import('./pages/Confidentialite') },
       { path: 'en/privacy', lazy: () => import('./pages/Confidentialite') },
 
+      // Calendrier des tournois — la grille est alimentée à l'exécution par
+      // /api/calendar (les entrées viennent de l'admin, pas du build).
+      { path: 'calendrier', lazy: () => import('./pages/Calendrier') },
+      { path: 'en/calendar', lazy: () => import('./pages/Calendrier') },
+
       // Tactiques de la semaine — index + article hebdo (/tactiques/JJ-MM-AA)
       { path: 'tactiques', lazy: () => import('./pages/Tactiques') },
       { path: 'tactiques/:date', lazy: () => import('./pages/TactiquesWeek'), getStaticPaths: weekStaticPaths },

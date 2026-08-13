@@ -1,5 +1,7 @@
+import { Link } from 'vite-react-ssg'
 import { MoneyPage, type MoneyPageProps } from '../components/MoneyPage'
 import { DeepDive, StepList } from '../components/ui'
+import { TOURNAMENTS } from '../lib/tournaments'
 import { useLocale } from '../lib/i18n'
 
 const FR: MoneyPageProps = {
@@ -109,6 +111,19 @@ const FR: MoneyPageProps = {
           },
         ]}
       />
+      <p className="mt-10 rounded-2xl border border-gold-300 bg-gold-50 p-6 leading-relaxed text-ink-700">
+        Je ne prépare pas les tournois seulement pour les autres : je joue{' '}
+        <strong>{TOURNAMENTS.length} tournois cette saison</strong>, des opens internationaux aux
+        matchs par équipes. Les routines que je vous transmets sont celles que j’applique moi-même,
+        la pendule qui tourne.{' '}
+        <Link
+          to="/calendrier"
+          className="font-semibold text-gold-700 underline decoration-gold-400 decoration-1 underline-offset-4 hover:text-ink-950"
+        >
+          Voir où je joue cette saison
+        </Link>
+        .
+      </p>
     </DeepDive>
   ),
 }
@@ -218,6 +233,18 @@ const EN: MoneyPageProps = {
           },
         ]}
       />
+      <p className="mt-10 rounded-2xl border border-gold-300 bg-gold-50 p-6 leading-relaxed text-ink-700">
+        I don’t only prepare tournaments for other people: I play{' '}
+        <strong>{TOURNAMENTS.length} tournaments this season</strong>, from international opens to
+        team matches. The routines I pass on are the ones I use myself, with the clock running.{' '}
+        <Link
+          to="/en/calendar"
+          className="font-semibold text-gold-700 underline decoration-gold-400 decoration-1 underline-offset-4 hover:text-ink-950"
+        >
+          See where I’m playing this season
+        </Link>
+        .
+      </p>
     </DeepDive>
   ),
 }

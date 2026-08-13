@@ -45,6 +45,7 @@ export const PAGES = {
   tarifs: { fr: '/tarifs', en: '/en/pricing' },
   reserver: { fr: '/reserver', en: '/en/book' },
   tactiques: { fr: '/tactiques', en: '/en/tactics' },
+  calendrier: { fr: '/calendrier', en: '/en/calendar' },
   blog: { fr: '/blog', en: '/en/blog' },
   contact: { fr: '/contact', en: '/en/contact' },
   confidentialite: { fr: '/confidentialite', en: '/en/privacy' },
@@ -76,7 +77,7 @@ export function altPath(pathname: string): string | undefined {
 // --- Shared UI strings ------------------------------------------------------
 
 type Dict = {
-  nav: { adultes: string; tournoi: string; enligne: string; tarifs: string; resultats: string; blog: string; tactiques: string; contact: string }
+  nav: { adultes: string; tournoi: string; enligne: string; tarifs: string; resultats: string; blog: string; tactiques: string; calendrier: string; contact: string }
   reserve: string
   reserveFirst: string
   viewPricing: string
@@ -90,7 +91,6 @@ type Dict = {
   footerRights: string
   faqTitle: string
   langLabel: string
-  banner: string
   money: {
     methodEyebrow: string
     benefitsTitle: string
@@ -105,7 +105,7 @@ type Dict = {
 
 export const UI: Record<Locale, Dict> = {
   fr: {
-    nav: { adultes: 'Cours adultes', tournoi: 'Préparation tournoi', enligne: 'En ligne', tarifs: 'Tarifs', resultats: 'Résultats', blog: 'Blog', tactiques: 'Tactiques', contact: 'Contact' },
+    nav: { adultes: 'Cours adultes', tournoi: 'Préparation tournoi', enligne: 'En ligne', tarifs: 'Tarifs', resultats: 'Résultats', blog: 'Blog', tactiques: 'Tactiques', calendrier: 'Calendrier', contact: 'Contact' },
     reserve: 'Réserver un cours',
     reserveFirst: 'Réserver un premier cours',
     viewPricing: 'Voir les tarifs',
@@ -119,7 +119,6 @@ export const UI: Record<Locale, Dict> = {
     footerRights: 'Tous droits réservés.',
     faqTitle: 'Questions fréquentes',
     langLabel: 'EN',
-    banner: 'Site en construction — certaines pages arrivent bientôt.',
     money: {
       methodEyebrow: 'La méthode',
       benefitsTitle: 'Ce que vous obtenez',
@@ -132,7 +131,7 @@ export const UI: Record<Locale, Dict> = {
     },
   },
   en: {
-    nav: { adultes: 'Adult lessons', tournoi: 'Tournament prep', enligne: 'Online', tarifs: 'Pricing', resultats: 'Results', blog: 'Blog', tactiques: 'Tactics', contact: 'Contact' },
+    nav: { adultes: 'Adult lessons', tournoi: 'Tournament prep', enligne: 'Online', tarifs: 'Pricing', resultats: 'Results', blog: 'Blog', tactiques: 'Tactics', calendrier: 'Calendar', contact: 'Contact' },
     reserve: 'Book a lesson',
     reserveFirst: 'Book a first lesson',
     viewPricing: 'View pricing',
@@ -146,7 +145,6 @@ export const UI: Record<Locale, Dict> = {
     footerRights: 'All rights reserved.',
     faqTitle: 'Frequently asked questions',
     langLabel: 'FR',
-    banner: 'Site under construction — some pages are coming soon.',
     money: {
       methodEyebrow: 'The method',
       benefitsTitle: 'What you get',

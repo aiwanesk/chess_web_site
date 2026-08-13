@@ -152,6 +152,41 @@ export function eventSchema(e: EventInput): JsonLd {
   }
 }
 
+export interface TournamentEventInput {
+  name: string
+  startDate: string // YYYY-MM-DD
+  endDate: string
+  location?: string // free text, e.g. "Badalona, Espagne"
+  url: string // where the visitor reads about it (calendar page, or its diary)
+  description?: string
+}
+
+/**
+ * A tournament Alexandre is competing in. `performer` points at the Person
+ * entity, so the graph states that the FIDE Master is playing it — first-hand
+ * competitive experience, which is exactly the E-E-A-T signal a coaching site
+ * wants. Emit for upcoming/ongoing events only: a past event carries no value
+ * as a rich result.
+ */
+export function sportsEventSchema(e: TournamentEventInput): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: e.name,
+    ...(e.description ? { description: e.description } : {}),
+    startDate: e.startDate,
+    endDate: e.endDate,
+    url: absoluteUrl(e.url),
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    sport: 'Chess',
+    location: e.location
+      ? { '@type': 'Place', name: e.location, address: e.location }
+      : { '@type': 'Place', name: 'Europe' },
+    performer: { '@id': PERSON_ID },
+  }
+}
+
 export interface FaqItem {
   question: string
   answer: string
@@ -193,6 +228,13 @@ export interface ReviewInput {
   rating: number
 }
 
+/**
+ * ⚠️ Only ever call this with reviews a student actually wrote and rated.
+ * Ratings nobody gave are fabricated structured data: a manual-action risk with
+ * Google, and misleading advertising under Swiss LCD art. 3 / the EU Omnibus
+ * directive. Currently unused — /resultats presents coached cases instead, with
+ * no stars. Wire it back in the day real written reviews come in.
+ */
 export function aggregateRatingSchema(reviews: ReviewInput[]): JsonLd {
   const value = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length
   return {

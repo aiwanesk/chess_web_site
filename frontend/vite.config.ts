@@ -5,6 +5,14 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    // Build date, baked identically into the SSG and browser bundles. The
+    // tournament calendar needs a "today" for its first render: using this
+    // constant keeps the pre-rendered HTML and the hydration pass byte-identical
+    // (a live `new Date()` would differ between them), and the real date takes
+    // over in an effect right after mount.
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+  },
   // Static files live at the repo root /public (per the project layout) and are
   // copied verbatim into dist/ at build.
   publicDir: '../public',

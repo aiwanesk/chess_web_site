@@ -9,13 +9,15 @@ type NavItem = { to: string; key: keyof ReturnType<typeof t>['nav'] }
 
 // FR links to every page; EN links only to pages already translated (grows
 // as the i18n rollout continues). Labels come from the locale dictionary.
-// Top nav kept compact so nothing wraps; secondary pages live in the footer.
+// Seven entries is the ceiling at this container width — adding an eighth means
+// shortening a label or moving one to the footer, or the bar wraps.
 const NAV_FR: NavItem[] = [
   { to: '/cours-echecs-adultes-geneve', key: 'adultes' },
   { to: '/preparation-tournoi-echecs', key: 'tournoi' },
   { to: '/tarifs', key: 'tarifs' },
   { to: '/tactiques', key: 'tactiques' },
   { to: '/blog', key: 'blog' },
+  { to: '/calendrier', key: 'calendrier' },
   { to: '/contact', key: 'contact' },
 ]
 const NAV_EN: NavItem[] = [
@@ -24,6 +26,7 @@ const NAV_EN: NavItem[] = [
   { to: '/en/pricing', key: 'tarifs' },
   { to: '/en/tactics', key: 'tactiques' },
   { to: '/en/blog', key: 'blog' },
+  { to: '/en/calendar', key: 'calendrier' },
   { to: '/en/contact', key: 'contact' },
 ]
 
@@ -69,7 +72,8 @@ export function Header() {
       <Container className="flex h-[4.5rem] items-center justify-between gap-4">
         <Brand locale={locale} />
 
-        <nav aria-label="Navigation" className="hidden items-center gap-6 xl:flex">
+        {/* gap tightens at xl so the seventh entry still fits on one line. */}
+        <nav aria-label="Navigation" className="hidden items-center gap-4 xl:flex 2xl:gap-6">
           {nav.map((item) => (
             <NavLink
               key={item.to}

@@ -1,7 +1,6 @@
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { SiteBanner } from './SiteBanner'
 import { LocaleProvider, localeFromPath, t } from '../lib/i18n'
 
 /** Root layout wrapping every route: detects the locale from the URL, provides
@@ -17,7 +16,6 @@ export function Layout() {
       >
         {strings.skipToContent}
       </a>
-      <SiteBanner />
       <Header />
       <main id="contenu">
         <Outlet />
