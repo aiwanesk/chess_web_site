@@ -13,7 +13,11 @@ export const SITE = {
   locale: 'fr_CH',
   lang: 'fr',
   defaultOgImage: '/og/default.png',
-  twitter: '@iwanesko', // update or remove if no account
+  // No X/Twitter account for now, so no `twitter:site` tag: pointing it at a
+  // handle nobody owns is a broken attribution (and an open door to someone
+  // else claiming it). Add the handle back here and restore the tag in seo.tsx
+  // if an account is ever created. The other twitter:* tags stay — they drive
+  // the link preview and need no account.
 
   person: {
     name: 'Alexandre Iwanesko',

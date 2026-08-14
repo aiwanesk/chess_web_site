@@ -75,7 +75,7 @@ export function Seo({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      {SITE.twitter ? <meta name="twitter:site" content={SITE.twitter} /> : null}
+      {/* No twitter:site — see the note in site.ts. */}
 
       {/* hreflang — advertise the FR/EN pair when this page is translated.
           NOTE: no React Fragment here — react-helmet ignores fragment-wrapped
