@@ -55,9 +55,9 @@ Ces tournures alourdissent et donnent le côté « scolaire ». Les supprimer et
 
 ---
 
-## Les 8 pièges de relecture
+## Les 12 pièges de relecture
 
-Les principes ci-dessus produisent un premier jet vivant. Ces huit défauts-là survivent au premier jet et ne se
+Les principes ci-dessus produisent un premier jet vivant. Ces douze défauts-là y survivent et ne se
 voient qu'en relisant — les traquer explicitement.
 
 1. **Pas de bascule sans appui.** « Et là, je prends une décision… » exige une hésitation *montrée* juste avant
@@ -82,6 +82,18 @@ voient qu'en relisant — les traquer explicitement.
    si sa présence a été signalée avant (ou dans la même phrase : « qui n'aura pas bougé de la partie »).
 8. **Le gras sert l'enjeu échiquéen**, pas les vannes. Mettre en gras un coup, une évaluation, une bascule —
    jamais une pointe d'humour, qui doit fonctionner sans typographie.
+9. **Toute intention annoncée se dit.** « J'espérais gratter du contre-jeu », « j'avais envie de le mater »,
+   « lui tomber dessus sur les cases noires » : le lecteur veut **l'idée**, pas l'étiquette. Sur quelle colonne,
+   avec quel pion, vers quelle case ? Une phrase suffit, et c'est ce qui transforme un compte-rendu en leçon.
+   Idem pour l'adversaire : « il joue très bien » gagne à être montré (ce qu'il pare, ce qu'il refuse).
+10. **Faire remonter la cause au bon endroit.** Une erreur a un contexte déjà posé plus haut (le retard, la
+    fatigue, une position au traitement inhabituel) : la rattacher explicitement le moment venu, plutôt que de
+    conclure « encore une erreur d'appréciation ». C'est ce qui donne un fil au récit au lieu d'une liste.
+11. **Un mot ne doit pas promettre plus que la scène.** « Rien d'héroïque » suppose qu'on ait pu croire à un
+    exploit ; « Rien de tel pour l'humeur » laisse le lecteur deviner si on est blasé ou furieux. Choisir
+    l'ironie franche ou le constat direct, jamais l'entre-deux.
+12. **Escalader une image plutôt que la répéter.** Le gros mot vient après le petit : on tend un *piège*, et
+    c'est le *traquenard* qui se referme — pas l'inverse.
 
 **Idiomes à ne pas rater :** « de bout en bout » (pas « d'un bout à l'autre » sans complément) · une pièce est
 **en** a4 (jamais « à a4 ») · notation **française** (C, F, T, D, R) dans tout article FR, y compris les coups
@@ -120,5 +132,10 @@ Relire chaque paragraphe et se demander :
 4. Chaque bascule est-elle **préparée** par ce qui précède (piège 1) ?
 5. Une phrase contredit-elle une promesse faite plus haut (piège 4) ?
 6. Un mot répète-t-il une idée déjà portée par son verbe (piège 3) ?
+7. Une intention est-elle **annoncée sans être dite** — « j'espérais du contre-jeu », « j'avais envie de le
+   mater » — alors que le lecteur attend l'idée concrète (piège 9) ?
+8. Le commentaire reste-t-il **vrai après le coup recommandé** ? Vanter « mes deux tours sur la septième »
+   juste après avoir conseillé `Tc1`, qui en fait descendre une, se contredit d'une ligne à l'autre.
+   → Dire ce que devient chaque pièce, pas ce qu'elle était avant.
 
 Si le passage pourrait figurer tel quel dans un compte-rendu de fédération, c'est qu'il manque la voix.

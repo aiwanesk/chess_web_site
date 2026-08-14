@@ -43,7 +43,7 @@ Et puis arrive le premier seau d'eau froide. Sans hésiter une seconde, il joue 
 
 > **…Cd4 !**
 
-Le coup est fort. Très fort. Et surtout, je ne l'ai pas sérieusement envisagé — parce qu'il donne la qualité. J'aurais sans doute dû jouer **Cd2** qui devait conserver un petit avantage, mais sur le moment, impossible de résister à la prise. Le problème, c'est que ce sacrifice change complètement la dynamique de la position.
+Le coup est fort. Très fort. Et surtout, je ne l'ai pas sérieusement envisagé — parce qu'il donne la qualité. J'aurais sans doute dû jouer **Cd2**, qui devait conserver un petit avantage, mais sur le moment, impossible de résister à la prise. Ce sacrifice-là change toute la dynamique de la position.
 
 Quelques coups plus tard, il trouve la suite logique :
 
@@ -54,7 +54,7 @@ Quelques coups plus tard, il trouve la suite logique :
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Il n'y a qu'un seul coup pour les Noirs — et il l'a trouvé.</p>
 </div>
 
-Et là, impossible de se raconter des histoires. Le cavalier noir est installé en d5 comme chez lui, la paire de fous s'active d'un seul coup, tandis que mon pauvre fou de c1 découvre une vocation inattendue : observer la partie de très près sans jamais y participer.
+Impossible de continuer à se raconter des histoires. Le cavalier noir est installé en d5 comme chez lui, la paire de fous s'active d'un seul coup, tandis que mon pauvre fou de c1 découvre une vocation inattendue : observer la partie de très près sans jamais y participer.
 
 Pendant quelques minutes, je passe du statut de joueur satisfait à celui de propriétaire officiel du plus mauvais fou de l'échiquier.
 
@@ -101,7 +101,7 @@ Surprise : il choisit **1.b3**. Pas du tout ce que j'avais anticipé. Heureuseme
 
 En pratique, je sens la position légèrement inférieure : il a le fou contre mon cavalier, et dans ce type de finale ouverte, le fou a tendance à se balader comme un touriste en vacances pendant que le cavalier cherche désespérément une case stable. Mais la position reste très tenable, et je suis content d'avoir égalisé contre un 2365.
 
-Le problème, c'est que je sais exactement ce qui va suivre. Ce gamin ne va pas se précipiter. Au contraire — il va jouer très lentement, éviter les poussées de pions, tendre des pièges discrets et sauter sur la moindre opportunité. Le genre de grind silencieux, presque poli, où chaque coup a l'air anodin mais où la pression ne retombe jamais.
+Et je sais déjà exactement ce qui va suivre. Ce gamin ne va pas se précipiter. Au contraire — il va jouer très lentement, éviter les poussées de pions, tendre des pièges discrets et sauter sur la moindre opportunité. Le genre de grind silencieux, presque poli, où chaque coup a l'air anodin mais où la pression ne retombe jamais.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Ronde 2 — le fou blanc s'est installé en c4, les Noirs n'ont pas bougé" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -168,11 +168,11 @@ Je trouve le créatif (pour moi) **Fd8!** avec l'idée de l'activer en b6. Un de
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">d5! exd5 e4! — le centre explose en faveur des Noirs.</p>
 </div>
 
-Après la passe tactique, j'arrive dans une position prometteuse. Et c'est là que ça dérape : avec 10 minutes à ma pendule contre 15 à la sienne, j'opte quasi instantanément pour le très ambitieux **…fxh3**, en me prenant pour Tal. Le problème, c'est que j'ai complètement omis que la simple séquence **…Dc7, Td1, Fg4!!** gagnait en force — proprement, sans drama, sans sacrifice douteux.
+Après la passe tactique, j'arrive dans une position prometteuse. Dix minutes à ma pendule contre quinze à la sienne — et au lieu de m'asseoir tranquillement sur mon avantage, j'attrape quasi instantanément le très ambitieux **…Fxh3**, en me prenant pour Tal. J'avais complètement omis que la simple séquence **…Dc7, Td1, Fg4 !!** gagnait en force — proprement, sans drama, sans sacrifice douteux.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Ronde 4 — position avant le très ambitieux fxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ici j'ai joué …fxh3. Tal l'aurait fait gagner. Moi, non.</p>
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Ronde 4 — position avant le très ambitieux Fxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ici j'ai joué …Fxh3. Tal l'aurait fait gagner. Moi, non.</p>
 </div>
 
 On arrive dans une position où il est presque parfaitement paralysé. Le genre de diagramme qu'on montre fièrement à ses amis en disant « regarde comme c'était gagné ».
@@ -210,7 +210,7 @@ Il opte pour un plan très direct, et je tends un petit piège. Ici, il joue **T
 
 > **Txa5!**
 
-Un coup qui a le mérite de lui mettre un sacré coup au moral, même si objectivement la position reste à peu près égale.
+Objectivement, la position reste à peu près égale. Mais en face, on ne le sait pas encore — et ça, ça vaut bien un demi-pion.
 
 Il ne choisit pas la meilleure défense, et on arrive dans une position où je passe **35 minutes** à essayer de trouver un gain. Sur **Th8, Rg6!!** tient pour les Noirs et je ne trouve rien de simple. Je finis par opter pour **Te6** et continue à mettre la pression.
 
@@ -219,7 +219,7 @@ Il ne choisit pas la meilleure défense, et on arrive dans une position où je p
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">35 minutes sur cette position — et toujours pas de gain clair.</p>
 </div>
 
-Et puis vient le piège. Je joue le sournois **Dc2** — un coup qui a l'air de préparer Dxh7 pour faire nulle. Il part directement pour **Fe5**, pensant me couper l'herbe sous le pied.
+Le vrai traquenard arrive maintenant. Je joue le sournois **Dc2** — un coup qui a l'air de préparer Dxh7 pour faire nulle. Il part directement pour **Fe5**, pensant me couper l'herbe sous le pied.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Ronde 5 — le piège Dc2 suivi de Df5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -312,7 +312,7 @@ Objectif clair : 3/3 sur les trois dernières rondes pour gratter quelques point
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">30 minutes d'avance à la pendule et encore dans la préparation — le plan fonctionne.</p>
 </div>
 
-La préparation porte ses fruits : j'ai **une heure** contre **20 minutes** à sa pendule. Et c'est là que je plante 40 minutes à essayer de faire marcher **Cxh6** — qui ne marche pas. Le genre de moment où on se dit « j'ai le temps, autant chercher le coup qui tue ». Sauf que le coup qui tue n'existe pas.
+La préparation porte ses fruits : j'ai **une heure** contre **20 minutes** à sa pendule. Et j'en plante quarante à essayer de faire marcher **Cxh6** — qui ne marche pas. Le genre de moment où on se dit « j'ai le temps, autant chercher le coup qui tue ». Sauf que le coup qui tue n'existe pas.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Ronde 7 — 40 minutes plantées sur Cxh6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -347,7 +347,7 @@ On arrive dans une finale de Tours. On a une minute chacun depuis un bon moment 
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Une minute chacun — et tout se joue maintenant.</p>
 </div>
 
-Et là, je rate complètement le gain sur **Txd4**. Encore un manque de lucidité.
+Et je rate complètement le gain sur **Txd4**. Encore un manque de lucidité — la quatrième heure de jeu, toujours elle.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Ronde 7 — Txd4 raté" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />

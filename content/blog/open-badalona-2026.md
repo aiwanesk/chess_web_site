@@ -144,7 +144,7 @@ Petite note sympa de cette journée : mon ami **Nathan Berthelot** (1950 Elo) pl
 
 **Date :** Mardi 4 août 2026 · **Noirs** contre **MI Utsab Chatterjee** (Inde, 2353) · **Défaite**
 
-La journée démarre mal. Embouteillages, et j'arrive à l'échiquier avec **20 minutes de retard** — la pendule a commencé à manger mon temps sans même m'attendre. Rien de tel pour l'humeur. Je me remets vite dans le bain, mais concéder d'entrée un tel handicap face à un **MI à 2353**, ça laisse des traces.
+La journée démarre mal. Embouteillages et j'arrive à l'échiquier avec **20 minutes de retard** — la pendule a commencé à manger mon temps sans même m'attendre. Parfait pour s'asseoir détendu en face d'un **MI à 2353**. Je rentre vite dans la partie, mais concéder d'entrée un tel handicap, ça laisse des traces.
 
 Face à lui, je sors une **O'Kelly** — un essai, histoire de le sortir des sentiers battus et de décrocher un petit **avantage théorique** dès l'ouverture.
 
@@ -153,30 +153,30 @@ Face à lui, je sors une **O'Kelly** — un essai, histoire de le sortir des sen
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">À moi de jouer : je prends le temps de retrouver la bonne idée, Cf6 !</p>
 </div>
 
-Ici, je réfléchis un moment pour retrouver le bon plan — et je finis par tomber sur la séquence juste : **…Cf6 ! Fxb7 Ta7 Fe4 Td7 !**. Rien d'héroïque, c'est normal de finir par retrouver ces choses. Ce qui est plus rare, en revanche, c'est le type de position qui en découle : les Blancs ont un **pion de plus** *et* la **paire de fous** dans une **position ouverte**… et pourtant, c'est **égal**. Toute la compensation tient dans l'**activité des pièces noires**.
+Ici, je réfléchis un moment pour retrouver le bon plan — et je finis par tomber sur la séquence juste : **…Cf6 ! Fxb7 Ta7 Fe4 Td7 !**. Rien de sorcier : c'est de la préparation qui remonte, pas une trouvaille. Ce qui est plus rare, en revanche, c'est le type de position qui en découle : les Blancs ont un **pion de plus** *et* la **paire de fous** dans une **position ouverte**… et pourtant, c'est **égal**. Toute la compensation tient dans l'**activité des pièces noires**.
 
-Sauf que je vais m'appliquer à jouer cette position parfaitement égale comme si j'avais un gain à convertir — **beaucoup trop dynamique**. Une mauvaise évaluation, tout bêtement ; le genre qui ne se voit pas sur le moment.
+Sauf que je vais m'appliquer à jouer cette position parfaitement égale comme si j'avais un gain à convertir — **beaucoup trop dynamique**. C'est là que le curseur se dérègle : une position aussi bancale désoriente. Quand on tient l'équilibre avec de l'activité pure, face à un pion de moins et à la paire de fous, on a du mal à croire que « tenir » suffise. On se dit qu'il faut forcément en tirer quelque chose. Erreur d'évaluation, pas de calcul — le genre qui ne se voit jamais sur le moment.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme2.svg" alt="Ronde 3 — il fallait stabiliser avec Dc8, les Noirs partent pour Fc5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ici, il fallait poser le jeu avec Dc8. Au lieu de ça… Fc5.</p>
 </div>
 
-Il fallait poser les valises avec le calme **…Dc8**, garder la main et laisser mon activité travailler pour moi. Au lieu de ça, je fonce sur le très ambitieux **…Fc5**, avec une vraie idée derrière — lui tomber dessus sur les **cases noires près de son roi**. Petit hic : en face, il joue très, très bien.
+Il fallait poser les valises avec le calme **…Dc8**, garder la main et laisser mon activité travailler pour moi. Au lieu de ça, je fonce sur le très ambitieux **…Fc5**, avec une vraie idée derrière : planter le fou sur la **diagonale a7-g1** et venir cogner sur **f2** et **g1**, là où son roi n'a personne pour répondre. Petit hic : en face, il joue très, très bien. À chaque coup que je pose, il a déjà la réponse — pas une parade laborieuse trouvée à la pendule, la bonne, celle qui range ma menace dans un tiroir et referme le tiroir.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme3.svg" alt="Ronde 3 — le choix entre Cb5 défensif et l'all-in Cf3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Dernière bifurcation : Cb5 et je souffre mais je défends… ou l'all-in Cf3.</p>
 </div>
 
-Et voilà le moment où tout se joue — que je rate en beauté. Je laisse filer **…Cb5**, qui m'offrait une **position inférieure mais défendable**, pour foncer tête baissée dans un **all-in** avec **…Cf3**. Sur le moment, ce sacrifice me semblait bien plus dur à gérer pour lui qu'il ne l'était vraiment. Encore une erreur d'appréciation — décidément, c'est le fil rouge de la journée.
+Et voilà la position où tout se joue — que je rate en beauté. Je laisse filer **…Cb5**, qui m'offrait une **position inférieure mais défendable**, pour foncer tête baissée dans un **all-in** avec **…Cf3**. Sur le moment, ce sacrifice me semblait bien plus dur à gérer pour lui qu'il ne l'était vraiment. Encore une évaluation bâclée — et cette fois je sais où elle a été bâclée : les vingt minutes laissées dans les embouteillages, je les paie exactement ici, au coup où il aurait fallu s'asseoir et compter.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme4.svg" alt="Ronde 3 — les Noirs espèrent du jeu, les Blancs jouent très pratique" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">J'espérais un peu de jeu… lui déroule, calmement, très pratique.</p>
 </div>
 
-J'espérais gratter un peu de contre-jeu. Lui joue avec un sang-froid désespérant : pas un frisson, pas une complication inutile, il rend ce qu'il faut et garde le volant bien en main. C'est toute la difficulté de croiser un Indien — **ça calcule comme ça respire**, et pour un joueur aussi porté sur le jeu actif que moi, c'est particulièrement pénible.
+J'espérais gratter un peu de contre-jeu sur la **colonne d** — doubler dessus, peser sur son centre et l'obliger à s'occuper de moi. Lui joue avec un sang-froid désespérant : pas un frisson, pas une complication inutile, il rend ce qu'il faut et garde le volant bien en main. L'école indienne dans toute sa splendeur — **ça calcule comme ça respire**. Et pour un joueur aussi porté sur le jeu actif que moi, il n'y a rien de plus frustrant qu'un adversaire qui refuse poliment le désordre.
 
 À vrai dire, ça fait un bon moment que je sais que je suis foutu. Il a tout simplement mieux joué — rien à redire.
 
@@ -195,9 +195,9 @@ Je tente un dernier **…Dg5**, il répond froidement **Df4**, et j'abandonne.
 
 **Date :** Mercredi 5 août 2026 · **Blancs** contre **Tiwari, Shivansh** (Inde, 2039) · **Défaite**
 
-En face, un Indien de 23 ans classé 2000. Sur le papier, rien qui doive m'empêcher de dormir. Il joue **Gurgenidze** ou **Caro-Kann**. En le préparant, je repère qu'il patauge un peu dans la **variante d'avance** avec `dxc5` et `a3` — je prépare donc pile ça, tout content de mon petit piège.
+En face, un Indien de 23 ans classé 2000. Sur le papier, rien qui doive m'empêcher de dormir. Il joue **Gurgenidze** ou **Caro-Kann**. En le préparant, je repère qu'il patauge un peu dans la **variante d'avance** avec `dxc5` et `a3` — je prépare donc pile ça, tout content de mon traquenard.
 
-Manque de bol, il flaire le traquenard et dévie par **4…Cc6**. Je sais que le critique **5.f4** est un vrai nid à surprises, alors je préfère jouer simple avec **Fb5**. On débouche sur une sorte de **française d'avance**.
+Manque de bol, il flaire le piège et dévie par **4…Cc6**. Je sais que le critique **5.f4** est un vrai nid à surprises, alors je préfère jouer simple avec **Fb5**. On débouche sur une sorte de **française d'avance**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme1.svg" alt="Ronde 4 — une sorte de française d'avance" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -220,21 +220,21 @@ Je pose **Fc5**, à peu près sûr qu'il n'aura jamais le cran de sacrifier la q
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ici je pense à Cg5, mais rien de clair après …Fd8 Dh5 Fxg5 Dxg5 Cb4.</p>
 </div>
 
-Ici, je pense partir sur **Cg5**, mais je ne vois rien de clair après **…Fd8 Dh5 Fxg5 Dxg5 Cb4** (je vous laisse calculer les autres variantes). Je choisis donc **De2**. Suivent **…Dd8 Tad1 Cb4 ?**.
+Ici, je pense partir sur **Cg5**, mais je ne vois rien de clair après **…Fd8 Dh5 Fxg5 Dxg5 Cb4**. Je choisis donc **De2**. Suivent **…Dd8 Tad1 Cb4 ?**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme4.svg" alt="Ronde 4 — après Cb4?, je place Fxg6 puis Cc5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Cb4 ? — et je déroule Fxg6, c3, Cc5 : toutes les bonnes pièces sont pour moi.</p>
 </div>
 
-Et là, j'enchaîne **Fxg6 fxg6 ?! c3 Ca6 Cc5 !**. Le cavalier débarque en c5 et s'y échange aussitôt — et je me retrouve pile là où je rêvais d'être : mon **cavalier contre le très mauvais fou de la française**, ce fou de cases claires condamné à contempler ses propres pions d5 et e6 sans jamais réussir à les contourner. Les Noirs ont beau empiler leurs pièces sur la colonne c, il ne leur reste plus qu'à défendre. Exactement la position que j'espérais en préparant la partie.
+Et là, j'enchaîne **Fxg6 fxg6 ?! c3 Ca6 Cc5 !**. Le cavalier débarque en c5 et s'y échange aussitôt — et je me retrouve pile là où je rêvais d'être : mon **cavalier contre le très mauvais fou de la française**, ce fou de cases blanches condamné à contempler ses propres pions d5 et e6 sans jamais réussir à les contourner. Les Noirs ont beau empiler leurs pièces sur la colonne c, il ne leur reste plus qu'à défendre. Exactement la position que j'espérais en préparant la partie.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme4b.svg" alt="Ronde 4 — cavalier contre le mauvais fou de la française, les Noirs massés sur la colonne c" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Mon cavalier contre le fou français, prisonnier de ses propres pions : exactement la structure dont je rêvais.</p>
 </div>
 
-Sauf que — vous commencez à me connaître — je vais encore en vouloir trop. Il aurait fallu jouer sobre, **Tcd1** ou **h3**, désamorcer les ennuis avant même qu'ils existent. Mais j'ai envie de le **mater**, ce garçon. Alors je joue **Te3 ?!**, qui lui tend sur un plateau un plan de liquidation tout simple.
+Sauf que — vous commencez à me connaître — je vais encore en vouloir trop. Il aurait fallu jouer sobre, **Tcd1** ou **h3**, désamorcer les ennuis avant même qu'ils existent. Mais j'ai envie de le **mater**, ce garçon : la tour glisse en **f3**, la dame vient en **f4**, et on verra bien ce qu'il trouve. Alors je joue **Te3 ?!**, qui lui tend sur un plateau un plan de liquidation tout simple.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme5.svg" alt="Ronde 4 — il fallait tenir avec Td3, je pars sur Cb3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -257,9 +257,9 @@ On arrive dans une position où j'ai l'impression d'être **complètement gagnan
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Mes tours sur la 7e crient « joue-moi bien »… je joue De3 ?, et tout s'écroule.</p>
 </div>
 
-Je m'effondre. Je joue **De3 ?**. Par chance, il ne trouve pas le décisif **…Te1 !** — mais il choisit quand même le fort **…Tf1 !**. Et là, je pars sur **b4** en ratant complètement que **…Da1 Cg1 d4 !** gagne la partie. J'aurais dû répondre à **…Da1** par **Tc1** : une position pas claire, mais qui me semble **TRÈS jouable** pour les Blancs — mes deux tours sur la septième valent de l'or.
+Je m'effondre. Je joue **De3 ?**. Par chance, il ne trouve pas le décisif **…Te1 !** — mais il choisit quand même le fort **…Tf1 !**. Et là, je pars sur **b4** en ratant complètement que **…Da1 Cg1 d4 !** gagne la partie. J'aurais dû répondre à **…Da1** par **Tc1** : la tour redescend éteindre l'incendie sur la première rangée, pendant que sa jumelle reste plantée en **a7**. Une position pas claire, mais que je trouve **TRÈS jouable** pour les Blancs — une tour qui défend, une tour sur la septième, et son roi qui n'est pas mieux loti que le mien.
 
-**Leçon :** une défaite amère. Je trouve que mon adversaire n'était pas très bon **stratégiquement** — mais il **calcule bien**, et surtout, j'ai clairement **perdu ma lucidité** entre la 3ᵉ heure et demie et la 4ᵉ heure et demie de jeu. À trois reprises (`Te3 ?!`, `Cb3` au lieu de `Td3`, puis l'effondrement final), j'ai préféré l'ambition à la solidité. Contre un bon calculateur, dans une partie de 4h30, ce n'est pas le talent qui manque — c'est le **carburant**. Encore et toujours l'endurance.
+**Leçon :** une défaite amère. Mon adversaire n'était pas très bon **stratégiquement**, mais il **calculait très bien** — et surtout, j'ai clairement **perdu ma lucidité** entre la 3ᵉ heure et demie et la 4ᵉ heure et demie de jeu. À trois reprises (`Te3 ?!`, `Cb3` au lieu de `Td3`, puis l'effondrement final), j'ai préféré l'ambition à la solidité. Contre un bon tacticien, dans une partie de 4h30, ce n'est pas le talent qui manque — c'est le **carburant**. Encore et toujours l'endurance.
 
 ---
 
