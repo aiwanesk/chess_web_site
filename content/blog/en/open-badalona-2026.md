@@ -34,25 +34,25 @@ First round, and always that little twinge as you sit down. Across the board, a 
 
 He carefully avoids the big theoretical lines and sets up a quiet **d3 and g3**, English-reversed style. No duel of memorised variations: we're going to have to actually play chess.
 
-And here I make a slightly greedy decision — one taken over the board, not out of my books: I **give up the bishop pair for the centre**. `…Bxf3`, `…e5`, `…d5`, and my knight plants its flag on d5. Objectively I'm probably a touch worse — the bishop pair always gets paid for, but later, once you've forgotten why. In the meantime, the position is very playable and I have a clear plan. That's plenty for me.
+So I take my first long think of the game, weighing two ways to handle it: sit tight and let him come, or go and take the centre right now. I pick the greedy version — decided over the board, not out of my books: I **give up the bishop pair for the centre**. `…Bxf3`, `…e5`, `…d5`, and my knight plants its flag on d5. Objectively I'm probably a touch worse — the bishop pair always gets paid for, but later, once you've forgotten why. In the meantime, the position is very playable and I have a clear plan. That's plenty for me.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme1.svg" alt="Round 1 — ambitious setup: bishop pair given up for the centre, knight on d5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">The centre against the bishop pair — a shade worse on paper, but perfectly playable.</p>
 </div>
 
-My opponent, for his part, decides my king looks a little too comfortable for his taste. He pushes his pawns — `h4`, `h5`, `hxg6` — to open lines in front of my castled king. On paper, it looks like a real attack. Except I saw it coming from a long way off, and I stay surprisingly calm: I already know what I'm going to reply.
+My opponent, for his part, decides my king looks a little too comfortable. He pushes his pawns — `h4`, `h5`, `hxg6` — to open lines in front of my castled king. Three moves, and my shelter looks like a building site: the h-file wide open, the g6 pawn hanging in the balance, a king getting air it never asked for. Enough to make anybody sweat. Mostly, I'm waiting for him to go all the way.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme2.svg" alt="Round 1 — White has pushed h4-h5-hxg6, Black is about to reply f4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">He plays hxg6 at my king… and that's exactly the moment to counter-attack.</p>
 </div>
 
-It doesn't take me long to find the answer:
+And at last I play the move I'd been keeping warm for ten moves:
 
 > **…f4!**
 
-That one, I congratulate myself on spotting. For ten moves he's been pushing his pawns towards my king; I politely return the favour and open the lines towards his. No need to calculate a mate: with every move, one more black piece invites itself in front of his castled king, and he's left chasing, never catching his breath. By this point, I've stopped looking at my clock.
+That one earns me a small pat on the shoulder. He's the one who's been pushing pawns at my king; I return the favour and open the lines towards his. No need to calculate a mate: with every move, one more black piece invites itself in front of his castled king, and he spends the rest of the game parrying the one from the move before. By this point, I've stopped looking at my clock.
 
 A few moves later, the whole little black army is trained on the white king: the queen on h3, the rook on f4, the bishop on g7, a knight itching to jump. Across the board, nothing answers anymore; he tries to patch things up as best he can with `25.Nf1`.
 
@@ -65,14 +65,14 @@ A tactical sequence follows where everything clicks, and the game ends on a pret
 
 > **25.Nf1 Rg4+ 26.Ng3 Rxg3+! 27.fxg3 Rf1#**
 
-The rook sacrifice `…Rxg3+!` blows up the last rampart: the `f2` pawn is deflected, the f-file swings wide open, and meanwhile my queen on h3 keeps g2 and h2 under lock and key. The rook drops on f1 — mate. The detail that makes me smile: the white rook on a1 watches the whole scene without being able to recapture, blocked by its own bishop on c1. It missed everything, right down to the ending.
+The rook sacrifice `…Rxg3+!` blows up the last rampart: the `f2` pawn is deflected, the f-file swings wide open, and meanwhile my queen on h3 keeps g2 and h2 under lock and key. The rook drops on f1 — mate. The detail that makes me smile: the white rook on a1, which won't have moved a single time all game, watches the whole scene without being able to recapture, blocked by its own bishop on c1. It missed everything, right down to the ending.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde1-diagramme4.svg" alt="Round 1 — the final mating position after Rf1#" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">27…Rf1# — the white king trapped in his own furniture.</p>
 </div>
 
-**Takeaway:** the perfect warm-up. A point in the pocket from round one, against an experienced player, with my pet opening and an attack run from start to finish. Hard to dream of a better opening to a nine-round event — especially when you show up tired and not exactly sure of your form. Which goes to show: when in doubt, you may as well trust what you know by heart.
+**Takeaway:** the perfect warm-up. A point in the pocket from round one, against an experienced player, with my pet opening and an attack run from start to finish. Hard to dream of a better opening to a nine-round event — especially when you show up tired and not exactly sure of your form. Which goes to show: when in doubt, you may as well put on the slippers you know.
 
 ---
 
@@ -80,7 +80,7 @@ The rook sacrifice `…Rxg3+!` blows up the last rampart: the `f2` pawn is defle
 
 **Date:** Monday, August 3, 2026 · **White** vs **Tripulskiy, Mark** (Ukraine, 1792) · **Win**
 
-Little pre-round ritual: I look my opponent up online. And there — fun fact — I land on his **IMDb page before his ChessBase one**. The kid has acted in **two films**. It's genuinely the first time I've prepared a professional actor before a chess player. Rare enough to be worth noting.
+Little pre-round ritual: I look my opponent up online. And there — fun fact — I land on his **IMDb page before his ChessBase one**. The kid has acted in **two films**. It's genuinely the first time my pre-round prep has looked like a casting sheet. Rare enough to be worth noting.
 
 Across the board, then, a young Ukrainian with real **killer eyes** — the focused, determined stare that never blinks. And honestly, seeing that much determination in a young player, I find it rather cool. Form-wise, all good: a 5 p.m. round, I'm rested and ready.
 
@@ -91,7 +91,7 @@ I didn't have much on his repertoire, so I decided to play **solid**: `1.d4`. We
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">I already feel great here — and the engine will back me up.</p>
 </div>
 
-I feel confident. To be perfectly honest, I even feel **VERY clever** — you know, that slightly dangerous state where you're convinced you've understood everything about the position. The engine will prove me right about the advantage… and wrong about the rest. I launch into a **very ambitious** plan, `g4!?`, to box in his pieces and strip them of the very air they breathe.
+I feel confident. To be perfectly honest, I even feel **VERY clever** — you know, that slightly dangerous state where you're convinced you've understood everything about the position. The engine will prove me right about the advantage… and wrong about the rest. I launch into a **very ambitious** plan, `g4!?`, to box in his pieces and, if all goes well, strip them of the very air they breathe.
 
 And it works. I nibble squares, I lean on each of his pieces, and two or three times I even threaten to wrap things up on the spot. He ends up giving up his **dark-squared bishop for my knight** — the kind of concession you never sign with a smile.
 
@@ -100,21 +100,21 @@ And it works. I nibble squares, I lean on each of his pieces, and two or three t
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Qb1 — quiet but venomous: the black queen is cruelly short of squares.</p>
 </div>
 
-Here I find the very precise **Qb1**, with a simple but unpleasant idea: play on his **queen's lack of squares**. All's well… until I let myself be tempted by the **overly ambitious `a4`**.
+Here I find the very precise **Qb1**, with a simple and thoroughly unpleasant idea for him: play on his **queen's lack of squares**. One more piece I'm cutting the oxygen to; he's collecting quite a set by now. All's well… until I let myself be tempted by the **overly ambitious `a4`**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde2-diagramme3.svg" alt="Round 2 — the overly ambitious a4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">a4 — ambitious, a touch too much: it gets very hot for everyone.</p>
 </div>
 
-And now the calm is gone: it gets **very hot for everyone**, and every move has to be calculated to the millimetre. The verdict comes in — I'm going to **lose my a4 pawn**. Except I trade it for horribly placed black pieces: by the time his knight has gone to fetch it at the ends of the earth on a4, I calmly **put all my pieces back where they belong**.
+All at once the calm is gone: it gets **very hot for everyone**, and every move has to be calculated to the millimetre. I count, I recount, I hunt for a way out in every direction — and I keep landing on the same conclusion: I'm going to **lose my a4 pawn**. But I'm not losing it for nothing. By the time his knight has gone to fetch it at the ends of the earth on a4, I calmly **put all my pieces back where they belong**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde2-diagramme4.svg" alt="Round 2 — pieces regrouped, about to play Bf3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">He has the a4 pawn; I have a bishop on d4, a knight on d2 and a plan. A very good trade.</p>
 </div>
 
-I finish improving my pieces with **Bf3!**… and he cracks with **e5??**. A decision that opens exactly the lines I was dreaming of.
+I finish putting my pieces back with **Bf3!**… and he cracks with **e5??**. A decision that opens exactly the lines I was dreaming of.
 
 A few small exchanges follow, and now I have to find the precise break:
 
@@ -134,9 +134,9 @@ After that, all the black pieces are suddenly **miserable**: a knight exiled on 
 
 The black pawns then fall like ripe fruit, and the rest is a mere **technical formality**.
 
-A nice little note from the day: my friend **Nathan Berthelot** (rated 1950) lands a prepared line in the Italian, with a sneaky little idea, against a young Indian rated 2150 — and it goes **straight through, like clockwork**. A very fine result for him. The tournament is off to a good start for the French delegation.
+A nice little note from the day: my friend **Nathan Berthelot** (rated 1950) lands a prepared line in the Italian, with a sneaky little idea, against a young Indian rated 2150 — and it goes straight through, exactly like clockwork. A very fine result for him. The tournament is off to a good start for the French delegation.
 
-**Takeaway:** against a young, weaker but sharp player, solidity and a clear plan are worth gold — provided you channel the ambition. My `a4` was a touch too greedy; what saved the position wasn't intuition but **precise calculation** at the hot moment. Feeling "very clever" is pleasant; you still have to prove it move after move on the board.
+**Takeaway:** against a young, weaker but sharp player, solidity and a clear plan are worth gold — provided you channel the ambition. My `a4` was a touch too greedy; what saved the position wasn't intuition but **precise calculation** at the hot moment. Feeling "very clever" is pleasant — but the board asks for the proof again every single move.
 
 ---
 
@@ -144,7 +144,7 @@ A nice little note from the day: my friend **Nathan Berthelot** (rated 1950) lan
 
 **Date:** Tuesday, August 4, 2026 · **Black** vs **IM Utsab Chatterjee** (India, 2353) · **Loss**
 
-The day starts badly. Traffic jams, and I reach the board **20 minutes late** — the clock has started eating my time without even waiting for me. Nothing like it for the mood. I get back into it quickly, but conceding such a handicap right off the bat against an **IM rated 2353** leaves a mark.
+The day starts badly. Traffic jams and I reach the board **20 minutes late** — the clock has started eating my time without even waiting for me. Perfect for sitting down relaxed across from an **IM rated 2353**. I get into the game quickly enough, but conceding a handicap like that right off the bat leaves a mark.
 
 Against him, I bring out an **O'Kelly** — an experiment, to drag him off the beaten track and grab a small **theoretical edge** out of the opening.
 
@@ -153,30 +153,30 @@ Against him, I bring out an **O'Kelly** — an experiment, to drag him off the b
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">My move: I take my time to recall the right idea, Nf6!</p>
 </div>
 
-Here I think for a while to recall the right plan — and I eventually land on the correct sequence: **…Nf6! Bxb7 Ra7 Be4 Rd7!**. Nothing heroic; it's normal to eventually recall these things. What's rarer is the kind of position that results: White has an **extra pawn** *and* the **bishop pair** in an **open position**… and yet it's **equal**. All the compensation lies in the **activity of the black pieces**.
+Here I think for a while to recall the right plan — and I eventually land on the correct sequence: **…Nf6! Bxb7 Ra7 Be4 Rd7!**. Nothing clever about it: that's preparation coming back, not a discovery. What's rarer is the kind of position that results: White has an **extra pawn** *and* the **bishop pair** in an **open position**… and yet it's **equal**. All the compensation lies in the **activity of the black pieces**.
 
-Except I proceed to play this perfectly equal position as if I had a win to convert — **far too dynamically**. A bad evaluation, plain and simple; the kind you don't spot in the moment.
+Except I proceed to play this perfectly equal position as if I had a win to convert — **far too dynamically**. That's where the dial slips: a position this lopsided throws you off. When you're holding the balance with pure activity, against an extra pawn and the bishop pair, you struggle to believe that "holding" is enough. You tell yourself there must be something in it. An error of evaluation, not of calculation — the kind you never spot in the moment.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme2.svg" alt="Round 3 — I had to stabilise with Qc8, instead Black goes for Bc5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Here I had to settle things with Qc8. Instead… Bc5.</p>
 </div>
 
-I had to set down my bags with the calm **…Qc8**, keep control and let my activity do the work. Instead, I charge into the very ambitious **…Bc5**, with a real idea behind it — landing on him on the **dark squares near his king**. Small snag: across the board, he plays very, very well.
+I had to set down my bags with the calm **…Qc8**, keep control and let my activity do the work. Instead, I charge into the very ambitious **…Bc5**, with a real idea behind it: plant the bishop on the **a7-g1 diagonal** and come hammering at **f2** and **g1**, where his king has nobody to answer. Small snag: across the board, he plays very, very well. Every move I put down, he already has the reply — not some laboured defence found on the clock, the right one, the one that files my threat away and shuts the drawer.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme3.svg" alt="Round 3 — the choice between the defensive Nb5 and the all-in Nf3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Last fork in the road: Nb5 and I suffer but defend… or the all-in Nf3.</p>
 </div>
 
-And here comes the moment where everything is decided — which I botch beautifully. I let **…Nb5** slip, which offered me an **inferior but defensible position**, to charge headlong into an **all-in** with **…Nf3**. In the moment, that sacrifice looked far harder for him to handle than it really was. Another misjudgement — decidedly, the theme of the day.
+And here comes the position where everything is decided — which I botch beautifully. I let **…Nb5** slip, which offered me an **inferior but defensible position**, to charge headlong into an **all-in** with **…Nf3**. In the moment, that sacrifice looked far harder for him to handle than it really was. Another rushed evaluation — and this time I know exactly where it was rushed: the twenty minutes left behind in the traffic, I pay for them right here, on the move where I should have sat down and counted.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme4.svg" alt="Round 3 — Black hopes for play, White plays very practically" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">I was hoping for some play… he just rolls it out, calmly, very practically.</p>
 </div>
 
-I was hoping to scrape together some counterplay. He plays with maddening cold blood: not a flinch, not a needless complication, he gives back what he must and keeps a firm hand on the wheel. That's the whole difficulty of facing an Indian — **they calculate like they breathe**, and for a player as drawn to active chess as I am, it's particularly painful.
+I was hoping to scrape together some counterplay on the **d-file** — double up on it, lean on his centre and force him to deal with me. He plays with maddening cold blood: not a flinch, not a needless complication, he gives back what he must and keeps a firm hand on the wheel. The Indian school in all its glory — **they calculate like they breathe**. And for a player as drawn to active chess as I am, there is nothing more frustrating than an opponent who politely declines the mess.
 
 Truth be told, I've known for a good while that I'm sunk. He simply played better — nothing to say.
 
@@ -195,9 +195,9 @@ I try a last **…Qg5**, he replies coldly with **Qf4**, and I resign.
 
 **Date:** Wednesday, August 5, 2026 · **White** vs **Tiwari, Shivansh** (India, 2039) · **Loss**
 
-Across the board, a 23-year-old Indian rated 2000. On paper, nothing to keep me up at night. He plays **Gurgenidze** or **Caro-Kann**. Preparing him, I spot that he flounders a bit in the **Advance variation** with `dxc5` and `a3` — so I prepare exactly that, quite pleased with my little trap.
+Across the board, a 23-year-old Indian rated 2000. On paper, nothing to keep me up at night. He plays **Gurgenidze** or **Caro-Kann**. Preparing him, I spot that he flounders a bit in the **Advance variation** with `dxc5` and `a3` — so I prepare exactly that, quite pleased with my ambush.
 
-Bad luck: he smells the trap and deviates with **4…Nc6**. I know the critical **5.f4** is a real nest of surprises, so I'd rather keep it simple with **Bb5**. We reach a sort of **Advance French**.
+Bad luck: he smells the trap coming and deviates with **4…Nc6**. I know the critical **5.f4** is a real nest of surprises, so I'd rather keep it simple with **Bb5**. We reach a sort of **Advance French**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme1.svg" alt="Round 4 — a sort of Advance French" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -220,7 +220,7 @@ I plant **Bc5**, fairly sure he'll never have the nerve to sacrifice the exchang
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Here I think about Ng5, but nothing clear after …Bd8 Qh5 Bxg5 Qxg5 Nb4.</p>
 </div>
 
-Here I think about going for **Ng5**, but I see nothing clear after **…Bd8 Qh5 Bxg5 Qxg5 Nb4** (I'll let you calculate the other lines). So I choose **Qe2**. There follows **…Qd8 Rad1 Nb4?**.
+Here I think about going for **Ng5**, but I see nothing clear after **…Bd8 Qh5 Bxg5 Qxg5 Nb4**. So I choose **Qe2**. There follows **…Qd8 Rad1 Nb4?**.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme4.svg" alt="Round 4 — after Nb4?, I play Bxg6 then Nc5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -234,7 +234,7 @@ And now I go **Bxg6 fxg6?! c3 Na6 Nc5!**. The knight lands on c5 and is immediat
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">My knight against the French bishop, prisoner of its own pawns: exactly the structure I dreamed of.</p>
 </div>
 
-Except — you're starting to know me — I'm going to want too much again. I should have played it sober, **Rcd1** or **h3**, defusing the trouble before it even exists. But I want to **mate** this kid. So I play **Re3?!**, which hands him a dead-simple liquidation plan on a plate.
+Except — you're starting to know me — I'm going to want too much again. I should have played it sober, **Rcd1** or **h3**, defusing the trouble before it even exists. But I want to **mate** this kid: the rook slides to **f3**, the queen comes to **f4**, and we'll see what he finds. So I play **Re3?!**, which hands him a dead-simple liquidation plan on a plate.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme5.svg" alt="Round 4 — I should hold with Rd3, I go for Nb3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -257,9 +257,9 @@ We reach a position where I feel **completely winning**: on **…Qxe5**, I answe
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">My rooks on the 7th are screaming "play me right"… I play Qe3?, and it all falls apart.</p>
 </div>
 
-I collapse. I play **Qe3?**. By luck, he doesn't find the decisive **…Re1!** — but he still picks the strong **…Rf1!**. And there, I go for **b4**, completely missing that **…Qa1 Ng1 d4!** wins the game. I should have answered **…Qa1** with **Rc1**: an unclear position, but one that looks **VERY playable** to me for White — my two rooks on the seventh are worth gold.
+I collapse. I play **Qe3?**. By luck, he doesn't find the decisive **…Re1!** — but he still picks the strong **…Rf1!**. I go for **b4**, completely missing that **…Qa1 Ng1 d4!** wins the game. I should have answered **…Qa1** with **Rc1**: the rook drops back to put out the fire on the first rank while its twin stays planted on **a7**. An unclear position, but one that looks **VERY playable** to me for White — one rook defending, one rook on the seventh, and his king no better off than mine.
 
-**Takeaway:** a bitter loss. I don't think my opponent was very good **strategically** — but he **calculates well**, and above all, I clearly **lost my clarity** somewhere between the third and the fourth-and-a-half hour of play. Three times over (`Re3?!`, `Nb3` instead of `Rd3`, then the final collapse), I chose ambition over solidity. Against a good calculator, in a 4.5-hour game, it's not talent that's missing — it's **fuel**. Stamina, again and always.
+**Takeaway:** a bitter loss. My opponent wasn't very good **strategically**, but he **calculated very well** — and above all, I clearly **lost my clarity** somewhere between the third and the fourth-and-a-half hour of play. Three times over (`Re3?!`, `Nb3` instead of `Rd3`, then the final collapse), I chose ambition over solidity. Against a good tactician, in a 4.5-hour game, it's not talent that's missing — it's **fuel**. Stamina, again and always.
 
 ---
 

@@ -43,7 +43,7 @@ And then comes the first bucket of cold water. Without a second's hesitation, he
 
 > **...Nd4!**
 
-The move is strong. Very strong. And above all, I hadn't seriously considered it — because it gives up the exchange. I probably should have played **Nd2**, which should have kept a small edge, but in the moment, the capture was impossible to resist. The problem is that this sacrifice completely changes the dynamics of the position.
+The move is strong. Very strong. And above all, I hadn't seriously considered it — because it gives up the exchange. I probably should have played **Nd2**, which should have kept a small edge, but in the moment, the capture was impossible to resist. That sacrifice changes the whole dynamic of the position.
 
 A few moves later, he finds the logical follow-up:
 
@@ -54,7 +54,7 @@ A few moves later, he finds the logical follow-up:
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">There's only one move for Black — and he found it.</p>
 </div>
 
-And at that point, there's no sugarcoating it. The black knight is parked on d5 like it owns the place, the bishop pair springs to life in one go, while my poor bishop on c1 discovers an unexpected calling: watching the game up close without ever participating.
+There's no sugarcoating it any longer. The black knight is parked on d5 like it owns the place, the bishop pair springs to life in one go, while my poor bishop on c1 discovers an unexpected calling: watching the game up close without ever participating.
 
 Within minutes, I go from "satisfied player" to "proud owner of the worst bishop on the board."
 
@@ -101,7 +101,7 @@ Surprise: he goes for **1.b3**. Not at all what I'd prepared for. Fortunately, I
 
 In practice, I feel slightly worse: he has the bishop against my knight, and in this kind of open endgame, the bishop tends to stroll around like a tourist on vacation while the knight desperately looks for a stable square. But the position is very holdable, and I'm happy to have equalized against a 2365.
 
-The problem is that I know exactly what's coming. This kid isn't going to rush. On the contrary — he'll play very slowly, avoid pawn pushes, set subtle traps, and pounce on the slightest opportunity. The kind of silent, almost polite grind where every move looks harmless but the pressure never lets up.
+And I already know exactly what's coming. This kid isn't going to rush. On the contrary — he'll play very slowly, avoid pawn pushes, set subtle traps, and pounce on the slightest opportunity. The kind of silent, almost polite grind where every move looks harmless but the pressure never lets up.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Round 2 — the white bishop has settled on c4, Black hasn't moved" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -168,11 +168,11 @@ I find the creative (for me) **Bd8!** with the idea of activating it via b6. One
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">d5! exd5 e4! — the center explodes in Black's favor.</p>
 </div>
 
-After the tactical flurry, I reach a promising position. And that's where things go off the rails: with 10 minutes on my clock versus 15 on his, I almost instantly go for the wildly ambitious **...fxh3**, channeling my inner Tal. The problem is that I completely overlooked the simple sequence **...Qc7, Rd1, Bg4!!** which wins by force — cleanly, no drama, no dubious sacrifice.
+After the tactical flurry, I reach a promising position. Ten minutes on my clock against fifteen on his — and instead of settling quietly onto my advantage, I almost instantly grab the wildly ambitious **...Bxh3**, channeling my inner Tal. I had completely overlooked the simple sequence **...Qc7, Rd1, Bg4!!** which wins by force — cleanly, no drama, no dubious sacrifice.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Round 4 — position before the wildly ambitious fxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Here I played ...fxh3. Tal would have made it work. I didn't.</p>
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Round 4 — position before the wildly ambitious Bxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
+  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Here I played ...Bxh3. Tal would have made it work. I didn't.</p>
 </div>
 
 We reach a position where he's almost completely paralyzed. The kind of diagram you proudly show your friends saying "look how winning this was."
@@ -210,7 +210,7 @@ He goes for a very direct plan, and I set a little trap. Here, he plays **Re8** 
 
 > **Rxa5!**
 
-A move that at least rattles him psychologically, even if objectively the position is roughly equal.
+Objectively, the position stays roughly equal. But across the board he doesn't know that yet — and that alone is worth half a pawn.
 
 He doesn't find the best defense, and we reach a position where I spend **35 minutes** trying to find a win. After **Rh8, Kg6!!** holds for Black and I can't find anything clear. I end up going for **Re6** and keep pressing.
 
@@ -219,7 +219,7 @@ He doesn't find the best defense, and we reach a position where I spend **35 min
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">35 minutes on this position — and still no clear win.</p>
 </div>
 
-And then comes the trap. I play the sneaky **Qc2** — a move that looks like it's preparing Qxh7 for a draw. He goes straight for **Be5**, thinking he's cutting me off.
+The real ambush arrives now. I play the sneaky **Qc2** — a move that looks like it's preparing Qxh7 for a draw. He goes straight for **Be5**, thinking he's cutting me off.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Round 5 — the Qc2 trap followed by Qf5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -312,7 +312,7 @@ Clear objective: 3/3 over the last three rounds to scrape some Elo points. Acros
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">30 minutes ahead on the clock and still in preparation — the plan is working.</p>
 </div>
 
-The preparation pays off: I have **one hour** against **20 minutes** on his clock. And that's when I sink 40 minutes trying to make **Nxh6** work — which doesn't work. The kind of moment where you think "I've got time, might as well look for the killer blow." Except the killer blow doesn't exist.
+The preparation pays off: I have **one hour** against **20 minutes** on his clock. And I sink forty of those minutes trying to make **Nxh6** work — which doesn't work. The kind of moment where you think "I've got time, might as well look for the killer blow." Except the killer blow doesn't exist.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Round 7 — 40 minutes spent on Nxh6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -347,7 +347,7 @@ We reach a rook endgame. We've each had about one minute on the clock for a whil
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">One minute each — and everything is decided now.</p>
 </div>
 
-And then I completely miss the win with **Rxd4**. Another lapse in clarity.
+And I completely miss the win with **Rxd4**. Another lapse in clarity — the fourth hour of play, always that same hour.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Round 7 — Rxd4 missed" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
