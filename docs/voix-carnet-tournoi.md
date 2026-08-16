@@ -55,9 +55,9 @@ Ces tournures alourdissent et donnent le côté « scolaire ». Les supprimer et
 
 ---
 
-## Les 12 pièges de relecture
+## Les 15 pièges de relecture
 
-Les principes ci-dessus produisent un premier jet vivant. Ces douze défauts-là y survivent et ne se
+Les principes ci-dessus produisent un premier jet vivant. Ces quinze défauts-là y survivent et ne se
 voient qu'en relisant — les traquer explicitement.
 
 1. **Pas de bascule sans appui.** « Et là, je prends une décision… » exige une hésitation *montrée* juste avant
@@ -93,7 +93,20 @@ voient qu'en relisant — les traquer explicitement.
     exploit ; « Rien de tel pour l'humeur » laisse le lecteur deviner si on est blasé ou furieux. Choisir
     l'ironie franche ou le constat direct, jamais l'entre-deux.
 12. **Escalader une image plutôt que la répéter.** Le gros mot vient après le petit : on tend un *piège*, et
-    c'est le *traquenard* qui se referme — pas l'inverse.
+    c'est le *traquenard* qui se referme — pas l'inverse. Vaut aussi pour les formules de conclusion : si
+    « l'enthousiasme est un piètre X » sert deux fois dans l'article, la seconde doit changer de mot.
+13. **Ne pas annoncer une bascule sur une position que le lecteur n'a pas.** « Et c'est précisément là que je
+    m'effondre » juste après avoir joué `g4` laisse le lecteur devant le mauvais échiquier. Poser d'abord le
+    moment concret (« Quelques coups plus tard, il faut replacer le cavalier »), puis annoncer la chute.
+    Corollaire : ne pas couper le film à la gaffe. Ce qui suit (les échanges forcés, la glissade vers la finale)
+    fait partie de la scène.
+14. **Le mot juste plutôt que le mot voisin.** Des faux amis récurrents à vérifier :
+    *morale* ≠ leçon (« pas de grande morale » → « pas de grande révélation ») · un coup se **joue**, il ne se
+    « prend » pas · une combinaison qui gagne se **recalcule**, elle ne « tient » pas (registre défensif) ·
+    l'enthousiasme est un piètre **juge**, pas un piètre « calculateur » (c'est le jugement qu'il altère) ·
+    « se croire correct » ne veut rien dire → « croire que sa position vaut mieux que ça ».
+15. **Un aparté se pose en suspension, pas en incise.** « … nettement plus agréable à jouer**…** pour moi »
+    fonctionne ; le tiret cadratin annonce une précision, pas une chute.
 
 **Idiomes à ne pas rater :** « de bout en bout » (pas « d'un bout à l'autre » sans complément) · une pièce est
 **en** a4 (jamais « à a4 ») · notation **française** (C, F, T, D, R) dans tout article FR, y compris les coups

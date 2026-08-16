@@ -287,7 +287,7 @@ And then he plays **Nba3**.
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Nba3 — that knight does absolutely nothing on a3. Thanks for the gift.</p>
 </div>
 
-That knight simply goes to the wrong square; parked on a3, it's utterly useless. The kind of move that doesn't lose the game on the spot, but suddenly makes it far more pleasant to play — for me.
+That knight simply goes to the wrong square; parked on a3, it's utterly useless. The kind of move that doesn't lose the game on the spot, but suddenly makes the position far more pleasant to play… for me.
 
 I look, I recount, and I eventually see **…b5!**.
 
@@ -307,11 +307,11 @@ This time, I don't rush. I sink **20 minutes** into the clock, purely to be **ab
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Ne4! — the point. Once you see it, it's glaring.</p>
 </div>
 
-A little thrill of excitement when it appears. I double-check quickly — honestly, once you see it, it's fairly obvious — and I put my hand on it. The game is over, and me, simply happy. You forget the moral lessons fast when you start winning again.
+A little thrill of excitement when it appears. I double-check quickly — honestly, once you see it, it's fairly obvious — and I put my hand on it. The game is over, and me, simply happy. You forget your good resolutions fast when you start winning again.
 
-The anecdote of the day, and not a minor one. A few tables over, **Nathan** lands a prepared line in a Sicilian against a young Indian rated 2000… and folds him in **20 moves**. The whole Indian clan gathers round the board, stunned, convinced they're witnessing the coronation of an **opening genius**. Me, I chuckle inwardly: Nathan is, let's say it fondly, **notoriously catastrophic at theory**. If he swept his opponent aside in twenty moves, it's because he recited, line for line, one of my preparations. The opening genius, that day, was mostly an excellent parrot — and that's how, round after round, he'd end up landing just about all of my prep for the tournament.
+The anecdote of the day is not a minor one. A few tables over, **Nathan** lands a prepared line in a Sicilian against a young Indian rated 2000… and folds him in **20 moves**. The whole Indian clan gathers round the board, stunned, convinced they're witnessing the coronation of an **opening genius**. Me, I chuckle inwardly: Nathan is, let's say it fondly, **notoriously catastrophic at theory**. If he swept his opponent aside in twenty moves, it's because he recited, line for line, one of my preparations. The opening genius, that day, was mostly an excellent parrot — and that's how, round after round, he'd end up landing just about all of my prep for the tournament.
 
-**Takeaway:** stopping the bleeding doesn't always require a flash of genius — just a healthy position, an opponent who puts a piece on the wrong square, and the patience to spend twenty minutes making sure the beautiful move really holds. After two losses where I'd sinned through excess of ambition, it feels wonderful to win simply because I played well and calculated well.
+**Takeaway:** stopping the bleeding doesn't take a flash of genius, rather the opposite — a healthy position, an opponent who puts a piece on the wrong square, and the patience to spend twenty minutes recalculating a combination you've already found. After two losses where I'd sinned through excess of ambition, it feels wonderful to win simply because I played well and calculated well.
 
 ---
 
@@ -335,9 +335,9 @@ At the time, I shrug: pretty, but harmless. Only once the game is over do I unde
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">A little h3 kept the tiny edge. I play Re1. To go faster. Well done.</p>
 </div>
 
-Here I need to play **h3** — dead simple — to keep my tiny edge. Instead, I play **Re1**. Why? Because I wanted to **play fast to put pressure** on his clock. Small detail: applying pressure that way, I have no idea how to do. The result doesn't keep me waiting — **…Bg4 Bxe2** — the minor pieces come off, and Black is doing great.
+Here I need to play **h3** — dead simple — to deny his bishop the g4 square. Without it, the bishop drops in there and trades itself off against my knight on e2: exactly the relief Black needs, and my tiny edge goes with it. Instead, I play **Re1**. Why? Because I wanted to **play fast to put pressure** on his clock. Small detail: applying pressure that way, I have no idea how to do. The result doesn't keep me waiting — **…Bg4 Bxe2** — the minor pieces come off, and Black is doing great.
 
-I stubbornly keep thinking I'm fine, and I blunder for real.
+I stubbornly keep believing my position is worth more than that, and I blunder for real.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme3.svg" alt="Round 6 — b4 Qe6 Bf3?? Rxd4, I lose a pawn" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -346,7 +346,7 @@ I stubbornly keep thinking I'm fine, and I blunder for real.
 
 **b4 Qe6 Bf3??** — and **…Rxd4** lands on me. I drop a pawn for nothing: the little pair of checks **…Qe1+ then …Qe5+** forks my king and rook, and I get nothing back. That's how you turn a pleasant position into a chore, in three moves played too fast.
 
-Except — and this is where the game becomes fun for me — his extra pawn is a **poisoned gift**. His f-pawns are **doubled**; that shapeless little mass isn't worth much.
+Except — and this is what gives me back a bit of appetite — his extra pawn is a **poisoned gift**. His f-pawns are **doubled**; that shapeless little mass isn't worth much.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme4.svg" alt="Round 6 — Black forces the queen trade" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -364,7 +364,7 @@ Better still: I have a hope, quiet but very real. **If Black transposes into a p
 
 …but he stays solid. He doesn't find the **…c5!** that would have given him real winning chances either — his **…f5** is already dubious in practice, and he never takes the plunge. The game fades out on a clean draw, and my little pawn-endgame trap goes back in its box, untouched.
 
-**Takeaway:** none. And that's exactly the problem. No grand moral, no technical mistake to fix — just a day where I tried to go too fast, dropped my focus three times running on "easy" moves, and ended up begging a draw in a position I should have kept comfortable. The kind of game you forget… when you really shouldn't.
+**Takeaway:** none. And that's exactly the problem. No grand revelation, no technical mistake to fix — just a day where I tried to go too fast, dropped my focus three times running on "easy" moves, and ended up begging a draw in a position I should have kept comfortable. The kind of game you forget… when you really shouldn't.
 
 ---
 
@@ -379,7 +379,7 @@ That day, one single urge: to **have fun**. No career plan, no counting of point
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…a6 in the French — improvised from start to finish, and yet very playable.</p>
 </div>
 
-I reach a nice **Advance French**. A fun little marker that comes back to me: GM **Christian Bauer** is a specialist of this **…a6** line. Except Bauer is a player of fearsome creativity — so when it's *him* adopting a system, it mostly means it's probably **not entirely correct**. In other words: exactly the fuel I needed for a no-stress day.
+I reach a nice **Advance French**. A fun little marker that comes back to me: GM **Christian Bauer** is a specialist of this **…a6** line. Except Bauer is a player of fearsome creativity — so when it's *him* adopting a system, it's rarely because theory forces it. Translation: the line is no theoretical wall, I have no variation to recite and I can play the position on my own ideas. Exactly what I needed for a no-stress day.
 
 One detail that weighs on the scales: the hall's air conditioning has given up the ghost. It's forty degrees outside, and a good forty-five inside. Staying seated is a feat — I spend half the game stepping outside for air between moves, like a diver coming up to breathe.
 
@@ -399,7 +399,7 @@ Then I launch into the move I'm proudest of in the game: **…0-0-0!**.
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…0-0-0 — bold-looking, but Nxg7 runs into …h5 and …Rg8!</p>
 </div>
 
-Castling long looks bold. But I'm perfectly serene: if he throws himself at `Nxg7`, I calmly answer `…h5` and `…Rg8!`, and his knight ends up a prisoner at the back of my camp. My king, meanwhile, is perfectly snug on b8.
+Castling long looks bold: I leave `g7` hanging and I park my king on the side his pawns can come after. But I'm perfectly serene: if he throws himself at `Nxg7`, I calmly answer `…h5` and `…Rg8!`, and his knight ends up a prisoner at the back of my camp. My king, meanwhile, is perfectly snug on b8.
 
 I can then improve my pieces at leisure while he looks for a way to breathe. He ends up trying to get active by **giving me a5** — a good try, honestly — but I scoop up the pawn without a second thought.
 
@@ -434,7 +434,7 @@ He'll have none of it: **…Nxd4**, then **…g6**.
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Nxd4 and …g6 — and this is where I get carried away.</p>
 </div>
 
-And I do exactly what I should never do: I **tank 40 minutes** because `e5` looks **SUPER INTERESTING** to me. In capitals, in my head. The kind of euphoria that should light up a red warning — when a move looks that brilliant to me, it very often isn't. I play it anyway, and drop a pawn along the way.
+Right there, in that exact position, I do exactly what I should never do: I **tank 40 minutes** because `e5` looks **SUPER INTERESTING** to me. In capitals, in my head. The kind of euphoria that should light up a red warning — when a move looks that brilliant to me, it very often isn't. I play it anyway, and drop a pawn along the way.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme2.svg" alt="Round 8 — a pawn down, but good compensation" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -443,14 +443,14 @@ And I do exactly what I should never do: I **tank 40 minutes** because `e5` look
 
 So there I am, a pawn behind, but with **real compensation**: his pieces are a bit tangled, my development flows on its own, and I hold nice squares. I feel good.
 
-I build, patiently, piece by piece.
+So I build, patiently, piece by piece: the rooks come to double up, the knight sets off for c5.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme3.svg" alt="Round 8 — I build, the knight heads for c5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Doubled rooks, knight en route to c5: the machine is falling into place.</p>
 </div>
 
-And I reach a position I'm **very satisfied** with. Genuinely. My doubled rooks, my bishops breathing, a knight screwed onto c5 — everything in its place.
+And I reach a position I'm **very satisfied** with. My doubled rooks, my bishops breathing, a knight screwed onto c5 — everything in its place.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme4.svg" alt="Round 8 — very satisfied, I weigh a4, b4 or g4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -459,18 +459,20 @@ And I reach a position I'm **very satisfied** with. Genuinely. My doubled rooks,
 
 I spend a long time weighing my breaks: `a4`? `b4`? `g4`? I end up taking the most **brutal** of the three, `g4`, to throw the hostilities wide open.
 
-And it's precisely there, at the peak of my satisfaction, that I fall apart.
+A few moves later, the knight has to be replaced. Two squares available, one second of slack —
+
+and it's precisely there, at the peak of my satisfaction, that I fall apart.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme5.svg" alt="Round 8 — the blunder Nd7 instead of the perfect Nb7" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…and I play Nd7?? — when Nb7 was perfect.</p>
 </div>
 
-I play **Nd7??**. A pure, dumb blunder: I'd **completely forgotten that b6 was under control**, which made **Nb7 simply perfect**. The right move was there, obvious, under my nose — and I was looking elsewhere. A simplification I can no longer prevent follows, and I slide into a **losing rook endgame**.
+I play **Nd7??**. A pure, dumb blunder: I'd **completely forgotten that b6 was under control**, which made **Nb7 simply perfect**. The right move was there, obvious, under my nose — and I was looking elsewhere. After that there's nothing left to negotiate: he trades, then trades again, every exchange bringing me closer to an endgame I don't want, and I have no way of stopping him. I slide into a **losing rook endgame**, watching every step of the staircase come.
 
 I'm **sickened**. There's no other word.
 
-**Takeaway:** two red warnings ignored in the same game. The first: when a move looks *SUPER interesting* to me, to the point of sinking 40 minutes into it, it's rarely a good sign — enthusiasm is a poor calculator. The second, crueller one: the more I like a position, the more I should be wary, because it's exactly when you're admiring yourself that you forget to look at the reply. A crystal-clear `Nb7`, a catastrophic `Nd7`, and a whole fine day's work in the bin — the night before heading back to the office.
+**Takeaway:** two red warnings ignored in the same game. The first: when a move looks *SUPER interesting* to me, to the point of sinking 40 minutes into it, it's rarely a good sign — enthusiasm is a poor judge. The second, crueller one: the more I like a position, the more I should be wary, because it's exactly when you're admiring your own position that you stop looking at what the other side is preparing. A crystal-clear `Nb7`, a catastrophic `Nd7`, and a whole fine day's work in the bin — the night before heading back to the office.
 
 ---
 
@@ -586,7 +588,7 @@ Here's what I'm packing back into the suitcase:
 
 1. **Channel the ambition** — THE big job. Round 3, I equalise against the tournament's strongest player… and over-press an equal position. Round 4, I want to mate him and I wreck an advantage. Round 8, I admire myself, and I blunder the very next move. Always the same pattern: the moment the position is good or quiet, I push one notch too far. Accept the equality, convert without forcing — priority number one.
 
-2. **Beware the euphoria.** When a move looks *SUPER interesting* to the point of sinking 40 minutes into it, or when I feel *VERY clever*, that's precisely when I should double-check. Enthusiasm is a poor calculator. My finest wins (rounds 2, 5 and 7) I owe to cold calculation at the right moment, not to a rush of blood.
+2. **Beware the euphoria.** When a move looks *SUPER interesting* to the point of sinking 40 minutes into it, or when I feel *VERY clever*, that's precisely when I should double-check. Enthusiasm is a poor counsellor. My finest wins (rounds 2, 5 and 7) I owe to cold calculation at the right moment, not to a rush of blood.
 
 3. **Stamina, again and always.** My two collapses (rounds 4 and 8) come late, when the clarity gives out: after 4.5 hours of play, or in a hall at forty-five degrees, AC out. The body decides far more often than I care to admit. Same conclusion as in Pontevedra — I really need to get on it for good.
 

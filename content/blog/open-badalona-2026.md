@@ -80,7 +80,7 @@ Le sacrifice de tour `…Txg3+ !` fait sauter le dernier rempart : le pion `f2` 
 
 **Date :** Lundi 3 août 2026 · **Blancs** contre **Tripulskiy, Mark** (Ukraine, 1792) · **Victoire**
 
-Petit rituel d'avant-ronde : je cherche mon adversaire sur internet. Et là, fun fact — je tombe sur sa fiche **IMDb avant sa fiche ChessBase**. Le garçon a tourné dans **deux films**. C'est bien la première fois que ma prépa d'avant-ronde ressemble à une fiche de casting. Assez rare pour être noté.
+Petit rituel d'avant-ronde : je cherche mon adversaire sur internet. Fun fact — je tombe sur sa fiche **IMDb avant sa fiche ChessBase**. Le garçon a tourné dans **deux films**. C'est bien la première fois que ma prépa d'avant-ronde ressemble à une fiche de casting. Assez rare pour être noté.
 
 En face, donc, un jeune Ukrainien avec de vrais **yeux de tueur** — le regard concentré, déterminé, qui ne cille pas. Et honnêtement, voir autant de détermination chez un jeune joueur, je trouve ça plutôt cool. Côté forme, tout va bien : ronde de 17h, je suis reposé et d'attaque.
 
@@ -155,7 +155,7 @@ Face à lui, je sors une **O'Kelly** — un essai, histoire de le sortir des sen
 
 Ici, je réfléchis un moment pour retrouver le bon plan — et je finis par tomber sur la séquence juste : **…Cf6 ! Fxb7 Ta7 Fe4 Td7 !**. Rien de sorcier : c'est de la préparation qui remonte, pas une trouvaille. Ce qui est plus rare, en revanche, c'est le type de position qui en découle : les Blancs ont un **pion de plus** *et* la **paire de fous** dans une **position ouverte**… et pourtant, c'est **égal**. Toute la compensation tient dans l'**activité des pièces noires**.
 
-Sauf que je vais m'appliquer à jouer cette position parfaitement égale comme si j'avais un gain à convertir — **beaucoup trop dynamique**. C'est là que le curseur se dérègle : une position aussi bancale désoriente. Quand on tient l'équilibre avec de l'activité pure, face à un pion de moins et à la paire de fous, on a du mal à croire que « tenir » suffise. On se dit qu'il faut forcément en tirer quelque chose. Erreur d'évaluation, pas de calcul — le genre qui ne se voit jamais sur le moment.
+Sauf que je vais m'appliquer à jouer cette position parfaitement égale comme si j'avais un gain à convertir — **beaucoup trop dynamique**. Le curseur se dérègle : une position aussi bancale désoriente. Quand on tient l'équilibre avec de l'activité pure, face à un pion de moins et à la paire de fous, on a du mal à croire que « tenir » suffise. On se dit qu'il faut forcément en tirer quelque chose. Erreur d'évaluation, pas de calcul — le genre qui ne se voit jamais sur le moment.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde3-diagramme2.svg" alt="Ronde 3 — il fallait stabiliser avec Dc8, les Noirs partent pour Fc5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -227,7 +227,7 @@ Ici, je pense partir sur **Cg5**, mais je ne vois rien de clair après **…Fd8 
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Cb4 ? — et je déroule Fxg6, c3, Cc5 : toutes les bonnes pièces sont pour moi.</p>
 </div>
 
-Et là, j'enchaîne **Fxg6 fxg6 ?! c3 Ca6 Cc5 !**. Le cavalier débarque en c5 et s'y échange aussitôt — et je me retrouve pile là où je rêvais d'être : mon **cavalier contre le très mauvais fou de la française**, ce fou de cases blanches condamné à contempler ses propres pions d5 et e6 sans jamais réussir à les contourner. Les Noirs ont beau empiler leurs pièces sur la colonne c, il ne leur reste plus qu'à défendre. Exactement la position que j'espérais en préparant la partie.
+J'enchaîne alors **Fxg6 fxg6 ?! c3 Ca6 Cc5 !**. Le cavalier débarque en c5 et s'y échange aussitôt — et je me retrouve pile là où je rêvais d'être : mon **cavalier contre le très mauvais fou de la française**, ce fou de cases blanches condamné à contempler ses propres pions d5 et e6 sans jamais réussir à les contourner. Les Noirs ont beau empiler leurs pièces sur la colonne c, il ne leur reste plus qu'à défendre. Exactement la position que j'espérais en préparant la partie.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde4-diagramme4b.svg" alt="Ronde 4 — cavalier contre le mauvais fou de la française, les Noirs massés sur la colonne c" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -287,7 +287,7 @@ Et puis il joue **Cba3**.
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Cba3 — ce cavalier ne sert absolument à rien en a3. Merci du cadeau.</p>
 </div>
 
-Ce cavalier ne va tout simplement pas sur la bonne case ; planté en a3, il ne sert strictement à rien. Le genre de coup qui ne perd pas la partie sur l'instant, mais qui la rend d'un coup nettement plus agréable à jouer — pour moi.
+Ce cavalier ne va tout simplement pas sur la bonne case ; planté en a3, il ne sert strictement à rien. Le genre de coup qui ne perd pas la partie sur l'instant, mais qui rend d'un coup la position nettement plus agréable à jouer… pour moi.
 
 Je regarde, je recompte, et je finis par voir **…b5 !**.
 
@@ -307,11 +307,11 @@ Cette fois, je ne me précipite pas. Je pose **20 minutes** sur la pendule, uniq
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Ce4 ! — la pointe. Une fois qu'on la voit, elle crève les yeux.</p>
 </div>
 
-Petit frisson d'excitation quand elle apparaît. Je revérifie vite — honnêtement, une fois qu'on la voit, elle est assez évidente — et je pose la main dessus. La partie est finie, et moi, tout simplement content. On oublie vite les leçons de morale quand on recommence à gagner.
+Petit frisson d'excitation quand elle apparaît. Je revérifie vite — honnêtement, une fois qu'on la voit, elle est assez évidente — et je pose la main dessus. La partie est finie, et moi, tout simplement content. On oublie vite ses bonnes résolutions quand on recommence à gagner.
 
-Anecdote du jour, et pas des moindres. À quelques tables de là, **Nathan** place une préparation dans une Sicilienne contre un jeune Indien classé 2000… et le plie en **20 coups**. Tout le clan indien s'agglutine autour de l'échiquier, médusé, convaincu d'assister au sacre d'un **génie des ouvertures**. Moi, je ris intérieurement : Nathan est, disons-le tendrement, **notoirement catastrophique en théorie**. S'il a balayé son adversaire en vingt coups, c'est qu'il a récité, ligne pour ligne, une de mes préparations. Le génie des ouvertures, ce jour-là, était surtout un excellent perroquet — et c'est comme ça, ronde après ronde, qu'il finira par placer à peu près toutes mes prépas du tournoi.
+L'anecdote du jour n'est pas des moindres. À quelques tables de là, **Nathan** place une préparation dans une Sicilienne contre un jeune Indien classé 2000… et le plie en **20 coups**. Tout le clan indien s'agglutine autour de l'échiquier, médusé, convaincu d'assister au sacre d'un **génie des ouvertures**. Moi, je ris intérieurement : Nathan est, disons-le tendrement, **notoirement catastrophique en théorie**. S'il a balayé son adversaire en vingt coups, c'est qu'il a récité, ligne pour ligne, une de mes préparations. Le génie des ouvertures, ce jour-là, était surtout un excellent perroquet — et c'est comme ça, ronde après ronde, qu'il finira par placer à peu près toutes mes prépas du tournoi.
 
-**Leçon :** stopper l'hémorragie n'exige pas toujours un éclair de génie — juste une position saine, un adversaire qui se trompe de case, et la patience de vérifier vingt minutes que le beau coup tient vraiment. Après deux défaites où j'avais péché par excès d'ambition, ça fait un bien fou de gagner simplement parce qu'on a bien joué et bien calculé.
+**Leçon :** stopper l'hémorragie ne demande pas un éclair de génie, plutôt le contraire — une position saine, un adversaire qui se trompe de case, et la patience de recalculer vingt minutes une combinaison qu'on a déjà vue. Après deux défaites où j'avais péché par excès d'ambition, ça fait un bien fou de gagner simplement parce qu'on a bien joué et bien calculé.
 
 ---
 
@@ -335,18 +335,18 @@ Sur l'instant, je hausse les épaules : joli, mais anodin. Ce n'est qu'une fois 
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Un petit h3 gardait le micro-plus. Je joue Te1. Pour aller plus vite. Bravo.</p>
 </div>
 
-Ici, il faut jouer **h3** — tout bête — pour garder mon micro-plus. Au lieu de ça, je joue **Te1**. Pourquoi ? Parce que j'ai voulu **jouer vite pour lui mettre la pression** à la pendule. Petit détail : mettre la pression de cette façon, je ne sais pas faire. Le résultat ne se fait pas attendre — **…Fg4 Fxe2** — les pièces mineures s'échangent, et les Noirs sont très bien.
+Ici, il faut jouer **h3** — tout bête — pour interdire la case g4 à son fou. Sans ça, le fou vient s'y poser et s'échanger contre mon cavalier en e2 : c'est exactement l'allègement dont les Noirs ont besoin, et mon micro-plus part avec. Au lieu de ça, je joue **Te1**. Pourquoi ? Parce que j'ai voulu **jouer vite pour lui mettre la pression** à la pendule. Petit détail : mettre la pression de cette façon, je ne sais pas faire. Le résultat ne se fait pas attendre — **…Fg4 Fxe2** — les pièces mineures s'échangent, et les Noirs sont très bien.
 
-Je m'entête à me croire correct, et je gaffe pour de bon.
+Je m'entête à croire que ma position vaut mieux que ça, et je gaffe pour de bon.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme3.svg" alt="Ronde 6 — b4 De6 Ff3?? Txd4, je perds un pion" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">b4, De6, Ff3 ?? — et …Txd4 me tombe dessus. Puni.</p>
 </div>
 
-**b4 De6 Ff3 ??** — et **…Txd4** me tombe dessus. Je lâche un pion tout bêtement : la petite paire d'échecs **…De1+ puis …De5+** fourche mon roi et ma tour, et je ne récupère plus rien. Voilà comment on transforme une position agréable en corvée, en trois coups pris trop vite.
+**b4 De6 Ff3 ??** — et **…Txd4** me tombe dessus. Je lâche un pion tout bêtement : la petite paire d'échecs **…De1+ puis …De5+** fourche mon roi et ma tour, et je ne récupère plus rien. Voilà comment on transforme une position agréable en corvée, en trois coups joués trop vite.
 
-Sauf que — et c'est ici que la partie redevient amusante pour moi — son pion en plus est un **cadeau empoisonné**. Ses pions f sont **doublés** ; cette petite masse informe ne vaut pas grand-chose.
+Sauf que — et c'est ce qui me redonne un peu d'appétit — son pion en plus est un **cadeau empoisonné**. Ses pions f sont **doublés** ; cette petite masse informe ne vaut pas grand-chose.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme4.svg" alt="Ronde 6 — les Noirs forcent l'échange des dames" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -364,7 +364,7 @@ Mieux : j'ai un espoir, discret mais bien réel. **Si les Noirs transposent dans
 
 …mais il reste solide. Il ne trouve pas non plus le **…c5 !** qui, lui, lui aurait offert de vraies chances de gain — son **…f5** est déjà douteux en pratique, et jamais il ne franchit le pas. La partie s'éteint sur une nulle propre, et mon petit piège de finale de pions repart dans sa boîte, intact.
 
-**Leçon :** aucune. Et c'est précisément ça, le problème. Pas de grande morale, pas de faute technique à corriger — juste une journée où j'ai voulu aller trop vite, relâché trois fois de suite l'attention sur des coups « faciles », et fini par quémander une nulle dans une position que j'aurais dû garder confortable. Le genre de partie qu'on oublie… alors qu'on ne devrait surtout pas.
+**Leçon :** aucune. Et c'est précisément ça, le problème. Pas de grande révélation, pas de faute technique à corriger — juste une journée où j'ai voulu aller trop vite, relâché trois fois de suite l'attention sur des coups « faciles », et fini par quémander une nulle dans une position que j'aurais dû garder confortable. Le genre de partie qu'on oublie… alors qu'on ne devrait surtout pas.
 
 ---
 
@@ -379,7 +379,7 @@ Ce jour-là, une seule envie : **m'amuser**. Pas de plan de carrière, pas de co
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…a6 dans le français — improvisé de bout en bout, et pourtant très jouable.</p>
 </div>
 
-J'obtiens une belle **française d'avance**. Petit repère amusant qui me revient : le GM **Christian Bauer** est un spécialiste de cette ligne à `…a6`. Sauf que Bauer est un joueur d'une créativité redoutable — alors quand c'est *lui* qui adopte un système, ça signifie surtout que ce n'est probablement **pas tout à fait correct**. Autrement dit : exactement le carburant qu'il me fallait pour une journée sans prise de tête.
+J'obtiens une belle **française d'avance**. Petit repère amusant qui me revient : le GM **Christian Bauer** est un spécialiste de cette ligne à `…a6`. Sauf que Bauer est un joueur d'une créativité redoutable — alors quand c'est *lui* qui adopte un système, c'est rarement parce que la théorie l'impose. Traduction : la ligne n'a rien d'un mur théorique, je n'ai pas de variante à réciter et je peux jouer la position sur mes propres idées. Exactement ce qu'il me fallait pour une journée sans prise de tête.
 
 Petit détail qui pèse dans la balance : la climatisation de la salle a rendu l'âme. Il fait quarante degrés dehors, et bien quarante-cinq dedans. Rester assis relève de l'exploit — je passe la moitié de la partie à sortir prendre l'air entre deux coups, comme un plongeur qui remonte respirer.
 
@@ -399,7 +399,7 @@ Puis je me lance dans le coup dont je suis le plus fier de la partie : **…0-0-
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…0-0-0 — gonflé en apparence, mais Cxg7 se heurte à …h5 et …Tg8 !</p>
 </div>
 
-Roquer du grand côté, ça a l'air gonflé. Mais je suis parfaitement serein : s'il se jette sur `Cxg7`, je réponds tranquillement `…h5` et `…Tg8 !`, et son cavalier se retrouve prisonnier au fond de mon camp. Mon roi, lui, est parfaitement au chaud en b8.
+Roquer du grand côté, ça a l'air gonflé : je laisse `g7` en l'air et je pose mon roi du côté où ses pions peuvent venir le chercher. Mais je suis parfaitement serein : s'il se jette sur `Cxg7`, je réponds tranquillement `…h5` et `…Tg8 !`, et son cavalier se retrouve prisonnier au fond de mon camp. Mon roi, lui, est parfaitement au chaud en b8.
 
 Je peux alors améliorer mes pièces sans me presser, pendant qu'il cherche par où respirer. Il finit par tenter de s'activer en **me donnant a5** — un bon essai, honnêtement — mais je ramasse le pion sans état d'âme.
 
@@ -434,7 +434,7 @@ Il ne l'entend pas de cette oreille : **…Cxd4**, puis **…g6**.
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…Cxd4 et …g6 — et c'est là que je vais m'emballer.</p>
 </div>
 
-Et je fais exactement ce que je ne devrais jamais faire : je **tanke 40 minutes** parce que `e5` me paraît **SUPER INTÉRESSANT**. En majuscules dans ma tête. Le genre d'euphorie qui devrait allumer un voyant rouge — quand un coup me semble à ce point génial, c'est bien souvent qu'il ne l'est pas. Je le joue quand même, et je lâche un pion au passage.
+Là, dans cette position précise, je fais exactement ce que je ne devrais jamais faire : je **tanke 40 minutes** parce que `e5` me paraît **SUPER INTÉRESSANT**. En majuscules dans ma tête. Le genre d'euphorie qui devrait allumer un voyant rouge — quand un coup me semble à ce point génial, c'est bien souvent qu'il ne l'est pas. Je le joue quand même, et je lâche un pion au passage.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme2.svg" alt="Ronde 8 — un pion de moins, mais de bonnes compensations" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -443,14 +443,14 @@ Et je fais exactement ce que je ne devrais jamais faire : je **tanke 40 minutes*
 
 Me voilà donc avec un pion de retard, mais de **vraies compensations** : ses pièces sont un peu empêtrées, mon développement coule tout seul, et je tiens de belles cases. Je me sens bien.
 
-Je construis, patiemment, pièce après pièce.
+Alors je construis, patiemment, pièce après pièce : les tours viennent se doubler, le cavalier se met en route vers c5.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme3.svg" alt="Ronde 8 — je construis, le cavalier file vers c5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Tours doublées, cavalier en route vers c5 : la machine se met en place.</p>
 </div>
 
-Et j'arrive à une position dont je suis **très satisfait**. Sincèrement. Mes tours doublées, mes fous qui respirent, un cavalier vissé en c5 — tout est à sa place.
+Et j'arrive à une position dont je suis **très satisfait**. Mes tours doublées, mes fous qui respirent, un cavalier vissé en c5 — tout est à sa place.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme4.svg" alt="Ronde 8 — très satisfait, je pèse a4, b4 ou g4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -459,18 +459,18 @@ Et j'arrive à une position dont je suis **très satisfait**. Sincèrement. Mes 
 
 Je passe un long moment à soupeser mes ruptures : `a4` ? `b4` ? `g4` ? Je finis par prendre la plus **brutale** des trois, `g4`, histoire d'ouvrir grand les hostilités.
 
-Et c'est précisément là, au sommet de ma satisfaction, que je m'effondre.
+Quelques coups plus tard, il faut replacer le cavalier. Deux cases possibles, une seconde de relâchement — et c'est précisément là, au sommet de ma satisfaction, que je m'effondre.
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde8-diagramme5.svg" alt="Ronde 8 — la gaffe Cd7 au lieu du parfait Cb7" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…et je joue Cd7 ?? — alors que Cb7 était parfait.</p>
 </div>
 
-Je joue **Cd7 ??**. Une gaffe pure et bête : j'avais **complètement oublié que b6 était sous contrôle**, ce qui rendait **Cb7 tout simplement parfait**. Le bon coup était là, évident, sous mon nez — et je regardais ailleurs. Suit une simplification que je ne peux plus empêcher, et je glisse dans une **finale de tours perdante**.
+Je joue **Cd7 ??**. Une gaffe pure et bête : j'avais **complètement oublié que b6 était sous contrôle**, ce qui rendait **Cb7 tout simplement parfait**. Le bon coup était là, évident, sous mon nez — et je regardais ailleurs. Ensuite il n'y a plus rien à négocier : il échange, puis échange encore, chaque échange me rapproche un peu plus d'une finale dont je ne veux pas, et je n'ai aucun moyen de l'en empêcher. Je glisse dans une **finale de tours perdante** en voyant venir chaque marche de l'escalier.
 
 Je suis **écœuré**. Il n'y a pas d'autre mot.
 
-**Leçon :** deux voyants rouges ignorés dans la même partie. Le premier : quand un coup me paraît *SUPER intéressant* au point d'y engloutir 40 minutes, c'est rarement bon signe — l'enthousiasme est un piètre calculateur. Le second, plus cruel : plus une position me plaît, plus je devrais me méfier, parce que c'est exactement au moment où l'on s'admire qu'on oublie de regarder le coup d'en face. Un `Cb7` limpide, un `Cd7` catastrophique, et tout un beau travail à la benne — la veille de reprendre le chemin du bureau.
+**Leçon :** deux voyants rouges ignorés dans la même partie. Le premier : quand un coup me paraît *SUPER intéressant* au point d'y engloutir 40 minutes, c'est rarement bon signe — l'enthousiasme est un piètre juge. Le second, plus cruel : plus une position me plaît, plus je devrais me méfier, parce que c'est exactement au moment où l'on admire sa propre position qu'on cesse de regarder ce que l'autre prépare. Un `Cb7` limpide, un `Cd7` catastrophique, et tout un beau travail à la benne — la veille de reprendre le chemin du bureau.
 
 ---
 
@@ -586,7 +586,7 @@ Voilà ce que je remballe dans la valise :
 
 1. **Canaliser l'ambition** — LE chantier. Ronde 3, j'égalise contre le plus fort du tournoi… et je sur-joue une position nulle. Ronde 4, je veux le mater et je saccage un avantage. Ronde 8, je m'admire, et je gaffe le coup d'après. Toujours le même schéma : dès que la position est bonne ou tranquille, je pousse un cran trop loin. Accepter l'égalité, convertir sans forcer — priorité numéro un.
 
-2. **Se méfier de l'euphorie.** Quand un coup me paraît *SUPER intéressant* au point d'y engloutir 40 minutes, ou quand je me sens *TRÈS malin*, c'est précisément là qu'il faut vérifier deux fois. L'enthousiasme est un piètre calculateur. Mes plus belles victoires (rondes 2, 5 et 7), je les dois à un calcul froid au bon moment, pas à un emballement.
+2. **Se méfier de l'euphorie.** Quand un coup me paraît *SUPER intéressant* au point d'y engloutir 40 minutes, ou quand je me sens *TRÈS malin*, c'est précisément là qu'il faut vérifier deux fois. L'enthousiasme est un piètre conseiller. Mes plus belles victoires (rondes 2, 5 et 7), je les dois à un calcul froid au bon moment, pas à un emballement.
 
 3. **L'endurance, encore et toujours.** Mes deux effondrements (rondes 4 et 8) arrivent tard, quand la lucidité lâche : après 4h30 de jeu, ou dans une salle à quarante-cinq degrés, clim en panne. Le corps décide bien plus souvent que je ne veux l'admettre. Même constat qu'à Pontevedra — il faut vraiment que je m'y mette pour de bon.
 
