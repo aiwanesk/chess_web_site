@@ -9,7 +9,7 @@ import { PuzzleBoard } from '../components/PuzzleBoard'
 import { getWeek, formatWeek } from '../lib/tactics'
 import { recordTacticsEvent } from '../lib/tacticsEvents'
 import { breadcrumbSchema, type Crumb } from '../lib/schema'
-import { useLocale, homePath, t, type Locale } from '../lib/i18n'
+import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
 
 const STR: Record<Locale, {
   eyebrow: string; titlePrefix: string; lead: string; intro: string
@@ -63,14 +63,18 @@ export function Component() {
 
   return (
     <>
+      {/* noindex,follow: these pages are generated automatically every week and
+          have no search demand of their own. The links out of them still carry
+          weight, and the /tactiques hub stays indexed and keeps linking here. */}
       <Seo
         title={`${s.titlePrefix} ${label}`}
         description={`${s.lead} — ${label}.`}
         path={path}
         jsonLd={[breadcrumbSchema(crumbs)]}
+        noindex
       />
       <Breadcrumbs crumbs={crumbs} />
-      <PageHero eyebrow={s.eyebrow} title={`${s.titlePrefix} ${label}`} lead={s.lead} primaryCta={{ to: locale === 'en' ? '/en/contact' : '/contact', label: locale === 'en' ? 'Book a lesson' : 'Réserver un cours' }} />
+      <PageHero eyebrow={s.eyebrow} title={`${s.titlePrefix} ${label}`} lead={s.lead} primaryCta={{ to: pathFor('contact', locale), label: locale === 'en' ? 'Book a lesson' : 'Réserver un cours' }} />
 
       <Section>
         <Container>

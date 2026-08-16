@@ -59,7 +59,17 @@ export function Component() {
 
   return (
     <>
-      <Seo title={view.label} description={view.description} path={path} jsonLd={[breadcrumbSchema(crumbs)]} />
+      {/* An archive with nothing in it is a thin page that promises articles it
+          doesn't have. It goes noindex,follow until the first article lands —
+          and becomes indexable again on its own, with no flag to flip. The
+          sitemap applies the same rule server-side (backend/internal/server/seo.go). */}
+      <Seo
+        title={view.label}
+        description={view.description}
+        path={path}
+        jsonLd={[breadcrumbSchema(crumbs)]}
+        noindex={posts.length === 0}
+      />
       <Breadcrumbs crumbs={crumbs} />
 
       <PageHero

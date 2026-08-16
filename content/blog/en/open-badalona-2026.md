@@ -5,7 +5,7 @@ author: "Alexandre Iwanesko"
 date: "2026-08-02"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
-clusterPath: "/preparation-tournoi-echecs"
+clusterPath: "/en/tournament-preparation"
 image: "/images/blog/badalona-2026/og-badalona.svg"
 altSlug: "open-badalona-2026"
 ---

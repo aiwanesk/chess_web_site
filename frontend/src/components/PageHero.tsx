@@ -1,16 +1,21 @@
 import type { ReactNode } from 'react'
 import { Container } from './Container'
 import { Eyebrow, CtaLink } from './ui'
+import { useLocale, pathFor, t } from '../lib/i18n'
 
 /**
  * Reusable hero. The <h1> here is the single H1 of every page. Answer-first
  * copy (the lead) doubles as a citable definition for generative engines.
+ *
+ * The fallback CTA is resolved per locale. It used to be a hardcoded French
+ * "/contact", which is how nearly every English page ended up with one French
+ * link — any page that didn't pass its own primaryCta inherited it.
  */
 export function PageHero({
   eyebrow,
   title,
   lead,
-  primaryCta = { to: '/contact', label: 'Réserver un premier cours' },
+  primaryCta,
   secondaryCta,
   aside,
 }: {
@@ -21,6 +26,8 @@ export function PageHero({
   secondaryCta?: { to: string; label: string }
   aside?: ReactNode
 }) {
+  const locale = useLocale()
+  const cta = primaryCta ?? { to: pathFor('contact', locale), label: t(locale).reserveFirst }
   return (
     <div className="relative overflow-hidden border-b border-ink-100 bg-gradient-to-b from-cream-100 to-white">
       <div aria-hidden className="board-texture absolute inset-0 opacity-70" />
@@ -37,8 +44,8 @@ export function PageHero({
           </h1>
           <div className="mt-6 max-w-[56ch] text-lg leading-relaxed text-ink-600">{lead}</div>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <CtaLink to={primaryCta.to} variant="primary">
-              {primaryCta.label}
+            <CtaLink to={cta.to} variant="primary">
+              {cta.label}
             </CtaLink>
             {secondaryCta ? (
               <CtaLink to={secondaryCta.to} variant="ghost">

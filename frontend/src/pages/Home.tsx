@@ -6,17 +6,22 @@ import { Section, Eyebrow, CtaLink } from '../components/ui'
 import { PageHero, FactCard } from '../components/PageHero'
 import { IconGraduation, IconTrophy, IconMonitor, IconUsers, IconSpark, IconBoard, IconCheck, IconArrowRight } from '../components/icons'
 import { personSchema, localBusinessSchema, faqSchema, breadcrumbSchema, type FaqItem } from '../lib/schema'
-import { useLocale, homePath, t, PAGES, type Locale } from '../lib/i18n'
+import { useLocale, homePath, pathFor, t, type Locale, type PageKey } from '../lib/i18n'
 
-type Offer = { fr: string; en: string; key?: string; icon: typeof IconGraduation; desc: { fr: string; en: string }; title: { fr: string; en: string } }
+/**
+ * Each card carries the PAGE KEY, never a URL. The path is resolved through
+ * pathFor(key, locale) at render time, so an English page can no longer link to
+ * a French URL — which is exactly the bug this table used to carry.
+ */
+type Offer = { key: PageKey; icon: typeof IconGraduation; desc: Record<Locale, string>; title: Record<Locale, string> }
 
 const OFFERS: Offer[] = [
-  { fr: '/cours-echecs-adultes-geneve', en: PAGES.coursAdultes.en, key: 'coursAdultes', icon: IconGraduation, title: { fr: 'Cours pour adultes', en: 'Adult lessons' }, desc: { fr: 'Progression structurée pour joueurs 1200–2200 Elo.', en: 'Structured progress for 1200–2200 Elo players.' } },
-  { fr: '/preparation-tournoi-echecs', en: '/preparation-tournoi-echecs', icon: IconTrophy, title: { fr: 'Préparation tournoi', en: 'Tournament prep' }, desc: { fr: 'Répertoire, gestion du temps et mental de compétition.', en: 'Repertoire, time management and competitive mindset.' } },
-  { fr: '/cours-echecs-en-ligne', en: '/cours-echecs-en-ligne', icon: IconMonitor, title: { fr: 'Cours en ligne', en: 'Online lessons' }, desc: { fr: 'Même méthode à distance, partout en Suisse romande.', en: 'Same method remotely, anywhere in French-speaking Switzerland.' } },
-  { fr: '/cours-echecs-groupe-geneve', en: '/cours-echecs-groupe-geneve', icon: IconUsers, title: { fr: 'Cours en groupe', en: 'Group lessons' }, desc: { fr: 'Petits groupes de niveau homogène, tarif partagé.', en: 'Small level-matched groups, shared rate.' } },
-  { fr: '/cours-echecs-ados-competition', en: '/cours-echecs-ados-competition', icon: IconSpark, title: { fr: 'Ados en compétition', en: 'Competitive teens' }, desc: { fr: 'Coaching orienté progression Elo et résultats.', en: 'Coaching focused on Elo progress and results.' } },
-  { fr: '/stages-echecs-geneve', en: '/stages-echecs-geneve', icon: IconBoard, title: { fr: 'Stages à Genève', en: 'Camps in Geneva' }, desc: { fr: 'Sessions intensives pendant les vacances scolaires.', en: 'Intensive sessions during school holidays.' } },
+  { key: 'coursAdultes', icon: IconGraduation, title: { fr: 'Cours pour adultes', en: 'Adult lessons' }, desc: { fr: 'Progression structurée pour joueurs 1200–2200 Elo.', en: 'Structured progress for 1200–2200 Elo players.' } },
+  { key: 'preparationTournoi', icon: IconTrophy, title: { fr: 'Préparation tournoi', en: 'Tournament prep' }, desc: { fr: 'Répertoire, gestion du temps et mental de compétition.', en: 'Repertoire, time management and competitive mindset.' } },
+  { key: 'coursEnLigne', icon: IconMonitor, title: { fr: 'Cours en ligne', en: 'Online lessons' }, desc: { fr: 'Même méthode à distance, partout en Suisse romande.', en: 'Same method remotely, anywhere in French-speaking Switzerland.' } },
+  { key: 'coursGroupe', icon: IconUsers, title: { fr: 'Cours en groupe', en: 'Group lessons' }, desc: { fr: 'Petits groupes de niveau homogène, tarif partagé.', en: 'Small level-matched groups, shared rate.' } },
+  { key: 'coursAdos', icon: IconSpark, title: { fr: 'Ados en compétition', en: 'Competitive teens' }, desc: { fr: 'Coaching orienté progression Elo et résultats.', en: 'Coaching focused on Elo progress and results.' } },
+  { key: 'stages', icon: IconBoard, title: { fr: 'Stages à Genève', en: 'Camps in Geneva' }, desc: { fr: 'Sessions intensives pendant les vacances scolaires.', en: 'Intensive sessions during school holidays.' } },
 ]
 
 const FAQ: Record<Locale, FaqItem[]> = {
@@ -69,8 +74,8 @@ const T: Record<Locale, {
 export function Component() {
   const locale = useLocale()
   const c = T[locale]
-  const aboutPath = locale === 'en' ? '/a-propos' : '/a-propos' // à-propos EN à venir
-  const contactPath = PAGES.contact[locale]
+  const aboutPath = pathFor('apropos', locale)
+  const contactPath = pathFor('contact', locale)
   const jsonLd = [personSchema(), localBusinessSchema(), breadcrumbSchema([{ name: t(locale).breadcrumbHome, path: homePath(locale) }]), faqSchema(FAQ[locale])]
 
   return (
@@ -84,7 +89,7 @@ export function Component() {
           ? (<>Chess coaching for <strong>adults (1200–2200 Elo)</strong> and <strong>competitive teens</strong>. A clear method, a progression plan and real follow-up — in person in Geneva or online.</>)
           : (<>Coaching d’échecs pour <strong>adultes (1200–2200 Elo)</strong> et <strong>ados en compétition</strong>. Une méthode claire, un plan de progression et un vrai suivi — en présentiel à Genève ou en ligne.</>)}
         primaryCta={{ to: contactPath, label: c.ctaBtn }}
-        secondaryCta={{ to: locale === 'en' ? PAGES.coursAdultes.en : '/cours-echecs-adultes-geneve', label: locale === 'en' ? 'Discover adult lessons' : 'Découvrir les cours adultes' }}
+        secondaryCta={{ to: pathFor('coursAdultes', locale), label: locale === 'en' ? 'Discover adult lessons' : 'Découvrir les cours adultes' }}
         aside={<div className="relative"><img src="/brand-lockup.svg" alt="Alexandre Iwanesko — Outhink Outplay" width={520} height={600} className="mx-auto w-52 drop-shadow-xl sm:w-60" /><div className="mt-6"><FactCard facts={c.facts} /></div></div>}
       />
 
@@ -94,7 +99,7 @@ export function Component() {
           <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{c.formatsTitle}</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {OFFERS.map((o) => (
-              <Link key={o.fr} to={locale === 'en' ? o.en : o.fr} className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
+              <Link key={o.key} to={pathFor(o.key, locale)} className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
                 <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-xl border border-gold-200 bg-gold-50 text-gold-700"><o.icon size={24} /></span>
                 <h3 className="mt-5 flex items-center justify-between text-lg font-semibold text-ink-900">
                   {o.title[locale]}

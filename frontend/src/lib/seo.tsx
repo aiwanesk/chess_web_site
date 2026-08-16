@@ -59,7 +59,9 @@ export function Seo({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
-      <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large'} />
+      {/* noindex pages keep `follow`: we don't want them in the index, but the
+          links they carry should still be crawled and pass weight. */}
+      <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'} />
 
       {/* Open Graph */}
       <meta property="og:type" content={ogType} />
@@ -81,6 +83,7 @@ export function Seo({
           NOTE: no React Fragment here — react-helmet ignores fragment-wrapped
           children, so each <link> is emitted as a direct child of <Head>. */}
       {pair ? <link rel="alternate" hrefLang="fr" href={pair.fr} /> : null}
+      {pair ? <link rel="alternate" hrefLang="fr-CH" href={pair.fr} /> : null}
       {pair ? <link rel="alternate" hrefLang="en" href={pair.en} /> : null}
       {pair ? <link rel="alternate" hrefLang="x-default" href={pair.fr} /> : null}
       {pair ? null : <link rel="alternate" hrefLang={locale} href={canonical} />}

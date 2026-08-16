@@ -3,31 +3,23 @@ import { Link, NavLink } from 'vite-react-ssg'
 import { useLocation } from 'react-router-dom'
 import { Container } from './Container'
 import { CtaLink } from './ui'
-import { useLocale, t, homePath, altPath, PAGES, type Locale } from '../lib/i18n'
+import { useLocale, t, homePath, altPath, pathFor, type Locale, type PageKey } from '../lib/i18n'
 
-type NavItem = { to: string; key: keyof ReturnType<typeof t>['nav'] }
+type NavItem = { page: PageKey; key: keyof ReturnType<typeof t>['nav'] }
 
-// FR links to every page; EN links only to pages already translated (grows
-// as the i18n rollout continues). Labels come from the locale dictionary.
+// One list for both locales: the entry names the PAGE, and pathFor() resolves it
+// to the FR or EN URL. There is deliberately no second table to keep in sync —
+// that is how the English home ended up linking to French URLs.
 // Seven entries is the ceiling at this container width — adding an eighth means
 // shortening a label or moving one to the footer, or the bar wraps.
-const NAV_FR: NavItem[] = [
-  { to: '/cours-echecs-adultes-geneve', key: 'adultes' },
-  { to: '/preparation-tournoi-echecs', key: 'tournoi' },
-  { to: '/tarifs', key: 'tarifs' },
-  { to: '/tactiques', key: 'tactiques' },
-  { to: '/blog', key: 'blog' },
-  { to: '/calendrier', key: 'calendrier' },
-  { to: '/contact', key: 'contact' },
-]
-const NAV_EN: NavItem[] = [
-  { to: '/en/adult-chess-lessons-geneva', key: 'adultes' },
-  { to: '/en/tournament-preparation', key: 'tournoi' },
-  { to: '/en/pricing', key: 'tarifs' },
-  { to: '/en/tactics', key: 'tactiques' },
-  { to: '/en/blog', key: 'blog' },
-  { to: '/en/calendar', key: 'calendrier' },
-  { to: '/en/contact', key: 'contact' },
+const NAV: NavItem[] = [
+  { page: 'coursAdultes', key: 'adultes' },
+  { page: 'preparationTournoi', key: 'tournoi' },
+  { page: 'tarifs', key: 'tarifs' },
+  { page: 'tactiques', key: 'tactiques' },
+  { page: 'blog', key: 'blog' },
+  { page: 'calendrier', key: 'calendrier' },
+  { page: 'contact', key: 'contact' },
 ]
 
 function Brand({ locale }: { locale: Locale }) {
@@ -64,8 +56,8 @@ export function Header() {
   const [open, setOpen] = useState(false)
   const locale = useLocale()
   const s = t(locale)
-  const nav = locale === 'en' ? NAV_EN : NAV_FR
-  const reservePath = PAGES.reserver[locale]
+  const nav = NAV
+  const reservePath = pathFor('reserver', locale)
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
@@ -76,8 +68,8 @@ export function Header() {
         <nav aria-label="Navigation" className="hidden items-center gap-4 xl:flex 2xl:gap-6">
           {nav.map((item) => (
             <NavLink
-              key={item.to}
-              to={item.to}
+              key={item.page}
+              to={pathFor(item.page, locale)}
               className={({ isActive }) =>
                 `relative whitespace-nowrap text-sm font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-gold-500 after:transition-all after:duration-300 hover:text-ink-950 ${
                   isActive ? 'text-ink-950 after:w-full' : 'text-ink-600 after:w-0 hover:after:w-full'
@@ -121,8 +113,8 @@ export function Header() {
           <Container className="flex flex-col gap-0.5 py-3">
             {nav.map((item) => (
               <NavLink
-                key={item.to}
-                to={item.to}
+                key={item.page}
+                to={pathFor(item.page, locale)}
                 className={({ isActive }) =>
                   `rounded-lg px-3 py-2.5 text-[0.95rem] font-medium transition-colors ${
                     isActive ? 'bg-cream-100 text-ink-950' : 'text-ink-700 hover:bg-ink-50'

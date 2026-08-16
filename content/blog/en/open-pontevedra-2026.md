@@ -5,7 +5,7 @@ author: "Alexandre Iwanesko"
 date: "2026-07-25"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
-clusterPath: "/preparation-tournoi-echecs"
+clusterPath: "/en/tournament-preparation"
 image: "/images/blog/pontevedra-2026/og-pontevedra.svg"
 altSlug: "open-pontevedra-2026"
 ---

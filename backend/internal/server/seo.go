@@ -29,7 +29,13 @@ func (s *Server) handleSitemap(w http.ResponseWriter, _ *http.Request) {
 	today := time.Now().UTC().Format("2006-01-02")
 	set := urlSet{Xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
+	// Category archives with no article are excluded — see EmptyCategoryPaths.
+	empty := content.EmptyCategoryPaths(s.cfg.ContentDir, s.cfg.ContentDir+"/en")
+
 	for _, p := range content.StaticPages {
+		if empty[p.Path] {
+			continue
+		}
 		set.URLs = append(set.URLs, urlEntry{
 			Loc:        s.abs(p.Path),
 			LastMod:    today,

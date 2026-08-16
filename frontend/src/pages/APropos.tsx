@@ -7,7 +7,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs'
 import { PageHero } from '../components/PageHero'
 import { ChessMotif } from '../components/ChessMotif'
 import { personSchema, breadcrumbSchema, type Crumb } from '../lib/schema'
-import { useLocale, homePath, t, type Locale } from '../lib/i18n'
+import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
 
 type Field = { label: string; value: string }
 
@@ -140,8 +140,8 @@ export function Component() {
         eyebrow={c.eyebrow}
         title={c.heroTitle}
         lead={c.lead}
-        primaryCta={{ to: '/contact', label: c.primaryCta }}
-        secondaryCta={{ to: '/resultats', label: c.secondaryCta }}
+        primaryCta={{ to: pathFor('contact', locale), label: c.primaryCta }}
+        secondaryCta={{ to: pathFor('resultats', locale), label: c.secondaryCta }}
       />
 
       <Section>
@@ -173,7 +173,7 @@ export function Component() {
           </div>
 
           <div className="mt-10">
-            <CtaLink to="/contact" variant="primary">
+            <CtaLink to={pathFor('contact', locale)} variant="primary">
               {c.bottomCta}
             </CtaLink>
           </div>

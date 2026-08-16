@@ -3,41 +3,51 @@ import { Container } from './Container'
 import { NewsletterSignup } from './NewsletterSignup'
 import { SITE } from '../lib/site'
 import { IconKnight, IconMail, IconPhone, IconPin } from './icons'
-import { useLocale, t, type Locale } from '../lib/i18n'
+import { categoryPath } from '../lib/categories'
+import { useLocale, t, pathFor, type Locale, type PageKey } from '../lib/i18n'
 
-type Column = { title: string; links: { to: string; label: string }[] }
+/**
+ * A footer link names a PAGE, never a URL — pathFor() resolves it per locale, so
+ * a French URL can never surface in the English footer. `cat` covers the blog
+ * category archives, which live outside the PAGES registry.
+ */
+type FooterLink = { page: PageKey; label: string } | { cat: string; label: string }
+type Column = { title: string; links: FooterLink[] }
+
+const linkPath = (l: FooterLink, locale: Locale): string =>
+  'page' in l ? pathFor(l.page, locale) : categoryPath(l.cat, locale)
 
 const COLUMNS_FR: Column[] = [
   {
     title: 'Cours',
     links: [
-      { to: '/cours-echecs-adultes-geneve', label: 'Cours adultes à Genève' },
-      { to: '/cours-echecs-en-ligne', label: 'Cours en ligne' },
-      { to: '/cours-echecs-groupe-geneve', label: 'Cours en groupe' },
-      { to: '/cours-echecs-ados-competition', label: 'Ados en compétition' },
+      { page: 'coursAdultes', label: 'Cours adultes à Genève' },
+      { page: 'coursEnLigne', label: 'Cours en ligne' },
+      { page: 'coursGroupe', label: 'Cours en groupe' },
+      { page: 'coursAdos', label: 'Ados en compétition' },
     ],
   },
   {
     title: 'Aller plus loin',
     links: [
-      { to: '/preparation-tournoi-echecs', label: 'Préparation tournoi' },
-      { to: '/stages-echecs-geneve', label: 'Stages à Genève' },
-      { to: '/conferences-echecs-entreprise', label: 'Conférences entreprise' },
-      { to: '/team-building-echecs-geneve', label: 'Team building' },
+      { page: 'preparationTournoi', label: 'Préparation tournoi' },
+      { page: 'stages', label: 'Stages à Genève' },
+      { page: 'conferences', label: 'Conférences entreprise' },
+      { page: 'teamBuilding', label: 'Team building' },
     ],
   },
   {
     title: 'Informations',
     links: [
-      { to: '/a-propos', label: 'À propos' },
-      { to: '/resultats', label: 'Résultats & avis' },
-      { to: '/tarifs', label: 'Tarifs' },
-      { to: '/blog', label: 'Blog échecs' },
-      { to: '/blog/categorie/carnet-de-tournoi', label: 'Carnet de tournoi' },
-      { to: '/calendrier', label: 'Calendrier des tournois' },
-      { to: '/reserver', label: 'Réserver un cours' },
-      { to: '/contact', label: 'Contact' },
-      { to: '/confidentialite', label: 'Confidentialité' },
+      { page: 'apropos', label: 'À propos' },
+      { page: 'resultats', label: 'Résultats & avis' },
+      { page: 'tarifs', label: 'Tarifs' },
+      { page: 'blog', label: 'Blog échecs' },
+      { cat: 'carnet-de-tournoi', label: 'Carnet de tournoi' },
+      { page: 'calendrier', label: 'Calendrier des tournois' },
+      { page: 'reserver', label: 'Réserver un cours' },
+      { page: 'contact', label: 'Contact' },
+      { page: 'confidentialite', label: 'Confidentialité' },
     ],
   },
 ]
@@ -46,33 +56,33 @@ const COLUMNS_EN: Column[] = [
   {
     title: 'Lessons',
     links: [
-      { to: '/en/adult-chess-lessons-geneva', label: 'Adult chess lessons in Geneva' },
-      { to: '/en/online-chess-lessons', label: 'Online chess lessons' },
-      { to: '/en/group-chess-lessons-geneva', label: 'Group chess lessons' },
-      { to: '/en/junior-chess-coaching', label: 'Junior chess coaching' },
+      { page: 'coursAdultes', label: 'Adult chess lessons in Geneva' },
+      { page: 'coursEnLigne', label: 'Online chess lessons' },
+      { page: 'coursGroupe', label: 'Group chess lessons' },
+      { page: 'coursAdos', label: 'Junior chess coaching' },
     ],
   },
   {
     title: 'Going further',
     links: [
-      { to: '/en/tournament-preparation', label: 'Tournament preparation' },
-      { to: '/en/chess-camps-geneva', label: 'Chess camps in Geneva' },
-      { to: '/en/corporate-chess-talks', label: 'Corporate talks' },
-      { to: '/en/chess-team-building-geneva', label: 'Team building' },
+      { page: 'preparationTournoi', label: 'Tournament preparation' },
+      { page: 'stages', label: 'Chess camps in Geneva' },
+      { page: 'conferences', label: 'Corporate talks' },
+      { page: 'teamBuilding', label: 'Team building' },
     ],
   },
   {
     title: 'Information',
     links: [
-      { to: '/en/about', label: 'About' },
-      { to: '/en/results', label: 'Results & reviews' },
-      { to: '/en/pricing', label: 'Pricing' },
-      { to: '/en/tactics', label: 'Weekly tactics' },
-      { to: '/en/blog', label: 'Blog' },
-      { to: '/en/calendar', label: 'Tournament calendar' },
-      { to: '/en/book', label: 'Book a lesson' },
-      { to: '/en/contact', label: 'Contact' },
-      { to: '/en/privacy', label: 'Privacy' },
+      { page: 'apropos', label: 'About' },
+      { page: 'resultats', label: 'Results & reviews' },
+      { page: 'tarifs', label: 'Pricing' },
+      { page: 'tactiques', label: 'Weekly tactics' },
+      { page: 'blog', label: 'Blog' },
+      { page: 'calendrier', label: 'Tournament calendar' },
+      { page: 'reserver', label: 'Book a lesson' },
+      { page: 'contact', label: 'Contact' },
+      { page: 'confidentialite', label: 'Privacy' },
     ],
   },
 ]
@@ -137,8 +147,8 @@ export function Footer() {
             </p>
             <ul className="mt-5 space-y-2.5 text-sm">
               {col.links.map((l) => (
-                <li key={l.to}>
-                  <Link to={l.to} className="text-ink-300 transition-colors hover:text-gold-400">
+                <li key={l.label}>
+                  <Link to={linkPath(l, locale)} className="text-ink-300 transition-colors hover:text-gold-400">
                     {l.label}
                   </Link>
                 </li>

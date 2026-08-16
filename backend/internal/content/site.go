@@ -89,6 +89,10 @@ var StaticPages = []Page{
 		"Student results and testimonials: Elo progress, tournament performances and feedback."},
 	{"/en/tactics", "Tactics of the week", "weekly", 0.6,
 		"Solve the best chess tactics of the week, hand-picked by a FIDE Master. New puzzles every week."},
+	{"/en/blog/category/improve", "Improve at chess — guides", "weekly", 0.6,
+		"Guides from a FIDE Master to improve at chess: openings, endgames, tactics, tournament preparation and mindset."},
+	{"/en/blog/category/tournament-diary", "Tournament diary", "weekly", 0.5,
+		"The competition diary of Alexandre Iwanesko, FIDE Master: key games, decisions under pressure and lessons from the road."},
 	{"/en/calendar", "Tournament calendar", "weekly", 0.5,
 		"The competition calendar of Alexandre Iwanesko, FIDE Master: upcoming tournaments and diaries of the opens already played."},
 	{"/en/blog", "Chess blog", "weekly", 0.6,
@@ -108,8 +112,53 @@ type BlogPost struct {
 	Slug        string
 	Title       string
 	Description string
+	Category    string
 	Date        time.Time
 	Updated     time.Time
+}
+
+// DefaultCategory mirrors DEFAULT_CATEGORY in frontend/src/lib/categories.ts.
+const DefaultCategory = "progresser"
+
+// blogCategory mirrors one entry of frontend/src/lib/categories.ts. Only the
+// stable key and the two URL slugs are needed here — the sitemap has no use for
+// the labels.
+type blogCategory struct{ Key, SlugFR, SlugEN string }
+
+var blogCategories = []blogCategory{
+	{"progresser", "progresser", "improve"},
+	{"carnet-de-tournoi", "carnet-de-tournoi", "tournament-diary"},
+}
+
+// EmptyCategoryPaths returns the archive URLs that currently hold no article,
+// in both locales. They must stay out of the sitemap: an archive that promises
+// guides and lists none is a thin page. The rule is generic — publish an article
+// in a category and its URL returns on the next build, with nothing to toggle.
+// The frontend applies the matching noindex in pages/BlogCategory.tsx.
+func EmptyCategoryPaths(frDir, enDir string) map[string]bool {
+	count := func(dir string) map[string]int {
+		out := map[string]int{}
+		posts, err := LoadBlogPosts(dir)
+		if err != nil {
+			return out
+		}
+		for _, p := range posts {
+			out[p.Category]++
+		}
+		return out
+	}
+	fr, en := count(frDir), count(enDir)
+
+	empty := map[string]bool{}
+	for _, c := range blogCategories {
+		if fr[c.Key] == 0 {
+			empty["/blog/categorie/"+c.SlugFR] = true
+		}
+		if en[c.Key] == 0 {
+			empty["/en/blog/category/"+c.SlugEN] = true
+		}
+	}
+	return empty
 }
 
 // LoadBlogPosts reads the front matter of every Markdown file in dir and
@@ -144,10 +193,15 @@ func LoadBlogPosts(dir string) ([]BlogPost, error) {
 				updated = t
 			}
 		}
+		category := fm["category"]
+		if category == "" {
+			category = DefaultCategory
+		}
 		posts = append(posts, BlogPost{
 			Slug:        slug,
 			Title:       fm["title"],
 			Description: fm["description"],
+			Category:    category,
 			Date:        date,
 			Updated:     updated,
 		})

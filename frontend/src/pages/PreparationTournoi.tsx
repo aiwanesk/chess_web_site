@@ -2,7 +2,7 @@ import { Link } from 'vite-react-ssg'
 import { MoneyPage, type MoneyPageProps } from '../components/MoneyPage'
 import { DeepDive, StepList } from '../components/ui'
 import { TOURNAMENTS } from '../lib/tournaments'
-import { useLocale } from '../lib/i18n'
+import { PAGES, useLocale } from '../lib/i18n'
 
 const FR: MoneyPageProps = {
   path: '/preparation-tournoi-echecs',
@@ -117,7 +117,7 @@ const FR: MoneyPageProps = {
         matchs par équipes. Les routines que je vous transmets sont celles que j’applique moi-même,
         la pendule qui tourne.{' '}
         <Link
-          to="/calendrier"
+          to={PAGES.calendrier.fr}
           className="font-semibold text-gold-700 underline decoration-gold-400 decoration-1 underline-offset-4 hover:text-ink-950"
         >
           Voir où je joue cette saison
@@ -238,7 +238,7 @@ const EN: MoneyPageProps = {
         <strong>{TOURNAMENTS.length} tournaments this season</strong>, from international opens to
         team matches. The routines I pass on are the ones I use myself, with the clock running.{' '}
         <Link
-          to="/en/calendar"
+          to={PAGES.calendrier.en}
           className="font-semibold text-gold-700 underline decoration-gold-400 decoration-1 underline-offset-4 hover:text-ink-950"
         >
           See where I’m playing this season
