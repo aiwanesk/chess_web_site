@@ -355,7 +355,7 @@ Except — and this is what gives me back a bit of appetite — his extra pawn i
 
 He forces the queen trade to head for the endgame. Perfect: the instant the queens leave the board, I'm **perfectly serene**. Bishop against knight, a pawn down, and yet I know I hold.
 
-Better still: I have a hope, quiet but very real. **If Black transposes into a pawn endgame, I'm the one who wins** — his doubled f-pawns become a ball and chain, and my structure pulls ahead. So I watch for the moment he'll confidently trade the last pieces to "convert his pawn"…
+Better still: I have a hope, quiet but very real. **If Black transposes into a pawn endgame, I'm the one who wins** — his doubled f-pawns become a ball and chain, my structure pulls ahead, and the win is elementary. So I watch for the moment he'll confidently trade the last pieces to "convert his pawn"…
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme5.svg" alt="Round 6 — bishop vs knight endgame, he misses c5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -441,7 +441,7 @@ Right there, in that exact position, I do exactly what I should never do: I **ta
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">A pawn down — but his pieces are tangled and I have squares.</p>
 </div>
 
-So there I am, a pawn behind, but with **real compensation**: his pieces are a bit tangled, my development flows on its own, and I hold nice squares. I feel good.
+So there I am, a pawn behind, but with **real compensation**: his pieces are a bit tangled, my development flows on its own, and I hold the squares that matter — **the whole d-file**, plus **b6** and **c5**, with a bishop in reserve that can come to **f3** and lock down the long diagonal. His weakness is blocked stone dead. I feel good.
 
 So I build, patiently, piece by piece: the rooks come to double up, the knight sets off for c5.
 
@@ -457,7 +457,7 @@ And I reach a position I'm **very satisfied** with. My doubled rooks, my bishops
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">a4? b4? g4? I pick the most brutal of the three.</p>
 </div>
 
-I spend a long time weighing my breaks: `a4`? `b4`? `g4`? I end up taking the most **brutal** of the three, `g4`, to throw the hostilities wide open.
+I spend a long time weighing my breaks. `a4` would hand him weaknesses on **b5** and **a6**; `b4` would shore up my monstrous knight; `g4`, on the other hand, gives me the **d7** square — and with it the **seventh rank**, which strikes me as frankly decisive. So I take the most **brutal** of the three.
 
 A few moves later, the knight has to be replaced. Two squares available, one second of slack —
 

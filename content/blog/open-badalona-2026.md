@@ -355,7 +355,7 @@ Sauf que — et c'est ce qui me redonne un peu d'appétit — son pion en plus e
 
 Il force l'échange des dames pour filer en finale. Parfait : dès l'instant où les dames quittent l'échiquier, je suis **parfaitement serein**. Fou contre cavalier, un pion de moins, et pourtant je sais que je tiens.
 
-Mieux : j'ai un espoir, discret mais bien réel. **Si les Noirs transposent dans une finale de pions, c'est moi qui gagne** — leurs pions f doublés deviennent alors un boulet, et ma structure passe devant. Alors je guette le moment où il va, plein de confiance, échanger les dernières pièces pour « convertir son pion »…
+Mieux : j'ai un espoir, discret mais bien réel. **Si les Noirs transposent dans une finale de pions, c'est moi qui gagne** — leurs pions f doublés deviennent alors un boulet, ma structure passe devant, et le gain est élémentaire. Alors je guette le moment où il va, plein de confiance, échanger les dernières pièces pour « convertir son pion »…
 
 <div class="diagram-container" style="text-align:center;margin:2rem 0;">
   <img src="/images/blog/badalona-2026/ronde6-diagramme5.svg" alt="Ronde 6 — finale fou contre cavalier, il rate c5" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
@@ -441,7 +441,7 @@ Là, dans cette position précise, je fais exactement ce que je ne devrais jamai
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Un pion de moins — mais ses pièces sont emmêlées et j'ai des cases.</p>
 </div>
 
-Me voilà donc avec un pion de retard, mais de **vraies compensations** : ses pièces sont un peu empêtrées, mon développement coule tout seul, et je tiens de belles cases. Je me sens bien.
+Me voilà donc avec un pion de retard, mais de **vraies compensations** : ses pièces sont un peu empêtrées, mon développement coule tout seul, et je tiens les cases qui comptent — **toute la colonne d**, plus **b6** et **c5**, avec en réserve un fou qui peut venir en **f3** verrouiller la grande diagonale. Sa faiblesse est bloquée net. Je me sens bien.
 
 Alors je construis, patiemment, pièce après pièce : les tours viennent se doubler, le cavalier se met en route vers c5.
 
@@ -457,7 +457,7 @@ Et j'arrive à une position dont je suis **très satisfait**. Mes tours doublée
   <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">a4 ? b4 ? g4 ? Je choisis le plus brutal des trois.</p>
 </div>
 
-Je passe un long moment à soupeser mes ruptures : `a4` ? `b4` ? `g4` ? Je finis par prendre la plus **brutale** des trois, `g4`, histoire d'ouvrir grand les hostilités.
+Je passe un long moment à soupeser mes ruptures. `a4` lui créerait des faiblesses en **b5** et **a6** ; `b4` viendrait soutenir mon cavalier monstrueux ; `g4`, lui, me donne la case **d7** — et avec elle la **septième rangée**, ce qui me paraît franchement décisif. Je prends donc la plus **brutale** des trois.
 
 Quelques coups plus tard, il faut replacer le cavalier. Deux cases possibles, une seconde de relâchement — et c'est précisément là, au sommet de ma satisfaction, que je m'effondre.
 
