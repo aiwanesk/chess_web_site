@@ -39,6 +39,8 @@
   6. Self-deprecation — never take yourself too seriously
   7. Funny expressions when they fit naturally
 - **Chess notation**: French style (Fou=F, Cavalier=C, Tour=T, Dame=D, Roi=R) for FR articles, English style (B, N, R, Q, K) for EN articles
+- **Played moves vs variations**: a move actually played is written `` `20.Tc2` ``; a move only calculated is written `` *`23.g4`* `` — it renders as `<em><code>` and is greyed with no background (rule `.prose em code` in `frontend/src/styles.css`). Never let a reader mistake a variation for the game.
+- **Engine verdicts**: when a diary separates the player's own calculations from the engine's, the engine goes in a grey callout labelled « L'ordinateur, après coup » (inline-styled div; see `championnat-suisse-equipes-2026.md`), never inline in the prose.
 - **Diagrams**: Multiple per round at narrative turning points, with witty captions
 - **Lessons**: Short, concrete, honest — not generic advice
 - **Author**: Alexandre Iwanesko, FM (FIDE Master), 33 years old

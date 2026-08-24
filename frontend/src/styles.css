@@ -215,6 +215,16 @@ h1, h2, h3 {
   padding: 0.12em 0.4em;
   border-radius: 4px;
 }
+/* Carnets de tournoi : un coup joué dans la partie s'écrit `Cf3` (fond crème,
+   ci-dessus), un coup seulement calculé s'écrit *`Cf3`* — <em><code> — et sort
+   en grisé sans fond, pour qu'on ne confonde jamais la partie et la variante. */
+.prose em code {
+  background: transparent;
+  color: var(--color-ink-500);
+  border: 1px dashed var(--color-ink-300);
+  padding: 0.06em 0.34em;
+  font-style: normal;
+}
 .prose hr {
   border: 0;
   height: 1px;

@@ -458,6 +458,64 @@ const diagrams = [
     lastMove: 'f7f6',
     flip: true,
   },
+
+  // ── CSE 2026, ronde 7 (Pahud – Iwanesko). Vue des Noirs. ──
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme1.svg',
+    fen: '2r3k1/p3pp1p/2p1bnpb/3r4/8/NP3PP1/PBR1PKNP/R7 b - - 0 20',
+    lastMove: 'c5c2',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme2.svg',
+    fen: '2r3k1/p3pp1p/2p1bnpb/1r6/2N4P/1P3PP1/PBR1P1N1/R3K3 w - - 0 24',
+    lastMove: 'd5b5',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme3.svg',
+    fen: '2r3k1/p3pp1p/2p1bnpb/1r6/2N1P2P/1P3PP1/PBR3N1/R3K3 b - - 0 24',
+    lastMove: 'e2e4',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme4.svg',
+    fen: '2r1k3/p2np2p/r1p1b2b/1N3p2/3B1P1P/1P2N1P1/P1R5/2R1K3 b - - 0 31',
+    lastMove: 'a3b5',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme5.svg',
+    fen: '2r1k3/p2np2p/4b2b/rNB2p2/5P1P/1P2N1P1/P1R5/2R1K3 w - - 0 33',
+    lastMove: 'a6a5',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme6.svg',
+    fen: '8/p2n3p/r7/3k1N2/bB3P1P/6P1/8/2R1K3 b - - 0 41',
+    lastMove: 'f8b4',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme7.svg',
+    fen: '8/p7/r4n2/3k1N1p/bB3P1P/6P1/4K3/2R5 w - - 0 43',
+    lastMove: 'd7f6',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde7-diagramme8.svg',
+    fen: '8/p6k/r4n2/5NRp/5P1P/2BK2P1/8/1b6 w - - 0 52',
+    lastMove: 'a2b1',
+    flip: true,
+  },
 ];
 
 console.log('Generating diagrams with official Lichess cburnett pieces…\n');

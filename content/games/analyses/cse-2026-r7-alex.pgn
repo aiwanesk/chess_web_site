@@ -1,0 +1,108 @@
+[Event "CSE"]
+[Site "lichess.org"]
+[Date "2026.08.23"]
+[Round "7.8"]
+[White "Pahud, Cedric"]
+[Black "Iwanesko, Alexandre"]
+[Result "1/2-1/2"]
+[Annotator "Alex"]
+[ECO "E60"]
+[WhiteElo "2118"]
+[BlackElo "2150"]
+[PlyCount "112"]
+[EventDate "2026.??.??"]
+[SourceVersionDate "2026.08.23"]
+
+{ Version de travail : commentaires et variantes calcules PAR ALEXANDRE PENDANT LA
+  PARTIE. Sert de reference pour la diff avec la version relue par le moteur.
+  Ne pas mettre ce fichier dans content/games/ (le glob du viewer ne prend que *.pgn
+  a la racine du dossier). }
+
+1. Nf3 Nf6 2. c4 g6 3. b3 Bg7 4. Bb2 O-O 5. g3 c5 6. Bg2 d6 7. d4 d5 8. O-O
+{Bon jusque la je connais.} cxd4 {Je choisis donc la variante "simple"}
+(8... dxc4 9. bxc4 cxd4 10. Nxd4 Nc6 11. Nxc6 bxc6 12. Bxc6 (12. Qxd8 Rxd8 13. Bxc6
+{Mais ca me posait vraiment probleme ca doit etre correct mais je n'etais pas
+parfaitement sur de mes compensations.}) 12... Bh3 {Je me souvenais vaguement de ca.
+avec la tour qui coulisse sur c8 c5. Il y a aussi un coup cle avec Cd7})
+9. cxd5 (9. Nxd4 dxc4 10. bxc4 Qa5 {Je pense que j'aurais joue quelque chose comme ca.})
+9... Qxd5 10. Qxd4 (10. Nxd4 Qh5 {Je me sentais tres confortable dans cette position})
+10... Qh5 11. Na3 Nc6 {Joue un peu trop vite je crois que je prefere Fh3 a la place.}
+12. Qh4 {Ce coup m'a un peu deprime je ne sais pas trop quoi faire et on va jouer une
+position sans les dames assez symetrique ou je me sens pas trop en confiance}
+Qxh4 13. Nxh4 Bg4 14. Bxc6 {Je pensais que ce coup etait faux car je n'ai pas de mal a
+m'activer mais cette faiblesse a long terme va me coller a la peau}
+(14. e3 Rfd8 {Me semblait assez confort car apres Cc4 je peux jouer Fe6} 15. Nc4 Be6)
+14... bxc6 15. f3 Be6 (15... Bd7 {Je n'ai pas envisage une demi seconde ce coup qui me
+semble BIEN trop passif}) 16. Rfc1 Rac8 (16... a5 {Etait ma premiere idee}
+17. Rxc6 (17. Nc4 Rfb8 (17... Ra6 18. Ne5 Rc8 {Me semblait jouable}) 18. Ne5 $18)
+17... a4 18. b4 (18. bxa4 Rxa4 {Me semblait tout a fait egal je ne vois pas comment les
+blancs ameliorent sans perdre a2}) 18... Rfb8 19. b5 {Et je pense que les blancs sont mieux}
+(19. Bc3 Nd5 20. Bxg7 Nxb4 21. Rxe6 fxe6 22. Bc3 Nd5 {Et les blancs me semblent gagnant})
+(19. Rc7 Nd5) (19. Nc2 a3 20. Bc3 Nd5 21. Bxg7 Kxg7 22. Rb1 Nb6) 19... Bd7 {Pas vu}
+20. Rc7 Bxb5 21. Nxb5 Rxb5) 17. Ng2 $1 (17. Rc2 Rfd8 18. Rac1 Bh6 19. f4 Bd5)
+17... Bh6 $5 18. Rc5 (18. Rc2 Rfd8) (18. f4 Ne4 $11 (18... Bd5 {Dans les deux cas les
+noirs me semblent ok} 19. Ne3 Be4 20. Rc4 $1)) 18... Rfd8 19. Kf2 Rd5
+(19... Rd2 20. Bc3 (20. Bc1 Rd1) 20... Rd5 {Est sans doute plus main pour echanger une piece})
+20. Rc2 {Bon ici je suis quasiment max mais je ne sais pas quoi faire. Mon cerveau va
+literrallement partir en balade} Rh5 {Je me dis que je suis content d'affaiblir g3 pour
+donner du jeu a mon cheval} (20... Bf5 21. e4 Nxe4+ (21... Bxe4 22. fxe4 Nxe4+ 23. Kg1
+{Me semble gagnant pour les blancs}) 22. fxe4 Bxe4 23. Re2 $18 (23. Rc3 Rd2+))
+21. h4 Rf5 22. Ke1 {finalement il a ameliore et pas moi...}
+(22. Ne3 Ne4+ 23. Kg2 Bxe3 24. fxe4 Ra5) 22... Rd5 23. Nc4 (23. Nf4 Bxf4 24. gxf4 Rh5 $44)
+23... Rb5 $4 {Je me leve tout tranquillement et voit avec horreur Fxf6 et Cd6. Je vois
+aussi mon coequipier Murtez un maitre du Kosovo qui a un visage particulierement expressif
+et qui me lance des gros yeux. Ma seule peur c'est qu'il croise le regard de mon adversaire
+et que celui-ci se rende compte de la tactique. Cela dit j'ai l'impression que chaque
+personne qui passe voir la partie voit cette tactique enfantine.} (23... Nd7)
+24. e4 $4 {Joue apres 15 minutes de reflexion QUEL SOULAGEMENT. Je prend quelques minutes
+pour reprendre mes esprits.} (24. Bxf6 exf6 25. Nd6 $18)
+24... Nd7 {Defendons la case e5 je veux m'activer a tout prix avec f5}
+25. Nge3 {Ma position n'est quand meme pas reluisante.} f5
+(25... Bxe3 26. Nxe3 f5 {Aurais merite le coup d'oeil}) 26. exf5 gxf5
+27. f4 $1 {Mes fous font pales figures mais au mois je n'ai pas perdu...}
+Kf7 {J'ai envie de m'activer avec Tg8} (27... Nb6 28. Ne5 Nd5 29. N3c4 {Ressemble a un
+ligotage en regle} (29. Rxc6 Rxc6 30. Nxc6 Nxe3) (29. Nxd5 Bxd5) (29. Nxc6 Nxe3
+(29... Rxc6 $4 30. Rxc6 Nxe3 31. Rxe6) 30. Nxe7+ Kf7 31. Rxc8 Kxe7 32. Rc7+ Bd7))
+28. Rac1 (28. Ne5+ $4 Nxe5 29. Bxe5 Rxe5 30. fxe5 Bxe3) 28... Ke8
+29. Na3 {Je rate completement ce coup...} Rb6 30. Bd4 Ra6
+31. Nb5 $1 {Bon mon adversaire est en zeitnot et je ne le sens pas tres affute dans les
+positions tactiques. Il a une paire de minutes contre une dizaine pour moi. Je vais essayer
+de trouver la suite la moins evidente pour ne pas perdre.} c5
+(31... cxb5 32. Rxc8+ Kf7 33. R1c6 Rxa2 34. Rxe6 {Est sans espoir})
+32. Bxc5 Ra5 $5 {A le merite d'etre venimeux avec tres peu de temps a la pendule}
+(32... Rac6 33. Nxa7 Rxc5 34. Nxc8) (32... Nxc5 33. Rxc5 Rxc5 34. Rxc5 Rxa2 35. Nc7+ Kf7
+36. Nxe6 Kxe6 37. Rc6+ Kf7 38. Rxh6 {SATANE FOU}) 33. a4 $2 Bxb3 34. Rc3 Bxa4
+(34... Nxc5 $5 35. Rxc5 (35. Rxb3 Nxb3 36. Rxc8+ Kf7) 35... Rxc5 36. Rxc5 Rxa4 37. Nxf5)
+(34... Rxc5 35. Rxc5 Nxc5 36. Rxc5 Rxa4 {Doit etre plus interessant. Mais c'est
+completement manque.} (36... Bxa4 $4 37. Nc7+)) 35. Bb4 Rxc3 36. Nxc3 Ra6
+37. Nxf5 {Le plus simple} (37. Ra1 Bb5 {la "pointe" vu en jouant c5}) 37... Bf8 38. Nd5 Kf7
+39. Bxe7 Ke6 {Je tente l'arnaque avec sa poignee de seconde je le vois mal trouver Cfe3.
+Qui renforce la menace Cc7} (39... Bxe7 40. Ndxe7 Re6+ 41. Kf2 Rxe7 42. Nxe7 Kxe7 43. Ra1
+Nc5 {Me semblait vraiment difficile a jouer. La majorite a l'aile roi est trop forte c'est
+typiquement le genre de position ou la tour domine les deux pieces mineures. si le pion a7
+avait ete en g6 c'est clairement la variante que j'aurais choisi pour faire nulle})
+40. Bxf8 Kxd5 $6 {Je pensais que ce cavalier etait plus menacant que l'autre a tete repose
+je regrette ce choix} (40... Kxf5 41. Bb4 (41. Ne3+ Ke4 $19) 41... Kg4 $44)
+41. Bb4 $1 {Bon on est arrive a la fin du zeitnot ma position est incofortable mes pieces
+sont sans aucune coordination et je n'ai plus de jus. Je calcule evidemment en 1er..}
+h5 {Et je finis par jouer ce coup ATROCE. Je vais passer toutes les variantes que je calcule
+ou je perd sur une fourchette en 2...} (41... Ke4 42. Nd6+ Kf3 43. Rc3+ Kg4 {Que je rejette
+car je ne vois pas comment me depatouiller de mes pieces apres Ta3} 44. Ra3)
+(41... Bb5 42. Rd1+ Kc4 43. Bd6 {Me semble vraiment difficle})
+42. Ke2 {Mais il trouve le TRES TRES TRES TRES BON et assez difficile Re2}
+(42. Ng7 Ke4 43. Nxh5 Kf3 {Etait mon idee principale})
+42... Nf6 $4 {Et je m'effondre completement apres avoir donne une tour dans presque toutes
+les variantes que j'ai calcule...} 43. Rc5+ $1 (43. Rd1+ Bxd1+) 43... Ke6
+(43... Ke4 44. Re5# {Oops :-)}) 44. Re5+ (44. Ng7+ {Le plus simple et les blancs gagnent h5})
+44... Kf7 45. Nd6+ {Typiquement le genre de position ou mon cerveau fait n'importe quoi
+j'hesite a jouer Rf8 avec l'idee qu'il n'a pas de bonnes decouvertes ... Je pense que le coup
+automatique ici doit etre Rg8} (45. Re7+ Kg6 46. Rg7+ (46. Nd4 {Me semblait difficile avec
+l'idee f5 et Fd2 mais j'avais l'idee Cg4!?}) 46... Kxf5 {J'ai un peu espoir qu'il croit au
+mat et qu'il oublie completement sa piece....}) 45... Kg6 (45... Kf8 46. Ne4+ Kf7 47. Rf5
+Bc2 $1) 46. Rg5+ (46. f5+ Kg7 {Et on va continuer a prier}) 46... Kh7
+(46... Kh6 47. Nf7+ Kh7 $18) 47. Kd3 {Ok pour gagner avec sa construction il doit mettre le
+fou en c3.} Bb3 {On profite du tempo pour activer le fou et essayer de defendre la case f5
+en se mettant sur la diagonale b1 h7} 48. Nf5 Ba2 49. Kc2 Bd5 50. Kd3 Ba2 51. Bc3 Bb1+
+52. Kc4 $4 {SOULAGEMENT JE NE RATE PAS LE COCHE de simplifier.} (52. Kd4 Re6 {Et je fais
+presque une forteresse}) 52... Rc6+ 53. Kb3 (53. Kd4) 53... Rxc3+ 54. Kxc3 Ne4+ 55. Kb2
+Nxg5 56. Kxb1 Ne4 1/2-1/2
