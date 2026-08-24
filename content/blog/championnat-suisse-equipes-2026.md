@@ -6,6 +6,8 @@ date: "2026-08-23"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/preparation-tournoi-echecs"
+image: "/images/blog/cse-2026/og-cse.png"
+altSlug: "swiss-team-championship-2026"
 ---
 
 **En une phrase :** deux matchs de LNA que Nyon n'avait pas le droit de rater, gagnés l'un et l'autre 4½–3½, le maintien au bout — et un week-end qui m'a surtout appris que mon problème n'est pas de voir les bons plans, c'est de les jouer.
