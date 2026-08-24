@@ -1,0 +1,143 @@
+{
+  "week": "24-08-26",
+  "puzzles": [
+    {
+      "id": "2e2ca89fde9f",
+      "fen": "1k5r/1p3ppp/2pb3q/3br3/8/2QBP1P1/PP1N1P1P/R4RK1 b - - 2 21",
+      "sideToMove": "b",
+      "solution": [
+        "h6h2",
+        "g1h2",
+        "e5h5",
+        "h2g1",
+        "h5h1"
+      ],
+      "mate": true,
+      "sacrifice": true,
+      "beauty": 51
+    },
+    {
+      "id": "f54aa9aa6b7d",
+      "fen": "8/8/8/1bB1b2p/1P3p1k/5B1P/6K1/8 w - - 0 42",
+      "sideToMove": "w",
+      "solution": [
+        "c5e7",
+        "e5f6",
+        "e7f6"
+      ],
+      "mate": true,
+      "beauty": 38
+    },
+    {
+      "id": "7c2b0f7c331d",
+      "fen": "6k1/p1pp2pp/1p1b4/7Q/b1P5/Pq2P3/1B1P1nPP/1K3R2 b - - 1 25",
+      "sideToMove": "b",
+      "solution": [
+        "b3d3",
+        "b1a1",
+        "d3f1",
+        "a1a2",
+        "f1c4"
+      ],
+      "mate": true,
+      "beauty": 38
+    },
+    {
+      "id": "dfbff5e7c197",
+      "fen": "r1b2kn1/ppp3p1/2np4/2bNp2r/2P1PpP1/3P1N2/PP6/R1BQK2R b KQ - 0 14",
+      "sideToMove": "b",
+      "solution": [
+        "h5h1",
+        "e1e2",
+        "h1d1",
+        "e2d1",
+        "c8g4",
+        "d1e1",
+        "g4f3"
+      ],
+      "beauty": 19
+    },
+    {
+      "id": "40639085bf2d",
+      "fen": "3r1r1R/pp3p1Q/2p1qk2/4p3/1P2P3/P7/1K4PP/2R5 w - - 5 30",
+      "sideToMove": "w",
+      "solution": [
+        "h7h4",
+        "f6g7",
+        "h8h7"
+      ],
+      "beauty": 18
+    },
+    {
+      "id": "7dc3f2bf738f",
+      "fen": "7Q/8/5rk1/P2p1p2/3PbP2/4P1Kp/2r4P/8 w - - 9 52",
+      "sideToMove": "w",
+      "solution": [
+        "h8g8",
+        "g6h6",
+        "g8g5",
+        "h6h7",
+        "g5f6"
+      ],
+      "beauty": 18
+    },
+    {
+      "id": "f14e7163b9da",
+      "fen": "r3k2r/2b2pp1/p4n2/1p1p3p/3PNq2/BP5P/P2N2P1/R1Q2nK1 w kq - 0 20",
+      "sideToMove": "w",
+      "solution": [
+        "c1c6",
+        "e8d8",
+        "c6a8",
+        "d8d7",
+        "e4f6",
+        "g7f6",
+        "a8d5"
+      ],
+      "beauty": 16
+    },
+    {
+      "id": "279f534fc439",
+      "fen": "r1b3k1/pppp1ppp/3b4/8/2PpP2q/P6Q/1P3P1n/R1B1KBNR b KQ - 0 14",
+      "sideToMove": "b",
+      "solution": [
+        "h4e4",
+        "c1e3",
+        "d4e3",
+        "h1h2",
+        "e3f2",
+        "e1f2",
+        "d6c5"
+      ],
+      "beauty": 16
+    },
+    {
+      "id": "ef2d4be1b890",
+      "fen": "4k3/6pp/8/5Q2/4p3/4P1P1/P1r1qPBP/6K1 w - - 3 30",
+      "sideToMove": "w",
+      "solution": [
+        "f5e4",
+        "e8d8",
+        "e4d4",
+        "d8c8",
+        "g2h3",
+        "c8b7",
+        "d4g7"
+      ],
+      "beauty": 15
+    },
+    {
+      "id": "4c8c10a79fe4",
+      "fen": "5rk1/7p/6pq/p3p3/2PpN1Q1/P2P1P2/1P2n2P/3R3K w - - 3 34",
+      "sideToMove": "w",
+      "solution": [
+        "g4e6",
+        "g8h8",
+        "e6e5",
+        "h6g7",
+        "e5g7"
+      ],
+      "beauty": 15
+    }
+  ]
+}
