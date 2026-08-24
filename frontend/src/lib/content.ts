@@ -100,3 +100,32 @@ export function getPost(slug: string, locale?: Locale): Post | undefined {
   if (locale) return posts.find((p) => p.slug === slug && p.lang === locale)
   return posts.find((p) => p.slug === slug)
 }
+
+/**
+ * Articles embed a game replayer by dropping `[[pgn:file-name]]` on its own
+ * line (Markdown turns it into a paragraph). Splitting the compiled HTML on
+ * that marker lets the post render as HTML chunks with React viewers between
+ * them, without a Markdown-to-JSX pipeline.
+ *
+ * Several comma-separated names — `[[pgn:game-a,game-b]]` — render as ONE
+ * viewer with a picker, so a diary can gather its games in a single board at
+ * the foot of the article instead of scattering them through the prose.
+ */
+export type PostChunk = { kind: 'html'; html: string } | { kind: 'pgn'; gameIds: string[] }
+
+const PGN_MARKER = /<p>\s*\[\[pgn:([a-z0-9_,-]+)\]\]\s*<\/p>/gi
+
+export function splitChunks(html: string): PostChunk[] {
+  const chunks: PostChunk[] = []
+  let last = 0
+  for (const m of html.matchAll(PGN_MARKER)) {
+    const before = html.slice(last, m.index)
+    if (before.trim()) chunks.push({ kind: 'html', html: before })
+    const ids = m[1]!.split(',').map((id) => id.trim()).filter(Boolean)
+    if (ids.length) chunks.push({ kind: 'pgn', gameIds: ids })
+    last = m.index + m[0].length
+  }
+  const rest = html.slice(last)
+  if (rest.trim()) chunks.push({ kind: 'html', html: rest })
+  return chunks
+}

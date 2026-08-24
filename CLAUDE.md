@@ -43,9 +43,22 @@
 - **Lessons**: Short, concrete, honest — not generic advice
 - **Author**: Alexandre Iwanesko, FM (FIDE Master), 33 years old
 
+## PGN Game Viewer
+- **Games live in**: `content/games/<id>.pgn` — one file per game, standard PGN with headers. Paste the score, done: no build step, no diagram generation.
+- **Embed in an article**: put `[[pgn:<id>]]` alone on its own line in the Markdown (FR or EN). `splitChunks()` in `frontend/src/lib/content.ts` splits the compiled HTML on that marker and `BlogPost.tsx` renders a `<PgnViewer>` in its place.
+- **Several games, one board**: `[[pgn:<id-a>,<id-b>]]` renders a single viewer with a picker (tab per game, labelled `R<ronde> · <adversaire>`). Preferred for a team-match diary: one board at the foot of the article rather than one per round.
+- **Anchor**: the first `[[pgn:…]]` block of a post gets `id="parties"`, so the intro can link down to it with `[texte](#parties)`.
+- **Component**: `frontend/src/components/PgnViewer.tsx` — board, first/prev/play/next/last, **flip button**, clickable move list, arrow-key navigation. Read-only.
+- **Rules engine**: `frontend/src/lib/chess.ts` (legal-move generation, only used to resolve SAN into from/to squares) + `frontend/src/lib/pgn.ts` (PGN → plies, main line only).
+- **Main line only**: comments `{...}`, sidelines `(...)` and NAGs are stripped. A sideline worth telling goes in the prose, not in the viewer.
+- **Notation**: the viewer renders French notation (C, F, T, D, R) on FR pages and English on EN pages automatically — always paste the PGN in **English** SAN.
+- **Board orientation**: defaults to Alexandre's side (detected from the `White`/`Black` headers), overridable with a `[Orientation "black"]` header. The reader can flip it anyway.
+- **Piece set**: `frontend/src/components/chessPieces.tsx` — shared with `PuzzleBoard.tsx` (Lichess cburnett, inlined SVG).
+
 ## Diagram Generation
 - Run `node scripts/gen-diagrams.mjs` after modifying FEN positions
-- Each diagram entry: `{ file, fen, lastMove?, flip? }`
+- Each diagram entry: `{ file, fen, lastMove?, flip?, dir? }`
+- `dir` picks the tournament folder under `public/images/blog/` (default `pontevedra-2026`); CSE 2026 uses `dir: 'cse-2026'`
 - `flip: true` for games played as Black
 - `lastMove` format: `'e2e4'` (from-to squares)
 

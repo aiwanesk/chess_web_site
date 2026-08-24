@@ -12,7 +12,11 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
-const outDir = join(root, 'public/images/blog/pontevedra-2026');
+const outRoot = join(root, 'public/images/blog');
+// Each diagram lands in `dir` (a tournament folder); Pontevedra stays the default
+// so its existing entries need no change.
+const DEFAULT_DIR = 'pontevedra-2026';
+const outDir = join(outRoot, DEFAULT_DIR);
 
 mkdirSync(outDir, { recursive: true });
 
@@ -312,14 +316,158 @@ const diagrams = [
     fen: '8/1p3p1k/1B6/P4bp1/8/4RP1p/4BK1P/2q5 b - - 3 40',
     flip: true,
   },
+
+  // ── CSE 2026, ronde 6 (Saminskij – Iwanesko). Vue des Noirs. ──
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme1.svg',
+    fen: 'rnbq1rk1/ppp1ppbp/3p1np1/8/3P4/2N2NP1/PPP1PPBP/R1BQ1RK1 b - - 0 6',
+    lastMove: 'b1c3',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme2.svg',
+    fen: '1r1q1rk1/pb2ppbp/Pp3np1/2pp4/3P4/2N2NP1/1PP1PPBP/R2Q1RK1 b - - 0 11',
+    lastMove: 'a5a6',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme3.svg',
+    fen: 'br1q1rk1/p3ppbp/P4np1/2Pp4/Np6/4PNP1/1PP2PBP/R2Q1RK1 b - - 0 14',
+    lastMove: 'c3a4',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme4.svg',
+    fen: 'br1q1rk1/p3ppbp/Pp4p1/6N1/3Pp3/6P1/1PP2PBP/R2Q1RK1 b - - 0 15',
+    lastMove: 'e3d4',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme5.svg',
+    fen: 'br1q1rk1/p4pbp/Pp4p1/8/3pN3/6P1/1PP2PBP/R2Q1RK1 w - - 0 17',
+    lastMove: 'e5d4',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme6.svg',
+    fen: 'b1rr2k1/p1q2pbp/Pp4p1/8/3pN2P/3Q2P1/1PP2PB1/2R1R1K1 b - - 0 20',
+    lastMove: 'f1e1',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme7.svg',
+    fen: '2rr2k1/p1q2pbp/Pp4p1/8/3p1P1P/3Q2P1/1PPN2K1/2R1R3 w - - 0 24',
+    lastMove: 'h6g7',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme8.svg',
+    fen: '2rr2k1/p4pbp/Ppq3p1/8/3p1P1P/3Q1NP1/1PP3K1/2R1R3 w - - 0 25',
+    lastMove: 'c7c6',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme9.svg',
+    fen: '2rr2k1/p4pbp/Pp4p1/1q6/3pQP1P/1P3NP1/2P3K1/2R1R3 b - - 0 26',
+    lastMove: 'b2b3',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme10.svg',
+    fen: '2qr2k1/p4pbp/1p4p1/8/4QP1P/1P1P1NP1/6K1/4R3 w - - 0 29',
+    lastMove: 'a6c8',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme11.svg',
+    fen: '3r2k1/p4pbp/1p4p1/8/3PQP1P/1P2RNPK/5q2/8 w - - 0 32',
+    lastMove: 'b2f2',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme12.svg',
+    fen: '3r2k1/p3Rpb1/1p4p1/7p/3P1P1P/1P1Q1NPK/5q2/8 b - - 0 33',
+    lastMove: 'e2e7',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme13.svg',
+    fen: '2r3k1/p4pb1/1p4p1/7p/3P1P1P/1P1Q1NP1/4R2K/5q2 b - - 0 35',
+    lastMove: 'h3h2',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme14.svg',
+    fen: '2r2bk1/p4p2/1p4p1/7p/3P1P1P/1P1Q1NP1/4R2K/5q2 w - - 0 36',
+    lastMove: 'g7f8',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme15.svg',
+    fen: '2r2bk1/p4p2/1p4p1/7p/3P1P1P/1P1Q1NP1/3R2K1/q7 b - - 0 39',
+    lastMove: 'h2g2',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme16.svg',
+    fen: '2r3k1/p4p2/1p4p1/7p/1b1P1P1P/1P1Q1NP1/5RK1/q7 b - - 0 40',
+    lastMove: 'd2f2',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme17.svg',
+    fen: '2r3k1/5p2/pp4p1/5P1p/1b1P3P/1P1Q1NP1/5RK1/q7 b - - 0 41',
+    lastMove: 'f4f5',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme18.svg',
+    fen: '2r3k1/5p2/1Q6/5p1p/1b1P3P/1q3NP1/5RK1/8 w - - 0 44',
+    lastMove: 'c3b3',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme19.svg',
+    fen: '5k2/5p2/3b4/5Q1p/3P3P/1q3NP1/5K2/8 w - - 0 47',
+    lastMove: 'b4d6',
+    flip: true,
+  },
+  {
+    dir: 'cse-2026',
+    file: 'ronde6-diagramme20.svg',
+    fen: '2r5/6k1/5p2/3q1p1Q/1b1P3P/5NP1/5R1K/8 w - - 0 50',
+    lastMove: 'f7f6',
+    flip: true,
+  },
 ];
 
 console.log('Generating diagrams with official Lichess cburnett pieces…\n');
 
 for (const d of diagrams) {
+  const dir = join(outRoot, d.dir ?? DEFAULT_DIR);
+  mkdirSync(dir, { recursive: true });
   const svg = generateBoardSVG(d.fen, { lastMove: d.lastMove, flip: d.flip });
-  writeFileSync(join(outDir, d.file), svg, 'utf-8');
-  console.log(`  ✓ ${d.file}`);
+  writeFileSync(join(dir, d.file), svg, 'utf-8');
+  console.log(`  ✓ ${d.dir ?? DEFAULT_DIR}/${d.file}`);
 }
 
 writeFileSync(join(outDir, 'og-pontevedra.svg'), generateBoardSVG(diagrams[0].fen, { lastMove: diagrams[0].lastMove, flip: diagrams[0].flip }), 'utf-8');

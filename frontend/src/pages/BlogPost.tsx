@@ -4,7 +4,8 @@ import { Seo } from '../lib/seo'
 import { Container } from '../components/Container'
 import { Section } from '../components/ui'
 import { Breadcrumbs } from '../components/Breadcrumbs'
-import { getPost } from '../lib/content'
+import { PgnViewer } from '../components/PgnViewer'
+import { getPost, splitChunks } from '../lib/content'
 import { postsByCluster } from '../lib/postMeta'
 import { catView, categoryPath, getCategory } from '../lib/categories'
 import { articleSchema, breadcrumbSchema, type Crumb } from '../lib/schema'
@@ -132,11 +133,20 @@ export function Component() {
               <div aria-hidden className="mt-6 h-px w-16 bg-gold-400" />
             </header>
 
-            <div
-              className="prose mx-auto mt-10"
-              // Compiled from Markdown at build time; content is authored/trusted.
-              dangerouslySetInnerHTML={{ __html: post.html }}
-            />
+            <div className="mt-10">
+              {splitChunks(post.html).map((chunk, i) =>
+                chunk.kind === 'pgn' ? (
+                  <PgnViewer key={i} gameIds={chunk.gameIds} anchorId="parties" />
+                ) : (
+                  <div
+                    key={i}
+                    className="prose mx-auto"
+                    // Compiled from Markdown at build time; content is authored/trusted.
+                    dangerouslySetInnerHTML={{ __html: chunk.html }}
+                  />
+                ),
+              )}
+            </div>
 
             {/* Cluster internal link back to the related money page. */}
             {post.clusterPath ? (
