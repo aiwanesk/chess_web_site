@@ -6,7 +6,7 @@ date: "2026-08-02"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/preparation-tournoi-echecs"
-image: "/images/blog/badalona-2026/og-badalona.svg"
+image: "/images/blog/badalona-2026/og-badalona.png"
 altSlug: "open-badalona-2026"
 ---
 

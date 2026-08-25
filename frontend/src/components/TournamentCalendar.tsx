@@ -6,6 +6,7 @@ import { TOURNAMENTS } from '../lib/tournaments'
 import {
   articlePathFor,
   buildMonth,
+  byDate,
   daysUntil,
   formatFor,
   formatRange,
@@ -220,7 +221,9 @@ export function TournamentCalendar() {
   const locale = useLocale()
   const s = STR[locale]
 
-  const events = TOURNAMENTS
+  // Sorted once here so the season list below never depends on the order the
+  // tournaments happen to be written in inside TOURNAMENTS.
+  const events = useMemo(() => [...TOURNAMENTS].sort(byDate), [])
   const [selected, setSelected] = useState<CalEvent | null>(null)
 
   // First render — pre-rendered HTML and hydration alike — uses the build date,

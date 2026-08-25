@@ -37,6 +37,11 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+      # Un carnet de tournoi orphelin (pas relié au calendrier, altSlug à sens
+      # unique) passe le build sans un mot — ce check le fait échouer.
+      - name: Contenu — carnets reliés au calendrier
+        run: node scripts/check-content-links.mjs
+
       - run: npm ci
         working-directory: frontend
       - run: npm run typecheck

@@ -88,6 +88,11 @@ export function previousEvent(events: CalEvent[], today: string): CalEvent | und
     .sort((a, b) => (a.end !== b.end ? (a.end < b.end ? 1 : -1) : a.start < b.start ? 1 : -1))[0]
 }
 
+/** Chronological order — earliest start first, longer event first on a tie. */
+export function byDate(a: CalEvent, b: CalEvent): number {
+  return a.start !== b.start ? (a.start < b.start ? -1 : 1) : a.end < b.end ? -1 : 1
+}
+
 /** The next event to come — an ongoing one counts as "now", handled separately. */
 export function nextEvent(events: CalEvent[], today: string): CalEvent | undefined {
   return events

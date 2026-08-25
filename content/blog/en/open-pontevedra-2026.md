@@ -6,7 +6,7 @@ date: "2026-07-25"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/en/tournament-preparation"
-image: "/images/blog/pontevedra-2026/og-pontevedra.svg"
+image: "/images/blog/pontevedra-2026/og-pontevedra-en.png"
 altSlug: "open-pontevedra-2026"
 ---
 
