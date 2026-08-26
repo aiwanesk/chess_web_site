@@ -24,7 +24,7 @@ The captain does the maths for us before the first move, and it's short: **win b
 
 The standings live here: [the SMM on swisschess.ch](https://swisschess.ch/fr/sport/meisterschaften/smm).
 
-That leaves the team sheet. I play both days on **board eight**, and I get **Black both times**: somebody has to double up on a colour so the alternation works out for everyone above. Above me sits Selvan, our striker. Our fox in the box, rather. He'll go 2/2 in two gloriously messy games, the kind you watch over his shoulder between moves without understanding a thing, and walk away from telling yourself the result is deserved because it's there. Me, I'll go 0.5/2. We'll come back to that.
+That leaves the team sheet. I play both days on **board eight** and I take **Black both times** — because **Selvan is a monster with White**. Our striker; our fox in the box, rather: hand him White and he brings the point back. So we lay the colours out to give him White, I double up on Black, and nobody argues. He'll go 2/2 in two gloriously messy games, the kind you watch over his shoulder between moves without understanding a thing, and walk away from telling yourself the result is deserved because it's there. Me, I'll go 0.5/2. We'll come back to that.
 
 ## Round 6, Saturday — Wollishofen 1: Three Very Pleasant Hours, and a Fourth
 

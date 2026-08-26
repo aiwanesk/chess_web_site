@@ -24,7 +24,7 @@ Le capitaine nous fait le calcul avant le premier coup, et il est court : **on g
 
 Le classement se suit ici : [le SMM sur swisschess.ch](https://swisschess.ch/fr/sport/meisterschaften/smm).
 
-Reste à composer l'équipe. Je joue les deux jours au **huitième échiquier**, et j'hérite des **Noirs les deux fois** : il faut bien que quelqu'un double la couleur pour que l'alternance tombe juste sur le reste de la liste. Sur cette liste, il y a Selvan, notre buteur — que dis-je, notre renard des surfaces. Il fera 2/2 dans deux parties bordéliques à souhait, du genre qu'on regarde par-dessus son épaule entre deux coups sans rien y comprendre, et dont on repart en se disant que le résultat est mérité parce qu'il est là. Moi, je ferai 0,5/2. On y revient à la fin.
+Reste à composer l'équipe. Je joue les deux jours au **huitième échiquier** et je prends les **Noirs les deux fois** — parce que **Selvan est un monstre avec les Blancs**. Notre buteur, que dis-je, notre renard des surfaces : vous lui donnez les Blancs, il vous ramène le point. On répartit donc les couleurs pour qu'il les ait, je double les Noirs, et personne ne trouve à y redire. Il fera 2/2 dans deux parties bordéliques à souhait, du genre qu'on regarde par-dessus son épaule entre deux coups sans rien y comprendre, et dont on repart en se disant que le résultat est mérité parce qu'il est là. Moi, je ferai 0,5/2. On y revient à la fin.
 
 ## Ronde 6, samedi — Wollishofen 1 : trois heures très agréables, et une quatrième
 
