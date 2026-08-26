@@ -97,7 +97,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="mt-8 border-t-2 border-gold-500/60 bg-ink-950 text-ink-300">
+    <footer className="mt-8 border-t-2 border-gold-500/60 bg-slab-950 text-slab-300">
       <div className="border-b border-white/10">
         <Container className="py-12">
           <div className="max-w-md">
@@ -134,7 +134,7 @@ export function Footer() {
               {SITE.contact.email}
             </a>
           </address>
-          <p className="mt-4 text-xs leading-relaxed text-ink-400">
+          <p className="mt-4 text-xs leading-relaxed text-slab-400">
             {s.footerZones} : {SITE.areaServed.join(', ')}.
           </p>
         </div>
@@ -148,7 +148,7 @@ export function Footer() {
             <ul className="mt-5 space-y-2.5 text-sm">
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <Link to={linkPath(l, locale)} className="text-ink-300 transition-colors hover:text-gold-400">
+                  <Link to={linkPath(l, locale)} className="text-slab-300 transition-colors hover:text-gold-400">
                     {l.label}
                   </Link>
                 </li>
@@ -159,7 +159,7 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-white/10">
-        <Container className="flex flex-col items-center justify-between gap-2 py-6 text-xs text-ink-400 sm:flex-row">
+        <Container className="flex flex-col items-center justify-between gap-2 py-6 text-xs text-slab-400 sm:flex-row">
           <p>© {new Date().getFullYear()} Alexandre Iwanesko — {s.footerRights}</p>
           <p>{tagline[locale]}</p>
         </Container>

@@ -20,7 +20,7 @@ export function Faq({ items, title = 'Questions fréquentes' }: { items: FaqItem
           {items.map((item) => (
             <details
               key={item.question}
-              className="group rounded-2xl border border-ink-200/80 bg-white px-6 shadow-soft transition-colors open:border-gold-300"
+              className="group rounded-2xl border border-ink-200/80 bg-paper px-6 shadow-soft transition-colors open:border-gold-300"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-lg font-semibold text-ink-900">
                 {item.question}

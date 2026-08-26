@@ -16,7 +16,7 @@ export function PostCard({ post, showCategory = true }: { post: PostMeta; showCa
   const cat = getCategory(post.category)
   const postPath = locale === 'en' ? `/en/blog/${post.slug}` : `/blog/${post.slug}`
   return (
-    <article className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-white p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
+    <article className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-paper p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
       <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-[0.1em] text-gold-700">
         {showCategory && cat ? (
           <>

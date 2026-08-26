@@ -84,6 +84,7 @@ type Dict = {
   openMenu: string
   closeMenu: string
   skipToContent: string
+  themeToggle: string
   breadcrumbHome: string
   fideTitle: string
   footerRole: string
@@ -112,6 +113,7 @@ export const UI: Record<Locale, Dict> = {
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
     skipToContent: 'Aller au contenu',
+    themeToggle: 'Changer de thème (clair ou sombre)',
     breadcrumbHome: 'Accueil',
     fideTitle: 'Maître FIDE',
     footerRole: 'Maître FIDE · Coach d’échecs',
@@ -138,6 +140,7 @@ export const UI: Record<Locale, Dict> = {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     skipToContent: 'Skip to content',
+    themeToggle: 'Switch theme (light or dark)',
     breadcrumbHome: 'Home',
     fideTitle: 'FIDE Master',
     footerRole: 'FIDE Master · Chess coach',

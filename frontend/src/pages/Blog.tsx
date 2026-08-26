@@ -85,7 +85,7 @@ export function Component() {
                 <Link
                   key={c.key}
                   to={categoryPath(c.key, locale)}
-                  className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
+                  className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-paper p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
                 >
                   <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-xl border border-gold-200 bg-gold-50 text-gold-700">
                     <Icon size={24} />

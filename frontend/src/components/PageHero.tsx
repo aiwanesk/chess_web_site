@@ -29,7 +29,7 @@ export function PageHero({
   const locale = useLocale()
   const cta = primaryCta ?? { to: pathFor('contact', locale), label: t(locale).reserveFirst }
   return (
-    <div className="relative overflow-hidden border-b border-ink-100 bg-gradient-to-b from-cream-100 to-white">
+    <div className="relative overflow-hidden border-b border-ink-100 bg-gradient-to-b from-cream-100 to-paper">
       <div aria-hidden className="board-texture absolute inset-0 opacity-70" />
       {/* Soft gold glow, top-right. */}
       <div
@@ -65,7 +65,7 @@ export function FactCard({ facts }: { facts: Array<{ label: string; value: strin
   return (
     <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200/80 bg-ink-200/70 shadow-card">
       {facts.map((f) => (
-        <div key={f.label} className="bg-white p-5 transition-colors hover:bg-cream-50">
+        <div key={f.label} className="bg-paper p-5 transition-colors hover:bg-cream-50">
           <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-500">{f.label}</dt>
           <dd className="mt-1.5 font-display text-lg font-bold text-ink-900">{f.value}</dd>
         </div>

@@ -53,7 +53,7 @@ export function Component() {
 
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
-          <div className="rounded-3xl border border-ink-200/80 bg-white p-7 shadow-card sm:p-8">
+          <div className="rounded-3xl border border-ink-200/80 bg-paper p-7 shadow-card sm:p-8">
             <BookingForm />
           </div>
           <aside className="h-fit rounded-3xl border border-ink-200/80 bg-cream-100 p-7 shadow-soft">

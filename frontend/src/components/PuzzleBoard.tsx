@@ -335,7 +335,7 @@ export function PuzzleBoard({ fen, sideToMove, solution, onSolved, onAttempt, on
           <div aria-hidden className="pointer-events-none absolute inset-0 flex items-start justify-end p-2">
             <span
               className={`rounded-full px-3 py-1 text-sm font-bold shadow ${
-                finishedByUser ? 'bg-green-600 text-white' : 'bg-ink-900/90 text-gold-300'
+                finishedByUser ? 'bg-green-600 text-white' : 'bg-slab-900/90 text-gold-300'
               }`}
             >
               {finishedByUser ? `✓ ${labels.solved}` : labels.solutionShown}

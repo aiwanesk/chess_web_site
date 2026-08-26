@@ -51,7 +51,7 @@ export function Component() {
                 <li key={w.slug}>
                   <Link
                     to={`${path}/${w.slug}`}
-                    className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-white p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
+                    className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-paper p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
                   >
                     <span className="text-xs font-semibold uppercase tracking-[0.1em] text-gold-700">{s.eyebrow}</span>
                     <h2 className="mt-2 font-display text-xl font-bold text-ink-900">{formatWeek(w.slug, locale)}</h2>

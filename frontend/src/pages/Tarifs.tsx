@@ -82,12 +82,12 @@ export function Component() {
                 key={p.name}
                 className={`relative flex flex-col rounded-3xl p-8 transition-shadow ${
                   p.featured
-                    ? 'border-2 border-gold-400 bg-white shadow-lift lg:-mt-4 lg:pt-12'
-                    : 'border border-ink-200/80 bg-white shadow-soft hover:shadow-card'
+                    ? 'border-2 border-gold-400 bg-paper shadow-lift lg:-mt-4 lg:pt-12'
+                    : 'border border-ink-200/80 bg-paper shadow-soft hover:shadow-card'
                 }`}
               >
                 {p.featured ? (
-                  <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-gold-500 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-ink-950 shadow-gold">
+                  <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-gold-500 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-on-gold shadow-gold">
                     {d.featured}
                   </span>
                 ) : null}

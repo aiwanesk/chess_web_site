@@ -122,7 +122,7 @@ export function MoneyPage(props: MoneyPageProps) {
               return (
                 <div
                   key={b.title}
-                  className="hover-lift rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft hover:border-gold-300 hover:shadow-card"
+                  className="hover-lift rounded-2xl border border-ink-200/80 bg-paper p-7 shadow-soft hover:border-gold-300 hover:shadow-card"
                 >
                   <span
                     aria-hidden
@@ -152,7 +152,7 @@ export function MoneyPage(props: MoneyPageProps) {
                 <li key={r.to}>
                   <Link
                     to={r.to}
-                    className="group flex items-center justify-between gap-4 rounded-2xl border border-ink-200/80 bg-white px-6 py-5 font-medium text-ink-800 shadow-soft transition-colors hover:border-gold-300 hover:text-ink-950"
+                    className="group flex items-center justify-between gap-4 rounded-2xl border border-ink-200/80 bg-paper px-6 py-5 font-medium text-ink-800 shadow-soft transition-colors hover:border-gold-300 hover:text-ink-950"
                   >
                     {r.label}
                     <span
@@ -180,7 +180,7 @@ export function MoneyPage(props: MoneyPageProps) {
                 <li key={a.slug}>
                   <Link
                     to={`/blog/${a.slug}`}
-                    className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-white p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
+                    className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-paper p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
                   >
                     <h3 className="font-semibold text-ink-900">{a.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{a.description}</p>
@@ -199,17 +199,17 @@ export function MoneyPage(props: MoneyPageProps) {
       <Faq items={props.faq} title={s.faqTitle} />
 
       {/* Closing CTA */}
-      <Section className="board-texture-dark bg-ink-950 text-center text-white">
+      <Section className="board-texture-dark bg-slab-950 text-center text-white">
         <Container>
           <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
           <h2 className="font-display text-3xl font-bold sm:text-4xl">{s.money.closingTitle}</h2>
-          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-300">
+          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-slab-300">
             {s.money.closingSubtitle}
           </p>
           <div className="mt-9">
             <Link
               to={PAGES.contact[locale]}
-              className="inline-flex rounded-full bg-gold-500 px-7 py-3 font-semibold text-ink-950 shadow-gold transition-[background-color,transform] duration-200 hover:bg-gold-400 active:translate-y-px"
+              className="inline-flex rounded-full bg-gold-500 px-7 py-3 font-semibold text-on-gold shadow-gold transition-[background-color,transform] duration-200 hover:bg-gold-400 active:translate-y-px"
             >
               {s.reserveFirst}
             </Link>

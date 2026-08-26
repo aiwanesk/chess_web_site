@@ -100,10 +100,18 @@ export function PgnViewer({ gameIds, caption, anchorId }: PgnViewerProps) {
     return () => clearTimeout(id)
   }, [playing, ply, total])
 
-  // Keep the current move visible in the (scrollable) list.
+  // Keep the current move visible in the (scrollable) list — and ONLY move that
+  // list. scrollIntoView() scrolls every scrollable ancestor, the page included:
+  // on mount it dragged the reader straight down to the board at the foot of a
+  // diary, which also made the #parties link look broken (you were already there).
   useEffect(() => {
-    const el = listRef.current?.querySelector('[data-current="true"]')
-    el?.scrollIntoView({ block: 'nearest' })
+    const list = listRef.current
+    const el = list?.querySelector<HTMLElement>('[data-current="true"]')
+    if (!list || !el) return
+    const box = list.getBoundingClientRect()
+    const move = el.getBoundingClientRect()
+    if (move.top < box.top) list.scrollTop -= box.top - move.top
+    else if (move.bottom > box.bottom) list.scrollTop += move.bottom - box.bottom
   }, [ply])
 
   const board = useMemo(
@@ -153,7 +161,7 @@ export function PgnViewer({ gameIds, caption, anchorId }: PgnViewerProps) {
         onKeyDown={onKeyDown}
         role="group"
         aria-label={`${game.white} – ${game.black}`}
-        className="rounded-2xl border border-ink-200 bg-white p-4 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 sm:p-5"
+        className="rounded-2xl border border-ink-200 bg-paper p-4 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 sm:p-5"
       >
         {gameIds.length > 1 ? (
           <div role="tablist" aria-label={s.games} className="mb-3 flex flex-wrap gap-1.5">
@@ -166,7 +174,7 @@ export function PgnViewer({ gameIds, caption, anchorId }: PgnViewerProps) {
                 onClick={() => select(i)}
                 className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                   i === active
-                    ? 'bg-ink-900 text-white'
+                    ? 'bg-slab-900 text-white'
                     : 'bg-ink-100 text-ink-600 hover:bg-ink-200 hover:text-ink-900'
                 }`}
               >
@@ -248,7 +256,7 @@ export function PgnViewer({ gameIds, caption, anchorId }: PgnViewerProps) {
                 onClick={() => go(0)}
                 data-current={ply === 0}
                 className={`mr-1 rounded px-1.5 py-0.5 text-xs font-medium transition-colors ${
-                  ply === 0 ? 'bg-ink-900 text-white' : 'text-ink-500 hover:bg-ink-200'
+                  ply === 0 ? 'bg-slab-900 text-white' : 'text-ink-500 hover:bg-ink-200'
                 }`}
               >
                 {s.startPos}
@@ -266,7 +274,7 @@ export function PgnViewer({ gameIds, caption, anchorId }: PgnViewerProps) {
                     }}
                     data-current={ply === i + 1}
                     className={`ml-0.5 rounded px-1 py-0.5 font-medium transition-colors ${
-                      ply === i + 1 ? 'bg-gold-500 text-ink-950' : 'text-ink-700 hover:bg-ink-200'
+                      ply === i + 1 ? 'bg-gold-500 text-on-gold' : 'text-ink-700 hover:bg-ink-200'
                     }`}
                   >
                     {label(p.san)}

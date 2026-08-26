@@ -34,9 +34,9 @@ My opponent, however, doesn't seem familiar with the concept of thinking. He pla
 
 I think I've got a slight strategic edge. I've just played **b5**, expecting to reach a beautiful position. I love what I see: White seems to control the key squares, the pieces are harmonious, and I'm quietly getting ready to roll out my plan.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme1.svg" alt="Round 1 — position after b5, White is confident" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position after 11.b5 — White is satisfied... a bit too soon.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme1.svg" alt="Round 1 — position after b5, White is confident" />
+  <p class="diagram-caption">Position after 11.b5 — White is satisfied... a bit too soon.</p>
 </div>
 
 And then comes the first bucket of cold water. Without a second's hesitation, he plays:
@@ -49,9 +49,9 @@ A few moves later, he finds the logical follow-up:
 
 > **...d5!!**
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme2.svg" alt="Round 1 — after ...d5, Black seizes the initiative" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">There's only one move for Black — and he found it.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme2.svg" alt="Round 1 — after ...d5, Black seizes the initiative" />
+  <p class="diagram-caption">There's only one move for Black — and he found it.</p>
 </div>
 
 There's no sugarcoating it any longer. The black knight is parked on d5 like it owns the place, the bishop pair springs to life in one go, while my poor bishop on c1 discovers an unexpected calling: watching the game up close without ever participating.
@@ -62,16 +62,16 @@ The decision that follows is somewhat counterintuitive: **give back the exchange
 
 My opponent chooses to enter an **opposite-colored bishop endgame** a pawn down, thinking he can hold easily. But that's underestimating White's center — and especially the **g4** breakthrough.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme3.svg" alt="Round 1 — opposite-colored bishop endgame" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Opposite-colored bishops — but White's center will make the difference.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme3.svg" alt="Round 1 — opposite-colored bishop endgame" />
+  <p class="diagram-caption">Opposite-colored bishops — but White's center will make the difference.</p>
 </div>
 
 The plan has been clear for several moves: install a pawn on d5, gradually improve the pieces, then prepare the **g4** push.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme4.svg" alt="Round 1 — the g4 breakthrough decides the endgame" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">The g4 breakthrough — from here, Black's defense crumbles.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme4.svg" alt="Round 1 — the g4 breakthrough decides the endgame" />
+  <p class="diagram-caption">The g4 breakthrough — from here, Black's defense crumbles.</p>
 </div>
 
 The g4 breakthrough practically decides the endgame. If he takes on g4, I create a passed pawn with h5 that becomes extremely hard to stop. If he declines the capture, I can calmly prepare the e6 break, which completely wrecks his structure.
@@ -94,34 +94,34 @@ Looking at the database, I expect 1.e4 and a tense Sicilian — the natural play
 
 Surprise: he goes for **1.b3**. Not at all what I'd prepared for. Fortunately, I know the theory in these structures fairly well and I reel off my lines for a good while. We reach a relatively equal, simplified, clean position.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme1.svg" alt="Round 2 — equal position but slightly uncomfortable with knight vs bishop" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position after 22 moves — equal on paper, but the bishop is taunting the knight.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme1.svg" alt="Round 2 — equal position but slightly uncomfortable with knight vs bishop" />
+  <p class="diagram-caption">Position after 22 moves — equal on paper, but the bishop is taunting the knight.</p>
 </div>
 
 In practice, I feel slightly worse: he has the bishop against my knight, and in this kind of open endgame, the bishop tends to stroll around like a tourist on vacation while the knight desperately looks for a stable square. But the position is very holdable, and I'm happy to have equalized against a 2365.
 
 And I already know exactly what's coming. This kid isn't going to rush. On the contrary — he'll play very slowly, avoid pawn pushes, set subtle traps, and pounce on the slightest opportunity. The kind of silent, almost polite grind where every move looks harmless but the pressure never lets up.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Round 2 — the white bishop has settled on c4, Black hasn't moved" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">29 moves later — he has a plan, I have... a position.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Round 2 — the white bishop has settled on c4, Black hasn't moved" />
+  <p class="diagram-caption">29 moves later — he has a plan, I have... a position.</p>
 </div>
 
 Seven moves later, the picture is crystal clear. His bishop has settled on c4 like it booked a five-star Airbnb, and he's about to launch kingside pawn pushes to create weaknesses. On my side, I haven't budged an inch. My position holds, but it holds like a student holds a presentation he didn't prepare — technically standing, but without much conviction.
 
 And then I find **...g5** — an important defensive move that finally gives my knight some life. Suddenly, it has prospects, squares, almost a reason to exist.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme3.svg" alt="Round 2 — g5, the knight comes back to life" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">...g5 — the knight finally finds a reason to exist.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme3.svg" alt="Round 2 — g5, the knight comes back to life" />
+  <p class="diagram-caption">...g5 — the knight finally finds a reason to exist.</p>
 </div>
 
 Then follows **Re4 Rd4** — and he surprises me: he sacrifices the exchange. A move I clearly underestimated. The kind of decision that reminds you that 2400-level juniors aren't there just to make up numbers.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme4.svg" alt="Round 2 — unexpected exchange sacrifice" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rxe6! — yet another exchange sacrifice. A recurring theme, apparently.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme4.svg" alt="Round 2 — unexpected exchange sacrifice" />
+  <p class="diagram-caption">Rxe6! — yet another exchange sacrifice. A recurring theme, apparently.</p>
 </div>
 
 > 33.Rxe6+ fxe6 34.Rxe6+ Kg7 35.h5 Rdxc4 36.bxc4 Rxc4 37.Rg6+ Kh7 38.Rxb6 Rxa4
@@ -156,30 +156,30 @@ I arrive motivated. The tournament is going well — 2/3 with a draw against an 
 
 A **Najdorf** — a first for me in classical chess. I target him on a line with g3 and get a good position.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme1.svg" alt="Round 4 — good position in the Najdorf with g3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position after 15 moves — White is well set up in the Najdorf.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme1.svg" alt="Round 4 — good position in the Najdorf with g3" />
+  <p class="diagram-caption">Position after 15 moves — White is well set up in the Najdorf.</p>
 </div>
 
 I find the creative (for me) **Bd8!** with the idea of activating it via b6. One of those moves that makes you feel like a genius for about five minutes. He goes for the most aggressive line — and I counter with the sequence **d5! exd5 e4!** which blows the position wide open in my favor.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme2.svg" alt="Round 4 — position before d5! exd5 e4!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">d5! exd5 e4! — the center explodes in Black's favor.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme2.svg" alt="Round 4 — position before d5! exd5 e4!" />
+  <p class="diagram-caption">d5! exd5 e4! — the center explodes in Black's favor.</p>
 </div>
 
 After the tactical flurry, I reach a promising position. Ten minutes on my clock against fifteen on his — and instead of settling quietly onto my advantage, I almost instantly grab the wildly ambitious **...Bxh3**, channeling my inner Tal. I had completely overlooked the simple sequence **...Qc7, Rd1, Bg4!!** which wins by force — cleanly, no drama, no dubious sacrifice.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Round 4 — position before the wildly ambitious Bxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Here I played ...Bxh3. Tal would have made it work. I didn't.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Round 4 — position before the wildly ambitious Bxh3" />
+  <p class="diagram-caption">Here I played ...Bxh3. Tal would have made it work. I didn't.</p>
 </div>
 
 We reach a position where he's almost completely paralyzed. The kind of diagram you proudly show your friends saying "look how winning this was."
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme4.svg" alt="Round 4 — near-winning position, opponent paralyzed" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Almost paralyzed — but "almost" doesn't count in chess.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme4.svg" alt="Round 4 — near-winning position, opponent paralyzed" />
+  <p class="diagram-caption">Almost paralyzed — but "almost" doesn't count in chess.</p>
 </div>
 
 But the Colombian IM finds all the right defensive moves — coolly, methodically, without panicking. And on my side, the moves become extremely hard to find. With 10 minutes on the clock, I can no longer calculate the continuations properly. Lack of clarity, and he ends up winning.
@@ -196,16 +196,16 @@ Another double round. After yesterday's loss, I need to bounce back — but with
 
 Except the position is actually less dire than I thought during the game.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme1.svg" alt="Round 5 — a pawn down but holdable position" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">A pawn down — but not the end of the world.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme1.svg" alt="Round 5 — a pawn down but holdable position" />
+  <p class="diagram-caption">A pawn down — but not the end of the world.</p>
 </div>
 
 He goes for a very direct plan, and I set a little trap. Here, he plays **Re8** with tempo — and I don't hesitate.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme2.svg" alt="Round 5 — before Rxa5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rxa5! — the kind of move that takes the wind out of your opponent's sails.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme2.svg" alt="Round 5 — before Rxa5!" />
+  <p class="diagram-caption">Rxa5! — the kind of move that takes the wind out of your opponent's sails.</p>
 </div>
 
 > **Rxa5!**
@@ -214,16 +214,16 @@ Objectively, the position stays roughly equal. But across the board he doesn't k
 
 He doesn't find the best defense, and we reach a position where I spend **35 minutes** trying to find a win. After **Rh8, Kg6!!** holds for Black and I can't find anything clear. I end up going for **Re6** and keep pressing.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme3.svg" alt="Round 5 — 35 minutes of thinking" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">35 minutes on this position — and still no clear win.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme3.svg" alt="Round 5 — 35 minutes of thinking" />
+  <p class="diagram-caption">35 minutes on this position — and still no clear win.</p>
 </div>
 
 The real ambush arrives now. I play the sneaky **Qc2** — a move that looks like it's preparing Qxh7 for a draw. He goes straight for **Be5**, thinking he's cutting me off.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Round 5 — the Qc2 trap followed by Qf5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Qc2, Be5... Qf5! — the trap snaps shut.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Round 5 — the Qc2 trap followed by Qf5!" />
+  <p class="diagram-caption">Qc2, Be5... Qf5! — the trap snaps shut.</p>
 </div>
 
 Except I play:
@@ -234,9 +234,9 @@ Black's position collapses.
 
 I convert the endgame without too much trouble.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme5.svg" alt="Round 5 — winning endgame" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Endgame converted — experience sometimes makes the difference.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme5.svg" alt="Round 5 — winning endgame" />
+  <p class="diagram-caption">Endgame converted — experience sometimes makes the difference.</p>
 </div>
 
 **Takeaway:** never play on autopilot. Ever. I got a bit lucky on this one — next time, the blundered pawn might not come back.
@@ -251,46 +251,46 @@ Second game of the double round. Across from me, a 13-year-old Brazilian rated 2
 
 Very little time to prepare between the two rounds. I go for an **Accelerated Dragon** that morphs into an Alapin. I've just played **d4** and he chooses the very solid **Ne2**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme1.svg" alt="Round 6 — Accelerated Dragon turned Alapin" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">After Ne2 — solid, not spectacular, but effective.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme1.svg" alt="Round 6 — Accelerated Dragon turned Alapin" />
+  <p class="diagram-caption">After Ne2 — solid, not spectacular, but effective.</p>
 </div>
 
 I don't miss my chance to simplify and go for the sequence **Nxe5 Nxe5 Bxe5 Bxe5 Qa5 Qd2 Qxe5 Qxd4 Qxd4 Nxd4**. We reach a stripped-down position.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme2.svg" alt="Round 6 — simplified position after the exchanges" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Simplified position — the engine suggests Nf6 e5 b5 to nearly equalize. Too tense for me.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme2.svg" alt="Round 6 — simplified position after the exchanges" />
+  <p class="diagram-caption">Simplified position — the engine suggests Nf6 e5 b5 to nearly equalize. Too tense for me.</p>
 </div>
 
 The engine suggests **Nf6 e5 b5** to nearly equalize, but I find that line too tense. I go for **Nh6 Bc4 Rf8!** with the idea of activating the rook on the f-file. I don't have the nerve to play a5 and choose the very solid **Be6**, because I correctly calculate that **Bxb7** lets me trade everything off. He chooses to exchange bishops.
 
 After a few trades, we reach this position that he fully intends to grind.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme3.svg" alt="Round 6 — the grind begins" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">The grind begins — it's hot, I look tired. He doesn't.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme3.svg" alt="Round 6 — the grind begins" />
+  <p class="diagram-caption">The grind begins — it's hot, I look tired. He doesn't.</p>
 </div>
 
 It's hot in the playing hall. I look tired. He has the energy of a kid who just discovered an all-you-can-eat candy buffet. He's a bit imprecise, and I reach a position that starts looking threatening for Black.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme4.svg" alt="Round 6 — threatening position for Black" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">The position is turning — but you still have to find the moves.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme4.svg" alt="Round 6 — threatening position for Black" />
+  <p class="diagram-caption">The position is turning — but you still have to find the moves.</p>
 </div>
 
 But I'm exhausted and starting to lose clarity. Here, I see **e5** — but I don't trust it. The kind of moment where you need to trust your instinct, and fatigue won't let you.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme5.svg" alt="Round 6 — e5 missed" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">e5 was there — but fatigue had already moved in.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme5.svg" alt="Round 6 — e5 missed" />
+  <p class="diagram-caption">e5 was there — but fatigue had already moved in.</p>
 </div>
 
 I get hit with **Rd7** and then, in time trouble, my brain decides to take its lunch break. I blunder on nearly every move, and he ends up winning.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme6.svg" alt="Round 6 — fatal time trouble" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rd7 — and after that, it's a shipwreck.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme6.svg" alt="Round 6 — fatal time trouble" />
+  <p class="diagram-caption">Rd7 — and after that, it's a shipwreck.</p>
 </div>
 
 Hats off to him. At 13, grinding down a tired FM in a sweltering hall is exactly what you need to do to improve. As for me, I mostly should have drunk more water.
@@ -307,58 +307,58 @@ That said, with a name like that — **Casalaspro** — I probably should have t
 
 Clear objective: 3/3 over the last three rounds to scrape some Elo points. Across from me, a 14-year-old Spaniard. I target his French Defense — he plays a very particular setup against the King's Indian Attack, and I find a little idea to force him into a new scheme. I'm counting on his lack of experience to outplay him.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme1.svg" alt="Round 7 — 30 minutes ahead and still in preparation" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">30 minutes ahead on the clock and still in preparation — the plan is working.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme1.svg" alt="Round 7 — 30 minutes ahead and still in preparation" />
+  <p class="diagram-caption">30 minutes ahead on the clock and still in preparation — the plan is working.</p>
 </div>
 
 The preparation pays off: I have **one hour** against **20 minutes** on his clock. And I sink forty of those minutes trying to make **Nxh6** work — which doesn't work. The kind of moment where you think "I've got time, might as well look for the killer blow." Except the killer blow doesn't exist.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Round 7 — 40 minutes spent on Nxh6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">40 minutes on Nxh6 — which doesn't work. 40 minutes well spent.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Round 7 — 40 minutes spent on Nxh6" />
+  <p class="diagram-caption">40 minutes on Nxh6 — which doesn't work. 40 minutes well spent.</p>
 </div>
 
 I finally go for **Ne5** and the grind. He plays very solidly, but I get a small edge with pressure on e6.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme3.svg" alt="Round 7 — small edge with pressure on e6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Pressure on e6 — the small edge is there, now convert it.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme3.svg" alt="Round 7 — small edge with pressure on e6" />
+  <p class="diagram-caption">Pressure on e6 — the small edge is there, now convert it.</p>
 </div>
 
 I grind and grind. I reach a position where I think I'm winning after **Qxc4 dxc4 Bg2!** — except I miss that after g5 Ra7 Bd7 Bc6, there's **Be8** which holds.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme4.svg" alt="Round 7 — Qxc4 dxc4 Bg2 looks winning" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Qxc4 dxc4 Bg2! — it looks winning. It's not.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme4.svg" alt="Round 7 — Qxc4 dxc4 Bg2 looks winning" />
+  <p class="diagram-caption">Qxc4 dxc4 Bg2! — it looks winning. It's not.</p>
 </div>
 
 Fortunately, he goes wrong after a trap and I don't miss **Bc6!** which wins.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme5.svg" alt="Round 7 — Bc6! wins" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Bc6! — this time, the killer blow actually exists.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme5.svg" alt="Round 7 — Bc6! wins" />
+  <p class="diagram-caption">Bc6! — this time, the killer blow actually exists.</p>
 </div>
 
 We reach a rook endgame. We've each had about one minute on the clock for a while now. After **Kg7**, I see that **Rf4** wins by transposing into a pawn endgame. But he plays **Ke6**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme6.svg" alt="Round 7 — rook endgame, one minute each" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">One minute each — and everything is decided now.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme6.svg" alt="Round 7 — rook endgame, one minute each" />
+  <p class="diagram-caption">One minute each — and everything is decided now.</p>
 </div>
 
 And I completely miss the win with **Rxd4**. Another lapse in clarity — the fourth hour of play, always that same hour.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Round 7 — Rxd4 missed" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rxd4 was winning — but with one minute on the clock, you can't win much.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Round 7 — Rxd4 missed" />
+  <p class="diagram-caption">Rxd4 was winning — but with one minute on the clock, you can't win much.</p>
 </div>
 
 I miss my last chance to win with **Rd8**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme8.svg" alt="Round 7 — last chance missed with Rd8" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rd8 was the last door — it closed shut.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme8.svg" alt="Round 7 — last chance missed with Rd8" />
+  <p class="diagram-caption">Rd8 was the last door — it closed shut.</p>
 </div>
 
 I make him play on for another 80 moves, but he defends perfectly. Draw.
@@ -377,55 +377,55 @@ Last round of the tournament. Across from me, a 15-year-old Portuguese player ra
 
 A **Kalashnikov**. I get a position I think is comfortable.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme1.svg" alt="Round 8 — comfortable position in the Kalashnikov" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Comfortable position — or so I thought.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme1.svg" alt="Round 8 — comfortable position in the Kalashnikov" />
+  <p class="diagram-caption">Comfortable position — or so I thought.</p>
 </div>
 
 But he plays **b4**, which I'd completely underestimated. I play **Bxd5** and he should have simply replied **Nxd5 Nxd3 Qxd3 Bg5** with a good advantage. Fortunately, he goes wrong and captures my knight on c5.
 
 He then sacrifices a pawn for activity. I think he misjudged **Rxb7 Nb4 Nd5! Bd6 a3 Bc8 Rxb4!** and White is winning.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme2.svg" alt="Round 8 — pawn sacrifice for activity" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Pawn sacrifice — but the evaluation doesn't back it up.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme2.svg" alt="Round 8 — pawn sacrifice for activity" />
+  <p class="diagram-caption">Pawn sacrifice — but the evaluation doesn't back it up.</p>
 </div>
 
 He opts for **Nd5** instead, and I reply with the very solid **Nb4**, thinking I'll grind him down with the bishop pair and the d4 square.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme3.svg" alt="Round 8 — Nb4, bishop pair and d4 square" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Nb4 — bishop pair, d4 square, and a clear plan: grind.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme3.svg" alt="Round 8 — Nb4, bishop pair and d4 square" />
+  <p class="diagram-caption">Nb4 — bishop pair, d4 square, and a clear plan: grind.</p>
 </div>
 
 I go for the ambitious **Qg5**, trying to provoke errors on the kingside before simplifying to win the endgame. I manage to push him into an uncomfortable position.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme4.svg" alt="Round 8 — kingside pressure" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Mounting pressure — Black looks for a breakthrough.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme4.svg" alt="Round 8 — kingside pressure" />
+  <p class="diagram-caption">Mounting pressure — Black looks for a breakthrough.</p>
 </div>
 
 I play solidly, and here I don't miss **Bg4!** which lets me simplify favorably — the bishop is untouchable thanks to a lovely back-rank mate.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme5.svg" alt="Round 8 — Bg4! untouchable thanks to back-rank mate" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Bg4! — take it if you dare. Back-rank mate included.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme5.svg" alt="Round 8 — Bg4! untouchable thanks to back-rank mate" />
+  <p class="diagram-caption">Bg4! — take it if you dare. Back-rank mate included.</p>
 </div>
 
 Clarity starts to fade. Here, I don't dare play **f5** — I tell myself I'll exchange pawns and target his e4 pawn by infiltrating my rook on the second rank.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme6.svg" alt="Round 8 — f5 missed" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">f5 was tempting — but caution wins out.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme6.svg" alt="Round 8 — f5 missed" />
+  <p class="diagram-caption">f5 was tempting — but caution wins out.</p>
 </div>
 
 He doesn't sense the danger and opts for **Nc7**. I don't let the tactical shot slip:
 
 > **Rxa6! Nxa6 Bc4**
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme7.svg" alt="Round 8 — Rxa6! decisive tactical blow" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Rxa6! — the tactical blow that seals the game.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme7.svg" alt="Round 8 — Rxa6! decisive tactical blow" />
+  <p class="diagram-caption">Rxa6! — the tactical blow that seals the game.</p>
 </div>
 
 I convert technically from there. Victory.
@@ -442,30 +442,30 @@ Last round. I slept terribly and feel exhausted. Across from me, an American CM 
 
 I blunder early with **Ne3**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme1.svg" alt="Round 9 — blunder with Ne3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ne3 — the kind of move you play when you haven't slept.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme1.svg" alt="Round 9 — blunder with Ne3" />
+  <p class="diagram-caption">Ne3 — the kind of move you play when you haven't slept.</p>
 </div>
 
 I choose to give up the queen rather than lose a pawn. The logic is simple: losing a pawn in this state means losing the game slowly. Giving up the queen means losing the game quickly — but at least you can hope for a fortress.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme2.svg" alt="Round 9 — queenless, trying to hold" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Without a queen — welcome to positional hell.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme2.svg" alt="Round 9 — queenless, trying to hold" />
+  <p class="diagram-caption">Without a queen — welcome to positional hell.</p>
 </div>
 
 It's losing in every direction. But I have a tiny hope: he's about to play **Bd5**, which would let me find a fortress with **Rxd5** and **Bxh3** — if I get my bishop to c3 or trade c4 for b2, it's a draw. Unfortunately, he takes a break and finds **g5**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme3.svg" alt="Round 9 — fortress hope gone" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">The fortress hope — gone up in smoke with g5.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme3.svg" alt="Round 9 — fortress hope gone" />
+  <p class="diagram-caption">The fortress hope — gone up in smoke with g5.</p>
 </div>
 
 He finds the beautiful maneuver **Qg1 Bc7 Qg2 Ke1 Qg1 Kd2 Qb1** — my king is flushed out and h2 is going to fall.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme4.svg" alt="Round 9 — the decisive maneuver" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Qg1-Qg2-Qg1-Qb1 — elegant and unanswerable.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme4.svg" alt="Round 9 — the decisive maneuver" />
+  <p class="diagram-caption">Qg1-Qg2-Qg1-Qb1 — elegant and unanswerable.</p>
 </div>
 
 A final round best forgotten.
@@ -479,7 +479,7 @@ A final round best forgotten.
 <div style="overflow-x:auto;margin:2rem 0;">
 <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:0.75rem;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);font-size:0.95rem;">
   <thead>
-    <tr style="background:#1a1a1a;color:#f5f0e8;">
+    <tr class="row-head">
       <th style="padding:0.85rem 1rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Rd</th>
       <th style="padding:0.85rem 0.8rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Title</th>
       <th style="padding:0.85rem 1rem;text-align:left;font-weight:600;letter-spacing:0.02em;">Opponent</th>
@@ -490,81 +490,81 @@ A final round best forgotten.
     </tr>
   </thead>
   <tbody>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">1</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Montenegro, Matias</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1812</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Win</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">2</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td class="cell-warn">FM</td>
       <td style="padding:0.75rem 1rem;">Tabuenca Mendataurigoitia, Daniel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2365</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Draw</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">3</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td class="cell-alt">IM</td>
       <td style="padding:0.75rem 1rem;">Roselli Mailhe, Bernardo</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127486;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2310</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Draw</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">4</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td class="cell-alt">IM</td>
       <td style="padding:0.75rem 1rem;">Cordoba Roa, Angel Gabriel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127464;&#127476;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2334</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Loss</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">5</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Rey Chimera, Luca</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2076</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Win</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">6</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td class="cell-warn">FM</td>
       <td style="padding:0.75rem 1rem;">Casalaspro, Mathias Andre</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127463;&#127479;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2340</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Loss</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">7</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Del Valle Crespo, Javier</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2074</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Draw</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">8</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Tenreiro, Manuel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1907</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Win</span></td>
     </tr>
-    <tr style="background:#fdfbf7;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">9</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">CM</td>
+      <td class="cell-warn">CM</td>
       <td style="padding:0.75rem 1rem;">Harish, Neeraj</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2201</td>

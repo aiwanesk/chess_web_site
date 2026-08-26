@@ -172,12 +172,12 @@ export function Component() {
 
       <Section>
         <Container>
-          <div className="overflow-hidden rounded-3xl border border-ink-800 bg-ink-950 shadow-lift">
+          <div className="overflow-hidden rounded-3xl border border-slab-800 bg-slab-950 shadow-lift">
             <div className="board-texture-dark grid gap-px bg-white/5 sm:grid-cols-3">
               {c.stats.map((s) => (
-                <div key={s.k} className="bg-ink-950 p-8 text-center">
+                <div key={s.k} className="bg-slab-950 p-8 text-center">
                   <p className="font-display text-5xl font-extrabold tracking-tight text-gold-400">{s.k}</p>
-                  <p className="mx-auto mt-3 max-w-[22ch] text-sm leading-relaxed text-ink-300">{s.l}</p>
+                  <p className="mx-auto mt-3 max-w-[22ch] text-sm leading-relaxed text-slab-300">{s.l}</p>
                 </div>
               ))}
             </div>
@@ -204,7 +204,7 @@ export function Component() {
             {cases.map((s) => (
               <article
                 key={s.name}
-                className="flex flex-col rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft"
+                className="flex flex-col rounded-2xl border border-ink-200/80 bg-paper p-7 shadow-soft"
               >
                 <span
                   aria-hidden
@@ -214,7 +214,7 @@ export function Component() {
                 </span>
                 <h3 className="mt-5 font-display text-xl font-bold text-ink-900">{s.name}</h3>
                 {s.metric ? (
-                  <p className="mt-2 inline-flex self-start rounded-full bg-ink-900 px-3 py-1 text-xs font-bold text-gold-400">
+                  <p className="mt-2 inline-flex self-start rounded-full bg-slab-900 px-3 py-1 text-xs font-bold text-gold-400">
                     {s.metric}
                   </p>
                 ) : null}
@@ -231,10 +231,10 @@ export function Component() {
 
       <Section>
         <Container>
-          <div className="board-texture-dark rounded-3xl bg-ink-950 px-6 py-16 text-center shadow-lift">
+          <div className="board-texture-dark rounded-3xl bg-slab-950 px-6 py-16 text-center shadow-lift">
             <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">{c.ctaTitle}</h2>
-            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-300">{c.ctaLead}</p>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-slab-300">{c.ctaLead}</p>
             <div className="mt-9">
               <CtaLink to={pathFor('contact', locale)} variant="primary">
                 {c.ctaButton}

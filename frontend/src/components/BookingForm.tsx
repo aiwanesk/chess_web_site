@@ -176,7 +176,7 @@ export function BookingForm() {
   }
 
   const field =
-    'w-full rounded-xl border border-ink-300 bg-white px-4 py-3 text-ink-900 shadow-sm transition-colors hover:border-ink-400 focus-visible:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/25'
+    'w-full rounded-xl border border-ink-300 bg-paper px-4 py-3 text-ink-900 shadow-sm transition-colors hover:border-ink-400 focus-visible:border-gold-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500/25'
   const label = 'mb-1 block text-sm font-medium text-ink-700'
 
   return (
@@ -243,7 +243,7 @@ export function BookingForm() {
       <button
         type="submit"
         disabled={status === 'submitting' || !valid}
-        className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-7 py-3 font-semibold text-ink-950 shadow-soft transition-[background-color,box-shadow,transform] duration-200 hover:bg-gold-400 hover:shadow-gold active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-7 py-3 font-semibold text-on-gold shadow-soft transition-[background-color,box-shadow,transform] duration-200 hover:bg-gold-400 hover:shadow-gold active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none"
       >
         {status === 'submitting' ? s.sending : `${s.submit} — ${price} CHF`}
       </button>

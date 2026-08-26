@@ -43,7 +43,7 @@ export function Component() {
     { name: c.title, path: c.path },
   ]
 
-  const iconWrap = 'mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-white text-gold-700 shadow-sm'
+  const iconWrap = 'mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-paper text-gold-700 shadow-sm'
   const labelC = 'block text-xs font-semibold uppercase tracking-wide text-ink-500'
 
   return (
@@ -57,7 +57,7 @@ export function Component() {
             <Eyebrow>{c.eyebrow}</Eyebrow>
             <h1 className="font-display text-[2rem] font-bold tracking-tight text-ink-900 sm:text-[2.5rem]">{c.h1}</h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">{c.lead}</p>
-            <div className="mt-9 rounded-3xl border border-ink-200/80 bg-white p-7 shadow-card sm:p-8">
+            <div className="mt-9 rounded-3xl border border-ink-200/80 bg-paper p-7 shadow-card sm:p-8">
               <ContactForm />
             </div>
           </div>
@@ -102,7 +102,7 @@ export function Component() {
                 src={mapSrc}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="block h-56 w-full border-0"
+                className="map-embed block h-56 w-full border-0"
               />
             </div>
             <a

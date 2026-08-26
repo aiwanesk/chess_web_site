@@ -49,6 +49,21 @@
   --color-gold-600: #b8941f;
   --color-gold-700: #7d6011;
 
+  /* Surfaces de rôle — indispensables au mode nuit, où la palette ne peut plus
+     servir deux rôles à la fois.
+     · paper  = ce qui était codé en dur #ffffff (cartes, en-tête, sections)
+     · slab   = les panneaux qui restent SOMBRES dans les deux thèmes (pied de
+                page, bandeaux CTA, cadres d'échiquier) + le texte posé dessus
+     · on-gold = le texte d'un bouton doré, qui reste quasi noir en permanence */
+  --color-paper: #ffffff;
+  --color-slab-700: #334155;
+  --color-slab-800: #1e293b;
+  --color-slab-900: #0f172a;
+  --color-slab-950: #0a0f1e;
+  --color-slab-300: #cbd3de;
+  --color-slab-400: #93a0b1;
+  --color-on-gold: #0a0f1e;
+
   /* Soft, layered shadows for premium depth (no harsh drop shadows). */
   --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 20px -8px rgba(15, 23, 42, 0.10);
   --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.05), 0 12px 30px -12px rgba(15, 23, 42, 0.13);
@@ -63,10 +78,14 @@ html {
   color-scheme: light;
 }
 
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
 body {
   font-family: var(--font-sans);
   color: var(--color-ink-800);
-  background: #ffffff;
+  background: var(--color-paper);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -235,4 +254,182 @@ h1, h2, h3 {
   max-width: 100%;
   height: auto;
   border-radius: 0.75rem;
+}
+
+/* ──────────────────────────────── Mode nuit ────────────────────────────────
+   Le thème est piloté par `data-theme` sur <html>, posé AVANT le premier rendu
+   par le script inline de index.html — sinon la page clignote en blanc avant de
+   passer au sombre.
+
+   Aucune classe utilitaire n'est réécrite ici. Les utilitaires Tailwind v4
+   compilent vers `var(--color-…)`, donc redéfinir les tokens suffit à basculer
+   tout le site d'un coup. Deux familles échappent volontairement à l'inversion :
+   `slab` (les panneaux qui restent sombres dans les deux thèmes) et les ors
+   200→500 (l'accent de marque, déjà lisible sur fond sombre).
+   ────────────────────────────────────────────────────────────────────────── */
+html[data-theme='dark'] {
+  /* Surfaces. `paper` est un cran plus clair que le fond de page pour que les
+     cartes se détachent sans bordure. */
+  --color-paper: #151c2b;
+
+  /* Ink inversé : 50 devient la surface la plus sombre, 950 le texte le plus clair. */
+  --color-ink-50: #121927;
+  --color-ink-100: #1b2333;
+  --color-ink-200: #283245;
+  --color-ink-300: #384358;
+  --color-ink-400: #6d7a91;
+  --color-ink-500: #94a1b5;
+  --color-ink-600: #aeb9c9;
+  --color-ink-700: #c6cedb;
+  --color-ink-800: #dde4ee;
+  --color-ink-900: #eef2f8;
+  --color-ink-950: #fbfcfe;
+
+  /* Cream — les bandes alternées deviennent plus SOMBRES que `paper`, pour
+     garder le même rythme de lecture qu'en clair. */
+  --color-cream-50: #101623;
+  --color-cream-100: #0d131f;
+  --color-cream-200: #222b3d;
+  --color-cream-300: #2f394d;
+  --color-cream-400: #3d4860;
+
+  /* Or — seuls les tons foncés (destinés au fond clair) et les teintes pâles
+     utilisées en aplat changent. 200→500 restent tels quels. */
+  --color-gold-50: #241d0d;
+  --color-gold-100: #2e2513;
+  --color-gold-600: #dab857;
+  --color-gold-700: #e3c56f;
+
+  /* Panneaux sombres : en mode nuit ils doivent devenir un peu plus CLAIRS que
+     la page, sinon le pied de page et les bandeaux CTA disparaissent. */
+  --color-slab-700: #38445c;
+  --color-slab-800: #2a3448;
+  --color-slab-900: #1e2739;
+  --color-slab-950: #1a2233;
+
+  /* Une ombre noire ne se voit pas sur du sombre : on l'assombrit et on la
+     resserre, l'élévation passe surtout par la différence de surface. */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.35), 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 12px 30px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.45), 0 22px 48px -18px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 8px 24px -10px rgba(212, 175, 55, 0.35);
+}
+
+/* La texture d'échiquier est un voile d'encre sur fond clair ; sur fond sombre
+   il faut l'inverser, sinon elle n'existe plus. */
+html[data-theme='dark'] .board-texture {
+  background-image:
+    linear-gradient(45deg, rgba(226, 232, 240, 0.035) 25%, transparent 25%, transparent 75%, rgba(226, 232, 240, 0.035) 75%),
+    linear-gradient(45deg, rgba(226, 232, 240, 0.035) 25%, transparent 25%, transparent 75%, rgba(226, 232, 240, 0.035) 75%);
+}
+
+html[data-theme='dark'] ::selection {
+  background: var(--color-gold-600);
+  color: #0a0f1e;
+}
+
+/* Le basculement lui-même : une transition courte sur les surfaces et le texte,
+   pour que le passage jour/nuit ne soit pas un à-coup. Coupée pour qui a demandé
+   moins d'animations, et jamais appliquée au premier rendu (classe posée par le
+   script inline une fois la page peinte). */
+html.theme-ready body,
+html.theme-ready body * {
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-ready body,
+  html.theme-ready body * {
+    transition: none;
+  }
+}
+
+/* Le bouton jour/nuit porte les deux icônes ; le thème choisit laquelle sort.
+   Fait en CSS et pas en JS pour que l'icône soit déjà la bonne au premier
+   pixel peint, sans dépendre de l'hydratation. */
+.theme-icon-sun { display: none; }
+html[data-theme='dark'] .theme-icon-sun { display: block; }
+html[data-theme='dark'] .theme-icon-moon { display: none; }
+
+/* ───────── Blocs des carnets de tournoi (HTML dans le Markdown) ─────────
+   Ces blocs étaient stylés en inline. Un style inline ne peut pas suivre le
+   thème — en mode nuit les encadrés et les lignes de tableau restaient des
+   rectangles blancs. Ils passent donc par des classes, et par les tokens. */
+.prose .diagram-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+.prose .diagram-container img {
+  max-width: 480px;
+  width: 100%;
+  /* Les diagrammes sont carrés (viewBox 360x360). Sans ratio déclaré, leur
+     hauteur vaut 0 tant que le SVG n'est pas chargé : la page s'allonge ensuite
+     de plusieurs milliers de pixels, ce qui décale l'ancre #parties (on
+     atterrissait dans le vide) et plombe le CLS. Le ratio réserve la place. */
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+html[data-theme='dark'] .prose .diagram-container img {
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+.prose .diagram-caption {
+  font-size: 0.9rem;
+  color: var(--color-ink-500);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* « L'ordinateur, après coup » — le verdict du moteur, séparé du texte. */
+.prose .engine-note {
+  margin: 1.75rem 0;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--color-ink-400);
+  background: var(--color-ink-50);
+  border-radius: 0.5rem;
+}
+.prose .engine-note p {
+  margin: 0;
+}
+.prose .engine-note-label {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+/* Tableau de bilan. L'en-tête reste volontairement noir dans les deux thèmes :
+   c'est une signature, et il est déjà lisible sur fond sombre. */
+.prose .row-head {
+  background: #1a1a1a;
+  color: #f5f0e8;
+}
+.prose .row-a { background: var(--color-paper); }
+.prose .row-b { background: var(--color-cream-100); }
+.prose .row-a,
+.prose .row-b {
+  border-bottom: 1px solid var(--color-cream-300);
+}
+.prose .cell-muted,
+.prose .cell-warn,
+.prose .cell-alt {
+  padding: 0.75rem 0.8rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.prose .cell-warn,
+.prose .cell-alt {
+  font-weight: 600;
+}
+.prose .cell-muted { color: var(--color-ink-500); }
+.prose .cell-warn { color: #b45309; }
+.prose .cell-alt { color: #7c3aed; }
+html[data-theme='dark'] .prose .cell-warn { color: #f0b45e; }
+html[data-theme='dark'] .prose .cell-alt { color: #b79bf5; }
+
+/* La carte OpenStreetMap est servie par un tiers : impossible de la thémer.
+   On se contente d'en baisser l'éclat pour qu'elle n'éblouisse pas au milieu
+   d'une page sombre. */
+html[data-theme='dark'] .map-embed {
+  filter: brightness(0.78) contrast(1.05) saturate(0.85);
 }

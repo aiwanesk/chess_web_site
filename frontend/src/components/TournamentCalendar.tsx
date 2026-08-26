@@ -112,9 +112,9 @@ const STR: Record<Locale, {
 
 /** Bar colours per status. Past tournaments with a diary read as clickable. */
 function barClass(status: EventStatus, hasArticle: boolean): string {
-  if (status === 'ongoing') return 'bg-gold-500 text-ink-950 ring-2 ring-ink-900 ring-offset-1'
-  if (status === 'upcoming') return 'bg-gold-500 text-ink-950 hover:bg-gold-400'
-  return hasArticle ? 'bg-ink-800 text-white hover:bg-ink-700' : 'bg-ink-200 text-ink-700 hover:bg-ink-300'
+  if (status === 'ongoing') return 'bg-gold-500 text-on-gold ring-2 ring-ink-900 ring-offset-1'
+  if (status === 'upcoming') return 'bg-gold-500 text-on-gold hover:bg-gold-400'
+  return hasArticle ? 'bg-slab-800 text-white hover:bg-slab-700' : 'bg-ink-200 text-ink-700 hover:bg-ink-300'
 }
 
 /** Compact card used for the previous / ongoing / next highlights. */
@@ -140,7 +140,7 @@ function HighlightCard({
   return (
     <div
       className={`flex flex-col rounded-2xl border p-6 shadow-soft ${
-        dark ? 'border-ink-800 bg-ink-950 text-ink-300' : 'border-gold-300 bg-gold-50 text-ink-700'
+        dark ? 'border-slab-800 bg-slab-950 text-slab-300' : 'border-gold-300 bg-gold-50 text-ink-700'
       }`}
     >
       <p
@@ -153,7 +153,7 @@ function HighlightCard({
       </p>
 
       {!event ? (
-        <p className={`mt-4 flex-1 text-sm leading-relaxed ${dark ? 'text-ink-400' : 'text-ink-600'}`}>
+        <p className={`mt-4 flex-1 text-sm leading-relaxed ${dark ? 'text-slab-400' : 'text-ink-600'}`}>
           {tone === 'next' ? s.nothingPlanned : s.empty}
         </p>
       ) : (
@@ -195,7 +195,7 @@ function HighlightCard({
               <Link
                 to={article}
                 className={`group/cta inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
-                  dark ? 'bg-gold-500 text-ink-950 hover:bg-gold-400' : 'bg-ink-900 text-white hover:bg-ink-800'
+                  dark ? 'bg-gold-500 text-on-gold hover:bg-gold-400' : 'bg-slab-900 text-white hover:bg-slab-800'
                 }`}
               >
                 {s.readDiary}
@@ -266,11 +266,11 @@ export function TournamentCalendar() {
   }
 
   if (events.length === 0) {
-    return <p className="rounded-2xl border border-ink-200 bg-white p-6 text-ink-600">{s.empty}</p>
+    return <p className="rounded-2xl border border-ink-200 bg-paper p-6 text-ink-600">{s.empty}</p>
   }
 
   const navBtn =
-    'inline-flex h-9 items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3.5 text-sm font-semibold text-ink-700 transition-colors hover:border-gold-400 hover:text-ink-950 disabled:cursor-not-allowed disabled:opacity-40'
+    'inline-flex h-9 items-center gap-1.5 rounded-full border border-ink-200 bg-paper px-3.5 text-sm font-semibold text-ink-700 transition-colors hover:border-gold-400 hover:text-ink-950 disabled:cursor-not-allowed disabled:opacity-40'
 
   return (
     <div>
@@ -288,7 +288,7 @@ export function TournamentCalendar() {
       </div>
 
       {/* Month grid */}
-      <div className="mt-10 overflow-hidden rounded-3xl border border-ink-200/80 bg-white shadow-card">
+      <div className="mt-10 overflow-hidden rounded-3xl border border-ink-200/80 bg-paper shadow-card">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-100 bg-cream-50 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => shiftMonth(-1)} aria-label={s.prevMonth} className={navBtn}>
@@ -320,7 +320,7 @@ export function TournamentCalendar() {
         </div>
 
         {/* Weekday header */}
-        <div className="grid grid-cols-7 border-b border-ink-100 bg-white">
+        <div className="grid grid-cols-7 border-b border-ink-100 bg-paper">
           {WEEKDAYS[locale].map((d) => (
             <div
               key={d}
@@ -345,13 +345,13 @@ export function TournamentCalendar() {
                       key={d.iso}
                       style={{ minHeight }}
                       className={`border-r border-ink-100 last:border-r-0 px-1.5 pt-1.5 ${
-                        d.inMonth ? 'bg-white' : 'bg-cream-50/60'
+                        d.inMonth ? 'bg-paper' : 'bg-cream-50/60'
                       }`}
                     >
                       <span
                         className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold tabular-nums ${
                           d.isToday
-                            ? 'bg-ink-900 text-white'
+                            ? 'bg-slab-900 text-white'
                             : d.inMonth
                               ? 'text-ink-700'
                               : 'text-ink-300'
@@ -425,7 +425,7 @@ export function TournamentCalendar() {
           {[
             { c: 'bg-gold-500', l: s.legendUpcoming },
             { c: 'bg-gold-500 ring-2 ring-ink-900', l: s.legendOngoing },
-            { c: 'bg-ink-800', l: s.legendPast },
+            { c: 'bg-slab-800', l: s.legendPast },
             { c: 'bg-ink-200', l: s.legendPastNoArticle },
           ].map((item) => (
             <span key={item.l} className="flex items-center gap-2">
@@ -452,7 +452,7 @@ export function TournamentCalendar() {
                 <span aria-hidden className="h-px w-4 bg-gold-500" />
                 {heading}
               </p>
-              <ul className="mt-3 divide-y divide-ink-100 overflow-hidden rounded-2xl border border-ink-200/80 bg-white">
+              <ul className="mt-3 divide-y divide-ink-100 overflow-hidden rounded-2xl border border-ink-200/80 bg-paper">
                 {list.map((e) => {
                   const article = articlePathFor(e, locale)
                   const place = locationFor(e, locale)
@@ -467,7 +467,7 @@ export function TournamentCalendar() {
                       <span className="font-semibold text-ink-900">{nameFor(e, locale)}</span>
                       {place ? <span className="text-sm text-ink-500">{place}</span> : null}
                       {e.result ? (
-                        <span className="rounded-full bg-ink-900 px-2.5 py-0.5 text-xs font-bold text-gold-400">
+                        <span className="rounded-full bg-slab-900 px-2.5 py-0.5 text-xs font-bold text-gold-400">
                           {e.result}
                         </span>
                       ) : null}

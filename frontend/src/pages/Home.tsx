@@ -99,7 +99,7 @@ export function Component() {
           <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{c.formatsTitle}</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {OFFERS.map((o) => (
-              <Link key={o.key} to={pathFor(o.key, locale)} className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-white p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
+              <Link key={o.key} to={pathFor(o.key, locale)} className="hover-lift group flex flex-col rounded-2xl border border-ink-200/80 bg-paper p-7 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
                 <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-xl border border-gold-200 bg-gold-50 text-gold-700"><o.icon size={24} /></span>
                 <h3 className="mt-5 flex items-center justify-between text-lg font-semibold text-ink-900">
                   {o.title[locale]}
@@ -122,7 +122,7 @@ export function Component() {
           </div>
           <ul className="space-y-3">
             {c.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-4 rounded-2xl border border-ink-200/80 bg-white p-5 shadow-soft">
+              <li key={b} className="flex items-start gap-4 rounded-2xl border border-ink-200/80 bg-paper p-5 shadow-soft">
                 <span aria-hidden className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-full bg-gold-100 text-gold-700"><IconCheck size={16} /></span>
                 <span className="leading-relaxed text-ink-700">{b}</span>
               </li>
@@ -137,7 +137,7 @@ export function Component() {
           <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{c.faqTitle}</h2>
           <div className="mx-auto mt-8 max-w-4xl space-y-3">
             {FAQ[locale].map((f) => (
-              <details key={f.question} className="group rounded-2xl border border-ink-200/80 bg-white px-6 py-4 shadow-soft">
+              <details key={f.question} className="group rounded-2xl border border-ink-200/80 bg-paper px-6 py-4 shadow-soft">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold text-ink-900">
                   {f.question}
                   <span aria-hidden className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-gold-100 text-gold-700 transition-transform group-open:rotate-45">+</span>
@@ -149,11 +149,11 @@ export function Component() {
         </Container>
       </Section>
 
-      <Section className="board-texture-dark bg-ink-950 text-center text-white">
+      <Section className="board-texture-dark bg-slab-950 text-center text-white">
         <Container>
           <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
           <h2 className="font-display text-3xl font-bold sm:text-4xl">{c.ctaTitle}</h2>
-          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-300">{c.ctaLead}</p>
+          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-slab-300">{c.ctaLead}</p>
           <div className="mt-9"><CtaLink to={contactPath} variant="primary">{c.ctaBtn}</CtaLink></div>
         </Container>
       </Section>

@@ -81,11 +81,11 @@ export function Component() {
           <p className="mb-8 max-w-2xl leading-relaxed text-ink-600">{s.intro}</p>
           <ol className="grid gap-10 sm:grid-cols-2">
             {week.puzzles.map((p, i) => (
-              <li key={p.id} className="rounded-2xl border border-ink-200/80 bg-white p-5 shadow-soft sm:p-6">
+              <li key={p.id} className="rounded-2xl border border-ink-200/80 bg-paper p-5 shadow-soft sm:p-6">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="font-display text-lg font-bold text-ink-900">#{i + 1}</span>
                   <span className="flex gap-2">
-                    {p.mate ? <span className="rounded-full bg-ink-900 px-2.5 py-0.5 text-xs font-semibold text-gold-300">{s.mate}</span> : null}
+                    {p.mate ? <span className="rounded-full bg-slab-900 px-2.5 py-0.5 text-xs font-semibold text-gold-300">{s.mate}</span> : null}
                     {p.sacrifice ? <span className="rounded-full bg-gold-100 px-2.5 py-0.5 text-xs font-semibold text-gold-700">{s.sac}</span> : null}
                   </span>
                 </div>

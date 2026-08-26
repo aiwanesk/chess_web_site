@@ -3,7 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--
+      Thème clair/sombre : posé AVANT le premier rendu, sinon la page pré-rendue
+      s'affiche en blanc une fraction de seconde avant de basculer. Bloquant et
+      volontairement minuscule. Choix mémorisé s'il existe, préférence système
+      sinon. La classe `theme-ready` n'arrive qu'après le premier rendu : elle
+      active les transitions de couleur, qu'on ne veut pas voir au chargement.
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement
+        try {
+          var saved = localStorage.getItem('theme')
+          var theme =
+            saved === 'dark' || saved === 'light'
+              ? saved
+              : matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          root.dataset.theme = theme
+          var bar = document.querySelector('meta[name="theme-color"]')
+          if (bar) bar.setAttribute('content', theme === 'dark' ? '#0d131f' : '#ffffff')
+        } catch (e) {
+          root.dataset.theme = 'light'
+        }
+        addEventListener('DOMContentLoaded', function () {
+          root.classList.add('theme-ready')
+        })
+      })()
+    </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

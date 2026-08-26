@@ -7,8 +7,8 @@ const base =
   'group/btn inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-[0.01em] transition-[background-color,color,box-shadow,transform] duration-200 focus-visible:outline-none active:translate-y-px'
 const sizes = 'px-6 py-3 text-[0.95rem]'
 const variants: Record<Variant, string> = {
-  primary: 'bg-gold-500 text-ink-950 shadow-soft hover:bg-gold-400 hover:shadow-gold',
-  secondary: 'bg-ink-900 text-white shadow-soft hover:bg-ink-800',
+  primary: 'bg-gold-500 text-on-gold shadow-soft hover:bg-gold-400 hover:shadow-gold',
+  secondary: 'bg-slab-900 text-white shadow-soft hover:bg-slab-800',
   ghost:
     'text-ink-800 underline decoration-gold-400 decoration-1 underline-offset-4 hover:text-ink-950 hover:decoration-gold-600',
 }

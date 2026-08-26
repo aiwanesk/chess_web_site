@@ -12,6 +12,17 @@
 - **Routes**: `frontend/src/routes.tsx` — FR at `/blog/:slug`, EN at `/en/blog/:slug`
 - **altSlug**: frontmatter field to link FR ↔ EN versions (enables hreflang)
 
+## Thème clair / sombre
+- **Interrupteur** : bouton lune/soleil dans l'en-tête (`frontend/src/components/ThemeToggle.tsx`). Le choix est mémorisé dans `localStorage`; sans choix, on suit `prefers-color-scheme`.
+- **L'état vit sur `<html data-theme>`**, posé par le script inline de `frontend/index.html` **avant le premier rendu** — indispensable sur un site pré-rendu, sinon la page clignote en blanc avant de basculer.
+- **Comment ça bascule** : aucune classe `dark:` dans les composants. Les utilitaires Tailwind v4 compilent vers `var(--color-…)`, donc il suffit de **redéfinir les tokens** sous `html[data-theme='dark']` dans `styles.css`. L'échelle `ink` et l'échelle `cream` sont inversées ; les ors 200→500 et la famille `slab` ne bougent pas.
+- **Trois tokens de rôle à connaître** — la palette ne peut plus servir deux rôles à la fois :
+  - `paper` = ce qui était codé en dur `bg-white` (cartes, en-tête, sections). **Ne jamais réintroduire `bg-white`** pour une surface.
+  - `slab-*` = les panneaux qui restent **sombres dans les deux thèmes** (pied de page, bandeaux CTA) et le texte posé dessus (`text-slab-300/400`). Un `text-ink-*` sur un slab devient illisible en mode nuit.
+  - `on-gold` = le texte d'un bouton doré, qui doit rester quasi noir en permanence.
+- **Le bouton n'a aucun état React** : les deux icônes sont dans le DOM et le CSS choisit laquelle sort. C'est ce qui évite le saut d'hydratation.
+- **Attention en test** : Chrome headless annonce `prefers-color-scheme: dark` par défaut — une capture « claire » sort sombre si on ne force pas le thème.
+
 ## Tournament Calendar
 - **Tournament list (edit this)**: `frontend/src/lib/tournaments.ts` — the single source of truth, edited by hand when publishing. Baked in at build, so every tournament ships inside the pre-rendered HTML (no runtime fetch, no backend involved).
 - **Page**: `/calendrier` (FR) + `/en/calendar` (EN) — `frontend/src/pages/Calendrier.tsx`
@@ -40,8 +51,8 @@
   7. Funny expressions when they fit naturally
 - **Chess notation**: French style (Fou=F, Cavalier=C, Tour=T, Dame=D, Roi=R) for FR articles, English style (B, N, R, Q, K) for EN articles
 - **Played moves vs variations**: a move actually played is written `` `20.Tc2` ``; a move only calculated is written `` *`23.g4`* `` — it renders as `<em><code>` and is greyed with no background (rule `.prose em code` in `frontend/src/styles.css`). Never let a reader mistake a variation for the game.
-- **Engine verdicts**: when a diary separates the player's own calculations from the engine's, the engine goes in a grey callout labelled « L'ordinateur, après coup » (inline-styled div; see `championnat-suisse-equipes-2026.md`), never inline in the prose.
-- **Diagrams**: Multiple per round at narrative turning points, with witty captions
+- **Engine verdicts**: when a diary separates the player's own calculations from the engine's, the engine goes in a grey callout labelled « L'ordinateur, après coup » (`<div class="engine-note">` + `<p class="engine-note-label">` ; see `championnat-suisse-equipes-2026.md`), never inline in the prose.
+- **Diagrams**: Multiple per round at narrative turning points, with witty captions. Markup: `<div class="diagram-container">` + `<img …>` + `<p class="diagram-caption">`. **Never inline styles** — a style attribute cannot follow the light/dark theme, and these blocks stayed white rectangles in night mode until they were moved to classes. Same for the summary table: rows use `class="row-head"` / `row-a` / `row-b`, cells `cell-muted` / `cell-warn` / `cell-alt`.
 - **Lessons**: Short, concrete, honest — not generic advice
 - **Author**: Alexandre Iwanesko, FM (FIDE Master), 33 years old
 

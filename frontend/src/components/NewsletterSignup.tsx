@@ -134,7 +134,7 @@ export function NewsletterSignup() {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="w-full rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-semibold text-on-gold transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === 'submitting' ? s.sending : s.submit}
         </button>

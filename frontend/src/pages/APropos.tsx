@@ -163,7 +163,7 @@ export function Component() {
                     href={url}
                     rel="me noopener"
                     target="_blank"
-                    className="inline-flex rounded-full border border-ink-300 bg-white px-4 py-2 text-ink-700 transition-colors hover:border-gold-400 hover:text-gold-700"
+                    className="inline-flex rounded-full border border-ink-300 bg-paper px-4 py-2 text-ink-700 transition-colors hover:border-gold-400 hover:text-gold-700"
                   >
                     {new URL(url).hostname.replace('www.', '')}
                   </a>
@@ -181,7 +181,7 @@ export function Component() {
 
           {/* Visual aside — brand motif + credentials at a glance. */}
           <aside className="lg:sticky lg:top-24">
-            <div className="overflow-hidden rounded-3xl border border-ink-200/80 bg-white p-6 shadow-card">
+            <div className="overflow-hidden rounded-3xl border border-ink-200/80 bg-paper p-6 shadow-card">
               <ChessMotif className="mx-auto w-full max-w-[16rem] text-ink-900" />
               <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4">
                 {c.fields.map((f) => (

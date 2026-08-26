@@ -3,6 +3,7 @@ import { Link, NavLink } from 'vite-react-ssg'
 import { useLocation } from 'react-router-dom'
 import { Container } from './Container'
 import { CtaLink } from './ui'
+import { ThemeToggle } from './ThemeToggle'
 import { useLocale, t, homePath, altPath, pathFor, type Locale, type PageKey } from '../lib/i18n'
 
 type NavItem = { page: PageKey; key: keyof ReturnType<typeof t>['nav'] }
@@ -60,7 +61,7 @@ export function Header() {
   const reservePath = pathFor('reserver', locale)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-100 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
+    <header className="sticky top-0 z-40 border-b border-ink-100 bg-paper/85 backdrop-blur-md supports-[backdrop-filter]:bg-paper/75">
       <Container className="flex h-[4.5rem] items-center justify-between gap-4">
         <Brand locale={locale} />
 
@@ -79,6 +80,7 @@ export function Header() {
               {s.nav[item.key]}
             </NavLink>
           ))}
+          <ThemeToggle />
           <LangSwitch locale={locale} label={s.langLabel} />
           <CtaLink to={reservePath} variant="primary" className="!px-5 !py-2.5 whitespace-nowrap">
             {s.reserve}
@@ -86,6 +88,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 xl:hidden">
+          <ThemeToggle />
           <LangSwitch locale={locale} label={s.langLabel} />
           <button
             type="button"
@@ -109,7 +112,7 @@ export function Header() {
       </Container>
 
       {open ? (
-        <nav id="mobile-nav" aria-label="Navigation" className="border-t border-ink-100 bg-white xl:hidden">
+        <nav id="mobile-nav" aria-label="Navigation" className="border-t border-ink-100 bg-paper xl:hidden">
           <Container className="flex flex-col gap-0.5 py-3">
             {nav.map((item) => (
               <NavLink

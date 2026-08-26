@@ -34,9 +34,9 @@ Mon adversaire, lui, ne semble pas connaître la réflexion. Il joue presque tou
 
 Je pense avoir pris un léger avantage stratégique. Je viens de jouer **b5** en m'attendant à obtenir une belle position. J'aime beaucoup ce que je vois : les Blancs semblent contrôler les cases importantes, les pièces sont harmonieuses et je me prépare tranquillement à dérouler mon plan.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme1.svg" alt="Ronde 1 — position après b5, les Blancs sont confiants" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position après 11.b5 — les Blancs sont satisfaits… un peu trop tôt.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme1.svg" alt="Ronde 1 — position après b5, les Blancs sont confiants" />
+  <p class="diagram-caption">Position après 11.b5 — les Blancs sont satisfaits… un peu trop tôt.</p>
 </div>
 
 Et puis arrive le premier seau d'eau froide. Sans hésiter une seconde, il joue :
@@ -49,9 +49,9 @@ Quelques coups plus tard, il trouve la suite logique :
 
 > **…d5 !!**
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme2.svg" alt="Ronde 1 — après …d5, les Noirs prennent l'initiative" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Il n'y a qu'un seul coup pour les Noirs — et il l'a trouvé.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme2.svg" alt="Ronde 1 — après …d5, les Noirs prennent l'initiative" />
+  <p class="diagram-caption">Il n'y a qu'un seul coup pour les Noirs — et il l'a trouvé.</p>
 </div>
 
 Impossible de continuer à se raconter des histoires. Le cavalier noir est installé en d5 comme chez lui, la paire de fous s'active d'un seul coup, tandis que mon pauvre fou de c1 découvre une vocation inattendue : observer la partie de très près sans jamais y participer.
@@ -62,16 +62,16 @@ Il faut alors accepter une décision un peu contre-intuitive : **rendre la quali
 
 Mon adversaire, lui, choisit de passer dans une **finale de fous de couleurs opposées** avec un pion de moins, pensant tenir facilement. Mais c'est sous-estimer le centre blanc — et surtout la rupture avec **g4**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme3.svg" alt="Ronde 1 — finale de fous de couleurs opposées" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Fous de couleurs opposées — mais le centre blanc va faire la différence.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme3.svg" alt="Ronde 1 — finale de fous de couleurs opposées" />
+  <p class="diagram-caption">Fous de couleurs opposées — mais le centre blanc va faire la différence.</p>
 </div>
 
 Le plan est clair depuis plusieurs coups : installer un pion en d5, améliorer progressivement les pièces, puis préparer la poussée **g4**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde1-diagramme4.svg" alt="Ronde 1 — la rupture g4 décide de la finale" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">La rupture g4 — à partir d'ici, la défense noire ne tient plus.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde1-diagramme4.svg" alt="Ronde 1 — la rupture g4 décide de la finale" />
+  <p class="diagram-caption">La rupture g4 — à partir d'ici, la défense noire ne tient plus.</p>
 </div>
 
 La rupture g4 décide pratiquement de la finale. S'il prend en g4, je crée un pion passé avec h5 qui devient extrêmement difficile à arrêter. S'il refuse la prise, je peux préparer tranquillement la rupture e6 qui désorganise complètement sa structure.
@@ -94,34 +94,34 @@ En préparant sur la base, je m'attends à affronter 1.e4 et une Sicilienne tend
 
 Surprise : il choisit **1.b3**. Pas du tout ce que j'avais anticipé. Heureusement, je connais assez bien la théorie dans ces structures et je récite mes variantes pendant un bon moment. On arrive dans une position relativement égale, simplifiée, propre.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme1.svg" alt="Ronde 2 — position égale mais légèrement inconfortable avec le cavalier contre le fou" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position après 22 coups — égal sur le papier, mais le fou nargue le cavalier.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme1.svg" alt="Ronde 2 — position égale mais légèrement inconfortable avec le cavalier contre le fou" />
+  <p class="diagram-caption">Position après 22 coups — égal sur le papier, mais le fou nargue le cavalier.</p>
 </div>
 
 En pratique, je sens la position légèrement inférieure : il a le fou contre mon cavalier, et dans ce type de finale ouverte, le fou a tendance à se balader comme un touriste en vacances pendant que le cavalier cherche désespérément une case stable. Mais la position reste très tenable, et je suis content d'avoir égalisé contre un 2365.
 
 Et je sais déjà exactement ce qui va suivre. Ce gamin ne va pas se précipiter. Au contraire — il va jouer très lentement, éviter les poussées de pions, tendre des pièges discrets et sauter sur la moindre opportunité. Le genre de grind silencieux, presque poli, où chaque coup a l'air anodin mais où la pression ne retombe jamais.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Ronde 2 — le fou blanc s'est installé en c4, les Noirs n'ont pas bougé" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">29 coups plus tard — lui a un plan, moi j'ai… une position.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme2.svg" alt="Ronde 2 — le fou blanc s'est installé en c4, les Noirs n'ont pas bougé" />
+  <p class="diagram-caption">29 coups plus tard — lui a un plan, moi j'ai… une position.</p>
 </div>
 
 Sept coups plus tard, le constat est limpide. Son fou s'est installé en c4 comme dans un Airbnb cinq étoiles, et il s'apprête à lancer des poussées de pions sur l'aile roi pour créer des faiblesses. De mon côté, je n'ai pas bougé d'une oreille. Ma position tient, mais elle tient comme un étudiant tient un exposé qu'il n'a pas préparé — techniquement debout, mais sans grande conviction.
 
 Et puis je trouve **…g5** — un coup de défense important qui donne enfin un peu de vie à mon cavalier. D'un coup, il retrouve des perspectives, des cases, presque une raison de vivre.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme3.svg" alt="Ronde 2 — g5, le cavalier reprend vie" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">…g5 — le cavalier retrouve enfin une raison d'exister.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme3.svg" alt="Ronde 2 — g5, le cavalier reprend vie" />
+  <p class="diagram-caption">…g5 — le cavalier retrouve enfin une raison d'exister.</p>
 </div>
 
 S'ensuit **Te4 Td4** — et là, il me surprend : il sacrifie la qualité. Un coup que j'ai clairement sous-estimé. Le genre de décision qui vous rappelle que les jeunes de 2400 ne sont pas là pour faire de la figuration.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde2-diagramme4.svg" alt="Ronde 2 — sacrifice de qualité inattendu" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Txe6! — encore un sacrifice de qualité. Décidément.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde2-diagramme4.svg" alt="Ronde 2 — sacrifice de qualité inattendu" />
+  <p class="diagram-caption">Txe6! — encore un sacrifice de qualité. Décidément.</p>
 </div>
 
 > 33.Txe6+ fxe6 34.Txe6+ Rg7 35.h5 Tdxc4 36.bxc4 Txc4 37.Tg6+ Rh7 38.Txb6 Txa4
@@ -156,30 +156,30 @@ J'arrive motivé. Le tournoi se passe bien — 2/3 avec une nulle contre un MI, 
 
 Une **Najdorf** — une première pour moi en partie classique. Je le cible sur une variante avec g3 et j'obtiens une bonne position.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme1.svg" alt="Ronde 4 — bonne position dans la Najdorf avec g3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position après 15 coups — les Blancs sont bien installés dans la Najdorf.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme1.svg" alt="Ronde 4 — bonne position dans la Najdorf avec g3" />
+  <p class="diagram-caption">Position après 15 coups — les Blancs sont bien installés dans la Najdorf.</p>
 </div>
 
 Je trouve le créatif (pour moi) **Fd8!** avec l'idée de l'activer en b6. Un de ces coups qui vous donne l'impression d'être un génie pendant environ cinq minutes. Il opte pour la variante la plus agressive — et je le contre avec la séquence **d5! exd5 e4!** qui ouvre complètement le jeu en ma faveur.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme2.svg" alt="Ronde 4 — position avant d5! exd5 e4!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">d5! exd5 e4! — le centre explose en faveur des Noirs.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme2.svg" alt="Ronde 4 — position avant d5! exd5 e4!" />
+  <p class="diagram-caption">d5! exd5 e4! — le centre explose en faveur des Noirs.</p>
 </div>
 
 Après la passe tactique, j'arrive dans une position prometteuse. Dix minutes à ma pendule contre quinze à la sienne — et au lieu de m'asseoir tranquillement sur mon avantage, j'attrape quasi instantanément le très ambitieux **…Fxh3**, en me prenant pour Tal. J'avais complètement omis que la simple séquence **…Dc7, Td1, Fg4 !!** gagnait en force — proprement, sans drama, sans sacrifice douteux.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Ronde 4 — position avant le très ambitieux Fxh3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ici j'ai joué …Fxh3. Tal l'aurait fait gagner. Moi, non.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme3.svg" alt="Ronde 4 — position avant le très ambitieux Fxh3" />
+  <p class="diagram-caption">Ici j'ai joué …Fxh3. Tal l'aurait fait gagner. Moi, non.</p>
 </div>
 
 On arrive dans une position où il est presque parfaitement paralysé. Le genre de diagramme qu'on montre fièrement à ses amis en disant « regarde comme c'était gagné ».
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde4-diagramme4.svg" alt="Ronde 4 — position presque gagnante, adversaire paralysé" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Presque paralysé — mais « presque », aux échecs, ça ne compte pas.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde4-diagramme4.svg" alt="Ronde 4 — position presque gagnante, adversaire paralysé" />
+  <p class="diagram-caption">Presque paralysé — mais « presque », aux échecs, ça ne compte pas.</p>
 </div>
 
 Mais le MI colombien trouve tous les bons coups de défense — froidement, méthodiquement, sans paniquer. Et de mon côté, les coups deviennent très difficiles à trouver. Avec 10 minutes à la pendule, je n'arrive plus à calculer les suites correctement. Manque de lucidité, il finit par gagner.
@@ -196,16 +196,16 @@ Encore une double ronde. Après la défaite de la veille, il faut rebondir — m
 
 Sauf que la position est globalement moins mauvaise que ce que je pensais pendant la partie.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme1.svg" alt="Ronde 5 — un pion en moins mais position tenable" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Un pion en moins — mais pas la fin du monde.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme1.svg" alt="Ronde 5 — un pion en moins mais position tenable" />
+  <p class="diagram-caption">Un pion en moins — mais pas la fin du monde.</p>
 </div>
 
 Il opte pour un plan très direct, et je tends un petit piège. Ici, il joue **Te8** tempo — et je ne me fais pas prier.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme2.svg" alt="Ronde 5 — avant Txa5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Txa5! — le genre de coup qui refroidit un adversaire.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme2.svg" alt="Ronde 5 — avant Txa5!" />
+  <p class="diagram-caption">Txa5! — le genre de coup qui refroidit un adversaire.</p>
 </div>
 
 > **Txa5!**
@@ -214,16 +214,16 @@ Objectivement, la position reste à peu près égale. Mais en face, on ne le sai
 
 Il ne choisit pas la meilleure défense, et on arrive dans une position où je passe **35 minutes** à essayer de trouver un gain. Sur **Th8, Rg6!!** tient pour les Noirs et je ne trouve rien de simple. Je finis par opter pour **Te6** et continue à mettre la pression.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme3.svg" alt="Ronde 5 — 35 minutes de réflexion" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">35 minutes sur cette position — et toujours pas de gain clair.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme3.svg" alt="Ronde 5 — 35 minutes de réflexion" />
+  <p class="diagram-caption">35 minutes sur cette position — et toujours pas de gain clair.</p>
 </div>
 
 Le vrai traquenard arrive maintenant. Je joue le sournois **Dc2** — un coup qui a l'air de préparer Dxh7 pour faire nulle. Il part directement pour **Fe5**, pensant me couper l'herbe sous le pied.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Ronde 5 — le piège Dc2 suivi de Df5!" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Dc2, Fe5… Df5! — le piège se referme.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme4.svg" alt="Ronde 5 — le piège Dc2 suivi de Df5!" />
+  <p class="diagram-caption">Dc2, Fe5… Df5! — le piège se referme.</p>
 </div>
 
 Sauf que je joue :
@@ -234,9 +234,9 @@ La position des Noirs s'effondre.
 
 Je convertis la finale sans trop de difficulté.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde5-diagramme5.svg" alt="Ronde 5 — finale gagnante" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Finale convertie — l'expérience fait parfois la différence.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde5-diagramme5.svg" alt="Ronde 5 — finale gagnante" />
+  <p class="diagram-caption">Finale convertie — l'expérience fait parfois la différence.</p>
 </div>
 
 **Leçon :** ne jamais jouer en autopilote. Jamais. J'ai eu un peu de chance sur ce coup-là — la prochaine fois, le pion gaffé ne reviendra peut-être pas.
@@ -251,46 +251,46 @@ Deuxième partie de la double ronde. En face, un jeune Brésilien de 13 ans clas
 
 Très peu de temps pour préparer entre les deux rondes. J'opte pour un **Dragon accéléré** qui se transforme en Alapine. Je viens de jouer **d4** et il choisit le très solide **Ce2**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme1.svg" alt="Ronde 6 — Dragon accéléré transformé en Alapine" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Après Ce2 — solide, pas spectaculaire, mais efficace.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme1.svg" alt="Ronde 6 — Dragon accéléré transformé en Alapine" />
+  <p class="diagram-caption">Après Ce2 — solide, pas spectaculaire, mais efficace.</p>
 </div>
 
 Je ne laisse pas passer ma chance de simplifier et je pars pour la séquence **Cxe5 Cxe5 Fxe5 Fxe5 Da5 Dd2 Dxe5 Dxd4 Dxd4 Cxd4**. On arrive dans une position dépouillée.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme2.svg" alt="Ronde 6 — position simplifiée après les échanges" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position simplifiée — l'ordinateur suggère Cf6 e5 b5 pour presque égaliser. Trop tendu pour moi.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme2.svg" alt="Ronde 6 — position simplifiée après les échanges" />
+  <p class="diagram-caption">Position simplifiée — l'ordinateur suggère Cf6 e5 b5 pour presque égaliser. Trop tendu pour moi.</p>
 </div>
 
 L'ordinateur suggère **Cf6 e5 b5** pour presque égaliser, mais je trouve cette variante trop tendue. Je pars pour **Ch6 Fc4 Tf8!** avec l'idée d'activer la tour sur la colonne f. Je n'ai pas le courage de jouer a5 et choisis le très solide **Fe6**, car je calcule correctement que **Fxb7** me permet de tout échanger. Il choisit d'échanger les fous.
 
 Après quelques échanges, on arrive dans cette position qu'il a bien l'intention de grinder.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme3.svg" alt="Ronde 6 — le grind commence" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Le grind commence — il fait chaud, j'ai l'air fatigué. Lui, non.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme3.svg" alt="Ronde 6 — le grind commence" />
+  <p class="diagram-caption">Le grind commence — il fait chaud, j'ai l'air fatigué. Lui, non.</p>
 </div>
 
 Il fait chaud dans la salle. J'ai l'air fatigué. Lui a l'énergie d'un gamin qui vient de découvrir les bonbons à volonté. Il est un peu imprécis, et j'arrive dans une position qui commence à devenir menaçante pour les Noirs.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme4.svg" alt="Ronde 6 — position menaçante pour les Noirs" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">La position commence à tourner — mais il faut encore trouver les coups.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme4.svg" alt="Ronde 6 — position menaçante pour les Noirs" />
+  <p class="diagram-caption">La position commence à tourner — mais il faut encore trouver les coups.</p>
 </div>
 
 Mais je suis épuisé et commence à manquer de lucidité. Ici, je vois **e5** — mais je n'y crois pas. Le genre de moment où il faut faire confiance à son instinct, et où la fatigue vous en empêche.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme5.svg" alt="Ronde 6 — e5 manqué" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">e5 était là — mais la fatigue, elle, était déjà installée.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme5.svg" alt="Ronde 6 — e5 manqué" />
+  <p class="diagram-caption">e5 était là — mais la fatigue, elle, était déjà installée.</p>
 </div>
 
 Je me prends **Td7** et là, dans le zeitnot, mon cerveau décide de prendre sa pause déjeuner. Je gaffe à presque tous les coups, il finit par gagner.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde6-diagramme6.svg" alt="Ronde 6 — zeitnot fatal" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Td7 — et après, c'est le naufrage.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde6-diagramme6.svg" alt="Ronde 6 — zeitnot fatal" />
+  <p class="diagram-caption">Td7 — et après, c'est le naufrage.</p>
 </div>
 
 Bravo à lui. À 13 ans, grinder un MF fatigué dans une salle surchauffée, c'est exactement ce qu'il faut faire pour progresser. Moi, j'aurais surtout dû boire plus d'eau.
@@ -307,58 +307,58 @@ Cela dit, avec un nom pareil — **Casalaspro** — j'aurais peut-être dû me m
 
 Objectif clair : 3/3 sur les trois dernières rondes pour gratter quelques points Elo. En face, un jeune Espagnol de 14 ans. Je le cible sur sa Française — il joue un schéma très particulier sur l'Attaque Est-Indienne, et je trouve une petite idée pour le forcer dans un nouveau schéma. Je compte sur son manque d'expérience pour le surjouer.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme1.svg" alt="Ronde 7 — 30 minutes d'avance et encore dans la préparation" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">30 minutes d'avance à la pendule et encore dans la préparation — le plan fonctionne.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme1.svg" alt="Ronde 7 — 30 minutes d'avance et encore dans la préparation" />
+  <p class="diagram-caption">30 minutes d'avance à la pendule et encore dans la préparation — le plan fonctionne.</p>
 </div>
 
 La préparation porte ses fruits : j'ai **une heure** contre **20 minutes** à sa pendule. Et j'en plante quarante à essayer de faire marcher **Cxh6** — qui ne marche pas. Le genre de moment où on se dit « j'ai le temps, autant chercher le coup qui tue ». Sauf que le coup qui tue n'existe pas.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Ronde 7 — 40 minutes plantées sur Cxh6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">40 minutes sur Cxh6 — qui ne marche pas. 40 minutes bien investies.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme2.svg" alt="Ronde 7 — 40 minutes plantées sur Cxh6" />
+  <p class="diagram-caption">40 minutes sur Cxh6 — qui ne marche pas. 40 minutes bien investies.</p>
 </div>
 
 J'opte finalement pour **Ce5** et le grind. Il joue très solide, mais j'obtiens un petit avantage avec la pression sur e6.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme3.svg" alt="Ronde 7 — petit avantage avec pression sur e6" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Pression sur e6 — le petit avantage est là, reste à le convertir.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme3.svg" alt="Ronde 7 — petit avantage avec pression sur e6" />
+  <p class="diagram-caption">Pression sur e6 — le petit avantage est là, reste à le convertir.</p>
 </div>
 
 Je grind, je grind. J'arrive dans une position où je pense être gagnant après **Dxc4 dxc4 Fg2!** — sauf que je rate qu'après g5 Ta7 Fd7 Fc6, il y a **Fe8** qui tient.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme4.svg" alt="Ronde 7 — Dxc4 dxc4 Fg2 semble gagner" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Dxc4 dxc4 Fg2! — ça a l'air gagné. Ça ne l'est pas.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme4.svg" alt="Ronde 7 — Dxc4 dxc4 Fg2 semble gagner" />
+  <p class="diagram-caption">Dxc4 dxc4 Fg2! — ça a l'air gagné. Ça ne l'est pas.</p>
 </div>
 
 Heureusement, il se trompe après un piège et je ne rate pas **Fc6!** qui gagne.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme5.svg" alt="Ronde 7 — Fc6! gagne" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Fc6! — cette fois, le coup qui tue existe vraiment.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme5.svg" alt="Ronde 7 — Fc6! gagne" />
+  <p class="diagram-caption">Fc6! — cette fois, le coup qui tue existe vraiment.</p>
 </div>
 
 On arrive dans une finale de Tours. On a une minute chacun depuis un bon moment déjà. Sur **Rg7**, je vois que **Tf4** gagne en transposant en finale de pions. Mais il choisit **Re6**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme6.svg" alt="Ronde 7 — finale de Tours, une minute chacun" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Une minute chacun — et tout se joue maintenant.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme6.svg" alt="Ronde 7 — finale de Tours, une minute chacun" />
+  <p class="diagram-caption">Une minute chacun — et tout se joue maintenant.</p>
 </div>
 
 Et je rate complètement le gain sur **Txd4**. Encore un manque de lucidité — la quatrième heure de jeu, toujours elle.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Ronde 7 — Txd4 raté" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Txd4 gagnait — mais avec une minute à la pendule, on ne gagne plus grand-chose.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme7.svg" alt="Ronde 7 — Txd4 raté" />
+  <p class="diagram-caption">Txd4 gagnait — mais avec une minute à la pendule, on ne gagne plus grand-chose.</p>
 </div>
 
 Je rate ma dernière chance de gain avec **Td8**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde7-diagramme8.svg" alt="Ronde 7 — dernière chance ratée avec Td8" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Td8 était la dernière porte — elle s'est refermée.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde7-diagramme8.svg" alt="Ronde 7 — dernière chance ratée avec Td8" />
+  <p class="diagram-caption">Td8 était la dernière porte — elle s'est refermée.</p>
 </div>
 
 Je le fais tourner pendant 80 coups de plus, mais il défend parfaitement. Nulle.
@@ -377,55 +377,55 @@ Dernière ronde du tournoi. En face, un jeune Portugais de 15 ans classé 1907 �
 
 Une **Kalashnikov**. J'obtiens une position que je crois confortable.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme1.svg" alt="Ronde 8 — position confortable dans la Kalashnikov" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Position confortable — du moins, c'est ce que je croyais.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme1.svg" alt="Ronde 8 — position confortable dans la Kalashnikov" />
+  <p class="diagram-caption">Position confortable — du moins, c'est ce que je croyais.</p>
 </div>
 
 Mais il joue **b4** que j'avais complètement sous-estimé. Je joue **Fxd5** et il devait simplement répondre **Cxd5 Cxd3 Dxd3 Fg5** avec un bon avantage. Heureusement, il se trompe et mange mon cavalier en c5.
 
 Il sacrifie ensuite un pion pour l'activité. Je pense qu'il a mal évalué **Txb7 Cb4 Cd5! Fd6 a3 Fc8 Txb4!** et les Blancs sont gagnants.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme2.svg" alt="Ronde 8 — sacrifice de pion pour l'activité" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Sacrifice de pion — mais l'évaluation ne suit pas.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme2.svg" alt="Ronde 8 — sacrifice de pion pour l'activité" />
+  <p class="diagram-caption">Sacrifice de pion — mais l'évaluation ne suit pas.</p>
 </div>
 
 Il opte plutôt pour **Cd5**, auquel je réponds le très solide **Cb4** en me disant que je vais le grinder avec la paire de fous et la case d4.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme3.svg" alt="Ronde 8 — Cb4, paire de fous et case d4" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Cb4 — paire de fous, case d4, et un plan clair : grinder.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme3.svg" alt="Ronde 8 — Cb4, paire de fous et case d4" />
+  <p class="diagram-caption">Cb4 — paire de fous, case d4, et un plan clair : grinder.</p>
 </div>
 
 J'opte pour l'ambitieux **Dg5** en voulant lui faire faire des erreurs à l'aile roi avant de simplifier pour gagner la finale. J'arrive à le pousser dans une position inconfortable.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme4.svg" alt="Ronde 8 — pression à l'aile roi" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Pression croissante — les Noirs cherchent la brèche.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme4.svg" alt="Ronde 8 — pression à l'aile roi" />
+  <p class="diagram-caption">Pression croissante — les Noirs cherchent la brèche.</p>
 </div>
 
 Je joue solidement, et ici je ne rate pas **Fg4!** qui me permet de simplifier à mon avantage — le fou est intouchable grâce à un joli mat du couloir.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme5.svg" alt="Ronde 8 — Fg4! intouchable grâce au mat du couloir" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Fg4! — prenez-le si vous osez. Mat du couloir en prime.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme5.svg" alt="Ronde 8 — Fg4! intouchable grâce au mat du couloir" />
+  <p class="diagram-caption">Fg4! — prenez-le si vous osez. Mat du couloir en prime.</p>
 </div>
 
 La lucidité commence à manquer. Ici, je n'ose pas **f5** — je me dis que je vais échanger les pions et presser son pion e4 en infiltrant ma tour en deuxième rangée.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme6.svg" alt="Ronde 8 — f5 manqué" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">f5 était tentant — mais la prudence l'emporte.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme6.svg" alt="Ronde 8 — f5 manqué" />
+  <p class="diagram-caption">f5 était tentant — mais la prudence l'emporte.</p>
 </div>
 
 Il ne sent pas le danger et opte pour **Cc7**. Je ne laisse pas passer le coup tactique :
 
 > **Txa6! Cxa6 Fc4**
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde8-diagramme7.svg" alt="Ronde 8 — Txa6! coup tactique décisif" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Txa6! — le coup tactique qui scelle la partie.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde8-diagramme7.svg" alt="Ronde 8 — Txa6! coup tactique décisif" />
+  <p class="diagram-caption">Txa6! — le coup tactique qui scelle la partie.</p>
 </div>
 
 Je m'impose techniquement derrière. Victoire.
@@ -442,30 +442,30 @@ Dernière ronde. J'ai très mal dormi et je me sens épuisé. En face, un CM am�
 
 Je gaffe très vite avec **Ce3**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme1.svg" alt="Ronde 9 — gaffe avec Ce3" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Ce3 — le genre de coup qu'on joue quand on n'a pas dormi.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme1.svg" alt="Ronde 9 — gaffe avec Ce3" />
+  <p class="diagram-caption">Ce3 — le genre de coup qu'on joue quand on n'a pas dormi.</p>
 </div>
 
 Je choisis de donner la dame plutôt que de perdre un pion. Le calcul est simple : perdre un pion dans cet état, c'est perdre la partie lentement. Donner la dame, c'est perdre la partie vite — mais au moins, on peut espérer une forteresse.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme2.svg" alt="Ronde 9 — sans dame, essayer de tenir" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Sans dame — bienvenue dans l'enfer positionnel.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme2.svg" alt="Ronde 9 — sans dame, essayer de tenir" />
+  <p class="diagram-caption">Sans dame — bienvenue dans l'enfer positionnel.</p>
 </div>
 
 Ça perd dans tous les sens. Mais j'ai un tout petit espoir : il est sur le point de jouer **Fd5**, ce qui me permettrait de trouver une forteresse avec **Txd5** et **Fxh3** — si j'amène mon fou en c3 ou si j'échange c4 contre b2, c'est nulle. Malheureusement, il prend une pause et trouve **g5**.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme3.svg" alt="Ronde 9 — espoir de forteresse envolé" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">L'espoir d'une forteresse — parti en fumée avec g5.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme3.svg" alt="Ronde 9 — espoir de forteresse envolé" />
+  <p class="diagram-caption">L'espoir d'une forteresse — parti en fumée avec g5.</p>
 </div>
 
 Il trouve la belle manœuvre **Dg1 Fc7 Dg2 Re1 Dg1 Rd2 Db1** — mon roi est hors de l'enclos et h2 va tomber.
 
-<div class="diagram-container" style="text-align:center;margin:2rem 0;">
-  <img src="/images/blog/pontevedra-2026/ronde9-diagramme4.svg" alt="Ronde 9 — la manœuvre décisive" style="max-width:480px;width:100%;border-radius:0.75rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);" />
-  <p style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;font-style:italic;">Dg1-Dg2-Dg1-Db1 — élégant et sans appel.</p>
+<div class="diagram-container">
+  <img src="/images/blog/pontevedra-2026/ronde9-diagramme4.svg" alt="Ronde 9 — la manœuvre décisive" />
+  <p class="diagram-caption">Dg1-Dg2-Dg1-Db1 — élégant et sans appel.</p>
 </div>
 
 Une dernière ronde à oublier.
@@ -479,7 +479,7 @@ Une dernière ronde à oublier.
 <div style="overflow-x:auto;margin:2rem 0;">
 <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:0.75rem;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);font-size:0.95rem;">
   <thead>
-    <tr style="background:#1a1a1a;color:#f5f0e8;">
+    <tr class="row-head">
       <th style="padding:0.85rem 1rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Rd</th>
       <th style="padding:0.85rem 0.8rem;text-align:center;font-weight:600;letter-spacing:0.02em;">Titre</th>
       <th style="padding:0.85rem 1rem;text-align:left;font-weight:600;letter-spacing:0.02em;">Adversaire</th>
@@ -490,81 +490,81 @@ Une dernière ronde à oublier.
     </tr>
   </thead>
   <tbody>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">1</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Montenegro, Matias</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1812</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">2</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td class="cell-warn">FM</td>
       <td style="padding:0.75rem 1rem;">Tabuenca Mendataurigoitia, Daniel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2365</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">3</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td class="cell-alt">IM</td>
       <td style="padding:0.75rem 1rem;">Roselli Mailhe, Bernardo</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127486;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2310</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">4</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#7c3aed;">IM</td>
+      <td class="cell-alt">IM</td>
       <td style="padding:0.75rem 1rem;">Cordoba Roa, Angel Gabriel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127464;&#127476;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2334</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">5</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Rey Chimera, Luca</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2076</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">6</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">FM</td>
+      <td class="cell-warn">FM</td>
       <td style="padding:0.75rem 1rem;">Casalaspro, Mathias Andre</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127463;&#127479;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2340</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#dc2626;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Défaite</span></td>
     </tr>
-    <tr style="background:#fdfbf7;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">7</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Del Valle Crespo, Javier</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127466;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2074</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9817;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#6b7280;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Nulle</span></td>
     </tr>
-    <tr style="background:#f7f4ee;border-bottom:1px solid #e8e4dc;">
+    <tr class="row-b">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">8</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;color:#6b7280;">—</td>
+      <td class="cell-muted">—</td>
       <td style="padding:0.75rem 1rem;">Tenreiro, Manuel</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127477;&#127481;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">1907</td>
       <td style="padding:0.75rem 0.8rem;text-align:center;">&#9823;</td>
       <td style="padding:0.75rem 1rem;text-align:center;"><span style="background:#16a34a;color:#fff;padding:0.25rem 0.75rem;border-radius:2rem;font-weight:600;font-size:0.85rem;">Victoire</span></td>
     </tr>
-    <tr style="background:#fdfbf7;">
+    <tr class="row-a">
       <td style="padding:0.75rem 1rem;text-align:center;font-weight:700;">9</td>
-      <td style="padding:0.75rem 0.8rem;text-align:center;font-size:0.8rem;font-weight:600;color:#b45309;">CM</td>
+      <td class="cell-warn">CM</td>
       <td style="padding:0.75rem 1rem;">Harish, Neeraj</td>
       <td style="padding:0.75rem 0.6rem;text-align:center;font-size:1.2rem;">&#127482;&#127480;</td>
       <td style="padding:0.75rem 1rem;text-align:center;font-family:monospace;">2201</td>

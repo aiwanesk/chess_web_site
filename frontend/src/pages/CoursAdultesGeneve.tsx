@@ -24,7 +24,7 @@ function DeroulementFR() {
             { t: 'Points de contrôle', d: 'Toutes les 4 séances, on mesure les progrès et on réajuste le plan en fonction de vos parties récentes.' },
           ].map((s, i) => (
             <li key={s.t} className="flex gap-4">
-              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gold-500 font-bold text-ink-950">{i + 1}</span>
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gold-500 font-bold text-on-gold">{i + 1}</span>
               <div>
                 <h3 className="text-lg font-semibold text-ink-900">{s.t}</h3>
                 <p className="mt-1 text-ink-600">{s.d}</p>
@@ -50,7 +50,7 @@ function DeroulementEN() {
             { t: 'Checkpoints', d: 'Every 4 sessions we measure progress and adjust the plan based on your recent games.' },
           ].map((s, i) => (
             <li key={s.t} className="flex gap-4">
-              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gold-500 font-bold text-ink-950">{i + 1}</span>
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gold-500 font-bold text-on-gold">{i + 1}</span>
               <div>
                 <h3 className="text-lg font-semibold text-ink-900">{s.t}</h3>
                 <p className="mt-1 text-ink-600">{s.d}</p>
