@@ -68,6 +68,17 @@ func (s *Server) runAnnouncer() error {
 		return s.news.MarkSeeded()
 	}
 
+	// Les articles EN n'étaient pas annoncés du tout jusqu'ici : leurs
+	// identifiants sont donc tous inconnus de la table `notified`, et le
+	// premier démarrage après cette version enverrait tout le catalogue
+	// anglais d'un coup. Même principe que l'amorçage initial, appliqué au
+	// seul lot nouveau : on marque l'existant comme vu, sans rien envoyer.
+	if err := s.seedKind(enSeedSentinel, items, func(it announceItem) bool {
+		return strings.HasPrefix(it.ID, "blogEN:")
+	}); err != nil {
+		return err
+	}
+
 	recipients, err := s.news.ConfirmedRecipients()
 	if err != nil {
 		return err
@@ -87,6 +98,30 @@ func (s *Server) runAnnouncer() error {
 			return err
 		}
 	}
+	return nil
+}
+
+// enSeedSentinel marque le rattrapage des articles anglais comme effectué.
+const enSeedSentinel = "__seeded:blogEN__"
+
+// seedKind marque une fois pour toutes, sans envoi, les items déjà publiés
+// d'une catégorie qu'on vient d'ajouter à l'annonceur. Sans lui, élargir la
+// collecte revient à poster tout l'arriéré aux abonnés.
+func (s *Server) seedKind(sentinel string, items []announceItem, match func(announceItem) bool) error {
+	done, err := s.news.IsNotified(sentinel)
+	if err != nil || done {
+		return err
+	}
+	ids := []string{sentinel}
+	for _, it := range items {
+		if match(it) {
+			ids = append(ids, it.ID)
+		}
+	}
+	if err := s.news.MarkNotified(ids...); err != nil {
+		return err
+	}
+	slog.Info("newsletter: nouveau lot amorcé sans envoi", "sentinel", sentinel, "items", len(ids)-1)
 	return nil
 }
 
@@ -119,19 +154,28 @@ func (s *Server) announce(it announceItem, recipients []newsletter.Recipient) {
 func (s *Server) collectContent() []announceItem {
 	var items []announceItem
 
-	if posts, err := content.LoadBlogPosts(s.cfg.ContentDir); err == nil {
+	// Les deux langues, chacune envoyée à ses propres abonnés. Un article FR
+	// est marqué Lang:"fr" : sans cela il partait à tout le monde, et un
+	// abonné anglophone recevait un lien vers un texte français.
+	addPosts := func(dir, idPrefix, urlPrefix, lang string) {
+		posts, err := content.LoadBlogPosts(dir)
+		if err != nil {
+			slog.Error("announcer: load blog posts", "dir", dir, "err", err)
+			return
+		}
 		for _, p := range posts {
 			items = append(items, announceItem{
-				ID:    "blog:" + p.Slug,
+				ID:    idPrefix + p.Slug,
 				Kind:  "blog",
 				Title: p.Title,
 				Desc:  p.Description,
-				URL:   s.cfg.BaseURL + "/blog/" + p.Slug,
+				URL:   s.cfg.BaseURL + urlPrefix + p.Slug,
+				Lang:  lang,
 			})
 		}
-	} else {
-		slog.Error("announcer: load blog posts", "err", err)
 	}
+	addPosts(s.cfg.ContentDir, "blog:", "/blog/", "fr")
+	addPosts(s.cfg.ContentDir+"/en", "blogEN:", "/en/blog/", "en")
 
 	for _, wk := range tacticsWeekSlugs(s.cfg.TacticsDir) {
 		items = append(items, announceItem{

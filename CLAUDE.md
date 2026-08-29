@@ -84,7 +84,9 @@
 ## Newsletter
 - **Quand partent les mails** : l'annonceur (`backend/internal/server/announce.go`) tourne **une seule fois, au démarrage du serveur**. Pas de cron. Publier = redéployer, et le redémarrage envoie tout ce qui n'est pas encore dans la table `notified`. Il faut `DB_PATH` **et** le SMTP configurés, sinon il ne fait rien.
 - Au **tout premier lancement**, il marque tout le catalogue comme déjà notifié : déployer la fonctionnalité n'envoie jamais d'e-mail rétroactif.
-- Ce qu'il annonce : les **articles FR** (`content/blog/*.md` — `LoadBlogPosts` saute les sous-dossiers, donc `content/blog/en/` n'est jamais annoncé, un abonné EN reçoit le lien FR), les **tactiques hebdo** et les **événements** de `content/events.json`. Seuls les **confirmés** reçoivent quelque chose, un envoi toutes les 300 ms.
+- Ce qu'il annonce : les **articles des deux langues** (`content/blog/*.md` → `blog:<slug>`, `content/blog/en/*.md` → `blogEN:<slug>`), les **tactiques hebdo** et les **événements** de `content/events.json`. Seuls les **confirmés** reçoivent quelque chose, un envoi toutes les 300 ms.
+- **Chaque article porte sa langue** et ne part qu'aux abonnés de cette langue. Conséquence assumée : un article FR **sans traduction** n'atteint pas les abonnés EN — mieux que de leur envoyer un lien français.
+- **Élargir la collecte à un nouveau lot exige un amorçage**, sinon le redémarrage poste tout l'arriéré d'un coup. `seedKind()` marque l'existant comme vu sans rien envoyer, une seule fois, derrière une sentinelle (`__seeded:blogEN__`). Faire pareil pour tout futur type d'item.
 - **Onglet Newsletter du `/admin`** : liste, statut, langue, dates, taux de confirmation. Les **jetons ne sont jamais affichés** — un `unsub_token` est une capacité, il désabonne sans autre preuve, et un tableau de bord se photographie.
 - Se désinscrire **supprime la ligne** : un ancien abonné ne laisse aucune trace dans le tableau.
 

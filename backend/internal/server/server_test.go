@@ -540,3 +540,92 @@ func TestCleanHitPath(t *testing.T) {
 		}
 	}
 }
+
+// L'annonceur ne lisait que content/blog : les articles anglais n'étaient
+// jamais annoncés, et comme les articles français partaient sans langue, un
+// abonné anglophone recevait un lien vers un texte français.
+func TestAnnouncerCollectsBothLocales(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(dir, "en"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	post := "---\ntitle: \"Titre\"\ndescription: \"Résumé\"\ndate: \"2026-01-01\"\n---\n\nCorps.\n"
+	if err := os.WriteFile(filepath.Join(dir, "bilan.md"), []byte(post), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "en", "review.md"), []byte(post), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	byID := map[string]announceItem{}
+	for _, it := range srv.collectContent() {
+		byID[it.ID] = it
+	}
+
+	fr, ok := byID["blog:bilan"]
+	if !ok {
+		t.Fatal("article FR absent de la collecte")
+	}
+	if fr.Lang != "fr" {
+		t.Errorf("article FR: Lang = %q, want fr — sans langue il part aussi aux anglophones", fr.Lang)
+	}
+	if fr.URL != "https://iwanesko.ch/blog/bilan" {
+		t.Errorf("article FR: URL = %q", fr.URL)
+	}
+
+	en, ok := byID["blogEN:review"]
+	if !ok {
+		t.Fatal("article EN absent de la collecte")
+	}
+	if en.Lang != "en" {
+		t.Errorf("article EN: Lang = %q, want en", en.Lang)
+	}
+	if en.URL != "https://iwanesko.ch/en/blog/review" {
+		t.Errorf("article EN: URL = %q — un abonné anglophone doit recevoir la page anglaise", en.URL)
+	}
+}
+
+// Élargir la collecte à une nouvelle catégorie ne doit jamais poster l'arriéré
+// aux abonnés : le premier passage marque l'existant comme vu, sans envoi.
+func TestSeedKindMarksBacklogWithoutSending(t *testing.T) {
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", DBPath: filepath.Join(t.TempDir(), "nl.db")}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Sous Windows, un handle SQLite encore ouvert empêche t.TempDir de
+	// nettoyer : le test échouerait sur le ménage, pas sur son sujet.
+	t.Cleanup(func() { _ = srv.Close() })
+	if srv.news == nil {
+		t.Fatal("newsletter store non ouvert")
+	}
+
+	items := []announceItem{
+		{ID: "blogEN:ancien"}, {ID: "blogEN:autre"}, {ID: "blog:francais"},
+	}
+	match := func(it announceItem) bool { return strings.HasPrefix(it.ID, "blogEN:") }
+
+	if err := srv.seedKind(enSeedSentinel, items, match); err != nil {
+		t.Fatal(err)
+	}
+	for _, id := range []string{"blogEN:ancien", "blogEN:autre"} {
+		if done, _ := srv.news.IsNotified(id); !done {
+			t.Errorf("%s aurait dû être amorcé", id)
+		}
+	}
+	// Un article français ne doit pas être emporté par l'amorçage anglais.
+	if done, _ := srv.news.IsNotified("blog:francais"); done {
+		t.Error("l'amorçage a débordé sur les articles français")
+	}
+
+	// Deuxième passage : un article EN publié après l'amorçage doit rester à envoyer.
+	if err := srv.seedKind(enSeedSentinel, append(items, announceItem{ID: "blogEN:nouveau"}), match); err != nil {
+		t.Fatal(err)
+	}
+	if done, _ := srv.news.IsNotified("blogEN:nouveau"); done {
+		t.Error("l'amorçage a rejoué et avalé un article publié depuis")
+	}
+}
