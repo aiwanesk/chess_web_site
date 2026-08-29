@@ -195,6 +195,18 @@ const CHART_CARDS = [
     statAltLabel: 'parties classées FIDE',
     footer: FOOTER_FR,
   },
+  {
+    out: 'public/og/returning-to-chess-after-a-break.png',
+    md: 'content/blog/en/returning-to-chess-after-a-break.md',
+    eyebrow: 'ONE YEAR BACK',
+    title: 'Returning to chess after a break',
+    subtitle: 'From 2289 to 2150 at classical, between August 2025 and August 2026',
+    statBig: '−139',
+    statLabel: 'rating points · classical',
+    statAlt: '188',
+    statAltLabel: 'FIDE-rated games',
+    footer: FOOTER_EN,
+  },
 ]
 
 const ALL = [

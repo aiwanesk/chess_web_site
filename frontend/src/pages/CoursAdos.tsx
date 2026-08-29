@@ -153,6 +153,7 @@ const EN: MoneyPageProps = {
   metaTitle: 'Junior chess coaching — FIDE Master, Geneva',
   description:
     'Chess coaching for competitive teenagers in Geneva: Elo progress, tournament preparation and individual follow-up by a FIDE Master.',
+  cluster: 'tournoi',
   eyebrow: 'Young players · Competition',
   lead: (
     <>

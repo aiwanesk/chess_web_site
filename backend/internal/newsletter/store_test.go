@@ -95,3 +95,55 @@ func TestSeedAndNotified(t *testing.T) {
 		t.Fatal("unseen content should not be notified")
 	}
 }
+
+func TestSubscribersListsPendingAndConfirmed(t *testing.T) {
+	s := open(t)
+
+	ct, _, err := s.Subscribe("alice@example.com", "fr")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, _, _, err := s.Confirm(ct); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, err := s.Subscribe("bob@example.com", "en"); err != nil {
+		t.Fatal(err)
+	}
+
+	subs, err := s.Subscribers()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(subs) != 2 {
+		t.Fatalf("want 2 subscribers, got %d", len(subs))
+	}
+
+	byEmail := map[string]Subscriber{}
+	for _, sub := range subs {
+		byEmail[sub.Email] = sub
+	}
+
+	alice := byEmail["alice@example.com"]
+	if alice.Status != StatusConfirmed {
+		t.Errorf("alice status = %q, want %q", alice.Status, StatusConfirmed)
+	}
+	if alice.ConfirmedAt.IsZero() {
+		t.Error("a confirmed subscriber must carry a confirmation date")
+	}
+
+	// The dashboard shows the confirmation rate, so a pending row must survive
+	// the listing — unlike ConfirmedRecipients, which filters it out.
+	bob := byEmail["bob@example.com"]
+	if bob.Status != StatusPending {
+		t.Errorf("bob status = %q, want %q", bob.Status, StatusPending)
+	}
+	if !bob.ConfirmedAt.IsZero() {
+		t.Error("a pending subscriber must have no confirmation date")
+	}
+	if bob.Lang != "en" {
+		t.Errorf("bob lang = %q, want en", bob.Lang)
+	}
+	if bob.CreatedAt.IsZero() {
+		t.Error("every row must carry a signup date")
+	}
+}

@@ -7,6 +7,7 @@ image: "/og/reprendre-les-echecs-apres-une-pause.png"
 category: "progresser"
 cluster: "adultes"
 clusterPath: "/cours-echecs-adultes-geneve"
+altSlug: "returning-to-chess-after-a-break"
 ---
 
 Maître FIDE, j'ai arrêté les échecs pendant six ans avant de reprendre en août 2025. Un an plus tard : 188 parties classées FIDE, 139 points Elo perdus en partie lente, et une idée beaucoup plus claire de ce qui était resté intact et de ce qui avait disparu.

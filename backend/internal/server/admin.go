@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
@@ -41,6 +42,11 @@ type adminView struct {
 	BotPct                             int
 	// Réservations
 	Bookings []bookingRow
+	// Newsletter
+	Subscribers                           []subscriberRow
+	TotalSubs, ConfirmedSubs, PendingSubs int
+	ConfirmPct                            int
+	SubsFR, SubsEN                        int
 }
 
 type adminRow struct {
@@ -62,6 +68,11 @@ type countryRow struct {
 type bookingRow struct {
 	Date, Time, Name, Email string
 	Price                   int
+}
+
+type subscriberRow struct {
+	Email, Lang, Status, Created, Confirmed string
+	Pending                                 bool
 }
 
 func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
@@ -127,6 +138,36 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 		}
 	}
 
+	// Newsletter
+	if s.news != nil {
+		subs, _ := s.news.Subscribers()
+		for _, sub := range subs {
+			row := subscriberRow{
+				Email:   sub.Email,
+				Lang:    strings.ToUpper(sub.Lang),
+				Status:  "confirmé",
+				Created: sub.CreatedAt.Format("2006-01-02"),
+			}
+			if sub.Status == newsletter.StatusConfirmed {
+				view.ConfirmedSubs++
+				row.Confirmed = sub.ConfirmedAt.Format("2006-01-02")
+			} else {
+				view.PendingSubs++
+				row.Status, row.Pending, row.Confirmed = "en attente", true, "—"
+			}
+			if strings.EqualFold(sub.Lang, "en") {
+				view.SubsEN++
+			} else {
+				view.SubsFR++
+			}
+			view.Subscribers = append(view.Subscribers, row)
+		}
+		view.TotalSubs = len(view.Subscribers)
+		if view.TotalSubs > 0 {
+			view.ConfirmPct = view.ConfirmedSubs * 100 / view.TotalSubs
+		}
+	}
+
 	_ = adminTmpl.Execute(w, view)
 }
 
@@ -152,8 +193,8 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  .tabs label{cursor:pointer;padding:.55rem 1rem;border-radius:.5rem .5rem 0 0;font-weight:600;color:var(--sub);user-select:none}
  .tabs label:hover{color:var(--ink)}
  .panel{display:none}
- #t1:checked~#p1,#t2:checked~#p2,#t3:checked~#p3{display:block}
- #t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],#t3:checked~.tabs label[for=t3]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+ #t1:checked~#p1,#t2:checked~#p2,#t3:checked~#p3,#t4:checked~#p4{display:block}
+ #t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],#t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
  .cards{display:grid;gap:.75rem;grid-template-columns:repeat(3,1fr);margin:.5rem 0 1rem}
  @media(max-width:620px){.cards{grid-template-columns:1fr}}
  .kpi{background:var(--card);border:1px solid var(--line);border-radius:.75rem;padding:.9rem 1rem}
@@ -170,16 +211,20 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  .bar>span{display:block;height:100%;background:#16a34a}
  .empty{color:#94a3b8;margin:.5rem 0}
  .flag{font-size:1.1rem}
+ .tag{display:inline-block;padding:.1rem .45rem;border-radius:.35rem;font-size:.75rem;font-weight:600;background:#dcfce7;color:#166534}
+ .tag.wait{background:#fef3c7;color:#92400e}
 </style></head><body>
 <h1>Tableau de bord <span class="sub">— privé</span></h1>
 
 <input type="radio" name="tab" id="t1" class="tabin" checked>
 <input type="radio" name="tab" id="t2" class="tabin">
 <input type="radio" name="tab" id="t3" class="tabin">
+<input type="radio" name="tab" id="t4" class="tabin">
 <nav class="tabs">
  <label for="t1">Fréquentation</label>
  <label for="t2">Réservations{{if .Bookings}} ({{len .Bookings}}){{end}}</label>
  <label for="t3">Tactiques</label>
+ <label for="t4">Newsletter{{if .TotalSubs}} ({{.ConfirmedSubs}}){{end}}</label>
 </nav>
 
 <section class="panel" id="p1">
@@ -228,5 +273,20 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  <table><thead><tr><th class="l">Semaine</th><th class="l">Puzzle</th><th>Vues</th><th>Tentatives</th><th>Résolus</th><th>Taux</th></tr></thead>
  <tbody>{{range .Rows}}<tr><td class="l">{{.Week}}</td><td class="l">{{.PuzzleID}}</td><td>{{.Views}}</td><td>{{.Attempts}}</td><td>{{.Solved}}</td><td>{{.SolveRate}}%</td></tr>{{end}}</tbody></table>
  {{else}}<p class="empty">Aucune interaction enregistrée.</p>{{end}}
+</section>
+<section class="panel" id="p4">
+ <div class="cards">
+  <div class="kpi"><div class="n">{{.ConfirmedSubs}}</div><div class="l">Inscrits confirmés</div></div>
+  <div class="kpi"><div class="n">{{.PendingSubs}}</div><div class="l">En attente de confirmation</div></div>
+  <div class="kpi"><div class="n">{{.ConfirmPct}} %</div><div class="l">Taux de confirmation ({{.TotalSubs}} inscriptions)</div></div>
+ </div>
+ <p class="sub" style="font-size:.8rem">Double opt-in : seuls les confirmés reçoivent quoi que ce soit. Se désinscrire supprime la ligne — un ancien inscrit ne laisse aucune trace ici. Les jetons de confirmation et de désinscription ne sont volontairement pas affichés.</p>
+ <h2>Liste <span class="sub">— {{.SubsFR}} FR · {{.SubsEN}} EN</span></h2>
+ {{if .Subscribers}}
+ <table><thead><tr><th class="l">E-mail</th><th class="l">Langue</th><th class="l">Statut</th><th class="l">Inscrit le</th><th class="l">Confirmé le</th></tr></thead>
+ <tbody>{{range .Subscribers}}<tr><td class="l p">{{.Email}}</td><td class="l">{{.Lang}}</td>
+   <td class="l"><span class="tag{{if .Pending}} wait{{end}}">{{.Status}}</span></td>
+   <td class="l">{{.Created}}</td><td class="l">{{.Confirmed}}</td></tr>{{end}}</tbody></table>
+ {{else}}<p class="empty">Aucune inscription.</p>{{end}}
 </section>
 </body></html>`))

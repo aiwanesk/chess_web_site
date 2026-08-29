@@ -81,6 +81,17 @@
 - **Board orientation**: defaults to Alexandre's side (detected from the `White`/`Black` headers), overridable with a `[Orientation "black"]` header. The reader can flip it anyway.
 - **Piece set**: `frontend/src/components/chessPieces.tsx` — shared with `PuzzleBoard.tsx` (Lichess cburnett, inlined SVG).
 
+## Newsletter
+- **Quand partent les mails** : l'annonceur (`backend/internal/server/announce.go`) tourne **une seule fois, au démarrage du serveur**. Pas de cron. Publier = redéployer, et le redémarrage envoie tout ce qui n'est pas encore dans la table `notified`. Il faut `DB_PATH` **et** le SMTP configurés, sinon il ne fait rien.
+- Au **tout premier lancement**, il marque tout le catalogue comme déjà notifié : déployer la fonctionnalité n'envoie jamais d'e-mail rétroactif.
+- Ce qu'il annonce : les **articles FR** (`content/blog/*.md` — `LoadBlogPosts` saute les sous-dossiers, donc `content/blog/en/` n'est jamais annoncé, un abonné EN reçoit le lien FR), les **tactiques hebdo** et les **événements** de `content/events.json`. Seuls les **confirmés** reçoivent quelque chose, un envoi toutes les 300 ms.
+- **Onglet Newsletter du `/admin`** : liste, statut, langue, dates, taux de confirmation. Les **jetons ne sont jamais affichés** — un `unsub_token` est une capacité, il désabonne sans autre preuve, et un tableau de bord se photographie.
+- Se désinscrire **supprime la ligne** : un ancien abonné ne laisse aucune trace dans le tableau.
+
+## Silo FR/EN des pages argent
+- Une page argent a **deux objets de configuration**, `FR` et `EN`. `cluster` n'était posé que sur `FR` : les pages EN n'ont donc jamais affiché d'articles liés, même quand la traduction existait. **En ajouter un à l'une, l'ajouter à l'autre.**
+- `CoursEnLigne.tsx` n'a de `cluster` sur aucune des deux : le cluster `en-ligne` du plan éditorial n'a encore aucun article.
+
 ## Cartes de partage (Open Graph) et JSON-LD
 - **`scripts/gen-og.mjs`** produit les PNG 1200×630. Deux gabarits : `card()` pour un **carnet** (un vrai diagramme d'échiquier imbriqué depuis `public/images/blog/<dir>/`, donc la position montrée est celle de l'article) et `chartCard()` pour un **article de fond** (la courbe Elo, **lue directement dans le Markdown** — carte et graphique ne peuvent pas diverger).
 - Le SVG reste à côté du PNG : c'est la source éditable. **C'est le PNG qui va dans le front-matter** — les réseaux sociaux n'affichent pas d'aperçu SVG. Carnets : `/images/blog/<dir>/og-*.png`. Articles de fond : `/public/og/<slug>.png`.

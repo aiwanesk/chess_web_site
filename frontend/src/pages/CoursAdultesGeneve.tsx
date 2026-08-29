@@ -137,6 +137,7 @@ const EN: MoneyPageProps = {
   metaTitle: 'Adult chess lessons in Geneva — FIDE Master',
   description:
     'Chess lessons for adults (1200–2200 Elo) in Geneva with a FIDE Master. Structured method, progression plan, in person and online.',
+  cluster: 'adultes',
   eyebrow: 'Adult lessons · Geneva',
   lead: (
     <>

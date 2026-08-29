@@ -134,6 +134,7 @@ const EN: MoneyPageProps = {
   metaTitle: 'Chess tournament preparation — FIDE Master coaching',
   description:
     'Focused chess tournament preparation with a FIDE Master: repertoire, opponent prep, time management and competitive mindset.',
+  cluster: 'tournoi',
   eyebrow: 'Competition',
   lead: (
     <>

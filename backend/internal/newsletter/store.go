@@ -167,6 +167,47 @@ func (s *Store) ConfirmedRecipients() ([]Recipient, error) {
 	return out, rows.Err()
 }
 
+// Subscriber is one row of the mailing list, as shown on the private
+// dashboard. Deliberately WITHOUT the two tokens: they are capabilities —
+// whoever holds an unsub_token can unsubscribe that address without any other
+// proof. A dashboard is read over someone's shoulder, screenshotted and pasted
+// into a chat; the tokens have no business being there.
+type Subscriber struct {
+	Email       string
+	Lang        string
+	Status      string
+	CreatedAt   time.Time
+	ConfirmedAt time.Time // zero value while pending
+}
+
+// Subscribers returns the whole list, newest first — pending rows included, so
+// the dashboard can show the confirmation rate rather than only the survivors.
+func (s *Store) Subscribers() ([]Subscriber, error) {
+	rows, err := s.db.Query(`SELECT email, lang, status, created_at, confirmed_at
+	                         FROM subscribers ORDER BY created_at DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Subscriber
+	for rows.Next() {
+		var (
+			sub       Subscriber
+			created   int64
+			confirmed sql.NullInt64
+		)
+		if err := rows.Scan(&sub.Email, &sub.Lang, &sub.Status, &created, &confirmed); err != nil {
+			return nil, err
+		}
+		sub.CreatedAt = time.Unix(created, 0)
+		if confirmed.Valid {
+			sub.ConfirmedAt = time.Unix(confirmed.Int64, 0)
+		}
+		out = append(out, sub)
+	}
+	return out, rows.Err()
+}
+
 // --- announcement bookkeeping ----------------------------------------------
 
 // Seeded reports whether the first-run backfill has already run. On a fresh DB
