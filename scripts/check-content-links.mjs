@@ -117,6 +117,53 @@ for (const [locale, list] of [
   }
 }
 
+
+// --- Routes du frontend vs content.StaticPages (Go) -------------------------
+//
+// Les ARTICLES n'ont rien à déclarer : le backend lit content/blog au runtime,
+// donc sitemap.xml et llms.txt les reprennent tout seuls. Une PAGE STATIQUE,
+// elle, doit être déclarée dans backend/internal/content/site.go — c'est la
+// seule liste tenue à la main, et elle alimente les deux fichiers. L'oublier
+// rend la page invisible des moteurs sans que rien ne casse.
+const ROUTES = 'frontend/src/routes.tsx'
+const SITEGO = 'backend/internal/content/site.go'
+
+const routesSrc = readFileSync(join(root, ROUTES), 'utf8')
+const siteSrc = readFileSync(join(root, SITEGO), 'utf8')
+
+const declared = new Set(
+  [...siteSrc.matchAll(/\{"(\/[^"]*)"/g)].map((m) => m[1]),
+)
+const allRoutePaths = [...routesSrc.matchAll(/path:\s*'([^']*)'/g)].map((m) =>
+  m[1].startsWith('/') ? m[1] : `/${m[1]}`,
+)
+// Routes dynamiques (`:slug`), joker et page 404 : rien à faire dans un sitemap.
+const routed = new Set(
+  allRoutePaths.filter((p) => !p.includes(':') && !p.includes('*') && p !== '/404'),
+)
+// Les préfixes des routes dynamiques : `/blog/categorie/:slug` autorise
+// `/blog/categorie/progresser` à figurer dans StaticPages sans route littérale.
+const dynamicPrefixes = allRoutePaths
+  .filter((p) => p.includes(':'))
+  .map((p) => p.slice(0, p.indexOf(':')))
+
+for (const p of routed) {
+  if (!declared.has(p)) {
+    errors.push(
+      `${ROUTES} — la route \`${p}\` n'est pas déclarée dans ${SITEGO}.\n` +
+        `    → ajoute-la à StaticPages, sinon elle est absente du sitemap ET du llms.txt.`,
+    )
+  }
+}
+for (const p of declared) {
+  if (routed.has(p)) continue
+  if (dynamicPrefixes.some((prefix) => p.startsWith(prefix))) continue
+  warnings.push(
+    `${SITEGO} — \`${p}\` est annoncé aux moteurs mais ne correspond à aucune route.\n` +
+      `    → page fantôme dans le sitemap et le llms.txt.`,
+  )
+}
+
 for (const w of warnings) console.warn(`⚠  ${w}`)
 
 if (errors.length) {

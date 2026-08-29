@@ -118,25 +118,74 @@ func (s *Server) handleLLMs(w http.ResponseWriter, _ *http.Request) {
 
 	b.WriteString("## Faits clés\n")
 	b.WriteString("- Titre : Maître FIDE (FIDE Master)\n")
+	// Une source externe vérifiable vaut mieux qu'une affirmation : classements et
+	// tournois joués s'y contrôlent, et la fiche reste à jour toute seule.
+	b.WriteString("- Joueur en activité — fiche FIDE officielle (ID 682136) : https://ratings.fide.com/profile/682136\n")
 	b.WriteString("- Zone : Genève, Vaud, arc lémanique, France voisine\n")
 	b.WriteString("- Formats : cours particulier, petit groupe, en ligne, stages, entreprise\n")
-	b.WriteString("- Langue : français (anglais possible)\n\n")
+	b.WriteString("- Langue : français (anglais possible)\n")
+	b.WriteString("- Le blog publie ses propres carnets de tournoi, chiffres et parties à l'appui.\n\n")
 
-	b.WriteString("## Pages\n")
+	// La convention llms.txt prévoit une section « Optional » : ce qu'un moteur peut
+	// sauter s'il manque de contexte. Pages légales et listes de catégories y vont,
+	// pour que le haut du fichier ne contienne que l'essentiel.
+	var fr, en, optional []content.Page
 	for _, p := range content.StaticPages {
-		fmt.Fprintf(&b, "- [%s](%s): %s\n", p.Title, s.abs(p.Path), p.Summary)
-	}
-
-	if posts, err := content.LoadBlogPosts(s.cfg.ContentDir); err == nil && len(posts) > 0 {
-		b.WriteString("\n## Articles\n")
-		for _, post := range posts {
-			fmt.Fprintf(&b, "- [%s](%s): %s\n", post.Title, s.abs("/blog/"+post.Slug), post.Description)
+		switch {
+		case isSecondary(p.Path):
+			optional = append(optional, p)
+		case strings.HasPrefix(p.Path, "/en"):
+			en = append(en, p)
+		default:
+			fr = append(fr, p)
 		}
 	}
+
+	writePages := func(heading string, pages []content.Page) {
+		if len(pages) == 0 {
+			return
+		}
+		fmt.Fprintf(&b, "## %s\n", heading)
+		for _, p := range pages {
+			fmt.Fprintf(&b, "- [%s](%s): %s\n", p.Title, s.abs(p.Path), p.Summary)
+		}
+		b.WriteString("\n")
+	}
+	writePages("Pages principales (français)", fr)
+	writePages("Main pages (English)", en)
+
+	// Les articles des DEUX langues — le pendant de ce que fait déjà le sitemap.
+	writePosts := func(heading, dir, prefix string) {
+		posts, err := content.LoadBlogPosts(dir)
+		if err != nil || len(posts) == 0 {
+			return
+		}
+		fmt.Fprintf(&b, "## %s\n", heading)
+		for _, post := range posts {
+			fmt.Fprintf(&b, "- [%s](%s): %s\n", post.Title, s.abs(prefix+post.Slug), post.Description)
+		}
+		b.WriteString("\n")
+	}
+	writePosts("Articles (français)", s.cfg.ContentDir, "/blog/")
+	writePosts("Articles (English)", s.cfg.ContentDir+"/en", "/en/blog/")
+
+	writePages("Optional", optional)
 
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("Cache-Control", "public, max-age=3600")
 	_, _ = w.Write([]byte(b.String()))
+}
+
+// isSecondary marque les pages qu'un moteur peut ignorer sans rien perdre de
+// l'essentiel : mentions légales et pages de catégorie, qui ne font que lister
+// des articles déjà présents plus haut.
+func isSecondary(path string) bool {
+	for _, frag := range []string{"/confidentialite", "/en/privacy", "/blog/categorie/", "/en/blog/category/"} {
+		if strings.Contains(path, frag) {
+			return true
+		}
+	}
+	return false
 }
 
 // abs builds an absolute URL from a root-relative path.

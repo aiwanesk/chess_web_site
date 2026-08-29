@@ -3,9 +3,11 @@ package server
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"log/slog"
 	"net"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
@@ -61,12 +63,89 @@ func (s *Server) countPageviews(next http.Handler) http.Handler {
 				country = c
 			}
 		}
-		isBot := looksLikeBot(r.UserAgent())
+		// Ne compter ICI que les robots qui s'annoncent. Les humains sont comptés
+		// par la balise JS (/api/hit) : un compteur côté serveur enregistre toute
+		// requête HTML, donc tous les crawlers qui se font passer pour un
+		// navigateur — ce qui gonflait « visites humaines » d'un facteur inconnu.
+		if !looksLikeBot(r.UserAgent()) {
+			return
+		}
 		fp := s.visitorFingerprint(r, ip)
 		go func() {
-			if err := s.store.RecordPageview(path, country, isBot, fp); err != nil {
+			if err := s.store.RecordPageview(path, country, true, fp); err != nil {
 				slog.Error("pageview record failed", "err", err)
 			}
 		}()
 	})
+}
+
+// hitRequest est le corps envoyé par la balise JS.
+type hitRequest struct {
+	Path string `json:"path"`
+}
+
+// sameSite vérifie que la requête vient bien d'une page du site : Origin (ou à
+// défaut Referer) doit désigner le même hôte que celui appelé. Ça n'arrête pas
+// un attaquant déterminé, mais ça écarte les appels directs, qui sont la façon
+// évidente de gonfler des statistiques publiques.
+func sameSite(r *http.Request) bool {
+	for _, raw := range []string{r.Header.Get("Origin"), r.Header.Get("Referer")} {
+		if raw == "" {
+			continue
+		}
+		u, err := url.Parse(raw)
+		if err != nil || u.Host == "" {
+			continue
+		}
+		return u.Host == r.Host
+	}
+	return false
+}
+
+// handleHit enregistre UNE vue humaine, déclenchée par la balise JS de la page.
+// Les robots n'exécutent quasiment jamais de JavaScript : c'est ce qui rend ce
+// compteur-là honnête, là où le comptage serveur ne l'était pas. Mêmes garanties
+// qu'avant — aucune IP, aucun cookie, pays déduit hors ligne, empreinte du jour.
+func (s *Server) handleHit(w http.ResponseWriter, r *http.Request) {
+	if s.store == nil || !sameSite(r) || looksLikeBot(r.UserAgent()) {
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
+	var req hitRequest
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<10)).Decode(&req); err != nil {
+		http.Error(w, "requête invalide", http.StatusBadRequest)
+		return
+	}
+	path := cleanHitPath(req.Path)
+	if path == "" {
+		http.Error(w, "chemin invalide", http.StatusBadRequest)
+		return
+	}
+	ip := clientIP(r)
+	country := ""
+	if pip := net.ParseIP(ip); pip != nil {
+		if c := string(iploc.Country(pip)); c != "" && c != "ZZ" {
+			country = c
+		}
+	}
+	fp := s.visitorFingerprint(r, ip)
+	if err := s.store.RecordPageview(path, country, false, fp); err != nil {
+		slog.Error("pageview record failed", "err", err)
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
+
+// cleanHitPath n'accepte qu'un chemin interne : le corps de la requête vient du
+// navigateur, donc il n'est pas digne de confiance. Renvoie "" si le chemin doit
+// être ignoré (page d'admin, URL absolue, chemin invraisemblable).
+func cleanHitPath(raw string) string {
+	if i := strings.IndexAny(raw, "?#"); i >= 0 {
+		raw = raw[:i]
+	}
+	if raw == "" || len(raw) > 200 || !strings.HasPrefix(raw, "/") ||
+		strings.HasPrefix(raw, "//") || strings.Contains(raw, "..") ||
+		strings.HasPrefix(raw, "/admin") || strings.HasPrefix(raw, "/newsletter") {
+		return ""
+	}
+	return raw
 }

@@ -56,6 +56,19 @@
 - **Lessons**: Short, concrete, honest — not generic advice
 - **Author**: Alexandre Iwanesko, FM (FIDE Master), 33 years old
 
+## Fréquentation (/admin)
+- **Les humains sont comptés par une balise JS**, pas par le serveur : `frontend/src/lib/analytics.ts` envoie `POST /api/hit` à chaque changement de route, `handleHit` (`backend/internal/server/analytics.go`) l'enregistre.
+- **Pourquoi** : le comptage serveur enregistrait toute réponse HTML, donc tous les crawlers déguisés en navigateur. Le tableau de bord affichait des milliers de « visites humaines » venues de datacenters US/DE/NL/SG, pour 3 clics réels dans Search Console. Les robots n'exécutent presque jamais de JS.
+- Le middleware serveur ne compte plus que les **robots qui s'annoncent** (regex user-agent), ce qui garde la colonne « bots » lisible.
+- Garde-fous sur `/api/hit` : même origine exigée (`Origin`, sinon `Referer`), user-agent de robot rejeté, chemin validé par `cleanHitPath` (interne, pas `/admin` ni `/newsletter`). Testé dans `server_test.go`.
+- Rien ne change côté vie privée : aucune IP stockée, aucun cookie, pays déduit hors ligne, empreinte de visiteur tournante à la journée.
+
+## Tableaux dans les articles
+- **Écrire les tableaux en Markdown**, pas en HTML. `enhanceTables()` (`frontend/src/lib/content.ts`) les enveloppe dans un `.table-wrap` et colore les cellules qui ne contiennent qu'un nombre signé (`+3,6` en vert, `−59,0` en rouge).
+- Le style vit dans `styles.css`, **scopé sous `.table-wrap`** : en-tête presque noir, lignes alternées, chiffres tabulaires, dernière colonne alignée à droite. Rien de tout ça ne touche les tableaux HTML écrits à la main dans les carnets, qui gardent leur mise en forme.
+- Au-delà de 768 px, un tableau **déborde volontairement de la colonne de texte** (68 caractères) et se recentre sur la page : six colonnes n'y entrent pas, et c'est toujours la dernière — la plus utile — qui se retrouvait hors champ.
+- **Pas de drapeaux emoji** : Windows ne les rend pas et les affiche en paires de lettres (« CH », « FR »).
+
 ## PGN Game Viewer
 - **Games live in**: `content/games/<id>.pgn` — one file per game, standard PGN with headers. Paste the score, done: no build step, no diagram generation.
 - **Embed in an article**: put `[[pgn:<id>]]` alone on its own line in the Markdown (FR or EN). `splitChunks()` in `frontend/src/lib/content.ts` splits the compiled HTML on that marker and `BlogPost.tsx` renders a `<PgnViewer>` in its place.

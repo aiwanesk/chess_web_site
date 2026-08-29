@@ -106,6 +106,7 @@ func (s *Server) Handler() http.Handler {
 		api.Get("/booking-config", s.handleBookingConfig)
 		api.Get("/booking/availability", s.handleAvailability)
 		api.Post("/tactics/event", s.handleTacticsEvent)
+		api.Post("/hit", s.handleHit) // balise de fréquentation (voir analytics.go)
 		api.With(rateLimit(submitLimiter)).Post("/contact", s.handleContact)
 		api.With(rateLimit(submitLimiter)).Post("/newsletter/subscribe", s.handleSubscribe)
 		api.With(rateLimit(submitLimiter)).Post("/booking", s.handleBooking)

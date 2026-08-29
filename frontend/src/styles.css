@@ -433,3 +433,139 @@ html[data-theme='dark'] .prose .cell-alt { color: #b79bf5; }
 html[data-theme='dark'] .map-embed {
   filter: brightness(0.78) contrast(1.05) saturate(0.85);
 }
+
+/* ───────────── Tableaux Markdown des articles ─────────────
+   `.prose` n'avait aucune règle de tableau : un tableau Markdown sortait nu,
+   sans bordure ni respiration. Tout est scopé sous `.table-wrap` — le conteneur
+   que pose `enhanceTables()` dans content.ts — pour ne rien changer aux tableaux
+   écrits à la main dans les carnets, qui ont déjà leur propre mise en forme. */
+.prose .table-wrap {
+  margin: 2rem 0;
+  overflow-x: auto;
+  background: var(--color-paper);
+  border: 1px solid var(--color-cream-300);
+  border-radius: 0.9rem;
+  box-shadow: var(--shadow-soft);
+}
+.prose .table-wrap table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  /* Chiffres alignés en colonne : indispensable pour comparer des Elo. */
+  font-variant-numeric: tabular-nums;
+  /* En dessous, les colonnes se compriment jusqu'à l'illisible : mieux vaut
+     faire défiler le conteneur que d'empiler trois lignes par cellule. */
+  min-width: 34rem;
+}
+/* Les colonnes courtes (cadence, parties, score) ne gagnent rien à passer à la
+   ligne — seule celle du tournoi a le droit de respirer. */
+.prose .table-wrap tbody td:nth-child(n + 3) {
+  white-space: nowrap;
+}
+/* En-tête presque noir : la même signature que les tableaux de bilan des
+   carnets, et il reste lisible dans les deux thèmes sans rien changer. */
+.prose .table-wrap thead th {
+  background: #1a1a1a;
+  color: #f5f0e8;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.prose .table-wrap tbody td {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--color-cream-300);
+  color: var(--color-ink-700);
+}
+.prose .table-wrap tbody tr:nth-child(even) {
+  background: var(--color-cream-100);
+}
+.prose .table-wrap tbody td:first-child {
+  white-space: nowrap;
+}
+.prose .table-wrap thead th:last-child,
+.prose .table-wrap tbody td:last-child {
+  text-align: right;
+}
+.prose .table-wrap tbody strong {
+  color: var(--color-ink-950);
+}
+
+/* Gains et pertes de points, repérés par enhanceTables() : on lit la colonne
+   d'un coup d'œil au lieu de déchiffrer des signes. */
+.prose .delta-up { color: #15803d; font-weight: 700; }
+.prose .delta-down { color: #b91c1c; font-weight: 700; }
+html[data-theme='dark'] .prose .delta-up { color: #5ed88b; }
+html[data-theme='dark'] .prose .delta-down { color: #f78a8a; }
+
+/* Six colonnes n'entrent pas dans une colonne de texte de 68 caractères : la
+   dernière — le bilan Elo, justement celle qu'on vient lire — se retrouvait
+   hors champ. Sur écran large, le tableau sort donc du bloc de texte et se
+   recentre sur la page. En dessous de 768 px il reste dans le flux et défile. */
+@media (min-width: 48rem) {
+  .prose .table-wrap {
+    width: min(58rem, calc(100vw - 5rem));
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ───────── Graphique de classement (SVG inline dans un article) ─────────
+   En SVG inline et non en image : c'est la seule façon qu'il suive le thème
+   clair/sombre, une image ne pouvant pas hériter des tokens de la page. */
+.prose .elo-chart {
+  margin: 2rem 0;
+}
+.prose .elo-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.prose .elo-chart .grid {
+  stroke: var(--color-cream-300);
+  stroke-width: 1;
+}
+.prose .elo-chart .tick {
+  fill: var(--color-ink-500);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.prose .elo-chart .line {
+  fill: none;
+  stroke: var(--color-gold-600);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+/* La période annoncée mais pas encore publiée : pointillés, pour qu'on ne la
+   confonde pas avec un classement acquis. */
+.prose .elo-chart .prov {
+  stroke-dasharray: 6 5;
+  opacity: 0.65;
+}
+.prose .elo-chart .dot {
+  fill: var(--color-gold-600);
+}
+.prose .elo-chart .prov-dot {
+  opacity: 0.65;
+}
+.prose .elo-chart .mark {
+  fill: var(--color-ink-900);
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Le graphique sort de la colonne de texte comme les tableaux : une courbe de
+   quatorze points comprimée sur 68 caractères ne se lit pas. */
+@media (min-width: 48rem) {
+  .prose .elo-chart {
+    width: min(58rem, calc(100vw - 5rem));
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}

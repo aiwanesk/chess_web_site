@@ -83,8 +83,42 @@ function build(filePath: string, raw: string, lang: Locale): Post {
     altSlug: data.altSlug,
     image: data.image,
     readingMinutes: Math.max(1, Math.round(words / 200)),
-    html: marked.parse(body) as string,
+    html: enhanceTables(marked.parse(body) as string),
   }
+}
+
+/**
+ * Deux retouches sur le HTML produit par `marked`, impossibles à faire en
+ * Markdown pur :
+ *
+ * 1. Chaque tableau Markdown part dans un `.table-wrap`, qui lui donne son
+ *    cadre et surtout le défilement horizontal sur mobile — un tableau de
+ *    saison à six colonnes déborde sinon de l'écran.
+ * 2. Les cellules qui ne contiennent QU'un nombre signé (`+3,6`, `−59,0`)
+ *    sont colorées gain/perte. Le filtre est volontairement strict : les
+ *    tableaux écrits à la main dans les carnets (scores `4½–3½`, Elo `2313`)
+ *    ne matchent pas, et ne bougent donc pas.
+ */
+function enhanceTables(html: string): string {
+  return html
+    .replace(/<table>/g, '<div class="table-wrap"><table>')
+    .replace(/<\/table>/g, '</table></div>')
+    .replace(/<td([^>]*)>([\s\S]*?)<\/td>/g, (whole, attrs: string, inner: string) => {
+      // Garde-fou : on ne touche qu'aux cellules purement numériques. Les
+      // tableaux écrits à la main dans les carnets (« Nyon 1 – Wollishofen 1 »,
+      // « 4½–3½ », un nom d'adversaire) n'entrent jamais ici.
+      const plain = inner.replace(/<[^>]*>/g, '').trim()
+      if (!plain || !/^[\s+−\-\d.,/]+$/.test(plain)) return whole
+      // Un nombre n'est coloré que s'il OUVRE la cellule ou suit un « / » :
+      // « −4,4 / +3,2 » donne bien un rouge et un vert, alors que « 3 + 4 »
+      // (un nombre de parties) reste noir.
+      const painted = inner.replace(
+        /(^|\/\s*|<strong>\s*)([+−-]\d+(?:[.,]\d+)?)/g,
+        (_m, lead: string, num: string) =>
+          `${lead}<span class="${num.startsWith('+') ? 'delta-up' : 'delta-down'}">${num}</span>`,
+      )
+      return `<td${attrs}>${painted}</td>`
+    })
 }
 
 const posts: Post[] = [

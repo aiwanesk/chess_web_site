@@ -1,13 +1,22 @@
+import { useEffect } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { LocaleProvider, localeFromPath, t } from '../lib/i18n'
+import { sendHit } from '../lib/analytics'
 
 /** Root layout wrapping every route: detects the locale from the URL, provides
  * it to the tree, then renders skip link, header, main, footer. */
 export function Layout() {
-  const locale = localeFromPath(useLocation().pathname)
+  const { pathname } = useLocation()
+  const locale = localeFromPath(pathname)
   const strings = t(locale)
+
+  // Une vue par page réellement affichée, navigation interne comprise. L'effet
+  // ne tourne pas au pré-rendu : les pages générées au build ne comptent rien.
+  useEffect(() => {
+    sendHit(pathname)
+  }, [pathname])
   return (
     <LocaleProvider locale={locale}>
       <a

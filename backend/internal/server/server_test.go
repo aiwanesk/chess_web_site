@@ -124,6 +124,43 @@ func TestLLMsTxt(t *testing.T) {
 	if !strings.Contains(body, "Maître FIDE") || !strings.Contains(body, "/cours-echecs-adultes-geneve") {
 		t.Fatalf("llms.txt missing key facts:\n%s", body)
 	}
+	// Les pages légales et les listes de catégorie descendent en « Optional » :
+	// un moteur à court de contexte doit tomber sur les pages utiles en premier.
+	opt := strings.Index(body, "## Optional")
+	money := strings.Index(body, "/cours-echecs-adultes-geneve")
+	if opt < 0 || money < 0 || money > opt {
+		t.Fatalf("llms.txt: les pages principales doivent précéder ## Optional\n%s", body)
+	}
+	if i := strings.Index(body, "/confidentialite"); i >= 0 && i < opt {
+		t.Fatalf("llms.txt: la politique de confidentialité doit être sous ## Optional")
+	}
+}
+
+// Les carnets anglais avaient disparu du llms.txt : il ne lisait que le dossier
+// français et préfixait les URLs en dur avec /blog/. Même bug que celui déjà
+// corrigé sur le sitemap — ce test empêche la rechute.
+func TestLLMsTxtListsBothLocales(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(dir, "en"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	post := "---\ntitle: \"Titre\"\ndescription: \"Résumé\"\ndate: \"2026-01-01\"\n---\n\nCorps.\n"
+	if err := os.WriteFile(filepath.Join(dir, "carnet-fr.md"), []byte(post), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "en", "diary-en.md"), []byte(post), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := get(t, srv.Handler(), "/llms.txt").Body.String()
+	for _, want := range []string{"https://iwanesko.ch/blog/carnet-fr", "https://iwanesko.ch/en/blog/diary-en"} {
+		if !strings.Contains(body, want) {
+			t.Fatalf("llms.txt sans %s :\n%s", want, body)
+		}
+	}
 }
 
 func TestContactValidation(t *testing.T) {
@@ -439,5 +476,67 @@ func TestScannerPathsAreBlocked(t *testing.T) {
 	// End-to-end: a scanner probe still 404s (now without logging).
 	if rec := get(t, testServer(t), "/wp-login.php"); rec.Code != http.StatusNotFound {
 		t.Fatalf("scanner probe: want 404, got %d", rec.Code)
+	}
+}
+
+// La balise remplace le comptage serveur : c'est elle qui décide désormais ce
+// qu'est une « visite humaine ». Elle doit donc être difficile à polluer.
+func TestHitBeacon(t *testing.T) {
+	h := statsServer(t, "tok")
+
+	hit := func(body, origin, ua string) int {
+		req := httptest.NewRequest(http.MethodPost, "/api/hit", strings.NewReader(body))
+		req.Host = "iwanesko.ch"
+		if origin != "" {
+			req.Header.Set("Origin", origin)
+		}
+		if ua != "" {
+			req.Header.Set("User-Agent", ua)
+		}
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, req)
+		return rec.Code
+	}
+
+	const browser = "Mozilla/5.0 (Windows NT 10.0) Chrome/120"
+	if code := hit(`{"path":"/blog/x"}`, "https://iwanesko.ch", browser); code != http.StatusNoContent {
+		t.Fatalf("vue légitime : want 204, got %d", code)
+	}
+	// Appel direct, sans page d'origine : c'est la façon évidente de gonfler des
+	// statistiques publiques.
+	if code := hit(`{"path":"/blog/x"}`, "", browser); code != http.StatusNoContent {
+		t.Fatalf("sans Origin : want 204 (ignoré), got %d", code)
+	}
+	if code := hit(`{"path":"/blog/x"}`, "https://ailleurs.example", browser); code != http.StatusNoContent {
+		t.Fatalf("origine étrangère : want 204 (ignoré), got %d", code)
+	}
+	// Un robot qui s'annonce reste hors des humains, même via la balise.
+	if code := hit(`{"path":"/blog/x"}`, "https://iwanesko.ch", "Googlebot/2.1"); code != http.StatusNoContent {
+		t.Fatalf("bot déclaré : want 204, got %d", code)
+	}
+	// Le corps vient du navigateur : il n'est pas digne de confiance.
+	for _, bad := range []string{`{"path":"https://evil.example/x"}`, `{"path":"//evil.example"}`, `{"path":"/admin/secret"}`, `{"path":""}`} {
+		if code := hit(bad, "https://iwanesko.ch", browser); code != http.StatusBadRequest {
+			t.Fatalf("chemin %s : want 400, got %d", bad, code)
+		}
+	}
+}
+
+func TestCleanHitPath(t *testing.T) {
+	ok := map[string]string{
+		"/":              "/",
+		"/blog/x?utm=1":  "/blog/x",
+		"/blog/x#partie": "/blog/x",
+		"/en/blog/y":     "/en/blog/y",
+	}
+	for in, want := range ok {
+		if got := cleanHitPath(in); got != want {
+			t.Fatalf("cleanHitPath(%q) = %q, want %q", in, got, want)
+		}
+	}
+	for _, bad := range []string{"", "blog/x", "//evil", "/../etc", "/admin", "/newsletter/confirm", "https://evil.example"} {
+		if got := cleanHitPath(bad); got != "" {
+			t.Fatalf("cleanHitPath(%q) = %q, want \"\"", bad, got)
+		}
 	}
 }
