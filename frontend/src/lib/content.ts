@@ -83,7 +83,7 @@ function build(filePath: string, raw: string, lang: Locale): Post {
     altSlug: data.altSlug,
     image: data.image,
     readingMinutes: Math.max(1, Math.round(words / 200)),
-    html: enhanceTables(marked.parse(body) as string),
+    html: enhanceDiagrams(enhanceTables(marked.parse(body) as string)),
   }
 }
 
@@ -119,6 +119,28 @@ function enhanceTables(html: string): string {
       )
       return `<td${attrs}>${painted}</td>`
     })
+}
+
+/**
+ * Les diagrammes d'un carnet partent en chargement différé.
+ *
+ * Un carnet de tournoi en contient jusqu'à quarante-deux. Écrits à la main en
+ * HTML dans le Markdown, ils n'avaient aucun attribut : le navigateur les
+ * téléchargeait donc tous dès l'ouverture, soit ~700 Ko de SVG et autant de
+ * requêtes en concurrence avec le reste de la page, pour des images dont le
+ * lecteur ne voit que les deux premières.
+ *
+ * Rien à faire côté mise en page : `aspect-ratio` sur `.diagram-container img`
+ * réserve déjà la hauteur (voir styles.css), donc différer ne réintroduit
+ * aucun décalage. On ne touche qu'aux images de diagrammes, et jamais à une
+ * balise qui porte déjà `loading` — un futur carnet pourra forcer `eager` sur
+ * une image d'ouverture sans que cette fonction le défasse.
+ */
+function enhanceDiagrams(html: string): string {
+  return html.replace(/<img\s[^>]*>/g, (tag) => {
+    if (!/src="\/images\/blog\//.test(tag) || /\sloading=/.test(tag)) return tag
+    return tag.replace(/\s*\/?>$/, ' loading="lazy" decoding="async" />')
+  })
 }
 
 const posts: Post[] = [

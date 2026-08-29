@@ -49,7 +49,10 @@ export const SITE = {
     geo: { lat: 46.196817, lng: 6.153666 },
   },
   areaServed: ['Genève', 'Vaud', 'Arc lémanique', 'France voisine'],
-  priceRange: 'CHF',
+  // Une fourchette, pas un code de devise : « CHF » seul n'apprend rien à
+  // personne. Les bornes viennent de Tarifs.tsx — 40 CHF le cours en groupe,
+  // 60 CHF la séance individuelle. À tenir à jour avec la page tarifs.
+  priceRange: 'CHF 40–60',
 } as const
 
 export const absoluteUrl = (path: string): string => {
