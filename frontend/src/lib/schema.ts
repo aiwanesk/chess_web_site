@@ -264,21 +264,48 @@ export interface ArticleInput {
   datePublished: string
   dateModified?: string
   image?: string
+  /** Page language. Sans elle, un article EN se declarait francais. */
+  locale?: 'fr' | 'en'
+  /** Rubrique lisible, ex. « Progresser ». */
+  section?: string
+  /** Temps de lecture affiche sur la page, en minutes. */
+  readingMinutes?: number
 }
 
+/**
+ * Un article de blog.
+ *
+ * Deux choses valent d'etre expliquees, parce qu'elles ne se voient pas :
+ *  - une page d'article ne porte AUCUN noeud Person ni Organization (ils ne
+ *    sont emis que sur l'accueil et /a-propos). Un `@id` seul y serait donc une
+ *    reference pendante : un analyseur qui lit cette page isolement verrait un
+ *    auteur sans nom. Le nom voyage avec la reference, l'`@id` reste pour que
+ *    les deux se reconcilient a l'echelle du site.
+ *  - `image` n'est jamais omise : la carte de l'article s'il en a une, celle du
+ *    site sinon — comme og:image, qui a toujours eu ce repli.
+ */
 export function articleSchema(a: ArticleInput): JsonLd {
+  const url = absoluteUrl(a.url)
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: a.title,
     description: a.description,
-    url: absoluteUrl(a.url),
-    mainEntityOfPage: absoluteUrl(a.url),
+    url,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     datePublished: a.datePublished,
     dateModified: a.dateModified ?? a.datePublished,
-    inLanguage: 'fr',
-    author: { '@id': PERSON_ID },
-    publisher: { '@id': BUSINESS_ID },
-    ...(a.image ? { image: absoluteUrl(a.image) } : {}),
+    inLanguage: a.locale === 'en' ? 'en' : 'fr',
+    author: { '@type': 'Person', '@id': PERSON_ID, name: SITE.person.name, url: SITE.url },
+    publisher: {
+      '@type': 'ProfessionalService',
+      '@id': BUSINESS_ID,
+      name: SITE.name,
+      url: SITE.url,
+      logo: absoluteUrl(SITE.defaultOgImage),
+    },
+    image: absoluteUrl(a.image ?? SITE.defaultOgImage),
+    ...(a.section ? { articleSection: a.section } : {}),
+    ...(a.readingMinutes ? { timeRequired: `PT${a.readingMinutes}M` } : {}),
   }
 }

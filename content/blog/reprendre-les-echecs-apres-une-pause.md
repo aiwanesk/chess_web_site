@@ -3,6 +3,7 @@ title: "Reprendre les échecs après une pause : mon bilan après un an et 188 p
 description: "Maître FIDE, j'ai arrêté les échecs pendant six ans avant de reprendre en août 2025. Un an plus tard : 188 parties classées, 139 points Elo perdus en partie lente, et une idée plus claire de ce qui était resté intact et de ce qui avait disparu."
 author: "Alexandre Iwanesko"
 date: "2026-08-29"
+image: "/og/reprendre-les-echecs-apres-une-pause.png"
 category: "progresser"
 cluster: "adultes"
 clusterPath: "/cours-echecs-adultes-geneve"

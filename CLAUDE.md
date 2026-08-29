@@ -81,6 +81,12 @@
 - **Board orientation**: defaults to Alexandre's side (detected from the `White`/`Black` headers), overridable with a `[Orientation "black"]` header. The reader can flip it anyway.
 - **Piece set**: `frontend/src/components/chessPieces.tsx` — shared with `PuzzleBoard.tsx` (Lichess cburnett, inlined SVG).
 
+## Cartes de partage (Open Graph) et JSON-LD
+- **`scripts/gen-og.mjs`** produit les PNG 1200×630. Deux gabarits : `card()` pour un **carnet** (un vrai diagramme d'échiquier imbriqué depuis `public/images/blog/<dir>/`, donc la position montrée est celle de l'article) et `chartCard()` pour un **article de fond** (la courbe Elo, **lue directement dans le Markdown** — carte et graphique ne peuvent pas diverger).
+- Le SVG reste à côté du PNG : c'est la source éditable. **C'est le PNG qui va dans le front-matter** — les réseaux sociaux n'affichent pas d'aperçu SVG. Carnets : `/images/blog/<dir>/og-*.png`. Articles de fond : `/public/og/<slug>.png`.
+- Sans `image:` en front-matter, la page retombe sur `og/default.png` — silencieusement. `check-content-links.mjs` vérifie qu'une `image:` déclarée existe, **pour tout article** et plus seulement pour les carnets.
+- **JSON-LD** (`frontend/src/lib/schema.ts`, `articleSchema`) : une page d'article ne porte aucun nœud `Person` ni `Organization` (ils ne sont émis que sur l'accueil et `/a-propos`). L'`@id` seul y serait une **référence pendante** — le nom voyage donc avec. `inLanguage` suit la locale de la page (un article EN se déclarait `fr`), et `image` a toujours une valeur.
+
 ## Diagram Generation
 - Run `node scripts/gen-diagrams.mjs` after modifying FEN positions
 - Each diagram entry: `{ file, fen, lastMove?, flip?, dir? }`

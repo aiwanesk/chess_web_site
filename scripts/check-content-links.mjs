@@ -10,6 +10,8 @@
  *   2. tout carnet EN est pointé par un `slugEn` du même fichier
  *   3. tout `slugFr`/`slugEn` du calendrier pointe vers un article qui existe
  *   4. un `altSlug` renvoie vers un fichier existant, qui pointe en retour
+ *
+ * Et pour TOUT article, carnet ou non :
  *   5. une image `image:` déclarée existe bien dans public/
  *
  * Avertissements (n'échouent pas) : image OG au format SVG, que les réseaux
@@ -66,6 +68,20 @@ for (const [locale, list] of [
   const key = locale === 'fr' ? 'slugFr' : 'slugEn'
 
   for (const p of list) {
+    // 5 — une image `image:` déclarée doit exister, et devrait être un PNG.
+    //     Vaut pour tout article, pas seulement les carnets : un aperçu de
+    //     partage cassé ne prévient jamais.
+    if (p.fm.image) {
+      if (!existsSync(join(root, 'public', p.fm.image.replace(/^\//, '')))) {
+        errors.push(`${p.path} — image "${p.fm.image}" introuvable dans public/.`)
+      } else if (p.fm.image.endsWith('.svg')) {
+        warnings.push(
+          `${p.path} — image OG en SVG : les réseaux sociaux ne l'affichent pas en aperçu.\n` +
+            `    → génère un PNG 1200×630 (scripts/gen-og.mjs) et pointe dessus.`,
+        )
+      }
+    }
+
     if (p.fm.category !== DIARY) continue
 
     // 1 & 2 — the diary must be reachable from the calendar.
@@ -89,18 +105,6 @@ for (const [locale, list] of [
           `${p.path} — appairage FR/EN à sens unique : ${counterpart.path} devrait porter ` +
             `\`altSlug: "${p.slug}"\` (il a ${counterpart.fm.altSlug ? `"${counterpart.fm.altSlug}"` : 'rien'}).\n` +
             `    → sans réciprocité, pas de hreflang.`,
-        )
-      }
-    }
-
-    // 5 — a declared OG image must exist, and should be a PNG.
-    if (p.fm.image) {
-      if (!existsSync(join(root, 'public', p.fm.image.replace(/^\//, '')))) {
-        errors.push(`${p.path} — image "${p.fm.image}" introuvable dans public/.`)
-      } else if (p.fm.image.endsWith('.svg')) {
-        warnings.push(
-          `${p.path} — image OG en SVG : les réseaux sociaux ne l'affichent pas en aperçu.\n` +
-            `    → génère un PNG 1200×630 (scripts/gen-og.mjs) et pointe dessus.`,
         )
       }
     }

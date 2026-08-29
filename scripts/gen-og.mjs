@@ -11,7 +11,7 @@
  *
  * Usage : node scripts/gen-og.mjs
  */
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -35,6 +35,52 @@ const FOOTER_EN = 'Alexandre Iwanesko · FIDE Master · iwanesko.ch'
 function boardBody(dir, file) {
   const svg = readFileSync(join(root, 'public/images/blog', dir, file), 'utf8')
   return svg.replace(/<\?xml[^>]*\?>\s*/, '').replace(/^\s*<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '')
+}
+
+/**
+ * Contenu de la courbe Elo, lu directement dans l'article : la carte et le
+ * graphique de la page ne peuvent donc pas diverger. Les classes sont stylées
+ * ici pour le fond navy (dans l'article, c'est styles.css qui s'en charge).
+ */
+function chartBody(mdPath) {
+  const md = readFileSync(join(root, mdPath), 'utf8')
+  const start = md.indexOf('<div class="elo-chart">')
+  const open = md.indexOf('>', md.indexOf('<svg', start))
+  const end = md.indexOf('</svg>', open)
+  return md.slice(open + 1, end)
+}
+
+/** Carte d'un article de fond : pas de position à montrer, mais une courbe. */
+function chartCard({ chart, eyebrow, title, subtitle, statBig, statLabel, statAlt, statAltLabel, footer }) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#161d31"/><stop offset="1" stop-color="${NAVY}"/>
+  </linearGradient>
+</defs>
+<style>
+  .grid { stroke: ${CREAM}; stroke-opacity: .16; stroke-width: 1 }
+  .tick { fill: ${MUTED}; font-family: ${FONT}; font-size: 15px }
+  .line { fill: none; stroke: ${GOLD}; stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round }
+  .prov { stroke-dasharray: 7 6; opacity: .55 }
+  .dot { fill: ${GOLD} }
+  .prov-dot { opacity: .55 }
+  .mark { fill: ${CREAM}; font-family: ${FONT}; font-size: 17px; font-weight: 700 }
+</style>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect x="22" y="22" width="1156" height="586" rx="16" fill="none" stroke="${GOLD}" stroke-opacity="0.16"/>
+<text x="76" y="92" font-family="${FONT}" font-size="19" font-weight="600" letter-spacing="4.5" fill="${GOLD}">${eyebrow}</text>
+<text x="76" y="152" font-family="${FONT}" font-size="48" font-weight="700" fill="${CREAM}">${title}</text>
+<rect x="76" y="176" width="86" height="4" rx="2" fill="${GOLD_DEEP}"/>
+<text x="76" y="216" font-family="${FONT}" font-size="24" fill="${MUTED}">${subtitle}</text>
+<g transform="translate(36,246) scale(0.86)">${chart}</g>
+<text x="900" y="332" font-family="${FONT}" font-size="84" font-weight="700" fill="${GOLD}">${statBig}</text>
+<text x="900" y="368" font-family="${FONT}" font-size="21" fill="${MUTED}">${statLabel}</text>
+<text x="900" y="444" font-family="${FONT}" font-size="46" font-weight="700" fill="${CREAM}">${statAlt}</text>
+<text x="900" y="480" font-family="${FONT}" font-size="21" fill="${MUTED}">${statAltLabel}</text>
+<text x="76" y="578" font-family="${FONT}" font-size="21" fill="${MUTED}">${footer}</text>
+</svg>
+`
 }
 
 function card({ board, eyebrow, title, subtitle, score, footer }) {
@@ -135,10 +181,32 @@ const CARDS = [
   },
 ]
 
-for (const c of CARDS) {
+// Les articles de fond : une courbe plutot qu'une position.
+const CHART_CARDS = [
+  {
+    out: 'public/og/reprendre-les-echecs-apres-une-pause.png',
+    md: 'content/blog/reprendre-les-echecs-apres-une-pause.md',
+    eyebrow: 'BILAN · UN AN DE REPRISE',
+    title: 'Reprendre les échecs après une pause',
+    subtitle: "De 2289 à 2150 en partie lente, entre août 2025 et août 2026",
+    statBig: '−139',
+    statLabel: 'points Elo · partie lente',
+    statAlt: '188',
+    statAltLabel: 'parties classées FIDE',
+    footer: FOOTER_FR,
+  },
+]
+
+const ALL = [
+  ...CARDS.map((c) => ({ out: c.out, svg: () => card({ ...c, board: boardBody(c.dir, c.board) }) })),
+  ...CHART_CARDS.map((c) => ({ out: c.out, svg: () => chartCard({ ...c, chart: chartBody(c.md) }) })),
+]
+
+for (const c of ALL) {
   const svgPath = join(root, c.out.replace(/\.png$/, '.svg'))
   const pngPath = join(root, c.out)
-  writeFileSync(svgPath, card({ ...c, board: boardBody(c.dir, c.board) }), 'utf8')
+  mkdirSync(dirname(pngPath), { recursive: true })
+  writeFileSync(svgPath, c.svg(), 'utf8')
   execFileSync(CHROME, [
     '--headless=new',
     '--disable-gpu',

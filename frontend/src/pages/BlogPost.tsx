@@ -98,6 +98,9 @@ export function Component() {
             datePublished: post.date,
             dateModified: post.updated,
             image: post.image,
+            locale,
+            section: category ? catView(category, locale).short : undefined,
+            readingMinutes: post.readingMinutes,
           }),
         ]}
       />
