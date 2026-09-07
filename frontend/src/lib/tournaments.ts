@@ -80,13 +80,6 @@ export const TOURNAMENTS: CalEvent[] = [
     slugFr: 'grand-prix-monthey-2026',
   },
   {
-    id: 'match-n1-2026-09',
-    start: '2026-09-12',
-    end: '2026-09-13',
-    name: 'Match de Nationale 1',
-    nameEn: 'National League 1 match',
-  },
-  {
     id: 'match-n1-2026-10',
     start: '2026-10-10',
     end: '2026-10-11',
