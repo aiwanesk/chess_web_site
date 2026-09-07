@@ -6,6 +6,7 @@ date: "2026-09-06"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/preparation-tournoi-echecs"
+altSlug: "monthey-grand-prix-2026"
 ---
 
 **En une phrase :** sept rondes en trois jours à Monthey, trois rapides le vendredi soir et quatre longues le week-end, dans un open stacké à faire peur — et un tournoi qui m'a montré assez précisément où mon calcul s'arrête.

@@ -25,11 +25,18 @@ const NAV: NavItem[] = [
 
 function Brand({ locale }: { locale: Locale }) {
   return (
-    <Link to={homePath(locale)} className="flex items-center gap-2.5 font-bold text-ink-900">
+    // `shrink-0` : sans lui, les libellés de nav (tous en `whitespace-nowrap`)
+    // compriment la marque jusqu'à faire passer le sous-titre sur deux lignes,
+    // qui débordent alors sous le logo. La marque ne se comprime plus, et le
+    // sous-titre ne se coupe jamais.
+    <Link to={homePath(locale)} className="flex shrink-0 items-center gap-2.5 font-bold text-ink-900">
       <img src="/logo-128.png" alt="" width={36} height={36} className="h-9 w-9 rounded-lg" />
       <span className="leading-none">
         <span className="font-display text-[1.05rem] tracking-tight">Alexandre&nbsp;Iwanesko</span>
-        <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-gold-700">
+        {/* L'interlettrage se resserre entre xl et 2xl : à 1280 px, sept entrées
+            de nav + le bouton laissent une trentaine de pixels de trop au
+            sous-titre. Il retrouve son air à partir de 1536 px. */}
+        <span className="mt-0.5 block whitespace-nowrap text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-gold-700 2xl:tracking-[0.18em]">
           {t(locale).footerRole}
         </span>
       </span>

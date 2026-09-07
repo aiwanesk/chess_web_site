@@ -50,9 +50,9 @@ export const SITE = {
   },
   areaServed: ['Genève', 'Vaud', 'Arc lémanique', 'France voisine'],
   // Une fourchette, pas un code de devise : « CHF » seul n'apprend rien à
-  // personne. Les bornes viennent de Tarifs.tsx — 40 CHF le cours en groupe,
+  // personne. Les bornes viennent de Tarifs.tsx — 70 CHF le cours en groupe,
   // 120 CHF la séance individuelle. À tenir à jour avec la page tarifs.
-  priceRange: 'CHF 40–120',
+  priceRange: 'CHF 70–120',
 } as const
 
 export const absoluteUrl = (path: string): string => {
