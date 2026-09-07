@@ -74,6 +74,10 @@ export const TOURNAMENTS: CalEvent[] = [
     nameEn: 'Monthey Grand Prix',
     location: 'Monthey, Suisse',
     locationEn: 'Monthey, Switzerland',
+    format: '7 rondes · 3 rapides + 4 longues',
+    formatEn: '7 rounds · 3 rapid + 4 classical',
+    result: '5/7',
+    slugFr: 'grand-prix-monthey-2026',
   },
   {
     id: 'match-n1-2026-09',

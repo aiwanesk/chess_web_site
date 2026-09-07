@@ -516,6 +516,124 @@ const diagrams = [
     lastMove: 'a2b1',
     flip: true,
   },
+  // ─── Grand Prix de Monthey 2026 ───
+  {
+    dir: 'monthey-2026',
+    file: 'ronde2-diagramme1.svg',
+    fen: 'r2qr1k1/pp1nbp2/2p1pnp1/6Bp/3P3P/P1PB1QN1/1P3PP1/3RR1K1 w - - 0 1',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde4-diagramme1.svg',
+    fen: 'r2q1rk1/1b2npbp/p3p1p1/1p1p4/3pP3/1B1P1P1Q/PPP1N1PP/R1B2RK1 b - - 0 14',
+    lastMove: 'f2f3',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde4-diagramme2.svg',
+    fen: '2rq1r2/4npkp/4p1p1/p2p4/R2pP3/3P1P1Q/1PP1N1PP/2R3K1 b - - 0 20',
+    lastMove: 'f1c1',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde4-diagramme3.svg',
+    fen: '3qr3/5pkp/2n3p1/p2pp3/3pP3/1rPP1PQ1/RP2N1PP/R5K1 w - - 0 25',
+    lastMove: 'b8b3',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde4-diagramme4.svg',
+    fen: '3n1k2/5R1p/6pN/p1q1p3/4P2Q/8/6PP/1rr2R1K b - - 0 39',
+    lastMove: 'f6f7',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde4-diagramme5.svg',
+    fen: '3nk3/5R1p/6pN/p1q1p3/4P2Q/8/6PP/1rr2R1K w - - 0 40',
+    lastMove: 'f8e8',
+  },
+  // Ronde 5 : Alexandre a les Noirs, donc flip.
+  {
+    dir: 'monthey-2026',
+    file: 'ronde5-diagramme1.svg',
+    fen: 'r3kb1r/1p1q1pp1/p1np1n2/2p1p2p/4P3/2P2BPP/PP1PQPK1/RNB2R2 w kq - 0 11',
+    lastMove: 'h7h5',
+    flip: true,
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde5-diagramme2.svg',
+    fen: '1r3rk1/1p2qppn/p2p4/4p3/2p1P1Pp/2PPP2P/PP1Q2K1/R2B1R2 w - - 0 22',
+    lastMove: 'c5c4',
+    flip: true,
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde5-diagramme3.svg',
+    fen: '5rk1/1p2qpp1/p1rp4/4p1n1/2P1P1Pp/1PP1P2P/P1BQ2K1/R4R2 w - - 0 25',
+    lastMove: 'c8c6',
+    flip: true,
+  },
+  // Ronde 6 : Alexandre a les Blancs, pas de flip.
+  {
+    dir: 'monthey-2026',
+    file: 'ronde6-diagramme1.svg',
+    fen: 'r3k2r/1pqnbppp/p3p3/2p5/3P4/5B2/PPP2PPP/R1BQ1RK1 w - - 0 13',
+    lastMove: 'd8c7',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde6-diagramme2.svg',
+    fen: 'r4rk1/1pqnb1pp/p7/2p1p3/8/5B2/PPP1QPPP/R1B2RK1 w - - 0 16',
+    lastMove: 'e6e5',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde6-diagramme3.svg',
+    fen: '3r1r1k/1pqnb1pp/p7/2p1p3/P7/1R3B2/1PP1QPPP/2B2RK1 b - - 0 18',
+    lastMove: 'a3b3',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde6-diagramme4.svg',
+    fen: '1r4k1/1pq1brpp/p4n2/2p1p3/P1Q1B3/7R/1PP2PPP/2B2RK1 w - - 0 22',
+    lastMove: 'f8f7',
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde6-diagramme5.svg',
+    fen: '1r6/1pq1bQpk/p7/2p1p3/P7/8/1PP2PPP/2B2RK1 b - - 0 24',
+    lastMove: 'c4f7',
+  },
+  // Ronde 7 : Alexandre a les Noirs, donc flip.
+  {
+    dir: 'monthey-2026',
+    file: 'ronde7-diagramme1.svg',
+    fen: 'r2qnrk1/pp4b1/2npb1p1/2pNpp1p/2P5/1PNP2P1/PB2PPBP/R2Q1RK1 w - - 0 14',
+    lastMove: 'h6h5',
+    flip: true,
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde7-diagramme2.svg',
+    fen: 'r2qn2b/pp3k2/2npb1p1/2pN1p1r/2P2p2/1PNPPBQ1/PB5P/R4RK1 w - - 0 21',
+    lastMove: 'e5f4',
+    flip: true,
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde7-diagramme3.svg',
+    fen: 'r3n2b/pp3k2/3pb1pr/2pN1p2/2Pn1P1q/1PNP2Q1/PB5P/3BRRK1 w - - 0 24',
+    lastMove: 'd8h4',
+    flip: true,
+  },
+  {
+    dir: 'monthey-2026',
+    file: 'ronde7-diagramme4.svg',
+    fen: 'r3n3/pp3k2/2npb1pr/2pN1p2/2Pb1P1q/1PNPR1Q1/PB4KP/3B1R2 w - - 0 26',
+    lastMove: 'h8d4',
+    flip: true,
+  },
 ];
 
 console.log('Generating diagrams with official Lichess cburnett pieces…\n');
@@ -528,7 +646,8 @@ for (const d of diagrams) {
   console.log(`  ✓ ${d.dir ?? DEFAULT_DIR}/${d.file}`);
 }
 
-writeFileSync(join(outDir, 'og-pontevedra.svg'), generateBoardSVG(diagrams[0].fen, { lastMove: diagrams[0].lastMove, flip: diagrams[0].flip }), 'utf-8');
-console.log(`  ✓ og-pontevedra.svg`);
+// NE PAS réécrire ici les cartes Open Graph : elles appartiennent à gen-og.mjs,
+// qui produit un 1200×630 avec titre et cadre. Une ligne d'export laissée là
+// écrasait `og-pontevedra.svg` par un simple échiquier 360×360 à chaque run.
 
 console.log(`\nDone! public/images/blog/pontevedra-2026/`);

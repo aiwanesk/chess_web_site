@@ -108,6 +108,9 @@ voient qu'en relisant — les traquer explicitement.
 15. **Un aparté se pose en suspension, pas en incise.** « … nettement plus agréable à jouer**…** pour moi »
     fonctionne ; le tiret cadratin annonce une précision, pas une chute.
 
+**Le français est suisse.** On écrit **septante** et **nonante**, jamais « soixante-dix » ni
+« quatre-vingt-dix ». (Genève garde « quatre-vingts » ; « huitante » est valaisan et vaudois.)
+
 **Idiomes à ne pas rater :** « de bout en bout » (pas « d'un bout à l'autre » sans complément) · une pièce est
 **en** a4 (jamais « à a4 ») · notation **française** (C, F, T, D, R) dans tout article FR, y compris les coups
 cités entre backticks.
@@ -152,3 +155,36 @@ Relire chaque paragraphe et se demander :
    → Dire ce que devient chaque pièce, pas ce qu'elle était avant.
 
 Si le passage pourrait figurer tel quel dans un compte-rendu de fédération, c'est qu'il manque la voix.
+
+---
+
+## La passe de coupe (relecture d'édition)
+
+Le premier jet applique la voix. Cette passe-là **enlève**, et c'est elle qui fait la différence entre
+un carnet et une chronique. Retour d'Alexandre sur Monthey 2026 : le texte est nettement meilleur dans
+ses moments simples que dans ceux où il cherche la belle phrase.
+
+1. **Couper 20–30 % des phrases à effet.** Ne pas enlever l'humour — enlever *une partie* de l'humour,
+   pour que le reste frappe. Le défaut n'est jamais une chute isolée, c'est leur **accumulation**.
+2. **Tuer le rythme mécanique.** Si chaque bloc fait `description → analyse → petite chute`, le lecteur
+   voit venir la machine au troisième paragraphe. Terminer plusieurs paragraphes à plat, sans pointe.
+3. **Quand la situation parle déjà, ne rien ajouter.** ❌ « Je repars content de ma soirée : joué vite,
+   joué pratique, trois positions transformées en trois points. Reste un détail — je n'ai pas encore
+   poussé un pion à 1h30. » → ✅ garder la seule chute. La mise en place tuait le gag.
+4. **Ne pas tirer la morale après une bonne phrase.** « Je l'ai crue à moi pendant quatre coups » se
+   suffit. Le lecteur comprend.
+5. **Ne pas raconter trois fois la même chose.** Ce que je pensais pendant la partie / ce que j'ai
+   calculé / ce que dit le moteur : choisir, à chaque moment, lequel des trois est le plus parlant.
+6. **Le bloc `engine-note` ne garde que ce qui change notre compréhension de ce que le joueur pensait.**
+   Une variante secondaire de plus, et le lecteur regarde Stockfish au lieu de vivre la partie.
+   Un carnet est intéressant quand on est dans la tête du joueur, pas dans celle de la machine.
+7. **Proportion.** La partie maîtresse du tournoi mérite d'être longue, pas trois fois plus longue que
+   les autres, sinon les rondes suivantes se lisent comme des annexes.
+8. **Vocabulaire : le parlé plutôt que l'écrit.** ✅ « Je ne vois pas quoi faire, alors je joue `Td2` »
+   plutôt que ❌ « je récupère des coups à jouer ». Autres formules fabriquées à traquer : « la position
+   est mûre », « il travaille pour moi », « ce n'est pas une offre, c'est un coup ».
+9. **Le fil rouge doit être annoncé, vérifiable ronde par ronde, et repris en conclusion.** Le sujet
+   d'un carnet n'est jamais « j'ai fait 5/7 » : à Monthey c'était « je croyais mon jugement revenu, le
+   tournoi me montre où mon calcul s'arrête ».
+10. **Finir sur une vraie conclusion de carnet**, pas sur la section technique (Elo, tableau). Le
+    dernier paragraphe doit relire le tournoi, pas le comptabiliser.
