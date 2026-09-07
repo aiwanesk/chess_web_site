@@ -101,8 +101,15 @@ function build(filePath: string, raw: string, lang: Locale): Post {
  */
 function enhanceTables(html: string): string {
   return html
-    .replace(/<table>/g, '<div class="table-wrap"><table>')
-    .replace(/<\/table>/g, '</table></div>')
+    // Ouvrir et fermer le conteneur dans LA MÊME substitution. Les deux
+    // `replace` séparés d'avant ne pouvaient pas rester synchrones : `<table>`
+    // ne matchait que la balise nue produite par le Markdown, alors que
+    // `</table>` matchait aussi les tableaux de bilan écrits à la main dans les
+    // carnets (`<table style="…">`). Chaque carnet héritait donc d'un `</div>`
+    // orphelin qui fermait `#root` avant l'heure : le navigateur reparentait la
+    // fin de la page hors du conteneur React, l'hydratation repartait de zéro
+    // et le pied de page s'affichait deux fois.
+    .replace(/<table>([\s\S]*?)<\/table>/g, '<div class="table-wrap"><table>$1</table></div>')
     .replace(/<td([^>]*)>([\s\S]*?)<\/td>/g, (whole, attrs: string, inner: string) => {
       // Garde-fou : on ne touche qu'aux cellules purement numériques. Les
       // tableaux écrits à la main dans les carnets (« Nyon 1 – Wollishofen 1 »,

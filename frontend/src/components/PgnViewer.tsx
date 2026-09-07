@@ -30,7 +30,7 @@ const STR: Record<Locale, {
     pause: 'Pause',
     missing: 'Partie introuvable.',
     moves: 'Liste des coups',
-    startPos: 'Début de la partie',
+    startPos: 'Position de départ',
     games: 'Choisir la partie',
   },
   en: {
@@ -43,7 +43,7 @@ const STR: Record<Locale, {
     pause: 'Pause',
     missing: 'Game not found.',
     moves: 'Move list',
-    startPos: 'Start of the game',
+    startPos: 'Start position',
     games: 'Choose the game',
   },
 }

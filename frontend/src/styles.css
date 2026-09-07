@@ -234,14 +234,20 @@ h1, h2, h3 {
   padding: 0.12em 0.4em;
   border-radius: 4px;
 }
-/* Carnets de tournoi : un coup joué dans la partie s'écrit `Cf3` (fond crème,
-   ci-dessus), un coup seulement calculé s'écrit *`Cf3`* — <em><code> — et sort
-   en grisé sans fond, pour qu'on ne confonde jamais la partie et la variante. */
+/* Carnets de tournoi : un coup joué dans la partie s'écrit `Cf3` (fond crème
+   chaud, ci-dessus), un coup seulement calculé s'écrit *`Cf3`* — <em><code>.
+   La variante était grise sur fond transparent : illisible dès qu'elle faisait
+   plus de trois coups. Elle garde donc un vrai contraste de texte (ink-700) et
+   se distingue par la TEMPÉRATURE du fond — gris froid contre crème chaude —
+   plus un soulignement tireté qui dit « hypothèse » sans enfermer les coups
+   dans une boîte. Ne jamais revenir à un texte grisé : c'est une ligne
+   d'échecs, elle doit se lire coup par coup. */
 .prose em code {
-  background: transparent;
-  color: var(--color-ink-500);
-  border: 1px dashed var(--color-ink-300);
-  padding: 0.06em 0.34em;
+  background: var(--color-ink-100);
+  color: var(--color-ink-700);
+  border-bottom: 1px dashed var(--color-ink-300);
+  border-radius: 4px 4px 0 0;
+  padding: 0.12em 0.4em;
   font-style: normal;
 }
 .prose hr {
@@ -359,6 +365,12 @@ html[data-theme='dark'] .theme-icon-moon { display: none; }
   margin: 2rem 0;
 }
 .prose .diagram-container img {
+  /* Le preflight de Tailwind passe toute image en `display: block`, et un bloc
+     se moque du `text-align: center` du conteneur : les diagrammes restaient
+     collés au bord gauche de la colonne de texte, la légende centrée à côté.
+     C'est `margin-inline: auto` qui centre une image, pas `text-align`. */
+  display: block;
+  margin-inline: auto;
   max-width: 480px;
   width: 100%;
   /* Les diagrammes sont carrés (viewBox 360x360). Sans ratio déclaré, leur
@@ -371,11 +383,18 @@ html[data-theme='dark'] .theme-icon-moon { display: none; }
 html[data-theme='dark'] .prose .diagram-container img {
   box-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
+/* La légende était bien centrée, mais sur la colonne de texte (68 caractères)
+   et non sur l'échiquier (480 px) : dès qu'elle dépassait une ligne, elle
+   débordait des deux côtés du diagramme et ne se lisait plus comme sa légende.
+   Même largeur que l'image, donc, et centrée sous elle. */
 .prose .diagram-caption {
+  max-width: 480px;
+  margin: 0.5rem auto 0;
   font-size: 0.9rem;
   color: var(--color-ink-500);
-  margin-top: 0.5rem;
   font-style: italic;
+  text-align: center;
+  text-wrap: balance;
 }
 
 /* « L'ordinateur, après coup » — le verdict du moteur, séparé du texte. */
@@ -508,6 +527,23 @@ html[data-theme='dark'] .prose .delta-down { color: #f78a8a; }
 @media (min-width: 48rem) {
   .prose .table-wrap {
     width: min(58rem, calc(100vw - 5rem));
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Même sortie de colonne pour les tableaux de bilan écrits à la main dans les
+   carnets. Ils gardent leur propre mise en forme (donc surtout pas
+   `.table-wrap`, qui repeindrait les cellules), mais ils subissent la même
+   contrainte en pire : sept colonnes — ronde, cadence, titre, adversaire, Elo,
+   couleur, résultat — n'entrent pas dans 68 caractères. */
+.prose .table-bleed {
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+@media (min-width: 48rem) {
+  .prose .table-bleed {
+    width: min(64rem, calc(100vw - 5rem));
     margin-left: 50%;
     transform: translateX(-50%);
   }
