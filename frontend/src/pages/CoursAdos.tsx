@@ -108,7 +108,7 @@ const FR: MoneyPageProps = {
     description:
       'Coaching individualisé pour adolescents joueurs de compétition : progression Elo, préparation tournoi et mental, par un Maître FIDE à Genève.',
     url: '/cours-echecs-ados-competition',
-    price: 60,
+    price: 120,
     priceUnit: 'la séance individuelle de 60 min',
     courseMode: 'blended',
   },
@@ -193,7 +193,7 @@ const EN: MoneyPageProps = {
     description:
       'Individual coaching for teenage competition players: Elo progress, tournament preparation and mental game, by a FIDE Master in Geneva.',
     url: '/en/junior-chess-coaching',
-    price: 60,
+    price: 120,
     priceUnit: 'per one-to-one 60-min session',
     courseMode: 'blended',
   },

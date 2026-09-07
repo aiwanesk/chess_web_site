@@ -53,7 +53,7 @@ const FR: MoneyPageProps = {
     description:
       'Coaching de préparation aux tournois d’échecs avec un Maître FIDE : répertoire, préparation adverse, gestion du temps et suivi pendant l’événement.',
     url: '/preparation-tournoi-echecs',
-    price: 60,
+    price: 120,
     priceUnit: 'la séance (forfaits dédiés)',
     courseMode: 'blended',
   },
@@ -176,7 +176,7 @@ const EN: MoneyPageProps = {
     description:
       'Tournament preparation coaching with a FIDE Master: repertoire, opponent prep, time management and support during the event.',
     url: '/en/tournament-preparation',
-    price: 60,
+    price: 120,
     priceUnit: 'per session (dedicated packages)',
     courseMode: 'blended',
   },
