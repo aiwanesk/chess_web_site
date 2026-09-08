@@ -6,6 +6,7 @@ date: "2026-09-06"
 category: "carnet-de-tournoi"
 cluster: "tournoi"
 clusterPath: "/en/tournament-preparation"
+image: "/images/blog/monthey-2026/og-monthey-en.png"
 altSlug: "grand-prix-monthey-2026"
 ---
 

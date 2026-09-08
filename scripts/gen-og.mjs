@@ -120,6 +120,26 @@ ${title
 // Un diagramme marquant par tournoi : celui que l'article met en avant.
 const CARDS = [
   {
+    out: 'public/images/blog/monthey-2026/og-monthey.png',
+    dir: 'monthey-2026',
+    board: 'ronde6-diagramme4.svg', // dame, fou et tour convergent, juste avant 22.Fxh7+
+    eyebrow: 'CARNET DE TOURNOI',
+    title: ['Grand Prix de', 'Monthey'],
+    subtitle: 'Monthey, Suisse · 4–6 septembre 2026',
+    score: '5/7 · 7ᵉ sur 75 · quatre GM au départ',
+    footer: FOOTER_FR,
+  },
+  {
+    out: 'public/images/blog/monthey-2026/og-monthey-en.png',
+    dir: 'monthey-2026',
+    board: 'ronde6-diagramme4.svg',
+    eyebrow: 'TOURNAMENT DIARY',
+    title: ['Monthey', 'Grand Prix'],
+    subtitle: 'Monthey, Switzerland · 4–6 September 2026',
+    score: '5/7 · 7th of 75 · four GMs in the field',
+    footer: FOOTER_EN,
+  },
+  {
     out: 'public/images/blog/cse-2026/og-cse.png',
     dir: 'cse-2026',
     board: 'ronde6-diagramme6.svg', // la « position de rêve » après 20.Tfe1
