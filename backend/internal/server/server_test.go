@@ -629,3 +629,36 @@ func TestSeedKindMarksBacklogWithoutSending(t *testing.T) {
 		t.Error("l'amorçage a rejoué et avalé un article publié depuis")
 	}
 }
+
+// refHost reçoit une valeur choisie par le navigateur : tout ce qui n'est pas
+// un nom d'hôte plausible doit tomber, et le site lui-même ne doit jamais être
+// compté comme une provenance.
+func TestRefHost(t *testing.T) {
+	const self = "iwanesko.ch"
+	cases := []struct{ in, want string }{
+		{"chatgpt.com", "chatgpt.com"},
+		{"www.Perplexity.AI", "perplexity.ai"},
+		{"  google.ch  ", "google.ch"},
+		{"iwanesko.ch", ""},               // navigation interne
+		{"www.iwanesko.ch", ""},           // idem, préfixe retiré des deux côtés
+		{"", ""},                          // visite directe
+		{"https://chatgpt.com/c/abc", ""}, // une URL, pas un hôte
+		{"chatgpt.com/c/abc", ""},         // un chemin non plus
+		{"localhost", ""},                 // pas de TLD
+		{"192.168.1.1", ""},               // IP nue
+		{"evil.com:8080", ""},             // port
+		{"a..b.com", ""},                  // label vide
+		{"nope", ""},
+	}
+	for _, c := range cases {
+		if got := refHost(c.in, self); got != c.want {
+			t.Errorf("refHost(%q) = %q, want %q", c.in, got, c.want)
+		}
+	}
+	if got := refHost("chatgpt.com", "iwanesko.ch:8080"); got != "chatgpt.com" {
+		t.Errorf("un Host avec port doit rester comparable, got %q", got)
+	}
+	if got := refHost(strings.Repeat("a", 120)+".com", self); got != "" {
+		t.Errorf("hôte trop long accepté : %q", got)
+	}
+}

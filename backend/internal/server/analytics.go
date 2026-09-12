@@ -72,7 +72,7 @@ func (s *Server) countPageviews(next http.Handler) http.Handler {
 		}
 		fp := s.visitorFingerprint(r, ip)
 		go func() {
-			if err := s.store.RecordPageview(path, country, true, fp); err != nil {
+			if err := s.store.RecordPageview(path, country, true, fp, ""); err != nil {
 				slog.Error("pageview record failed", "err", err)
 			}
 		}()
@@ -82,7 +82,43 @@ func (s *Server) countPageviews(next http.Handler) http.Handler {
 // hitRequest est le corps envoyé par la balise JS.
 type hitRequest struct {
 	Path string `json:"path"`
+	// Hôte du référent, lu dans document.referrer par la page. Il ne peut PAS
+	// venir de l'en-tête Referer : /api/hit est un appel same-origin, donc cet
+	// en-tête désigne toujours le site lui-même — c'est même ce que vérifie
+	// sameSite(). L'hôte externe n'existe que côté navigateur.
+	Ref string `json:"ref,omitempty"`
 }
+
+// refHost valide un hôte annoncé par la page. Le corps de la requête n'est pas
+// digne de confiance : on n'accepte qu'un nom d'hôte plausible, jamais une URL,
+// et on écarte le site lui-même (une navigation interne n'est pas une
+// provenance). Renvoie "" si l'hôte doit être ignoré.
+func refHost(raw, self string) string {
+	raw = strings.ToLower(strings.TrimSpace(raw))
+	if raw == "" || len(raw) > 100 {
+		return ""
+	}
+	if !hostRe.MatchString(raw) { // exclut d'office les URL, ports et IP nues
+		return ""
+	}
+	raw = strings.TrimPrefix(raw, "www.")
+	if raw == bareHost(self) {
+		return "" // navigation interne : ce n'est pas une provenance
+	}
+	return raw
+}
+
+// bareHost réduit un Host HTTP à son nom d'hôte comparable : port retiré, en
+// minuscules, sans « www. ».
+func bareHost(h string) string {
+	if host, _, err := net.SplitHostPort(h); err == nil {
+		h = host
+	}
+	return strings.TrimPrefix(strings.ToLower(h), "www.")
+}
+
+// Un nom d'hôte et rien d'autre : des labels, un point, un TLD alphabétique.
+var hostRe = regexp.MustCompile(`^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$`)
 
 // sameSite vérifie que la requête vient bien d'une page du site : Origin (ou à
 // défaut Referer) doit désigner le même hôte que celui appelé. Ça n'arrête pas
@@ -129,7 +165,7 @@ func (s *Server) handleHit(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	fp := s.visitorFingerprint(r, ip)
-	if err := s.store.RecordPageview(path, country, false, fp); err != nil {
+	if err := s.store.RecordPageview(path, country, false, fp, refHost(req.Ref, r.Host)); err != nil {
 		slog.Error("pageview record failed", "err", err)
 	}
 	w.WriteHeader(http.StatusNoContent)

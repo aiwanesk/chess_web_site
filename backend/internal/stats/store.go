@@ -46,6 +46,12 @@ CREATE TABLE IF NOT EXISTS geo (
 	country TEXT PRIMARY KEY, -- 2-letter code (offline lookup, no IP stored)
 	count   INTEGER NOT NULL DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS referrers (
+	day   TEXT NOT NULL,
+	host  TEXT NOT NULL,   -- hôte SEULEMENT (chatgpt.com), jamais l'URL complète
+	count INTEGER NOT NULL DEFAULT 0,
+	PRIMARY KEY (day, host)
+);
 CREATE TABLE IF NOT EXISTS visitors (
 	day TEXT NOT NULL,
 	fp  TEXT NOT NULL,        -- salted daily hash of IP+UA (non-reversible, no IP)
@@ -100,7 +106,12 @@ type Row struct {
 // RecordPageview records one page view. Bots are counted in `traffic` only;
 // humans also count toward the page's views, the day's unique visitors (by a
 // non-reversible daily fingerprint — no IP stored) and the country tally.
-func (s *Store) RecordPageview(path, country string, isBot bool, fp string) error {
+//
+// `ref` is the EXTERNAL referrer's host, already validated by the caller, and
+// empty for a direct visit or an internal navigation. Only the host is ever
+// stored: savoir qu'une visite vient de chatgpt.com est utile, savoir quelle
+// conversation l'a produite ne l'est pas.
+func (s *Store) RecordPageview(path, country string, isBot bool, fp, ref string) error {
 	if len(path) > 200 { // defensive cap against pathological URLs
 		path = path[:200]
 	}
@@ -134,6 +145,12 @@ func (s *Store) RecordPageview(path, country string, isBot bool, fp string) erro
 		}
 		if fp != "" {
 			if err := bump(`INSERT INTO visitors (day, fp) VALUES (?, ?) ON CONFLICT DO NOTHING`, day, fp); err != nil {
+				return err
+			}
+		}
+		if ref != "" {
+			if err := bump(`INSERT INTO referrers (day, host, count) VALUES (?, ?, 1)
+				ON CONFLICT(day, host) DO UPDATE SET count = count + 1`, day, ref); err != nil {
 				return err
 			}
 		}
@@ -214,6 +231,31 @@ func (s *Store) TopPages(limit int) ([]PageRow, error) {
 	for rows.Next() {
 		var r PageRow
 		if err := rows.Scan(&r.Path, &r.Count); err != nil {
+			return nil, err
+		}
+		out = append(out, r)
+	}
+	return out, rows.Err()
+}
+
+// ReferrerRow is one external host's referral tally.
+type ReferrerRow struct {
+	Host  string
+	Count int
+}
+
+// TopReferrers returns the external hosts that sent the most visits (all time).
+func (s *Store) TopReferrers(limit int) ([]ReferrerRow, error) {
+	rows, err := s.db.Query(`SELECT host, SUM(count) AS c FROM referrers
+		GROUP BY host ORDER BY c DESC LIMIT ?`, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []ReferrerRow
+	for rows.Next() {
+		var r ReferrerRow
+		if err := rows.Scan(&r.Host, &r.Count); err != nil {
 			return nil, err
 		}
 		out = append(out, r)

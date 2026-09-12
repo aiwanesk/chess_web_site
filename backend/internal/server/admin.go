@@ -38,6 +38,7 @@ type adminView struct {
 	TopPages                           []stats.PageRow
 	Traffic                            []trafficRow
 	Countries                          []countryRow
+	Referrers                          []referrerRow
 	TotalHuman, TotalBot, TotalUniques int
 	BotPct                             int
 	// Réservations
@@ -123,6 +124,11 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 			view.Countries = append(view.Countries, countryRow{flagEmoji(c.Country), c.Country, c.Count})
 		}
 	}
+	if refs, err := s.store.TopReferrers(12); err == nil {
+		for _, r := range refs {
+			view.Referrers = append(view.Referrers, referrerRow{refLabel(r.Host), r.Host, r.Count})
+		}
+	}
 
 	// Réservations
 	if s.bookings != nil {
@@ -172,6 +178,49 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 }
 
 // flagEmoji turns a 2-letter country code into its flag emoji.
+// referrerRow : l'hôte stocké, plus un libellé lisible pour le tableau.
+type referrerRow struct {
+	Label, Host string
+	Count       int
+}
+
+// refLabel nomme les hôtes qu'on a une raison de suivre — les moteurs
+// génératifs en premier, puisque c'est la question qu'on se pose : est-ce que
+// le site se fait citer ? Un hôte inconnu garde son nom brut.
+var refLabels = map[string]string{
+	"chatgpt.com":           "ChatGPT",
+	"openai.com":            "ChatGPT",
+	"perplexity.ai":         "Perplexity",
+	"claude.ai":             "Claude",
+	"copilot.microsoft.com": "Copilot",
+	"gemini.google.com":     "Gemini",
+	"google.com":            "Google",
+	"google.ch":             "Google",
+	"google.fr":             "Google",
+	"bing.com":              "Bing",
+	"duckduckgo.com":        "DuckDuckGo",
+	"ecosia.org":            "Ecosia",
+	"qwant.com":             "Qwant",
+	"lichess.org":           "Lichess",
+	"chess.com":             "Chess.com",
+	"chess-results.com":     "chess-results",
+	"swisschess.ch":         "Swiss Chess",
+	"ratings.fide.com":      "FIDE",
+	"linkedin.com":          "LinkedIn",
+	"facebook.com":          "Facebook",
+	"instagram.com":         "Instagram",
+	"t.co":                  "X / Twitter",
+	"x.com":                 "X / Twitter",
+	"reddit.com":            "Reddit",
+}
+
+func refLabel(host string) string {
+	if l, ok := refLabels[host]; ok {
+		return l
+	}
+	return host
+}
+
 func flagEmoji(code string) string {
 	if len(code) != 2 {
 		return "🏳️"
@@ -250,6 +299,11 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
    <table><thead><tr><th class="l">Pays</th><th>Visites</th></tr></thead>
    <tbody>{{range .Countries}}<tr><td class="l"><span class="flag">{{.Flag}}</span> {{.Code}}</td><td>{{.Count}}</td></tr>{{end}}</tbody></table>
    {{else}}<p class="empty">—</p>{{end}}
+   <h2>Provenance</h2>
+   {{if .Referrers}}
+   <table><thead><tr><th class="l">Source</th><th>Visites</th></tr></thead>
+   <tbody>{{range .Referrers}}<tr><td class="l">{{.Label}}<span class="sub"> {{.Host}}</span></td><td>{{.Count}}</td></tr>{{end}}</tbody></table>
+   {{else}}<p class="empty">Aucune provenance externe enregistrée — toutes les visites sont directes ou internes.</p>{{end}}
    <h2>Pages populaires</h2>
    {{if .TopPages}}
    <table><thead><tr><th class="l">Page</th><th>Vues</th></tr></thead>
