@@ -38,7 +38,16 @@ type Config struct {
 	// DBPath is the SQLite file for private stats. Empty disables stats.
 	// The newsletter re-uses the same file (separate tables).
 	DBPath string
-	// AdminToken protects the /admin dashboard + stats. Empty disables /admin.
+	// AdminUser / AdminToken protect le tableau de bord et l'espace privé.
+	// Compte unique, volontairement : Alexandre est le seul utilisateur, il n'y
+	// a donc ni table de comptes, ni inscription, ni réinitialisation.
+	//
+	// Les valeurs par défaut ci-dessous sont dans le dépôt, c'est un choix
+	// assumé. Elles restent surchargeables par ADMIN_USER / ADMIN_TOKEN, qui
+	// sont le seul moyen de changer le mot de passe sans reconstruire l'image —
+	// et sur Jelastic les variables d'environnement survivent aux
+	// redéploiements, contrairement à /data.
+	AdminUser  string
 	AdminToken string
 	// EventsFile is an optional JSON file of stages/events used for newsletter
 	// announcements (see internal/server/announce.go).
@@ -67,7 +76,8 @@ func LoadConfig() Config {
 		MailFrom:          env("MAIL_FROM", os.Getenv("SMTP_USER")),
 		MailTo:            env("MAIL_TO", "alexandre@iwanesko.ch"),
 		DBPath:            os.Getenv("DB_PATH"),
-		AdminToken:        os.Getenv("ADMIN_TOKEN"),
+		AdminUser:         env("ADMIN_USER", "alex"),
+		AdminToken:        env("ADMIN_TOKEN", "alextropfort"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
 		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),

@@ -200,6 +200,7 @@ func statsServer(t *testing.T, adminToken string) http.Handler {
 		BaseURL:    "https://iwanesko.ch",
 		ContentDir: "does-not-exist",
 		DBPath:     filepath.Join(t.TempDir(), "stats.db"),
+		AdminUser:  "admin",
 		AdminToken: adminToken,
 		HourlyRate: 120,
 	}, static)
@@ -239,6 +240,14 @@ func TestAdminRequiresValidToken(t *testing.T) {
 		t.Fatalf("wrong token: want 401, got %d", recWrong.Code)
 	}
 
+	badUser := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	badUser.SetBasicAuth("root", "s3cret-token") // bon mot de passe, mauvais identifiant
+	recBadUser := httptest.NewRecorder()
+	h.ServeHTTP(recBadUser, badUser)
+	if recBadUser.Code != http.StatusUnauthorized {
+		t.Fatalf("wrong user: want 401, got %d", recBadUser.Code)
+	}
+
 	ok := httptest.NewRequest(http.MethodGet, "/admin", nil)
 	ok.SetBasicAuth("admin", "s3cret-token")
 	recOK := httptest.NewRecorder()
@@ -257,7 +266,7 @@ func TestServerSurvivesUnusableDB(t *testing.T) {
 	badPath := filepath.Join(f, "nested", "stats.db")
 
 	static := fstest.MapFS{"index.html": {Data: []byte("<!doctype html><h1>Accueil</h1>")}}
-	srv, err := New(Config{BaseURL: "https://iwanesko.ch", DBPath: badPath, AdminToken: "tok"}, static)
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", DBPath: badPath, AdminUser: "admin", AdminToken: "tok"}, static)
 	if err != nil {
 		t.Fatalf("New must degrade, not fail, on an unusable DB: %v", err)
 	}

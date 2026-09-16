@@ -11,17 +11,23 @@ import (
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
-// adminAuth guards the dashboard. If ADMIN_TOKEN is unset the route is disabled
-// (404 — we don't reveal it exists). Otherwise Basic Auth: any username, the
-// password must equal ADMIN_TOKEN, compared in constant time.
+// adminAuth garde le tableau de bord et l'espace privé. Compte unique en Basic
+// Auth : l'identifiant ET le mot de passe doivent correspondre, comparés en
+// temps constant. Si le mot de passe est vidé par configuration, la route
+// répond 404 plutôt que 401 — elle ne révèle pas qu'elle existe.
 func (s *Server) adminAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if s.cfg.AdminToken == "" {
 			http.NotFound(w, r)
 			return
 		}
-		_, pass, ok := r.BasicAuth()
-		if !ok || subtle.ConstantTimeCompare([]byte(pass), []byte(s.cfg.AdminToken)) != 1 {
+		user, pass, ok := r.BasicAuth()
+		// Les deux comparaisons sont évaluées AVANT le test : un `&&` court-
+		// circuiterait, et le temps de réponse trahirait alors lequel des deux
+		// champs est faux.
+		okUser := subtle.ConstantTimeCompare([]byte(user), []byte(s.cfg.AdminUser)) == 1
+		okPass := subtle.ConstantTimeCompare([]byte(pass), []byte(s.cfg.AdminToken)) == 1
+		if !ok || !okUser || !okPass {
 			w.Header().Set("WWW-Authenticate", `Basic realm="iwanesko-admin", charset="UTF-8"`)
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 			return
