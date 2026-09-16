@@ -11,6 +11,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/iwanesko/chess-web-site/backend/internal/booking"
+	"github.com/iwanesko/chess-web-site/backend/internal/corpus"
 	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
@@ -23,12 +24,22 @@ type Server struct {
 	news     *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
 	bookings *booking.Store    // nil if bookings are disabled (no DB_PATH)
 	formKey  []byte            // HMAC key for anti-spam form tokens (per-process)
+	corpus   *corpus.Store     // nil si CORPUS_DB n'est pas configuré
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
 // build or on-disk dev directory), provided by the caller.
 func New(cfg Config, static fs.FS) (*Server, error) {
 	s := &Server{cfg: cfg, static: static, formKey: newFormKey()}
+	if cfg.CorpusDB != "" {
+		// Même principe que pour les autres bases : une base absente ou illisible
+		// désactive l'explorateur, elle ne fait pas tomber le site.
+		if c, err := corpus.Open(cfg.CorpusDB); err != nil {
+			slog.Error("corpus indisponible — explorateur désactivé", "path", cfg.CorpusDB, "err", err)
+		} else {
+			s.corpus = c
+		}
+	}
 	if cfg.DBPath != "" {
 		// A DB failure (e.g. an unwritable /data volume) must NOT take the site
 		// down: log loudly and degrade — stats + newsletter simply stay off.
@@ -124,6 +135,21 @@ func (s *Server) Handler() http.Handler {
 	// random ADMIN_TOKEN). The limiter runs first, so wrong passwords are throttled.
 	adminLimiter := newIPRateLimiter(0.2, 5)
 	r.With(rateLimit(adminLimiter), s.adminAuth).Get("/admin", s.handleAdmin)
+
+	// L'explorateur interroge le serveur À CHAQUE COUP JOUÉ : le limiteur du
+	// tableau de bord (un appel toutes les 5 s) le rendrait inutilisable. Celui-ci
+	// est dimensionné pour une navigation au doigt, la force brute restant
+	// couverte par le limiteur d'authentification ci-dessus.
+	if s.corpus != nil {
+		corpusLimiter := newIPRateLimiter(15, 90)
+		r.Route("/admin/corpus", func(c chi.Router) {
+			c.Use(rateLimit(corpusLimiter), s.adminAuth)
+			c.Get("/", s.handleCorpusPage)
+			c.Get("/api/pos", s.handleCorpusPos)
+			c.Get("/api/go", s.handleCorpusGo)
+			c.Get("/api/meta", s.handleCorpusMeta)
+		})
+	}
 
 	// Everything else is the pre-rendered SSG site.
 	r.NotFound(s.handleStatic)

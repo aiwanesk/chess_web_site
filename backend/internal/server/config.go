@@ -44,6 +44,11 @@ type Config struct {
 	// ci-dessous, surchargeables par les variables d'environnement.
 	AdminUser  string
 	AdminToken string
+	// CorpusDB est le graphe de positions de l'espace privé (corpus.db). Vide =
+	// explorateur désactivé, et ses routes répondent 404. Le fichier vit sur le
+	// volume /data, jamais dans l'image : il pèse des centaines de mégaoctets et
+	// contient du contenu de cours acheté.
+	CorpusDB string
 	// EventsFile is an optional JSON file of stages/events used for newsletter
 	// announcements (see internal/server/announce.go).
 	EventsFile string
@@ -73,6 +78,7 @@ func LoadConfig() Config {
 		DBPath:            os.Getenv("DB_PATH"),
 		AdminUser:         env("ADMIN_USER", adminUser),
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
+		CorpusDB:          os.Getenv("CORPUS_DB"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
 		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),
