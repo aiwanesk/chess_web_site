@@ -72,7 +72,7 @@ func LoadConfig() Config {
 		MailTo:            env("MAIL_TO", "alexandre@iwanesko.ch"),
 		DBPath:            os.Getenv("DB_PATH"),
 		AdminUser:         env("ADMIN_USER", adminUser),
-		AdminToken:        env("ADMIN_TOKEN", adminPass),
+		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
 		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),
@@ -88,14 +88,18 @@ func (c Config) StaticMode() string {
 	return "embedded"
 }
 
-// Compte unique de l'espace privé. En clair dans le dépôt, et donc lisible
-// dans l'image publiée (`strings` sur le binaire suffit) : décision assumée,
-// le projet n'a qu'un utilisateur. ADMIN_USER et ADMIN_TOKEN restent
-// prioritaires si on veut un jour sortir le secret du dépôt sans reconstruire.
-const (
-	adminUser = "alex"
-	adminPass = "alextropfort"
-)
+// Compte unique de l'espace privé. L'identifiant n'est pas un secret et peut
+// vivre ici ; le mot de passe, lui, vient forcément de ADMIN_TOKEN.
+//
+// Il n'y a délibérément AUCUN mot de passe par défaut. Une constante en clair
+// se retrouve telle quelle dans le binaire — `const` est une notion de
+// compilation, pas de confidentialité, et aucun drapeau Go ne retire le
+// contenu d'une chaîne — donc dans l'image publiée sur Docker Hub, en plus
+// d'être lisible dans ce fichier sur un dépôt public. Et un défaut du genre
+// « change-me » serait pire que rien : le jour où on oublie de poser la
+// variable, il laisse un mot de passe connu de tous qui fonctionne. Sans
+// ADMIN_TOKEN, adminAuth répond 404 et l'espace privé n'existe simplement pas.
+const adminUser = "alex"
 
 func env(key, def string) string {
 	if v := os.Getenv(key); v != "" {
