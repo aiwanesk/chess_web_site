@@ -25,3 +25,10 @@ backend/dist/*
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Bases de l'espace privé : volumineuses, régénérées hors ligne, et contenant
+# du contenu de cours acheté. Elles vivent sur /data en production.
+corpus.db
+mega.db
+*.db-wal
+*.db-shm
