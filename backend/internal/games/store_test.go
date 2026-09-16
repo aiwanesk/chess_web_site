@@ -83,34 +83,38 @@ func TestSearchPlayersPrefixFirst(t *testing.T) {
 
 func TestSearchByColourAndYears(t *testing.T) {
 	s := testDB(t)
+	pahud := Filter{PlayerIDs: []int64{1}}
 
-	all, _ := s.Search(Filter{PlayerID: 1})
+	all, _ := s.Search(pahud)
 	if len(all) != 5 {
 		t.Fatalf("toutes couleurs = %d parties, attendu 5", len(all))
 	}
-	white, _ := s.Search(Filter{PlayerID: 1, Colour: White})
+	white, _ := s.Search(Filter{PlayerIDs: []int64{1}, Colour: White})
 	if len(white) != 4 {
 		t.Fatalf("avec les Blancs = %d, attendu 4", len(white))
 	}
-	black, _ := s.Search(Filter{PlayerID: 1, Colour: Black})
+	black, _ := s.Search(Filter{PlayerIDs: []int64{1}, Colour: Black})
 	if len(black) != 1 {
 		t.Fatalf("avec les Noirs = %d, attendu 1", len(black))
 	}
-	since, _ := s.Search(Filter{PlayerID: 1, Colour: White, FromYear: 2024})
+	since, _ := s.Search(Filter{PlayerIDs: []int64{1}, Colour: White, FromYear: 2024})
 	if len(since) != 3 {
 		t.Fatalf("Blancs depuis 2024 = %d, attendu 3", len(since))
 	}
-	window, _ := s.Search(Filter{PlayerID: 1, FromYear: 2024, ToYear: 2024})
+	window, _ := s.Search(Filter{PlayerIDs: []int64{1}, FromYear: 2024, ToYear: 2024})
 	if len(window) != 1 {
 		t.Fatalf("année 2024 seule = %d, attendu 1", len(window))
+	}
+	if none, _ := s.Search(Filter{}); len(none) != 0 {
+		t.Fatalf("sans joueur sélectionné : attendu rien, obtenu %d", len(none))
 	}
 }
 
 func TestExcludeTitledTuesday(t *testing.T) {
 	s := testDB(t)
 
-	with, _ := s.Search(Filter{PlayerID: 1, Colour: White})
-	without, _ := s.Search(Filter{PlayerID: 1, Colour: White, ExcludeTitledTuesday: true})
+	with, _ := s.Search(Filter{PlayerIDs: []int64{1}, Colour: White})
+	without, _ := s.Search(Filter{PlayerIDs: []int64{1}, Colour: White, ExcludeTitledTuesday: true})
 	if len(with) != 4 || len(without) != 3 {
 		t.Fatalf("avec = %d (attendu 4), sans = %d (attendu 3)", len(with), len(without))
 	}
@@ -121,45 +125,45 @@ func TestExcludeTitledTuesday(t *testing.T) {
 	}
 }
 
-func TestTreeCountsAndScoreFromPlayerPointOfView(t *testing.T) {
+func TestOpeningTreeCountsAndScore(t *testing.T) {
 	s := testDB(t)
 
 	// Pahud avec les Blancs, Titled Tuesday écarté : e4 deux fois, d4 une fois.
-	root, err := s.Tree(Filter{PlayerID: 1, Colour: White, ExcludeTitledTuesday: true}, nil)
+	tree, err := s.OpeningTree(
+		Filter{PlayerIDs: []int64{1}, Colour: White, ExcludeTitledTuesday: true},
+		TreeOptions{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(root) != 2 {
-		t.Fatalf("premiers coups = %+v", root)
+	if len(tree) != 2 {
+		t.Fatalf("premiers coups = %+v", tree)
 	}
-	if root[0].SAN != "e4" || root[0].Games != 2 {
-		t.Fatalf("coup le plus joué = %+v, attendu e4 ×2", root[0])
+	if tree[0].SAN != "e4" || tree[0].Games != 2 {
+		t.Fatalf("coup le plus joué = %+v, attendu e4 ×2", tree[0])
 	}
 	// e4 : une victoire, une nulle → 75 %.
-	if root[0].Wins != 1 || root[0].Draws != 1 || root[0].Losses != 0 {
-		t.Fatalf("bilan de e4 = %+v", root[0])
+	if tree[0].Wins != 1 || tree[0].Draws != 1 || tree[0].Losses != 0 {
+		t.Fatalf("bilan de e4 = %+v", tree[0])
 	}
-	if root[0].Score < 74.9 || root[0].Score > 75.1 {
-		t.Errorf("score de e4 = %.1f %%, attendu 75", root[0].Score)
+	if tree[0].Score < 74.9 || tree[0].Score > 75.1 {
+		t.Errorf("score de e4 = %.1f %%, attendu 75", tree[0].Score)
+	}
+	// L'arbre est IMBRIQUÉ : les réponses à e4 sont là, sans second appel.
+	if len(tree[0].Children) != 2 {
+		t.Fatalf("réponses à e4 = %+v", tree[0].Children)
 	}
 	// d4 : une défaite pour les Blancs, donc pour Pahud.
-	if root[1].SAN != "d4" || root[1].Losses != 1 || root[1].Score != 0 {
-		t.Fatalf("bilan de d4 = %+v", root[1])
-	}
-
-	// Une branche plus bas.
-	after, _ := s.Tree(Filter{PlayerID: 1, Colour: White, ExcludeTitledTuesday: true}, []string{"e2e4"})
-	if len(after) != 2 {
-		t.Fatalf("réponses à e4 = %+v", after)
+	if tree[1].SAN != "d4" || tree[1].Losses != 1 || tree[1].Score != 0 {
+		t.Fatalf("bilan de d4 = %+v", tree[1])
 	}
 }
 
 // Avec les Noirs, une victoire des Blancs est une DÉFAITE pour le joueur
 // cherché. C'est l'inversion qu'on oublie, et elle rend l'arbre trompeur.
-func TestTreeScoreIsInvertedWhenPlayerIsBlack(t *testing.T) {
+func TestOpeningTreeScoreInvertedWhenPlayerIsBlack(t *testing.T) {
 	s := testDB(t)
 
-	tree, err := s.Tree(Filter{PlayerID: 1, Colour: Black}, nil)
+	tree, err := s.OpeningTree(Filter{PlayerIDs: []int64{1}, Colour: Black}, TreeOptions{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -168,6 +172,61 @@ func TestTreeScoreIsInvertedWhenPlayerIsBlack(t *testing.T) {
 	}
 	if tree[0].Losses != 1 || tree[0].Wins != 0 {
 		t.Fatalf("les Blancs gagnent, donc Pahud perd : %+v", tree[0])
+	}
+}
+
+// Plusieurs joueurs dans le même arbre : les parties s'additionnent, et le
+// point de vue suit le joueur sélectionné de chaque partie.
+func TestOpeningTreeWithSeveralPlayers(t *testing.T) {
+	s := testDB(t)
+
+	solo, _ := s.OpeningTree(Filter{PlayerIDs: []int64{1}, Colour: White}, TreeOptions{})
+	duo, _ := s.OpeningTree(Filter{PlayerIDs: []int64{1, 2}, Colour: White}, TreeOptions{})
+
+	var soloGames, duoGames int
+	for _, n := range solo {
+		soloGames += n.Games
+	}
+	for _, n := range duo {
+		duoGames += n.Games
+	}
+	if soloGames != 4 {
+		t.Fatalf("Pahud seul avec les Blancs = %d parties, attendu 4", soloGames)
+	}
+	if duoGames != 5 {
+		t.Fatalf("Pahud + Iwanesko avec les Blancs = %d, attendu 5", duoGames)
+	}
+	// Iwanesko a gagné sa seule partie avec les Blancs : d4 passe donc de
+	// 0 % (la défaite de Pahud) à une victoire et une défaite.
+	for _, n := range duo {
+		if n.SAN == "d4" && (n.Wins != 1 || n.Losses != 1) {
+			t.Fatalf("d4 sur les deux joueurs = %+v, attendu 1 gain et 1 défaite", n)
+		}
+	}
+}
+
+// Les bornes existent pour que la réponse reste lisible : sans elles l'arbre
+// descend jusqu'au dernier coup de la plus longue partie.
+func TestOpeningTreeDepthAndPruning(t *testing.T) {
+	s := testDB(t)
+	f := Filter{PlayerIDs: []int64{1}, Colour: White}
+
+	shallow, _ := s.OpeningTree(f, TreeOptions{MaxDepth: 1})
+	for _, n := range shallow {
+		if len(n.Children) != 0 {
+			t.Fatalf("MaxDepth=1 devrait couper sous le premier coup : %+v", n)
+		}
+	}
+	pruned, _ := s.OpeningTree(f, TreeOptions{MinGames: 2})
+	for _, n := range pruned {
+		if n.Games < 2 {
+			t.Fatalf("branche à %d parties conservée malgré MinGames=2", n.Games)
+		}
+	}
+	// Et on peut partir d'un coup donné plutôt que de la position initiale.
+	after, _ := s.OpeningTree(f, TreeOptions{Path: []string{"e2e4"}})
+	if len(after) != 3 {
+		t.Fatalf("après e4 = %+v, attendu 3 réponses (c5, e5, c6)", after)
 	}
 }
 

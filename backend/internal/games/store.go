@@ -160,31 +160,47 @@ const (
 )
 
 // Filter décrit une recherche. Zéro sur les années = pas de borne.
+//
+// PlayerIDs accepte PLUSIEURS joueurs : on prépare parfois une équipe, ou on
+// veut l'arbre de deux joueurs qui partagent le même répertoire.
 type Filter struct {
-	PlayerID             int64
+	PlayerIDs            []int64
 	Colour               Colour
 	FromYear, ToYear     int
 	ExcludeTitledTuesday bool
 	Limit                int
 }
 
+func placeholders(n int) string {
+	if n <= 0 {
+		return "NULL"
+	}
+	return strings.TrimSuffix(strings.Repeat("?,", n), ",")
+}
+
 // where construit la clause commune à la recherche et à l'arbre. Les deux
 // doivent filtrer EXACTEMENT pareil, sinon l'arbre décrirait un autre jeu de
 // parties que la liste affichée à côté.
 func (f Filter) where() (string, []any) {
+	ids := make([]any, len(f.PlayerIDs))
+	for i, id := range f.PlayerIDs {
+		ids[i] = id
+	}
+	ph := placeholders(len(ids))
+
 	var cond []string
 	var args []any
-
 	switch f.Colour {
 	case White:
-		cond = append(cond, "g.white_id = ?")
-		args = append(args, f.PlayerID)
+		cond = append(cond, "g.white_id IN ("+ph+")")
+		args = append(args, ids...)
 	case Black:
-		cond = append(cond, "g.black_id = ?")
-		args = append(args, f.PlayerID)
+		cond = append(cond, "g.black_id IN ("+ph+")")
+		args = append(args, ids...)
 	default:
-		cond = append(cond, "(g.white_id = ? OR g.black_id = ?)")
-		args = append(args, f.PlayerID, f.PlayerID)
+		cond = append(cond, "(g.white_id IN ("+ph+") OR g.black_id IN ("+ph+"))")
+		args = append(args, ids...)
+		args = append(args, ids...)
 	}
 	if f.FromYear > 0 {
 		cond = append(cond, "g.year >= ?")
@@ -230,6 +246,9 @@ const gameSelect = `
 
 // Search renvoie les parties correspondant au filtre, les plus récentes d'abord.
 func (s *Store) Search(f Filter) ([]Game, error) {
+	if len(f.PlayerIDs) == 0 {
+		return []Game{}, nil
+	}
 	cond, args := f.where()
 	limit := f.Limit
 	if limit <= 0 || limit > 500 {
@@ -253,31 +272,54 @@ func (s *Store) Search(f Filter) ([]Game, error) {
 	return out, rows.Err()
 }
 
-// Continuation est une branche de l'arbre : un coup, combien de fois il a été
-// joué, et ce qu'il a rapporté AU JOUEUR CHERCHÉ — pas aux Blancs. C'est ce qui
-// rend l'arbre lisible quand on prépare quelqu'un : « il joue ça et il gagne ».
-type Continuation struct {
-	SAN    string  `json:"san"`
-	UCI    string  `json:"uci"`
-	Games  int     `json:"games"`
-	Wins   int     `json:"wins"`
-	Draws  int     `json:"draws"`
-	Losses int     `json:"losses"`
-	Score  float64 `json:"score"` // en pourcentage, du point de vue du joueur
+// Node est un nœud de l'arbre d'ouverture : un coup, combien de parties l'ont
+// joué, et ce qu'il a rapporté AUX JOUEURS CHERCHÉS — pas aux Blancs. C'est ce
+// qui rend l'arbre lisible en préparation : « il joue ça, et il gagne ».
+type Node struct {
+	SAN      string  `json:"san"`
+	UCI      string  `json:"uci"`
+	Games    int     `json:"games"`
+	Wins     int     `json:"wins"`
+	Draws    int     `json:"draws"`
+	Losses   int     `json:"losses"`
+	Score    float64 `json:"score"`
+	Children []Node  `json:"children,omitempty"`
 }
 
-// Tree renvoie les coups jouables après `path` (en UCI), agrégés sur toutes les
-// parties du filtre.
+// TreeOptions borne l'arbre. Sans bornes il descendrait jusqu'au dernier coup
+// de la plus longue partie : illisible, et une réponse énorme.
+type TreeOptions struct {
+	Path     []string // en UCI : d'où part l'arbre
+	MaxDepth int      // en demi-coups sous Path (défaut 12, soit six coups)
+	MinGames int      // une branche sous ce seuil est coupée (défaut 1)
+}
+
+// OpeningTree construit l'arbre d'ouverture des parties filtrées, imbriqué, en
+// UNE seule lecture de la base — plutôt qu'un aller-retour par niveau déplié.
 //
 // L'agrégation se fait en Go et non en SQL : le filtre a déjà réduit à quelques
-// centaines de parties, et un préfixe de coups ne s'indexe pas. Les positions
-// sont identifiées par le CHEMIN et non par un hash, donc les transpositions ne
-// fusionnent pas — pour préparer un adversaire on descend une ligne, ce qui est
-// exactement ce qu'on veut voir.
-func (s *Store) Tree(f Filter, path []string) ([]Continuation, error) {
+// centaines de parties, et un préfixe de coups ne s'indexe pas. Les nœuds sont
+// identifiés par le CHEMIN parcouru et non par un hash de position, donc les
+// transpositions ne fusionnent pas — en préparation on descend une ligne, et
+// c'est exactement ce qu'on veut lire.
+func (s *Store) OpeningTree(f Filter, opt TreeOptions) ([]Node, error) {
+	if len(f.PlayerIDs) == 0 {
+		return []Node{}, nil
+	}
+	if opt.MaxDepth <= 0 {
+		opt.MaxDepth = 12
+	}
+	if opt.MinGames <= 0 {
+		opt.MinGames = 1
+	}
+	selected := map[int64]bool{}
+	for _, id := range f.PlayerIDs {
+		selected[id] = true
+	}
+
 	cond, args := f.where()
 	rows, err := s.db.Query(`
-		SELECT g.uci, g.san, g.result, g.white_id
+		SELECT g.uci, g.san, g.result, g.white_id, g.black_id
 		FROM game g LEFT JOIN event e ON e.id = g.event_id
 		WHERE `+cond, args...)
 	if err != nil {
@@ -285,79 +327,118 @@ func (s *Store) Tree(f Filter, path []string) ([]Continuation, error) {
 	}
 	defer rows.Close()
 
-	type agg struct {
-		san            string
-		games, w, d, l int
-	}
-	order := []string{}
-	byUCI := map[string]*agg{}
-
+	root := &builder{kids: map[string]*builder{}}
 	for rows.Next() {
 		var uciStr, sanStr string
 		var result int
-		var whiteID int64
-		if err := rows.Scan(&uciStr, &sanStr, &result, &whiteID); err != nil {
+		var whiteID, blackID int64
+		if err := rows.Scan(&uciStr, &sanStr, &result, &whiteID, &blackID); err != nil {
 			return nil, err
 		}
-		uci := strings.Fields(uciStr)
-		san := strings.Fields(sanStr)
-		if len(uci) <= len(path) || len(san) < len(uci) {
+		uci, san := strings.Fields(uciStr), strings.Fields(sanStr)
+		if len(san) < len(uci) {
+			continue // scores dépareillés : on ne devine pas
+		}
+		if !hasPrefix(uci, opt.Path) {
 			continue
 		}
-		match := true
-		for i, p := range path {
-			if uci[i] != p {
-				match = false
-				break
-			}
-		}
-		if !match {
-			continue
-		}
-		next := uci[len(path)]
-		a := byUCI[next]
-		if a == nil {
-			a = &agg{san: san[len(path)]}
-			byUCI[next] = a
-			order = append(order, next)
-		}
-		a.games++
-		// Le résultat est rapporté au joueur cherché : il compte ses gains, pas
-		// ceux des Blancs.
+		// Le résultat est rapporté aux joueurs cherchés : ils comptent LEURS
+		// gains. Avec les Noirs, une victoire des Blancs est une défaite.
 		pov := result
-		if whiteID != f.PlayerID {
+		if !povIsWhite(whiteID, blackID, selected, f.Colour) {
 			pov = -result
 		}
-		switch {
-		case pov > 0:
-			a.w++
-		case pov < 0:
-			a.l++
-		default:
-			a.d++
+		node := root
+		for d := len(opt.Path); d < len(uci) && d-len(opt.Path) < opt.MaxDepth; d++ {
+			node = node.child(uci[d], san[d])
+			node.count(pov)
 		}
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
+	return root.harvest(opt.MinGames), nil
+}
 
-	out := make([]Continuation, 0, len(order))
-	for _, u := range order {
-		a := byUCI[u]
-		c := Continuation{SAN: a.san, UCI: u, Games: a.games, Wins: a.w, Draws: a.d, Losses: a.l}
-		if a.games > 0 {
-			c.Score = (float64(a.w) + float64(a.d)/2) * 100 / float64(a.games)
+// povIsWhite : lequel des deux camps représente les joueurs cherchés ? La
+// couleur demandée tranche ; sans elle on prend celui des deux qui est dans la
+// sélection — et les Blancs si les deux y sont, ce qui arrive dès qu'on met
+// dans le même arbre deux joueurs qui se sont affrontés.
+func povIsWhite(whiteID, blackID int64, selected map[int64]bool, c Colour) bool {
+	switch c {
+	case White:
+		return true
+	case Black:
+		return false
+	default:
+		if selected[whiteID] {
+			return true
 		}
-		out = append(out, c)
+		return !selected[blackID]
 	}
-	// Tri par fréquence : c'est la question posée, « qu'est-ce qu'il joue le
+}
+
+func hasPrefix(uci, path []string) bool {
+	if len(uci) < len(path) {
+		return false
+	}
+	for i, p := range path {
+		if uci[i] != p {
+			return false
+		}
+	}
+	return true
+}
+
+type builder struct {
+	san            string
+	games, w, d, l int
+	order          []string
+	kids           map[string]*builder
+}
+
+func (b *builder) child(uci, san string) *builder {
+	k := b.kids[uci]
+	if k == nil {
+		k = &builder{san: san, kids: map[string]*builder{}}
+		b.kids[uci] = k
+		b.order = append(b.order, uci)
+	}
+	return k
+}
+
+func (b *builder) count(pov int) {
+	b.games++
+	switch {
+	case pov > 0:
+		b.w++
+	case pov < 0:
+		b.l++
+	default:
+		b.d++
+	}
+}
+
+func (b *builder) harvest(min int) []Node {
+	out := make([]Node, 0, len(b.order))
+	for _, uci := range b.order {
+		k := b.kids[uci]
+		if k.games < min {
+			continue
+		}
+		n := Node{SAN: k.san, UCI: uci, Games: k.games, Wins: k.w, Draws: k.d, Losses: k.l}
+		n.Score = (float64(k.w) + float64(k.d)/2) * 100 / float64(k.games)
+		n.Children = k.harvest(min)
+		out = append(out, n)
+	}
+	// Tri par fréquence : c'est la question posée, « qu'est-ce qu'ils jouent le
 	// plus souvent ».
 	for i := 1; i < len(out); i++ {
 		for j := i; j > 0 && out[j].Games > out[j-1].Games; j-- {
 			out[j], out[j-1] = out[j-1], out[j]
 		}
 	}
-	return out, nil
+	return out
 }
 
 // Meta renvoie la table meta (nombre de parties, dernier TWIC importé, …).
