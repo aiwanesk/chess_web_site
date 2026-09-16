@@ -1,0 +1,98 @@
+[
+ {
+  "in": "Pahud, Cedric",
+  "out": "pahud cedric"
+ },
+ {
+  "in": "Pahud,C.",
+  "out": "pahud c"
+ },
+ {
+  "in": "Pahud  Cédric",
+  "out": "pahud cedric"
+ },
+ {
+  "in": "  PAHUD, CÉDRIC  ",
+  "out": "pahud cedric"
+ },
+ {
+  "in": "Müller",
+  "out": "muller"
+ },
+ {
+  "in": "Nepomniachtchi, I",
+  "out": "nepomniachtchi i"
+ },
+ {
+  "in": "Ó Súilleabháin",
+  "out": "o suilleabhain"
+ },
+ {
+  "in": "Đurić",
+  "out": "duric"
+ },
+ {
+  "in": "Carlsen, Magnus",
+  "out": "carlsen magnus"
+ },
+ {
+  "in": "Wojtaszek, Radoslaw",
+  "out": "wojtaszek radoslaw"
+ },
+ {
+  "in": "Świercz, Dariusz",
+  "out": "swiercz dariusz"
+ },
+ {
+  "in": "Håkansson",
+  "out": "hakansson"
+ },
+ {
+  "in": "Nguyễn",
+  "out": "nguyen"
+ },
+ {
+  "in": "Şahin",
+  "out": "sahin"
+ },
+ {
+  "in": "Straße",
+  "out": "strasse"
+ },
+ {
+  "in": "Æsop",
+  "out": "aesop"
+ },
+ {
+  "in": "Cœur",
+  "out": "coeur"
+ },
+ {
+  "in": "Vachier-Lagrave, M.",
+  "out": "vachier lagrave m"
+ },
+ {
+  "in": "O'Kelly de Galway",
+  "out": "o kelly de galway"
+ },
+ {
+  "in": "St. Louis",
+  "out": "st louis"
+ },
+ {
+  "in": "",
+  "out": ""
+ },
+ {
+  "in": "   ",
+  "out": ""
+ },
+ {
+  "in": "...",
+  "out": ""
+ },
+ {
+  "in": "Ding, Liren",
+  "out": "ding liren"
+ }
+]
