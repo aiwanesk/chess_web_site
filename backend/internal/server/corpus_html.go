@@ -27,7 +27,10 @@ const corpusHTML = `<!doctype html>
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
   font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  -webkit-text-size-adjust:100%}
+  -webkit-text-size-adjust:100%;
+  /* Coupe le zoom au double-tap (toucher deux coups d'affilée dans la liste
+     agrandissait la page) sans toucher au pincement, qui doit rester. */
+  touch-action:manipulation}
 header{display:flex;gap:14px;align-items:baseline;padding:10px 14px;
   border-bottom:1px solid var(--line);flex-wrap:wrap;position:sticky;top:0;
   background:var(--bg);z-index:5}
@@ -65,14 +68,19 @@ main>*{min-width:0}
 
 .bar-row{display:flex;gap:6px;padding:10px 0;flex-wrap:wrap}
 button{background:#262b34;color:var(--ink);border:1px solid var(--line);
-  border-radius:6px;padding:9px 13px;cursor:pointer;font-size:14px;min-height:40px}
+  border-radius:6px;padding:10px 14px;cursor:pointer;font-size:15px;min-height:44px}
 button:hover{background:#2f3540}
 button:disabled{opacity:.4;cursor:default}
 
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px}
 .panel h2{margin:0;padding:9px 12px;font-size:11px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line)}
-.body{max-height:min(70vh,560px);overflow:auto;-webkit-overflow-scrolling:touch}
+/* L'unité vh est instable sur mobile : sa valeur change quand la barre
+   d'adresse se rétracte, donc les panneaux se redimensionnent en pleine
+   lecture. L'unité dvh suit la fenêtre réellement visible ; la ligne en vh
+   reste pour les navigateurs qui ne connaissent pas dvh. */
+.body{max-height:min(70vh,560px);max-height:min(70dvh,560px);
+  overflow:auto;-webkit-overflow-scrolling:touch}
 
 .mv{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
   padding:11px 12px;cursor:pointer;border-bottom:1px solid #0003;position:relative}
@@ -92,8 +100,10 @@ button:disabled{opacity:.4;cursor:default}
 #line span{cursor:pointer;padding:3px 6px;border-radius:4px}
 #line span.now{background:var(--accent);color:#0b0d10;font-weight:600}
 .num{color:var(--dim);cursor:default !important}
+/* 16 px et pas 14 : sous ce seuil, le navigateur zoome tout seul quand le
+   champ prend le focus, et la page reste agrandie derrière. */
 input[type=text]{background:#0f1115;color:var(--ink);border:1px solid var(--line);
-  border-radius:6px;padding:9px 10px;font-size:14px;width:100%}
+  border-radius:6px;padding:10px;font-size:16px;width:100%}
 .filter-row{padding:9px 12px;border-bottom:1px solid var(--line)}
 </style></head><body>
 
