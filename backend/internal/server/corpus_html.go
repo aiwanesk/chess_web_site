@@ -42,7 +42,12 @@ main>*{min-width:0}
 
 .left{width:100%;max-width:514px;margin:0 auto}
 /* Fluide : c'est le carré qui impose la taille, pas des cases de 64 px. */
-#board{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;
+/* minmax(0,1fr) et pas 1fr : « 1fr » vaut « minmax(auto,1fr) », donc la taille
+   intrinsèque des SVG impose un plancher à chaque piste et l'échiquier déborde
+   de son conteneur sur un écran étroit. Et sans grid-template-rows du tout, les
+   rangées se dimensionnent sur leur contenu : celles sans pièce s'écrasent. */
+#board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  grid-template-rows:repeat(8,minmax(0,1fr));aspect-ratio:1;
   border:1px solid var(--line);border-radius:4px;overflow:hidden;
   touch-action:manipulation;user-select:none}
 .sq{position:relative;display:flex;align-items:center;justify-content:center}
@@ -55,7 +60,7 @@ main>*{min-width:0}
   border-radius:50%;background:#7aa2f7aa;pointer-events:none}
 .sq.dest.occupied::after{width:82%;height:82%;background:none;
   border:5px solid #7aa2f7aa;border-radius:50%}
-.coord{position:absolute;bottom:1px;right:3px;font-size:9px;color:#0006;
+.coord{position:absolute;top:1px;left:3px;font-size:9px;color:#0006;
   pointer-events:none}
 
 .bar-row{display:flex;gap:6px;padding:10px 0;flex-wrap:wrap}
@@ -102,10 +107,10 @@ input[type=text]{background:#0f1115;color:var(--ink);border:1px solid var(--line
   <div class="left">
     <div id="board"></div>
     <div class="bar-row">
-      <button id="b-back" onclick="back()">&larr;</button>
-      <button id="b-fwd" onclick="fwd()">&rarr;</button>
-      <button onclick="home()">Début</button>
-      <button onclick="flip()">Retourner</button>
+      <button id="b-back">&larr;</button>
+      <button id="b-fwd">&rarr;</button>
+      <button id="b-home">Début</button>
+      <button id="b-flip">Retourner</button>
     </div>
     <div class="panel"><h2>Ligne</h2><div id="line"></div></div>
   </div>
@@ -118,7 +123,7 @@ input[type=text]{background:#0f1115;color:var(--ink);border:1px solid var(--line
   <div class="panel">
     <h2 id="notes-head">Commentaires</h2>
     <div class="filter-row">
-      <input type="text" id="filter" placeholder="filtrer par chapitre ou par mot…" oninput="render()">
+      <input type="text" id="filter" placeholder="filtrer par chapitre ou par mot…">
     </div>
     <div class="body" id="notes"></div>
   </div>
@@ -237,7 +242,7 @@ function renderMoves(){
   }
   var top = data.moves[0].n || 1;
   el.innerHTML = data.moves.map(function(m){
-    return "<div class='mv' onclick=\"play('" + m.uci + "')\">" +
+    return "<div class='mv' data-uci='" + m.uci + "'>" +
       "<span class='san'>" + m.san + "</span>" +
       "<span class='dot'>" + (m.notes ? "● " + m.notes : "") + "</span>" +
       "<span class='pct'>" + m.pct.toFixed(1) + " %<br>" + m.n + "</span>" +
@@ -271,11 +276,11 @@ function renderLine(){
   var out = "";
   for(var i = 0; i < line.length; i++){
     if(i === 0){
-      out += "<span class='" + (cur === 0 ? "now" : "") + "' onclick='jump(0)'>début</span> ";
+      out += "<span class='" + (cur === 0 ? "now" : "") + "' data-i='0'>début</span> ";
       continue;
     }
     if(i % 2 === 1) out += "<span class='num'>" + ((i + 1) / 2 | 0) + ".</span> ";
-    out += "<span class='" + (i === cur ? "now" : "") + "' onclick='jump(" + i + ")'>" +
+    out += "<span class='" + (i === cur ? "now" : "") + "' data-i='" + i + "'>" +
            line[i].san + "</span> ";
   }
   var el = document.getElementById("line");
@@ -297,6 +302,26 @@ function render(){
   document.getElementById("b-back").disabled = cur === 0;
   document.getElementById("b-fwd").disabled = cur >= line.length - 1;
 }
+
+// Tous les gestionnaires sont posés ici : le CSP interdit les attributs
+// onclick=, et un nonce ne couvre que les balises <script>. C'est silencieux —
+// la page s'affiche, simplement plus rien ne réagit.
+function wire(){
+  document.getElementById("b-back").addEventListener("click", back);
+  document.getElementById("b-fwd").addEventListener("click", fwd);
+  document.getElementById("b-home").addEventListener("click", home);
+  document.getElementById("b-flip").addEventListener("click", flip);
+  document.getElementById("filter").addEventListener("input", renderNotes);
+  document.getElementById("moves").addEventListener("click", function(e){
+    var el = e.target.closest(".mv");
+    if(el) play(el.dataset.uci);
+  });
+  document.getElementById("line").addEventListener("click", function(e){
+    var el = e.target.closest("span[data-i]");
+    if(el) jump(+el.dataset.i);
+  });
+}
+wire();
 
 api(API + "/meta").then(function(m){
   document.getElementById("meta").textContent =

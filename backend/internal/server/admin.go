@@ -47,6 +47,8 @@ type adminView struct {
 	Referrers                          []referrerRow
 	TotalHuman, TotalBot, TotalUniques int
 	BotPct                             int
+	// Outils de l'espace privé
+	HasCorpus bool
 	// Réservations
 	Bookings []bookingRow
 	// Newsletter
@@ -107,6 +109,8 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 			view.TotalSolved += r.Solved
 		}
 	}
+
+	view.HasCorpus = s.corpus != nil
 
 	// Fréquentation
 	view.TopPages, _ = s.store.TopPages(15)
@@ -239,37 +243,86 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex"><title>Tableau de bord — privé</title>
 <style>
- :root{--ink:#1e293b;--sub:#64748b;--line:#e2e8f0;--card:#fff;--bg:#f8fafc;--accent:#1e293b}
+ /* Même palette que l'explorateur de corpus : l'espace privé doit se lire
+    comme un seul outil, pas comme deux pages sans rapport. */
+ :root{--bg:#14161a;--panel:#1c1f26;--line:#2a2f39;--ink:#e6e8ec;--dim:#98a0ae;
+   --accent:#7aa2f7;--warm:#e0af68;--ok:#5fb87a;--soft:#232833}
  *{box-sizing:border-box}
- body{font:15px/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg);margin:0;padding:1.5rem;max-width:1000px;margin:0 auto}
- h1{font-size:1.4rem;margin:.2rem 0 1rem} h2{font-size:1rem;margin:1.75rem 0 .5rem} .sub{color:var(--sub);font-weight:400}
+ body{font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+   color:var(--ink);background:var(--bg);margin:0;padding:0 1.25rem 3rem;
+   max-width:1100px;margin:0 auto;-webkit-text-size-adjust:100%}
+ a{color:var(--accent)}
+
+ .top{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+   flex-wrap:wrap;padding:1rem 0 .85rem;border-bottom:1px solid var(--line);
+   margin-bottom:1.1rem}
+ h1{font-size:1.15rem;margin:0;font-weight:700;letter-spacing:-.01em}
+ h2{font-size:.95rem;margin:1.6rem 0 .5rem;font-weight:600}
+ .sub{color:var(--dim);font-weight:400}
+
+ /* Les outils de l'espace privé : c'est le point d'entrée, il doit sauter aux yeux. */
+ .tools{display:flex;gap:.5rem;flex-wrap:wrap}
+ .tool{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;
+   background:var(--soft);border:1px solid var(--line);border-radius:.6rem;
+   padding:.5rem .85rem;color:var(--ink);font-weight:600;font-size:.88rem;
+   transition:border-color .15s,background .15s}
+ .tool:hover{background:#2b323e;border-color:var(--accent)}
+ .tool .ic{color:var(--warm);font-size:1rem;line-height:1}
+ .tool.off{opacity:.45;pointer-events:none}
+ .tool.off .ic{color:var(--dim)}
+ .tool small{color:var(--dim);font-weight:400}
+
  .tabin{position:absolute;width:0;height:0;opacity:0}
- .tabs{display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:2px solid var(--line);margin-bottom:1.25rem}
- .tabs label{cursor:pointer;padding:.55rem 1rem;border-radius:.5rem .5rem 0 0;font-weight:600;color:var(--sub);user-select:none}
- .tabs label:hover{color:var(--ink)}
+ .tabs{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.25rem}
+ .tabs label{cursor:pointer;padding:.5rem .9rem;border-radius:.55rem;
+   font-weight:600;font-size:.9rem;color:var(--dim);user-select:none;
+   border:1px solid transparent}
+ .tabs label:hover{color:var(--ink);background:var(--soft)}
  .panel{display:none}
  #t1:checked~#p1,#t2:checked~#p2,#t3:checked~#p3,#t4:checked~#p4{display:block}
- #t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],#t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
- .cards{display:grid;gap:.75rem;grid-template-columns:repeat(3,1fr);margin:.5rem 0 1rem}
+ #t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],
+ #t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4]{
+   color:var(--ink);background:var(--panel);border-color:var(--line)}
+
+ .cards{display:grid;gap:.7rem;grid-template-columns:repeat(3,1fr);margin:.5rem 0 1.1rem}
  @media(max-width:620px){.cards{grid-template-columns:1fr}}
- .kpi{background:var(--card);border:1px solid var(--line);border-radius:.75rem;padding:.9rem 1rem}
- .kpi .n{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums} .kpi .l{color:var(--sub);font-size:.8rem}
+ .kpi{background:var(--panel);border:1px solid var(--line);border-radius:.75rem;
+   padding:.9rem 1rem}
+ .kpi .n{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;
+   letter-spacing:-.02em}
+ .kpi .l{color:var(--dim);font-size:.78rem;margin-top:.15rem}
+
  .grid2{display:grid;gap:1.25rem;grid-template-columns:1fr 1fr}
  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
- table{border-collapse:collapse;width:100%;margin-top:.4rem;font-variant-numeric:tabular-nums;background:var(--card);border:1px solid var(--line);border-radius:.6rem;overflow:hidden}
- th,td{padding:.5rem .7rem;border-bottom:1px solid var(--line);text-align:right}
+
+ /* Un tableau doit pouvoir défiler seul sur téléphone plutôt que de pousser
+    la page : sept colonnes n'entrent pas dans 390 px. */
+ table{border-collapse:collapse;width:100%;margin-top:.4rem;
+   font-variant-numeric:tabular-nums;background:var(--panel);
+   border:1px solid var(--line);border-radius:.7rem;overflow:hidden;font-size:.9rem}
+ th,td{padding:.55rem .7rem;border-bottom:1px solid var(--line);text-align:right}
  th:first-child,td:first-child,th.l,td.l{text-align:left}
- thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);background:#f1f5f9}
+ thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;
+   color:var(--dim);background:#20242d;font-weight:600}
  tbody tr:last-child td{border-bottom:0}
+ tbody tr:hover{background:#ffffff08}
  .p{max-width:15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
- .bar{height:8px;border-radius:4px;background:#e2e8f0;overflow:hidden;min-width:70px}
- .bar>span{display:block;height:100%;background:#16a34a}
- .empty{color:#94a3b8;margin:.5rem 0}
+ .bar{height:8px;border-radius:4px;background:#2a2f39;overflow:hidden;min-width:70px}
+ .bar>span{display:block;height:100%;background:var(--ok)}
+ .empty{color:var(--dim);margin:.5rem 0;font-style:italic}
  .flag{font-size:1.1rem}
- .tag{display:inline-block;padding:.1rem .45rem;border-radius:.35rem;font-size:.75rem;font-weight:600;background:#dcfce7;color:#166534}
- .tag.wait{background:#fef3c7;color:#92400e}
+ .tag{display:inline-block;padding:.12rem .5rem;border-radius:.4rem;font-size:.75rem;
+   font-weight:600;background:#1e3a2a;color:#7ee2a8}
+ .tag.wait{background:#3a2f16;color:#e8c37a}
 </style></head><body>
-<h1>Tableau de bord <span class="sub">— privé</span></h1>
+<div class="top">
+ <h1>Tableau de bord <span class="sub">— privé</span></h1>
+ <nav class="tools">
+  {{if .HasCorpus}}<a class="tool" href="/admin/corpus/"><span class="ic">&#9816;</span> Explorateur de corpus</a>
+  {{else}}<span class="tool off"><span class="ic">&#9816;</span> Explorateur de corpus <small>— CORPUS_DB non configuré</small></span>{{end}}
+  <span class="tool off"><span class="ic">&#9820;</span> Base de parties <small>— à venir</small></span>
+ </nav>
+</div>
 
 <input type="radio" name="tab" id="t1" class="tabin" checked>
 <input type="radio" name="tab" id="t2" class="tabin">
