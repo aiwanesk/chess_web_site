@@ -169,6 +169,10 @@ type Filter struct {
 	FromYear, ToYear     int
 	ExcludeTitledTuesday bool
 	Limit                int
+	// Path restreint aux parties qui passent par ce début de partie (en UCI).
+	// Le tri se fait en Go, après la requête : un préfixe de coups ne s'indexe
+	// pas, et le filtre a déjà ramené l'ensemble à quelques centaines de lignes.
+	Path []string
 }
 
 func placeholders(n int) string {
@@ -254,8 +258,14 @@ func (s *Store) Search(f Filter) ([]Game, error) {
 	if limit <= 0 || limit > 500 {
 		limit = 200
 	}
+	// Avec un chemin, on ramène plus large et on trie ensuite : sinon le LIMIT
+	// couperait avant le filtrage et on perdrait des parties qui y passent.
+	sqlLimit := limit
+	if len(f.Path) > 0 {
+		sqlLimit = 3000
+	}
 	rows, err := s.db.Query(gameSelect+cond+` ORDER BY g.date DESC, g.id DESC LIMIT ?`,
-		append(args, limit)...)
+		append(args, sqlLimit)...)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +277,13 @@ func (s *Store) Search(f Filter) ([]Game, error) {
 			&g.Event, &g.Date, &g.Year, &g.ECO, &g.Result, &g.SAN, &g.UCI); err != nil {
 			return nil, err
 		}
+		if len(f.Path) > 0 && !hasPrefix(strings.Fields(g.UCI), f.Path) {
+			continue
+		}
 		out = append(out, g)
+		if len(out) >= limit {
+			break
+		}
 	}
 	return out, rows.Err()
 }
@@ -276,14 +292,19 @@ func (s *Store) Search(f Filter) ([]Game, error) {
 // joué, et ce qu'il a rapporté AUX JOUEURS CHERCHÉS — pas aux Blancs. C'est ce
 // qui rend l'arbre lisible en préparation : « il joue ça, et il gagne ».
 type Node struct {
-	SAN      string  `json:"san"`
-	UCI      string  `json:"uci"`
-	Games    int     `json:"games"`
-	Wins     int     `json:"wins"`
-	Draws    int     `json:"draws"`
-	Losses   int     `json:"losses"`
-	Score    float64 `json:"score"`
-	Children []Node  `json:"children,omitempty"`
+	SAN    string  `json:"san"`
+	UCI    string  `json:"uci"`
+	Games  int     `json:"games"`
+	Wins   int     `json:"wins"`
+	Draws  int     `json:"draws"`
+	Losses int     `json:"losses"`
+	Score  float64 `json:"score"`
+	// FEN est laissé vide ici : ce paquet ne fait que du SQL et de
+	// l'agrégation. C'est la couche serveur qui le remplit, parce qu'elle a
+	// déjà le moteur d'application des coups — et qu'un paquet de requêtes n'a
+	// pas à connaître les règles du jeu.
+	FEN      string `json:"fen,omitempty"`
+	Children []Node `json:"children,omitempty"`
 }
 
 // TreeOptions borne l'arbre. Sans bornes il descendrait jusqu'au dernier coup

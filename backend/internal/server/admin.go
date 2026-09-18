@@ -49,6 +49,7 @@ type adminView struct {
 	BotPct                             int
 	// Outils de l'espace privé
 	HasCorpus bool
+	HasGames  bool
 	// Réservations
 	Bookings []bookingRow
 	// Newsletter
@@ -111,6 +112,7 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 	}
 
 	view.HasCorpus = s.corpus != nil
+	view.HasGames = s.games != nil
 
 	// Fréquentation
 	view.TopPages, _ = s.store.TopPages(15)
@@ -320,7 +322,8 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  <nav class="tools">
   {{if .HasCorpus}}<a class="tool" href="/admin/corpus/"><span class="ic">&#9816;</span> Explorateur de corpus</a>
   {{else}}<span class="tool off"><span class="ic">&#9816;</span> Explorateur de corpus <small>— CORPUS_DB non configuré</small></span>{{end}}
-  <span class="tool off"><span class="ic">&#9820;</span> Base de parties <small>— à venir</small></span>
+  {{if .HasGames}}<a class="tool" href="/admin/parties/"><span class="ic">&#9820;</span> Base de parties</a>
+  {{else}}<span class="tool off"><span class="ic">&#9820;</span> Base de parties <small>— GAMES_DB non configuré</small></span>{{end}}
  </nav>
 </div>
 

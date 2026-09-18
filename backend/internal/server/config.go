@@ -49,6 +49,10 @@ type Config struct {
 	// volume /data, jamais dans l'image : il pèse des centaines de mégaoctets et
 	// contient du contenu de cours acheté.
 	CorpusDB string
+	// GamesDB est la base de parties (mega.db) : recherche par joueur, couleur
+	// et période. Vide = explorateur de parties désactivé. Même volume que
+	// CorpusDB : sur /data, jamais dans l'image.
+	GamesDB string
 	// EventsFile is an optional JSON file of stages/events used for newsletter
 	// announcements (see internal/server/announce.go).
 	EventsFile string
@@ -79,6 +83,7 @@ func LoadConfig() Config {
 		AdminUser:         env("ADMIN_USER", adminUser),
 		AdminToken:        os.Getenv("ADMIN_TOKEN"),
 		CorpusDB:          os.Getenv("CORPUS_DB"),
+		GamesDB:           os.Getenv("GAMES_DB"),
 		EventsFile:        env("EVENTS_FILE", "../content/events.json"),
 		HourlyRate:        atoi(os.Getenv("HOURLY_RATE"), 120),
 		BookingMinDate:    env("BOOKING_MIN_DATE", "2026-08-10"),

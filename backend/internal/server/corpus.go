@@ -141,3 +141,7 @@ func pieceJSON(m map[byte]string) template.JS {
 var corpusTmpl = template.Must(template.New("corpus").Funcs(template.FuncMap{
 	"pieces": pieceJSON,
 }).Parse(corpusHTML))
+
+var partiesTmpl = template.Must(template.New("parties").Funcs(template.FuncMap{
+	"pieces": pieceJSON,
+}).Parse(partiesHTML))
