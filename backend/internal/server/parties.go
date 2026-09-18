@@ -60,7 +60,11 @@ func year(s string) int {
 }
 
 func (s *Server) handlePartiesPlayers(w http.ResponseWriter, r *http.Request) {
-	found, err := s.games.SearchPlayers(r.URL.Query().Get("q"), 25)
+	g := s.gamesStore()
+	if !s.requireStore(w, g != nil, "base de parties") {
+		return
+	}
+	found, err := g.SearchPlayers(r.URL.Query().Get("q"), 25)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -85,7 +89,11 @@ func (s *Server) handlePartiesTree(w http.ResponseWriter, r *http.Request) {
 	if opt.MaxDepth > 30 {
 		opt.MaxDepth = 30
 	}
-	tree, err := s.games.OpeningTree(f, opt)
+	g := s.gamesStore()
+	if !s.requireStore(w, g != nil, "base de parties") {
+		return
+	}
+	tree, err := g.OpeningTree(f, opt)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -132,7 +140,11 @@ func fillFENs(nodes []games.Node, fen string) error {
 func (s *Server) handlePartiesGames(w http.ResponseWriter, r *http.Request) {
 	f := parseFilter(r)
 	f.Limit = atoiDefault(r.URL.Query().Get("limit"), 60)
-	found, err := s.games.Search(f)
+	g := s.gamesStore()
+	if !s.requireStore(w, g != nil, "base de parties") {
+		return
+	}
+	found, err := g.Search(f)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -141,7 +153,11 @@ func (s *Server) handlePartiesGames(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) handlePartiesMeta(w http.ResponseWriter, r *http.Request) {
-	m, err := s.games.Meta()
+	g := s.gamesStore()
+	if !s.requireStore(w, g != nil, "base de parties") {
+		return
+	}
+	m, err := g.Meta()
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return

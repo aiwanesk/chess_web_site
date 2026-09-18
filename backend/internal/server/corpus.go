@@ -44,7 +44,11 @@ func (s *Server) handleCorpusPos(w http.ResponseWriter, r *http.Request) {
 	if fen == "" {
 		fen = corpusStartFEN
 	}
-	pos, err := s.corpus.Lookup(fen)
+	c := s.corpusStore()
+	if !s.requireStore(w, c != nil, "corpus") {
+		return
+	}
+	pos, err := c.Lookup(fen)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusBadRequest)
 		return
@@ -65,7 +69,11 @@ func (s *Server) handleCorpusGo(w http.ResponseWriter, r *http.Request) {
 	// Le coup doit exister dans la position courante. C'est la seule validation
 	// de légalité du système, et elle suffit : la base ne contient que des
 	// coups joués dans de vraies parties.
-	cur, err := s.corpus.Lookup(fen)
+	c := s.corpusStore()
+	if !s.requireStore(w, c != nil, "corpus") {
+		return
+	}
+	cur, err := c.Lookup(fen)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusBadRequest)
 		return
@@ -87,7 +95,7 @@ func (s *Server) handleCorpusGo(w http.ResponseWriter, r *http.Request) {
 		s.corpusError(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	pos, err := s.corpus.Lookup(next)
+	pos, err := c.Lookup(next)
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -99,7 +107,11 @@ func (s *Server) handleCorpusGo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) handleCorpusMeta(w http.ResponseWriter, r *http.Request) {
-	m, err := s.corpus.Meta()
+	c := s.corpusStore()
+	if !s.requireStore(w, c != nil, "corpus") {
+		return
+	}
+	m, err := c.Meta()
 	if err != nil {
 		s.corpusError(w, err.Error(), http.StatusInternalServerError)
 		return

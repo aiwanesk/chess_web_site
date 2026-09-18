@@ -4,6 +4,7 @@ import (
 	"io/fs"
 	"log/slog"
 	"net/http"
+	"sync"
 
 	"github.com/CAFxX/httpcompression"
 	"github.com/CAFxX/httpcompression/contrib/andybalholm/brotli"
@@ -25,8 +26,13 @@ type Server struct {
 	news     *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
 	bookings *booking.Store    // nil if bookings are disabled (no DB_PATH)
 	formKey  []byte            // HMAC key for anti-spam form tokens (per-process)
-	corpus   *corpus.Store     // nil si CORPUS_DB n'est pas configuré
-	games    *games.Store      // nil si GAMES_DB n'est pas configuré
+	corpus   *corpus.Store     // nil tant qu'aucune base n'est chargée
+	games    *games.Store      // idem
+	// mu protège corpus et games : un téléversement remplace le pointeur
+	// pendant que des requêtes tournent. uploadMu sérialise les envois entre
+	// eux, deux morceaux concurrents écrivant sinon une base mélangée.
+	mu       sync.RWMutex
+	uploadMu sync.Mutex
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
@@ -149,7 +155,7 @@ func (s *Server) Handler() http.Handler {
 	// tableau de bord (un appel toutes les 5 s) le rendrait inutilisable. Celui-ci
 	// est dimensionné pour une navigation au doigt, la force brute restant
 	// couverte par le limiteur d'authentification ci-dessus.
-	if s.corpus != nil {
+	if s.cfg.CorpusDB != "" {
 		corpusLimiter := newIPRateLimiter(15, 90)
 		r.Route("/admin/corpus", func(c chi.Router) {
 			c.Use(rateLimit(corpusLimiter), s.adminAuth)
@@ -159,7 +165,7 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/api/meta", s.handleCorpusMeta)
 		})
 	}
-	if s.games != nil {
+	if s.cfg.GamesDB != "" {
 		partiesLimiter := newIPRateLimiter(15, 90)
 		r.Route("/admin/parties", func(c chi.Router) {
 			c.Use(rateLimit(partiesLimiter), s.adminAuth)
@@ -168,6 +174,16 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/api/tree", s.handlePartiesTree)
 			c.Get("/api/games", s.handlePartiesGames)
 			c.Get("/api/meta", s.handlePartiesMeta)
+		})
+	}
+	if s.cfg.CorpusDB != "" || s.cfg.GamesDB != "" {
+		uploadLimiter := newIPRateLimiter(30, 120) // un morceau toutes les 2 s en régime
+		r.Route("/admin/upload", func(c chi.Router) {
+			c.Use(rateLimit(uploadLimiter), s.adminAuth)
+			c.Get("/status", s.handleUploadStatus)
+			c.Post("/chunk", s.handleUploadChunk)
+			c.Post("/commit", s.handleUploadCommit)
+			c.Post("/abort", s.handleUploadAbort)
 		})
 	}
 

@@ -50,6 +50,9 @@ type adminView struct {
 	// Outils de l'espace privé
 	HasCorpus bool
 	HasGames  bool
+	// Nonce : le panneau de téléversement porte du JavaScript, et la politique
+	// par défaut est script-src 'self'. Sans nonce il serait bloqué en silence.
+	Nonce string
 	// Réservations
 	Bookings []bookingRow
 	// Newsletter
@@ -111,8 +114,9 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 		}
 	}
 
-	view.HasCorpus = s.corpus != nil
-	view.HasGames = s.games != nil
+	view.Nonce = newNonce()
+	view.HasCorpus = s.cfg.CorpusDB != ""
+	view.HasGames = s.cfg.GamesDB != ""
 
 	// Fréquentation
 	view.TopPages, _ = s.store.TopPages(15)
@@ -186,6 +190,9 @@ func (s *Server) handleAdmin(w http.ResponseWriter, _ *http.Request) {
 		}
 	}
 
+	// Le CSP par défaut interdit le script inline du panneau de téléversement :
+	// on émet la politique avec le nonce de cette page.
+	w.Header().Set("Content-Security-Policy", cspHeader(view.Nonce))
 	_ = adminTmpl.Execute(w, view)
 }
 
@@ -281,9 +288,10 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
    border:1px solid transparent}
  .tabs label:hover{color:var(--ink);background:var(--soft)}
  .panel{display:none}
- #t1:checked~#p1,#t2:checked~#p2,#t3:checked~#p3,#t4:checked~#p4{display:block}
+ #t1:checked~#p1,#t2:checked~#p2,#t3:checked~#p3,#t4:checked~#p4,#t5:checked~#p5{display:block}
  #t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],
- #t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4]{
+ #t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4],
+ #t5:checked~.tabs label[for=t5]{
    color:var(--ink);background:var(--panel);border-color:var(--line)}
 
  .cards{display:grid;gap:.7rem;grid-template-columns:repeat(3,1fr);margin:.5rem 0 1.1rem}
@@ -316,6 +324,19 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  .tag{display:inline-block;padding:.12rem .5rem;border-radius:.4rem;font-size:.75rem;
    font-weight:600;background:#1e3a2a;color:#7ee2a8}
  .tag.wait{background:#3a2f16;color:#e8c37a}
+ .up{background:var(--panel);border:1px solid var(--line);border-radius:.75rem;
+   padding:1rem;margin:.9rem 0}
+ .up h3{margin:0 0 .7rem;font-size:.95rem}
+ .up-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+ .up input[type=file]{flex:1 1 16rem;color:var(--dim);font-size:.85rem}
+ .up button{background:#2b323e;color:var(--ink);border:1px solid var(--line);
+   border-radius:.5rem;padding:.55rem 1rem;cursor:pointer;font-size:.9rem}
+ .up button:hover{background:#353d4b}
+ .up button:disabled{opacity:.45;cursor:default}
+ .up .bar{margin:.8rem 0 .4rem;height:8px;width:100%;min-width:0}
+ .up .bar>span{background:var(--accent);transition:width .2s}
+ .up .state{margin:0;color:var(--dim);font-size:.85rem}
+ code{background:#20242d;padding:.05rem .3rem;border-radius:.25rem;font-size:.85em}
 </style></head><body>
 <div class="top">
  <h1>Tableau de bord <span class="sub">— privé</span></h1>
@@ -331,11 +352,13 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
 <input type="radio" name="tab" id="t2" class="tabin">
 <input type="radio" name="tab" id="t3" class="tabin">
 <input type="radio" name="tab" id="t4" class="tabin">
+<input type="radio" name="tab" id="t5" class="tabin">
 <nav class="tabs">
  <label for="t1">Fréquentation</label>
  <label for="t2">Réservations{{if .Bookings}} ({{len .Bookings}}){{end}}</label>
  <label for="t3">Tactiques</label>
  <label for="t4">Newsletter{{if .TotalSubs}} ({{.ConfirmedSubs}}){{end}}</label>
+ <label for="t5">Bases</label>
 </nav>
 
 <section class="panel" id="p1">
@@ -405,4 +428,134 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
    <td class="l">{{.Created}}</td><td class="l">{{.Confirmed}}</td></tr>{{end}}</tbody></table>
  {{else}}<p class="empty">Aucune inscription.</p>{{end}}
 </section>
+<section class="panel" id="p5">
+ <h2>Bases de l'espace privé <span class="sub">— téléversement</span></h2>
+ <p class="empty" style="font-style:normal">
+  L'envoi se fait par morceaux de 8 Mo et reprend là où il s'est arrêté. La base
+  en ligne n'est remplacée qu'APRÈS vérification du fichier reçu : si elle
+  échoue, rien ne bouge. L'ancienne est conservée en <code>.bak</code>.
+ </p>
+ {{if .HasCorpus}}
+ <div class="up" data-target="corpus">
+  <h3>corpus.db <span class="sub">— théorie et commentaires de cours</span></h3>
+  <div class="up-row">
+   <input type="file" accept=".db,.sqlite,.sqlite3">
+   <button class="send">Envoyer</button>
+   <button class="cancel" hidden>Annuler</button>
+  </div>
+  <div class="bar"><span style="width:0"></span></div>
+  <p class="state">—</p>
+ </div>
+ {{end}}
+ {{if .HasGames}}
+ <div class="up" data-target="games">
+  <h3>mega.db <span class="sub">— base de parties</span></h3>
+  <div class="up-row">
+   <input type="file" accept=".db,.sqlite,.sqlite3">
+   <button class="send">Envoyer</button>
+   <button class="cancel" hidden>Annuler</button>
+  </div>
+  <div class="bar"><span style="width:0"></span></div>
+  <p class="state">—</p>
+  </div>
+ {{end}}
+ {{if not (or .HasCorpus .HasGames)}}
+ <p class="empty">Ni CORPUS_DB ni GAMES_DB ne sont configurés : il n'y a nulle part où écrire.</p>
+ {{end}}
+</section>
+
+<script nonce="{{ .Nonce }}">
+// Téléversement par morceaux. Deux raisons de ne pas faire un seul POST : le
+// timeout du frontal HAProxy couperait une requête de plusieurs centaines de
+// mégaoctets, et un échec à 90 % obligerait à tout recommencer.
+//
+// Le serveur vérifie l'offset de chaque morceau et répond 409 avec l'offset
+// réel en cas de désaccord : c'est ce qui permet de reprendre, et ce qui
+// empêche deux envois concurrents d'écrire une base mélangée.
+(function(){
+  var CHUNK = 8 * 1024 * 1024;
+
+  function size(n){
+    if(n >= 1073741824) return (n/1073741824).toFixed(1) + " Go";
+    if(n >= 1048576) return Math.round(n/1048576) + " Mo";
+    if(n > 0) return Math.round(n/1024) + " Ko";
+    return "0";
+  }
+
+  document.querySelectorAll(".up").forEach(function(box){
+    var target = box.dataset.target;
+    var file = box.querySelector("input[type=file]");
+    var send = box.querySelector(".send");
+    var cancel = box.querySelector(".cancel");
+    var bar = box.querySelector(".bar > span");
+    var state = box.querySelector(".state");
+    var stop = false;
+
+    function say(msg){ state.textContent = msg; }
+    function api(path, opt){
+      return fetch("/admin/upload/" + path + "?target=" + target,
+                   Object.assign({credentials:"same-origin"}, opt || {}));
+    }
+
+    api("status").then(function(r){ return r.json(); }).then(function(s){
+      var parts = [];
+      if(s.live) parts.push("en ligne : " + size(s.live) + " (" + s.liveModified + ")");
+      if(s.uploaded) parts.push("envoi interrompu à " + size(s.uploaded) + " — relancer reprendra là");
+      say(parts.join(" · ") || "aucune base en ligne");
+    }).catch(function(){});
+
+    cancel.addEventListener("click", function(){
+      stop = true;
+      api("abort", {method:"POST"}).then(function(){ say("annulé"); });
+    });
+
+    send.addEventListener("click", function(){
+      var f = file.files[0];
+      if(!f){ say("choisis un fichier"); return; }
+      stop = false;
+      send.disabled = true; file.disabled = true; cancel.hidden = false;
+
+      api("status").then(function(r){ return r.json(); }).then(function(s){
+        // On ne reprend que si le début correspond : un autre fichier repart
+        // de zéro, sinon on collerait deux bases bout à bout.
+        var start = (s.uploaded && s.uploaded < f.size) ? s.uploaded : 0;
+        return push(f, start);
+      }).then(function(){
+        if(stop) return;
+        say("vérification…");
+        return api("commit", {method:"POST"}).then(function(r){
+          return r.json().then(function(j){
+            if(!r.ok) throw new Error(j.error || r.status);
+            say("remplacée — " + size(j.size) + ". L'ancienne est gardée en .bak.");
+            bar.style.width = "100%";
+          });
+        });
+      }).catch(function(e){
+        say("échec : " + (e.message || e));
+      }).then(function(){
+        send.disabled = false; file.disabled = false; cancel.hidden = true;
+      });
+    });
+
+    function push(f, offset){
+      if(stop || offset >= f.size) return Promise.resolve();
+      var end = Math.min(offset + CHUNK, f.size);
+      return api("chunk&offset=" + offset, {method:"POST", body:f.slice(offset, end)})
+        .then(function(r){
+          return r.json().then(function(j){
+            if(r.status === 409){
+              // Le serveur sait mieux que nous où il en est : on se recale.
+              return push(f, j.expected);
+            }
+            if(!r.ok) throw new Error(j.error || r.status);
+            bar.style.width = (100 * j.uploaded / f.size) + "%";
+            say(size(j.uploaded) + " / " + size(f.size));
+            return push(f, j.uploaded);
+          });
+        });
+    }
+  });
+})();
+</script>
+
 </body></html>`))
