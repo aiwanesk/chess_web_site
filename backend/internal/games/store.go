@@ -40,6 +40,11 @@ CREATE TABLE IF NOT EXISTS event (
 
 CREATE TABLE IF NOT EXISTS game (
 	id        INTEGER PRIMARY KEY,
+	-- Empreinte de dédoublonnage : joueurs + date + résultat + coups (voir
+	-- games.Key). NULLable à dessein — SQLite autorise plusieurs NULL sous un
+	-- index UNIQUE, donc une base construite sans empreintes reste valide, elle
+	-- perd seulement la protection contre les doublons.
+	hash      INTEGER,
 	white_id  INTEGER NOT NULL,
 	black_id  INTEGER NOT NULL,
 	event_id  INTEGER,
@@ -60,6 +65,9 @@ CREATE TABLE IF NOT EXISTS game (
 -- millions de lignes.
 CREATE INDEX IF NOT EXISTS game_white ON game(white_id, year);
 CREATE INDEX IF NOT EXISTS game_black ON game(black_id, year);
+-- C'est cet index qui rend l'import TWIC rejouable : un INSERT OR IGNORE sur
+-- une partie déjà connue ne fait rien au lieu de la doubler.
+CREATE UNIQUE INDEX IF NOT EXISTS game_hash ON game(hash);
 
 CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT);
 `

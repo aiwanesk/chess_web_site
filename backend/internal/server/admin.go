@@ -462,6 +462,20 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  {{if not (or .HasCorpus .HasGames)}}
  <p class="empty">Ni CORPUS_DB ni GAMES_DB ne sont configurés : il n'y a nulle part où écrire.</p>
  {{end}}
+ {{if .HasGames}}
+ <div class="up" id="twic">
+  <h3>The Week in Chess <span class="sub">— mise à jour hebdomadaire</span></h3>
+  <p class="empty" style="font-style:normal">
+   Le serveur va chercher les numéros manquants tous les mardis, et rattrape
+   au démarrage s'il a été éteint. Le bouton sert la veille d'un tournoi,
+   quand on ne veut pas attendre mardi pour avoir les parties de l'adversaire.
+  </p>
+  <div class="up-row">
+   <button class="run">Mettre à jour maintenant</button>
+  </div>
+  <p class="state">—</p>
+ </div>
+ {{end}}
 </section>
 
 <script nonce="{{ .Nonce }}">
@@ -558,4 +572,55 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
 })();
 </script>
 
+<script nonce="{{ .Nonce }}">
+// État et déclenchement manuel de la mise à jour TWIC.
+(function(){
+  var box = document.getElementById("twic");
+  if(!box) return;
+  var btn = box.querySelector(".run");
+  var state = box.querySelector(".state");
+
+  function when(iso){
+    if(!iso || iso.indexOf("0001-01-01") === 0) return "jamais";
+    var d = new Date(iso);
+    return d.toLocaleString("fr-CH", {dateStyle:"short", timeStyle:"short"});
+  }
+  function refresh(){
+    return fetch("/admin/parties/api/twic", {credentials:"same-origin"})
+      .then(function(r){ return r.json(); })
+      .then(function(s){
+        if(!s.present){ state.textContent = "aucune base de parties en ligne"; return; }
+        state.textContent = "dernier numéro importé : " + s.last +
+          " · dernière vérification : " + when(s.checked) +
+          " · prochain passage : " + when(s.next);
+        btn.disabled = !!s.running;
+      }).catch(function(){ state.textContent = "état indisponible"; });
+  }
+  refresh();
+
+  btn.addEventListener("click", function(){
+    btn.disabled = true;
+    state.textContent = "téléchargement et import en cours… (l'explorateur répond 503 pendant ce temps)";
+    fetch("/admin/parties/twic", {method:"POST", credentials:"same-origin"})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        var rep = res.j.report || {};
+        var n = (rep.issues || []).length;
+        var msg = "déjà à jour";
+        if(n){
+          var v = 0, bad = 0;
+          (rep.issues || []).forEach(function(i){ v += i.variants || 0; bad += i.rejected || 0; });
+          msg = n + " numéro(s) importé(s), " + rep.added + " parties ajoutées, " +
+                rep.skipped + " doublons ignorés";
+          if(v) msg += ", " + v + " variantes écartées";
+          if(bad) msg += ", " + bad + " ILLISIBLES";
+        }
+        if(!res.ok) msg = "échec : " + (res.j.error || "") + (n ? " — " + msg : "");
+        state.textContent = msg;
+      })
+      .catch(function(e){ state.textContent = "échec : " + (e.message || e); })
+      .then(function(){ btn.disabled = false; setTimeout(refresh, 500); });
+  });
+})();
+</script>
 </body></html>`))

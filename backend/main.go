@@ -35,6 +35,13 @@ func main() {
 	// Auto-announce newly published content to confirmed newsletter subscribers.
 	srv.StartAnnouncer()
 
+	// Mise à jour hebdomadaire de la base de parties depuis TWIC. La boucle vit
+	// dans le processus — elle se teste, et elle suit le dépôt plutôt que la
+	// crontab d'un hébergeur qu'on ne retrouvera pas dans six mois.
+	twicCtx, stopTWIC := context.WithCancel(context.Background())
+	defer stopTWIC()
+	srv.StartTWIC(twicCtx)
+
 	httpServer := &http.Server{
 		Addr:              cfg.Addr,
 		Handler:           srv.Handler(),

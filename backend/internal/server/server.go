@@ -16,6 +16,7 @@ import (
 	"github.com/iwanesko/chess-web-site/backend/internal/games"
 	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
+	"github.com/iwanesko/chess-web-site/backend/internal/twic"
 )
 
 // Server wires the HTTP handler.
@@ -28,6 +29,7 @@ type Server struct {
 	formKey  []byte            // HMAC key for anti-spam form tokens (per-process)
 	corpus   *corpus.Store     // nil tant qu'aucune base n'est chargée
 	games    *games.Store      // idem
+	twic     *twic.Importer    // mise à jour hebdomadaire de games ; nil si GAMES_DB absent
 	// mu protège corpus et games : un téléversement remplace le pointeur
 	// pendant que des requêtes tournent. uploadMu sérialise les envois entre
 	// eux, deux morceaux concurrents écrivant sinon une base mélangée.
@@ -55,6 +57,7 @@ func New(cfg Config, static fs.FS) (*Server, error) {
 			s.corpus = c
 		}
 	}
+	s.twic = s.newImporter()
 	if cfg.DBPath != "" {
 		// A DB failure (e.g. an unwritable /data volume) must NOT take the site
 		// down: log loudly and degrade — stats + newsletter simply stay off.
@@ -174,6 +177,8 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/api/tree", s.handlePartiesTree)
 			c.Get("/api/games", s.handlePartiesGames)
 			c.Get("/api/meta", s.handlePartiesMeta)
+			c.Get("/api/twic", s.handleTWICStatus)
+			c.Post("/twic", s.handleTWICRun)
 		})
 	}
 	if s.cfg.CorpusDB != "" || s.cfg.GamesDB != "" {

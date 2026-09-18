@@ -100,6 +100,20 @@
 - Sans `image:` en front-matter, la page retombe sur `og/default.png` — silencieusement. `check-content-links.mjs` vérifie qu'une `image:` déclarée existe, **pour tout article** et plus seulement pour les carnets.
 - **JSON-LD** (`frontend/src/lib/schema.ts`, `articleSchema`) : une page d'article ne porte aucun nœud `Person` ni `Organization` (ils ne sont émis que sur l'accueil et `/a-propos`). L'`@id` seul y serait une **référence pendante** — le nom voyage donc avec. `inLanguage` suit la locale de la page (un article EN se déclarait `fr`), et `image` a toujours une valeur.
 
+## Espace privé : mise à jour TWIC de la base de parties
+- **Le planificateur est en Go, dans le processus** (`backend/internal/twic/schedule.go`) — pas dans le cron de l'hébergeur. Il réveille l'import **tous les mardis à 7 h UTC**, et **rattrape au démarrage** (garde-fou : pas deux tentatives à moins de 12 h d'écart, sinon une après-midi de redéploiements harcèlerait un site tenu par une personne). `nextRun` est une fonction pure, donc « mardi prochain » se teste sans attendre mardi.
+- **Deux garde-fous indépendants contre le doublon.** Le curseur `meta.twic_last` **dans mega.db** dit où on en est (à défaut : reprise au **1640**) ; l'index UNIQUE sur `game.hash` absorbe tout ce qui repasserait malgré lui. Le second n'est utile que si les lignes déjà présentes portent l'empreinte : **l'indexeur qui construit mega.db doit remplir `hash` avec la formule de `games.Key`** (documentée en Python dans `import.go`), sinon un rattrapage réimporte.
+- Mettre le curseur **dans la base** et pas à côté : téléverser une mega.db reconstruite sur le PC remplace aussi le curseur, donc rien à régler après coup.
+- **Le Chess960 est écarté explicitement**, pas compté comme illisible (`errVariant`). Une partie qui ne part pas de la position initiale ne se raccroche à aucune branche de l'arbre d'ouvertures — mélangée aux vraies, elle ferait croire à de la théorie là où il n'y en a pas. Le compteur `rejected`, lui, doit rester à **zéro** : chaque unité est une partie que le lecteur de SAN n'a pas su rejouer.
+- **L'importeur ne crée JAMAIS la base.** Sans mega.db téléversée il se met en sommeil : `games.OpenWriter` poserait sinon un schéma vide, et l'explorateur répondrait « aucune partie » au lieu de « aucune base ».
+- Déclenchement manuel : bouton dans l'onglet **Bases** de `/admin` (`POST /admin/parties/twic`) — pour la veille d'un tournoi. Il tourne sur `context.Background()`, pas sur la requête : fermer l'onglet n'interrompt pas un import.
+- **Test facultatif contre le vrai site** : `TWIC_LIVE=1640-1662 go test ./internal/twic/ -run Live -v`. C'est la seule vérification que l'adresse des archives n'a pas bougé et que le lecteur encaisse du PGN réel (174 919 parties rejouées, 0 illisible au 19.09.2026).
+
+## SAN → UCI (`backend/internal/corpus/san.go`)
+- Générateur de coups **légaux** écrit pour l'import PGN : TWIC n'écrit que du SAN, et « Cbd2 » ne devient « b1d2 » qu'en sachant quels cavaliers peuvent vraiment y aller.
+- **La validation vient de `corpus.db`**, qui stocke pour chaque arête **le SAN ET l'UCI** (produits par python-chess) : le test rejoue le graphe et compare. 47 931 coups, 1241 roques, 21 prises en passant, 1147 désambiguïsations. C'est cet oracle qui a trouvé le bug du `scan` de pièces glissantes — un `return` au premier obstacle **toutes directions confondues** laissait bouger une pièce clouée.
+- Le filtre de légalité n'est pas du luxe : c'est lui qui rend « Ne2 » non ambigu quand l'autre cavalier est cloué. Un simple filtre pseudo-légal échoue sur la ronde 4 d'un tournoi sur deux.
+
 ## Diagram Generation
 - Run `node scripts/gen-diagrams.mjs` after modifying FEN positions
 - Each diagram entry: `{ file, fen, lastMove?, flip?, dir? }`
