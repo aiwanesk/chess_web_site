@@ -109,6 +109,14 @@
 - Déclenchement manuel : bouton dans l'onglet **Bases** de `/admin` (`POST /admin/parties/twic`) — pour la veille d'un tournoi. Il tourne sur `context.Background()`, pas sur la requête : fermer l'onglet n'interrompt pas un import.
 - **Test facultatif contre le vrai site** : `TWIC_LIVE=1640-1662 go test ./internal/twic/ -run Live -v`. C'est la seule vérification que l'adresse des archives n'a pas bougé et que le lecteur encaisse du PGN réel (174 919 parties rejouées, 0 illisible au 19.09.2026).
 
+## Construire mega.db (`backend/cmd/megaindex`)
+- **L'indexeur est en Go, pas en Python.** Il réutilise le lecteur de PGN, le générateur SAN→UCI et l'empreinte `games.Key` de l'import TWIC : un indexeur écrit à côté serait une **seconde implémentation de l'empreinte**, et le jour où elle diverge d'un espace ou d'un accent, le rattrapage hebdomadaire réimporte tout en double sans rien dire.
+- Il tourne **sur le PC** : `go build -o megaindex.exe ./cmd/megaindex` puis `megaindex.exe -out mega.db "D:ases\*.zip"`. Accepte `.pgn` et `.zip`, développe les jokers lui-même (cmd.exe ne le fait pas).
+- **Rejouable** : relancer sur le même fichier ne compte que des doublons. C'est aussi la reprise après un Ctrl+C — on relance, seul ce qui manque entre.
+- Mesuré : **~8 900 parties/s** (23 291 parties en 3 s, 0 illisible). Une MegaBase de 11 millions se construit en une vingtaine de minutes.
+- **Ne pas poser `-twic-last`** sauf certitude : la clé écrite empêche le rattrapage automatique du serveur depuis 1640.
+- `scanGames` lit **en flux** et décode le Latin-1 **ligne par ligne** : décider sur le fichier entier transformerait tous les vrais caractères UTF-8 d'un fichier presque propre en charabia.
+
 ## SAN → UCI (`backend/internal/corpus/san.go`)
 - Générateur de coups **légaux** écrit pour l'import PGN : TWIC n'écrit que du SAN, et « Cbd2 » ne devient « b1d2 » qu'en sachant quels cavaliers peuvent vraiment y aller.
 - **La validation vient de `corpus.db`**, qui stocke pour chaque arête **le SAN ET l'UCI** (produits par python-chess) : le test rejoue le graphe et compare. 47 931 coups, 1241 roques, 21 prises en passant, 1147 désambiguïsations. C'est cet oracle qui a trouvé le bug du `scan` de pièces glissantes — un `return` au premier obstacle **toutes directions confondues** laissait bouger une pièce clouée.

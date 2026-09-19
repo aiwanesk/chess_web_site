@@ -321,3 +321,46 @@ func TestChess960EstEcarteEtNonRejete(t *testing.T) {
 		t.Fatalf("%d parties ajoutées, 1 attendue", got.Added)
 	}
 }
+
+// Index est le chemin PARALLÈLE : la traduction SAN→UCI est répartie sur
+// plusieurs goroutines et l'écriture est groupée en transactions. Il doit
+// donner exactement le même résultat que l'import séquentiel — et surtout
+// rester rejouable, puisque c'est ce qui sert de reprise après interruption
+// sur un PGN de plusieurs gigaoctets.
+func TestIndexDonneLeMemeResultatQueLImport(t *testing.T) {
+	const c960 = `[Event "Champions Chess960"]
+[White "Kasparov, Garry"]
+[Black "Topalov, Veselin"]
+[Result "1-0"]
+[FEN "rkbnnbqr/pppppppp/8/8/8/8/PPPPPPPP/RKBNNBQR w KQkq - 0 1"]
+1. d4 f5 1-0
+`
+	casse := strings.Replace(gameA, "3. Nxe5", "3. Nxe7", 1)
+	pgn := gameA + gameB + c960 + casse
+
+	path := newBase(t)
+	w, err := games.OpenWriter(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer w.Close()
+
+	// Un lot d'une seule partie force plusieurs transactions : c'est là qu'une
+	// erreur de découpage se verrait.
+	opt := IndexOptions{Workers: 4, Batch: 1}
+	st, err := Index(context.Background(), strings.NewReader(pgn), w, opt)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if st.Read != 4 || st.Added != 2 || st.Variants != 1 || st.Rejected != 1 {
+		t.Fatalf("premier passage : %+v", st)
+	}
+
+	again, err := Index(context.Background(), strings.NewReader(pgn), w, opt)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if again.Added != 0 || again.Skipped != 2 {
+		t.Fatalf("second passage : %+v — il devrait n'y avoir que des doublons", again)
+	}
+}

@@ -26,25 +26,38 @@ type rawGame struct {
 	moves []string
 }
 
-// readGames lit un flux PGN entier.
-//
-// Volontairement tolérant : un fichier TWIC fait des milliers de parties, et
-// une seule mal formée ne doit pas faire perdre la livraison de la semaine.
-// Ce qui ne se lit pas est sauté, ce qui se lit entre.
+// readGames lit un flux PGN entier et rend tout d'un coup. Pratique pour les
+// tests et pour une livraison TWIC ; à réserver aux flux dont on connaît la
+// taille. Pour un fichier de plusieurs gigaoctets, voir scanGames.
 func readGames(r io.Reader) []rawGame {
-	sc := bufio.NewScanner(decodeLatin1(r))
-	sc.Buffer(make([]byte, 0, 64*1024), 4<<20) // une partie commentée peut être longue
-
 	var out []rawGame
+	scanGames(r, func(g rawGame) bool { out = append(out, g); return true })
+	return out
+}
+
+// scanGames lit un flux PGN À LA VOLÉE et appelle fn pour chaque partie.
+// Renvoyer false arrête la lecture.
+//
+// C'est la forme qui compte pour l'indexation de la MegaBase : le PGN source
+// pèse plusieurs gigaoctets, et tout charger en mémoire pour en ressortir une
+// tranche ne passerait sur aucune machine.
+//
+// Volontairement tolérant : une partie mal formée ne doit pas faire perdre le
+// reste du fichier. Ce qui ne se lit pas est sauté, ce qui se lit entre.
+func scanGames(r io.Reader, fn func(rawGame) bool) {
+	sc := bufio.NewScanner(r)
+	sc.Buffer(make([]byte, 0, 64*1024), 8<<20) // une partie commentée peut être longue
+
 	cur := rawGame{tags: map[string]string{}}
 	var movetext strings.Builder
-	inMoves := false
+	inMoves := true
+	stopped := false
 
 	flush := func() {
-		if len(cur.tags) > 0 || movetext.Len() > 0 {
+		if !stopped && (len(cur.tags) > 0 || movetext.Len() > 0) {
 			cur.moves = parseMovetext(movetext.String())
-			if len(cur.moves) > 0 {
-				out = append(out, cur)
+			if len(cur.moves) > 0 && !fn(cur) {
+				stopped = true
 			}
 		}
 		cur = rawGame{tags: map[string]string{}}
@@ -52,8 +65,8 @@ func readGames(r io.Reader) []rawGame {
 		inMoves = false
 	}
 
-	for sc.Scan() {
-		line := strings.TrimSpace(sc.Text())
+	for !stopped && sc.Scan() {
+		line := strings.TrimSpace(decodeLine(sc.Bytes()))
 		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") &&
 			strings.Contains(line, `"`) {
 			// Un en-tête qui suit des coups ouvre la partie suivante : c'est le
@@ -75,7 +88,6 @@ func readGames(r io.Reader) []rawGame {
 		movetext.WriteByte(' ')
 	}
 	flush()
-	return out
 }
 
 func parseTag(line string) (key, value string, ok bool) {
@@ -252,24 +264,26 @@ func atoi(s string) int {
 	return n
 }
 
-// decodeLatin1 rattrape l'encodage des noms.
+// decodeLine rattrape l'encodage des noms.
 //
-// TWIC publie en Latin-1 : « Vachier-Lagrave, Maxime » passe, mais « Nepomniachtchi »
-// écrit avec un caractère accentué arrive en octet isolé, que Go recopierait tel
-// quel dans la base. Un nom mal encodé n'est pas cosmétique ici — il ne se
-// retrouve plus à la recherche, donc la partie devient invisible.
+// TWIC et les exports de MegaBase publient en Latin-1 : « Vachier-Lagrave »
+// passe, mais « Grünfeld » arrive en octet isolé, que Go recopierait tel quel.
+// Un nom mal encodé n'est pas cosmétique ici — il ne se retrouve plus à la
+// recherche, donc la partie devient invisible.
 //
-// La règle : si le flux est déjà de l'UTF-8 valide, on n'y touche pas (TWIC a
-// changé d'encodage au fil des ans) ; sinon on le lit comme du Latin-1.
-func decodeLatin1(r io.Reader) io.Reader {
-	raw, err := io.ReadAll(r)
-	if err != nil || utf8.Valid(raw) {
-		return strings.NewReader(string(raw))
+// Le choix se fait LIGNE PAR LIGNE, et pas sur le fichier entier. Un fichier
+// presque entièrement en UTF-8 avec trois noms en Latin-1 serait déclaré
+// invalide dans son ensemble, et la conversion transformerait alors tous les
+// vrais caractères UTF-8 en charabia. Ligne par ligne, seules les lignes
+// fautives sont converties — et ça se lit en flux.
+func decodeLine(b []byte) string {
+	if utf8.Valid(b) {
+		return string(b)
 	}
-	var b strings.Builder
-	b.Grow(len(raw) * 2)
-	for _, c := range raw {
-		b.WriteRune(rune(c))
+	var out strings.Builder
+	out.Grow(len(b) * 2)
+	for _, c := range b {
+		out.WriteRune(rune(c))
 	}
-	return strings.NewReader(b.String())
+	return out.String()
 }
