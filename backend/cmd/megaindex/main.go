@@ -40,8 +40,12 @@ func main() {
 	flag.Parse()
 
 	files := expand(flag.Args())
-	if len(files) == 0 {
+	// Poser le curseur seul est une opération légitime — on rattrape une base
+	// déjà construite — donc l'absence de fichier n'est une erreur que s'il n'y
+	// a rien d'autre à faire.
+	if len(files) == 0 && *twicLast <= 0 {
 		fmt.Fprintln(os.Stderr, "usage : megaindex -out mega.db <fichier.pgn|fichier.zip>…")
+		fmt.Fprintln(os.Stderr, "        megaindex -out mega.db -twic-last 1662   (curseur seul)")
 		os.Exit(2)
 	}
 
@@ -79,6 +83,9 @@ func main() {
 		fmt.Printf("curseur TWIC posé à %d\n", *twicLast)
 	}
 
+	if len(files) == 0 {
+		return // curseur posé, rien à indexer
+	}
 	d := time.Since(start)
 	fmt.Printf("\n%s lues · %s insérées · %s doublons · %s variantes écartées · %s illisibles\n",
 		num(total.Read), num(total.Added), num(total.Skipped),

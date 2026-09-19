@@ -109,6 +109,12 @@
 - Déclenchement manuel : bouton dans l'onglet **Bases** de `/admin` (`POST /admin/parties/twic`) — pour la veille d'un tournoi. Il tourne sur `context.Background()`, pas sur la requête : fermer l'onglet n'interrompt pas un import.
 - **Test facultatif contre le vrai site** : `TWIC_LIVE=1640-1662 go test ./internal/twic/ -run Live -v`. C'est la seule vérification que l'adresse des archives n'a pas bougé et que le lecteur encaisse du PGN réel (174 919 parties rejouées, 0 illisible au 19.09.2026).
 
+## Explorateur de parties (`/admin/parties/`)
+- **L'arbre se prolonge à la demande.** Le serveur en renvoie 14 demi-coups à la fois (sept coups) ; quand on atteint le bout d'une branche, le client recharge depuis le chemin courant (`/api/tree?path=…`) et greffe. C'est ce qui lève la limite sans jamais transférer un gros arbre — descendu à 34 demi-coups en test.
+- **Une ligne de la liste s'ouvre en partie entière.** `GET /api/game?id=` renvoie la partie avec **le FEN après chaque demi-coup** : le `san` et l'`uci` complets sont déjà en base, et les positions sont calculées côté serveur. Le navigateur n'a toujours aucune règle du jeu à connaître — c'est le même principe que pour l'arbre, la règle vit d'un seul côté.
+- La partie devient une **chaîne de nœuds à un seul enfant** : la navigation de l'arbre (avancer / reculer / cliquer la ligne) fonctionne dessus sans code séparé. L'échiquier s'oriente du côté du joueur cherché.
+- **L'import TWIC ne ferme PAS la base en lecture.** Le mode WAL est fait pour ça. La fermer rendait l'explorateur muet (503) pendant les deux minutes du rattrapage initial — pile au moment où on vient de téléverser et où on veut vérifier. Seul `uploadMu` est pris, pour qu'un téléversement ne bascule pas le fichier en plein import ; `reopen` remet une connexion neuve après coup.
+
 ## Construire mega.db (`backend/cmd/megaindex`)
 - **L'indexeur est en Go, pas en Python.** Il réutilise le lecteur de PGN, le générateur SAN→UCI et l'empreinte `games.Key` de l'import TWIC : un indexeur écrit à côté serait une **seconde implémentation de l'empreinte**, et le jour où elle diverge d'un espace ou d'un accent, le rattrapage hebdomadaire réimporte tout en double sans rien dire.
 - Il tourne **sur le PC** : `go build -o megaindex.exe ./cmd/megaindex` puis `megaindex.exe -out mega.db "D:ases\*.zip"`. Accepte `.pgn` et `.zip`, développe les jokers lui-même (cmd.exe ne le fait pas).

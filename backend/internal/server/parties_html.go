@@ -97,6 +97,21 @@ main>*{min-width:0}
 .g .who{overflow:hidden;text-overflow:ellipsis}
 .g .meta{color:var(--dim);font-size:12px}
 .g .res{font-variant-numeric:tabular-nums;color:var(--dim)}
+.g{cursor:pointer}
+.g:hover{background:#ffffff0d}
+.g.on{background:var(--accent);color:#0b0d10}
+.g.on .meta,.g.on .res{color:#0b0d1099}
+/* Mode partie : les coups se lisent en colonnes serrées, pas en lignes larges —
+   une partie fait quatre-vingts demi-coups, l'arbre en montre six. */
+.plies{display:flex;flex-wrap:wrap;gap:2px;padding:8px 10px;line-height:1.9}
+.plies .numlbl{color:var(--dim);font-size:12.5px;padding:3px 2px 3px 6px}
+.plies .p{cursor:pointer;padding:3px 6px;border-radius:4px;min-width:3.2rem}
+.plies .p:hover{background:#ffffff0d}
+.plies .p.now{background:var(--accent);color:#0b0d10;font-weight:600}
+.ghead{padding:10px 12px;border-bottom:1px solid var(--line)}
+.ghead .who{font-weight:600}
+.ghead .meta{color:var(--dim);font-size:12.5px;margin-top:2px}
+.ghead button{margin-top:9px}
 .empty{padding:14px 12px;color:var(--dim);font-style:italic}
 #line{padding:8px 12px;line-height:2.1;max-height:150px;overflow:auto;overflow-wrap:anywhere}
 #line span{cursor:pointer;padding:3px 6px;border-radius:4px}
@@ -138,6 +153,7 @@ main>*{min-width:0}
     <div id="board"></div>
     <div class="bar-row">
       <button id="b-back">&larr;</button>
+      <button id="b-fwd">&rarr;</button>
       <button id="b-home">Début</button>
       <button id="b-flip">Retourner</button>
     </div>
@@ -167,6 +183,9 @@ var root = null;           // racine de l'arbre chargé
 var path = [];             // suite de nœuds parcourus
 var flipped = false;
 var gamesTimer = null;
+var game = null;           // partie ouverte, ou null en mode arbre
+var plies = [];            // ses demi-coups, en chaîne linéaire
+var openId = null;         // pour garder la ligne surlignée dans la liste
 
 function api(p){
   return fetch(p, {credentials:"same-origin"}).then(function(r){
@@ -252,7 +271,7 @@ el("to").addEventListener("change", reload);
 
 // ---- chargement de l'arbre ------------------------------------------------
 function reload(){
-  path = [];
+  path = []; game = null; plies = []; openId = null;
   if(!players.length){ root = null; render(); return; }
   el("moves").innerHTML = "<p class='empty'>Chargement…</p>";
   api(API + "/tree?" + query()).then(function(d){
@@ -264,24 +283,79 @@ function reload(){
   });
 }
 
-// ---- navigation, entièrement locale ---------------------------------------
+// ---- navigation -----------------------------------------------------------
+// L'arbre arrive borné en profondeur : le charger entier serait une réponse
+// énorme dont on ne lit que les premiers niveaux. On le PROLONGE donc quand on
+// arrive au bout d'une branche, en rechargeant depuis le chemin courant. C'est
+// ce qui lève la limite des sept coups sans jamais transférer un gros arbre.
+function extend(){
+  if(game) return;
+  var n = node();
+  if(!n || n.children || n.loading) return;
+  n.loading = true;
+  var p = path.map(function(x){ return x.uci; }).join(",");
+  api(API + "/tree?" + query("&path=" + p)).then(function(d){
+    n.loading = false;
+    n.children = d.moves || [];
+    if(node() === n) render();
+  }).catch(function(){
+    n.loading = false; n.children = [];
+    if(node() === n) render();
+  });
+}
 function play(i){
   var kids = (node() || {}).children || [];
-  if(kids[i]){ path.push(kids[i]); render(); }
+  if(kids[i]){ path.push(kids[i]); render(); extend(); }
+}
+function fwd(){
+  if(game){ if(path.length < plies.length) jump(path.length + 1); return; }
+  play(0); // en mode arbre, avancer = suivre le coup le plus joué
 }
 function back(){ if(path.length){ path.pop(); render(); } }
 function home(){ path = []; render(); }
-function jump(n){ path = path.slice(0, n); render(); }
+function jump(n){ path = plies.length ? plies.slice(0, n) : path.slice(0, n); render(); }
 el("b-back").addEventListener("click", back);
+el("b-fwd").addEventListener("click", fwd);
 el("b-home").addEventListener("click", home);
 el("b-flip").addEventListener("click", function(){ flipped = !flipped; renderBoard(); });
 document.addEventListener("keydown", function(e){
   if(e.target.tagName === "INPUT") return;
-  if(e.key === "ArrowLeft") back();
+  if(e.key === "ArrowLeft"){ e.preventDefault(); back(); }
+  if(e.key === "ArrowRight"){ e.preventDefault(); fwd(); }
 });
 el("moves").addEventListener("click", function(e){
   var d = e.target.closest(".mv");
-  if(d) play(+d.dataset.i);
+  if(d){ play(+d.dataset.i); return; }
+  var q = e.target.closest(".p");
+  if(q) jump(+q.dataset.ply);
+});
+
+// ---- une partie entière ---------------------------------------------------
+// Les coups sont déjà en base ; le serveur y ajoute le FEN après chaque
+// demi-coup, donc le navigateur n'a toujours aucune règle du jeu à connaître.
+// La partie devient une chaîne de nœuds à un seul enfant : la navigation de
+// l'arbre marche dessus sans rien changer.
+function openGame(id){
+  el("moves").innerHTML = "<p class='empty'>Chargement…</p>";
+  api(API + "/game?id=" + id).then(function(g){
+    game = g; openId = id;
+    plies = g.plies.map(function(m){ return {san:m.san, uci:m.uci, fen:m.fen}; });
+    for(var i = 0; i < plies.length - 1; i++) plies[i].children = [plies[i+1]];
+    if(plies.length) plies[plies.length-1].children = [];
+    root = {fen: START, children: plies.length ? [plies[0]] : []};
+    path = [];
+    // On oriente du côté du joueur cherché : préparer, c'est se mettre à sa place.
+    flipped = players.some(function(pl){ return pl.name === g.black; });
+    render();
+  }).catch(function(e){
+    el("moves").innerHTML = "<p class='empty'>" + esc(e.message || e) + "</p>";
+  });
+}
+function closeGame(){ game = null; plies = []; openId = null; reload(); }
+el("games").addEventListener("click", function(e){
+  if(e.target.closest("#back-to-tree")){ closeGame(); return; }
+  var d = e.target.closest(".g[data-id]");
+  if(d) openGame(+d.dataset.id);
 });
 el("line").addEventListener("click", function(e){
   var d = e.target.closest("span[data-n]");
@@ -321,6 +395,19 @@ function renderBoard(){
 }
 function renderMoves(){
   var n = node();
+  if(game){
+    // Toute la partie d'un coup : sauter au vingtième demi-coup ne doit pas
+    // demander vingt clics.
+    el("moves-head").textContent = "Partie — " + plies.length + " demi-coups";
+    var out = "";
+    for(var i = 0; i < plies.length; i++){
+      if(i % 2 === 0) out += "<span class='numlbl'>" + (i/2 + 1) + ".</span>";
+      out += "<span class='p" + (i === path.length-1 ? " now" : "") +
+             "' data-ply='" + (i+1) + "'>" + esc(plies[i].san) + "</span>";
+    }
+    el("moves").innerHTML = "<div class='plies'>" + (out || "—") + "</div>";
+    return;
+  }
   if(!players.length){
     el("moves").innerHTML = "<p class='empty'>Choisis au moins un joueur.</p>";
     el("moves-head").textContent = "Coups";
@@ -328,7 +415,9 @@ function renderMoves(){
   }
   var kids = (n || {}).children || [];
   if(!kids.length){
-    el("moves").innerHTML = "<p class='empty'>Plus rien à cette profondeur.</p>";
+    el("moves").innerHTML = "<p class='empty'>" +
+      ((n || {}).loading ? "Chargement…" : "Plus aucune partie ne va plus loin.") +
+      "</p>";
     return;
   }
   var top = kids[0].games || 1;
@@ -357,6 +446,18 @@ function renderLine(){
 }
 function renderGames(){
   clearTimeout(gamesTimer);
+  if(game){
+    var r = game.result > 0 ? "1-0" : (game.result < 0 ? "0-1" : "½-½");
+    el("games-head").textContent = "Partie";
+    el("games").innerHTML = "<div class='ghead'><div class='who'>" +
+      esc(game.white) + (game.whiteElo ? " (" + game.whiteElo + ")" : "") + " &ndash; " +
+      esc(game.black) + (game.blackElo ? " (" + game.blackElo + ")" : "") +
+      " &nbsp;" + r + "</div><div class='meta'>" + esc(game.event) +
+      (game.date ? " &middot; " + esc(game.date) : "") +
+      (game.eco ? " &middot; " + esc(game.eco) : "") + "</div>" +
+      "<button id='back-to-tree'>&larr; Retour à l'arbre</button></div>";
+    return;
+  }
   if(!players.length){ el("games").innerHTML = "<p class='empty'>—</p>"; return; }
   // La liste est le seul aller-retour restant : on la laisse respirer pendant
   // qu'on descend vite dans l'arbre.
@@ -367,7 +468,8 @@ function renderGames(){
       if(!list.length){ el("games").innerHTML = "<p class='empty'>Aucune.</p>"; return; }
       el("games").innerHTML = list.map(function(g){
         var res = g.result > 0 ? "1-0" : (g.result < 0 ? "0-1" : "½-½");
-        return "<div class='g'><div class='who'>" +
+        return "<div class='g" + (g.id === openId ? " on" : "") +
+          "' data-id='" + g.id + "'><div class='who'>" +
           esc(g.white) + (g.whiteElo ? " (" + g.whiteElo + ")" : "") + " &ndash; " +
           esc(g.black) + (g.blackElo ? " (" + g.blackElo + ")" : "") +
           "<div class='meta'>" + esc(g.event) + (g.year ? " &middot; " + g.year : "") + "</div>" +
@@ -379,6 +481,9 @@ function renderGames(){
 function render(){
   renderBoard(); renderMoves(); renderLine(); renderGames();
   el("b-back").disabled = path.length === 0;
+  el("b-fwd").disabled = game
+    ? path.length >= plies.length
+    : !((node() || {}).children || []).length;
 }
 
 api(API + "/meta").then(function(m){

@@ -26,18 +26,17 @@ func (s *Server) newImporter() *twic.Importer {
 		// uploadMu sérialise l'import avec les téléversements : renommer un
 		// fichier que l'importeur tient ouvert échoue sous Windows, et remplacer
 		// la base sous ses pieds serait pire ailleurs.
-		Before: func() {
-			s.uploadMu.Lock()
-			s.mu.Lock()
-			if s.games != nil {
-				_ = s.games.Close()
-				s.games = nil
-			}
-			s.mu.Unlock()
-		},
+		//
+		// En revanche on NE FERME PAS la base en lecture pendant l'import. C'est
+		// précisément ce que le mode WAL permet — un écrivain, des lecteurs, en
+		// même temps — et la fermer rendait l'explorateur muet pendant les deux
+		// minutes du rattrapage initial, c'est-à-dire pile au moment où on vient
+		// de téléverser et où on veut vérifier que ça marche.
+		Before: func() { s.uploadMu.Lock() },
 		After: func() {
-			// L'explorateur reste muet (503) le temps de l'import, puis retrouve
-			// la base — avec les parties de la semaine dedans.
+			// Rouvrir après coup, en revanche : la connexion en lecture seule
+			// avait été ouverte avant que l'importeur ne bascule le fichier en
+			// WAL, et c'est le seul moyen sûr de la voir repartir propre.
 			_ = s.reopen(target)
 			s.uploadMu.Unlock()
 		},

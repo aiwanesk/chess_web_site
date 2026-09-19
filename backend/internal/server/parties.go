@@ -186,3 +186,56 @@ func atoiDefault(s string, def int) int {
 	}
 	return n
 }
+
+// handlePartiesGame renvoie une partie entière, avec le FEN APRÈS chaque
+// demi-coup.
+//
+// Les positions sont calculées ici et pas dans le navigateur : c'est le même
+// principe que pour l'arbre — la règle du jeu vit d'un seul côté. Quatre-vingts
+// positions à produire, ça ne vaut pas une seconde implémentation des règles en
+// JavaScript, avec ses propres bugs de roque et de prise en passant.
+func (s *Server) handlePartiesGame(w http.ResponseWriter, r *http.Request) {
+	g := s.gamesStore()
+	if !s.requireStore(w, g != nil, "base de parties") {
+		return
+	}
+	id, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
+	if err != nil {
+		s.corpusError(w, "identifiant invalide", http.StatusBadRequest)
+		return
+	}
+	game, err := g.ByID(id)
+	if err != nil {
+		s.corpusError(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	type ply struct {
+		SAN string `json:"san"`
+		UCI string `json:"uci"`
+		FEN string `json:"fen"`
+	}
+	sans, ucis := strings.Fields(game.SAN), strings.Fields(game.UCI)
+	plies := make([]ply, 0, len(ucis))
+	fen := corpusStartFEN
+	for i, uci := range ucis {
+		next, err := corpus.ApplyUCI(fen, uci)
+		if err != nil {
+			// Une partie abîmée s'arrête là où elle cesse d'être jouable, elle ne
+			// renvoie pas une erreur : la moitié lisible vaut mieux que rien.
+			break
+		}
+		fen = next
+		san := uci
+		if i < len(sans) {
+			san = sans[i]
+		}
+		plies = append(plies, ply{SAN: san, UCI: uci, FEN: fen})
+	}
+	s.corpusJSON(w, map[string]any{
+		"id": game.ID, "white": game.White, "black": game.Black,
+		"whiteElo": game.WhiteElo, "blackElo": game.BlackElo,
+		"event": game.Event, "date": game.Date, "year": game.Year,
+		"eco": game.ECO, "result": game.Result, "plies": plies,
+	})
+}

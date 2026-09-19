@@ -487,3 +487,17 @@ func (s *Store) Meta() (map[string]string, error) {
 	}
 	return out, rows.Err()
 }
+
+// ByID renvoie une partie entière, coups compris. C'est ce qui permet de
+// cliquer une ligne de la liste et de la rejouer : le SAN et l'UCI complets
+// sont déjà stockés, il n'y a rien à recalculer.
+func (s *Store) ByID(id int64) (Game, error) {
+	var g Game
+	err := s.db.QueryRow(gameSelect+`g.id = ?`, id).Scan(
+		&g.ID, &g.White, &g.Black, &g.WhiteElo, &g.BlackElo,
+		&g.Event, &g.Date, &g.Year, &g.ECO, &g.Result, &g.SAN, &g.UCI)
+	if err == sql.ErrNoRows {
+		return g, fmt.Errorf("games: partie %d introuvable", id)
+	}
+	return g, err
+}

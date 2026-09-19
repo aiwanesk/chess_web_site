@@ -176,6 +176,7 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/api/players", s.handlePartiesPlayers)
 			c.Get("/api/tree", s.handlePartiesTree)
 			c.Get("/api/games", s.handlePartiesGames)
+			c.Get("/api/game", s.handlePartiesGame)
 			c.Get("/api/meta", s.handlePartiesMeta)
 			c.Get("/api/twic", s.handleTWICStatus)
 			c.Post("/twic", s.handleTWICRun)

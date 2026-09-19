@@ -263,6 +263,10 @@ func (s *Server) swapDatabase(t uploadTarget) error {
 	return nil
 }
 
+// reopen remplace la connexion par une neuve. Elle ferme celle qui était en
+// place : swapDatabase l'a déjà mise à nil avant d'appeler, mais l'importeur
+// TWIC, lui, laisse l'explorateur servir pendant tout l'import et compte sur
+// reopen pour faire le ménage.
 func (s *Server) reopen(t uploadTarget) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -272,11 +276,17 @@ func (s *Server) reopen(t uploadTarget) error {
 		if err != nil {
 			return err
 		}
+		if s.corpus != nil {
+			_ = s.corpus.Close()
+		}
 		s.corpus = c
 	case "games":
 		g, err := games.Open(t.path)
 		if err != nil {
 			return err
+		}
+		if s.games != nil {
+			_ = s.games.Close()
 		}
 		s.games = g
 	}
