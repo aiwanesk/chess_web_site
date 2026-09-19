@@ -506,8 +506,13 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
     var stop = false;
 
     function say(msg){ state.textContent = msg; }
-    function api(path, opt){
-      return fetch("/admin/upload/" + path + "?target=" + target,
+    // « extra » est une suite de paramètres, PAS un bout de chemin : les coller
+    // au nom de la route ("chunk&offset=0") les faisait atterrir dans le
+    // chemin, chi ne reconnaissait plus rien, et la requête finissait sur le
+    // serveur de fichiers statiques — qui répond « method not allowed » en
+    // texte brut à un POST. D'où un échec au tout premier morceau.
+    function api(path, opt, extra){
+      return fetch("/admin/upload/" + path + "?target=" + target + (extra || ""),
                    Object.assign({credentials:"same-origin"}, opt || {}));
     }
 
@@ -554,7 +559,7 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
     function push(f, offset){
       if(stop || offset >= f.size) return Promise.resolve();
       var end = Math.min(offset + CHUNK, f.size);
-      return api("chunk&offset=" + offset, {method:"POST", body:f.slice(offset, end)})
+      return api("chunk", {method:"POST", body:f.slice(offset, end)}, "&offset=" + offset)
         .then(function(r){
           return r.json().then(function(j){
             if(r.status === 409){
