@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/iwanesko/chess-web-site/backend/internal/content"
 )
 
 // --- sitemap.xml -----------------------------------------------------------
 
+// urlEntry carries a loc and, when it is true, a lastmod. Nothing else:
+// changefreq and priority are hints Google has said for years it ignores, and
+// they were two more values to keep honest for no return.
 type urlEntry struct {
-	Loc        string  `xml:"loc"`
-	LastMod    string  `xml:"lastmod,omitempty"`
-	ChangeFreq string  `xml:"changefreq,omitempty"`
-	Priority   float64 `xml:"priority,omitempty"`
+	Loc     string `xml:"loc"`
+	LastMod string `xml:"lastmod,omitempty"`
 }
 
 type urlSet struct {
@@ -25,23 +25,40 @@ type urlSet struct {
 	URLs    []urlEntry `xml:"url"`
 }
 
+// handleSitemap lists every indexable URL with the date it really changed.
+//
+// It used to stamp time.Now() on all of them, recomputed at each request: the
+// whole file looked rewritten every time a crawler read it. That is the one
+// way to lose the lastmod signal entirely — Google drops a lastmod it catches
+// lying, and the articles, where the date IS true, lose it along with the rest.
+// Now a static page states its own date (content.Page.Updated), a blog index or
+// a category archive inherits the date of its newest article, and an article
+// carries its `updated` front matter, or failing that its publication date.
 func (s *Server) handleSitemap(w http.ResponseWriter, _ *http.Request) {
-	today := time.Now().UTC().Format("2006-01-02")
+	enDir := s.cfg.ContentDir + "/en"
 	set := urlSet{Xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 	// Category archives with no article are excluded — see EmptyCategoryPaths.
-	empty := content.EmptyCategoryPaths(s.cfg.ContentDir, s.cfg.ContentDir+"/en")
+	empty := content.EmptyCategoryPaths(s.cfg.ContentDir, enDir)
+	fromBlog := content.BlogLastMod(s.cfg.ContentDir, enDir)
+
+	// Les deux index de tactiques datent de leur semaine la plus récente : c'est
+	// le jour où la page a changé, et il tombe tout seul chaque lundi.
+	weeks := content.TacticsWeeks(s.cfg.TacticsDir)
+	if len(weeks) > 0 {
+		fromBlog["/tactiques"] = weeks[0].Date
+		fromBlog["/en/tactics"] = weeks[0].Date
+	}
 
 	for _, p := range content.StaticPages {
 		if empty[p.Path] {
 			continue
 		}
-		set.URLs = append(set.URLs, urlEntry{
-			Loc:        s.abs(p.Path),
-			LastMod:    today,
-			ChangeFreq: p.Changefreq,
-			Priority:   p.Priority,
-		})
+		last := p.Updated
+		if d, ok := fromBlog[p.Path]; ok {
+			last = d
+		}
+		set.URLs = append(set.URLs, urlEntry{Loc: s.abs(p.Path), LastMod: last})
 	}
 
 	addPosts := func(dir, prefix string) {
@@ -50,16 +67,11 @@ func (s *Server) handleSitemap(w http.ResponseWriter, _ *http.Request) {
 			return
 		}
 		for _, post := range posts {
-			last := today
+			last := ""
 			if !post.Updated.IsZero() {
 				last = post.Updated.Format("2006-01-02")
 			}
-			set.URLs = append(set.URLs, urlEntry{
-				Loc:        s.abs(prefix + post.Slug),
-				LastMod:    last,
-				ChangeFreq: "yearly",
-				Priority:   0.6,
-			})
+			set.URLs = append(set.URLs, urlEntry{Loc: s.abs(prefix + post.Slug), LastMod: last})
 		}
 	}
 	addPosts(s.cfg.ContentDir, "/blog/")          // FR

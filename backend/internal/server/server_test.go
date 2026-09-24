@@ -9,6 +9,8 @@ import (
 	"strings"
 	"testing"
 	"testing/fstest"
+
+	"github.com/iwanesko/chess-web-site/backend/internal/content"
 )
 
 // formToken fetches a valid anti-spam token so tests can exercise the forms.
@@ -763,4 +765,79 @@ func TestRedirectsForDeadArticleURLs(t *testing.T) {
 	if rec := get(t, h, "/blog/jamais-ecrit"); rec.Code != http.StatusNotFound {
 		t.Fatalf("/blog/jamais-ecrit: code = %d, attendu 404", rec.Code)
 	}
+}
+
+// Le sitemap datait TOUTES les URL du jour de la requête : relu une heure plus
+// tard, le fichier entier semblait réécrit. Google cesse de croire un lastmod
+// pris en flagrant délit, et les articles — dont la date, elle, est vraie —
+// perdent le signal avec le reste.
+func TestSitemapLastModIsStable(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(dir, "en"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	post := "---\ntitle: \"Titre\"\ndescription: \"Résumé\"\ndate: \"2026-01-01\"\ncategory: \"carnet-de-tournoi\"\n---\n\nCorps.\n"
+	if err := os.WriteFile(filepath.Join(dir, "carnet.md"), []byte(post), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := get(t, srv.Handler(), "/sitemap.xml").Body.String()
+
+	// Une page statique annonce la date qu'elle déclare elle-même, pas l'heure
+	// du serveur : c'est ce qui rend le fichier stable d'une lecture à l'autre.
+	var tarifs content.Page
+	for _, p := range content.StaticPages {
+		if p.Path == "/tarifs" {
+			tarifs = p
+		}
+	}
+	if !strings.Contains(body, "<loc>https://iwanesko.ch/tarifs</loc>\n    <lastmod>"+tarifs.Updated+"</lastmod>") {
+		t.Fatalf("/tarifs ne porte pas sa date déclarée (%s) :\n%s", tarifs.Updated, body)
+	}
+	// L'article porte sa propre date, et l'archive de catégorie hérite de celle
+	// de son article le plus récent : c'est le jour où cette page a changé.
+	if !strings.Contains(body, "<loc>https://iwanesko.ch/blog/carnet</loc>\n    <lastmod>2026-01-01</lastmod>") {
+		t.Fatalf("l'article ne porte pas sa date :\n%s", body)
+	}
+	if !strings.Contains(body, "<loc>https://iwanesko.ch/blog/categorie/carnet-de-tournoi</loc>\n    <lastmod>2026-01-01</lastmod>") {
+		t.Fatalf("l'archive de catégorie n'hérite pas de la date de son article :\n%s", body)
+	}
+	// changefreq et priority ne sont lus par personne — ils ne sont plus émis.
+	if strings.Contains(body, "changefreq") || strings.Contains(body, "priority") {
+		t.Fatalf("changefreq/priority encore présents :\n%s", body)
+	}
+}
+
+// /api/tactics triait les noms JJ-MM-AA comme du texte : « 31-08-26 » passait
+// L'index des tactiques hérite de la date de sa semaine la plus récente :
+// c'est le jour où la page a changé, et il tombe tout seul chaque lundi.
+// Encore faut-il savoir laquelle est la plus récente : le nom de fichier est
+// JJ-MM-AA, donc « 31-08-26 » passe après « 14-09-26 » dans un tri de texte.
+func TestSitemapTacticsIndexUsesNewestWeek(t *testing.T) {
+	dir := tacticsDir(t, "31-08-26.json", "14-09-26.json")
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: "nope", TacticsDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := get(t, srv.Handler(), "/sitemap.xml").Body.String()
+
+	want := "<loc>https://iwanesko.ch/tactiques</loc>\n    <lastmod>2026-09-14</lastmod>"
+	if !strings.Contains(body, want) {
+		t.Fatalf("sitemap : %q absent\n%s", want, body)
+	}
+}
+
+// tacticsDir écrit des séries hebdomadaires vides dans un dossier temporaire.
+func tacticsDir(t *testing.T, names ...string) string {
+	t.Helper()
+	dir := t.TempDir()
+	for _, name := range names {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(`{"puzzles":[]}`), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	return dir
 }
