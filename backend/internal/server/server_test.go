@@ -671,3 +671,33 @@ func TestRefHost(t *testing.T) {
 		t.Errorf("hôte trop long accepté : %q", got)
 	}
 }
+
+// Une page, une URL. /tarifs, /tarifs/ et /tarifs/index.html répondaient tous
+// les trois 200 : trois adresses pour un seul document, que seule la balise
+// canonical rattachait entre elles.
+func TestCanonicalRedirects(t *testing.T) {
+	h := testServer(t)
+	cases := []struct{ from, to string }{
+		{"/cours-echecs-adultes-geneve/", "/cours-echecs-adultes-geneve"},
+		{"/cours-echecs-adultes-geneve/index.html", "/cours-echecs-adultes-geneve"},
+		{"/index.html", "/"},
+		{"//cours-echecs-adultes-geneve", "/cours-echecs-adultes-geneve"},
+		// La campagne survit à la redirection, sinon l'attribution est perdue.
+		{"/cours-echecs-adultes-geneve/?utm_source=x", "/cours-echecs-adultes-geneve?utm_source=x"},
+	}
+	for _, c := range cases {
+		rec := get(t, h, c.from)
+		if rec.Code != http.StatusMovedPermanently {
+			t.Fatalf("%s: code = %d, attendu 301", c.from, rec.Code)
+		}
+		if got := rec.Header().Get("Location"); got != c.to {
+			t.Fatalf("%s: Location = %q, attendu %q", c.from, got, c.to)
+		}
+	}
+	// Les URL déjà canoniques ne bougent pas.
+	for _, p := range []string{"/", "/cours-echecs-adultes-geneve", "/assets/app.abc123.js"} {
+		if rec := get(t, h, p); rec.Code != http.StatusOK {
+			t.Fatalf("%s: code = %d, attendu 200", p, rec.Code)
+		}
+	}
+}

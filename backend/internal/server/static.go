@@ -27,6 +27,17 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// One page, one URL. /tarifs, /tarifs/ and /tarifs/index.html all used to
+	// answer 200: three addresses for one document, held together by nothing
+	// but the canonical tag. A 301 says it in the protocol instead, and the
+	// query string rides along so a UTM-tagged link keeps its campaign.
+	if target, moved := canonicalPath(r.URL.Path); moved {
+		u := *r.URL
+		u.Path = target
+		http.Redirect(w, r, u.RequestURI(), http.StatusMovedPermanently)
+		return
+	}
+
 	clean := path.Clean(r.URL.Path)
 	hasExt := path.Ext(clean) != ""
 
@@ -54,6 +65,17 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 	if !s.tryServe(w, r, "404.html", http.StatusNotFound) {
 		http.Error(w, "404 not found", http.StatusNotFound)
 	}
+}
+
+// canonicalPath collapses a request path to the single address the page lives
+// at — no trailing slash, no explicit index.html, no doubled or dot segments —
+// and reports whether the request came in on some other spelling.
+func canonicalPath(p string) (string, bool) {
+	c := path.Clean(strings.TrimSuffix(p, "/index.html"))
+	if c == "." {
+		c = "/"
+	}
+	return c, c != p
 }
 
 func (s *Server) tryServe(w http.ResponseWriter, r *http.Request, name string, status int) bool {
