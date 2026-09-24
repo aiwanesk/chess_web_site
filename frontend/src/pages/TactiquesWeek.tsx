@@ -6,7 +6,7 @@ import { Section } from '../components/ui'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { PageHero } from '../components/PageHero'
 import { PuzzleBoard } from '../components/PuzzleBoard'
-import { getWeek, formatWeek } from '../lib/tactics'
+import { getWeek, formatWeek, weekPath } from '../lib/tactics'
 import { recordTacticsEvent } from '../lib/tacticsEvents'
 import { breadcrumbSchema, type Crumb } from '../lib/schema'
 import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
@@ -54,7 +54,7 @@ export function Component() {
   }
 
   const label = formatWeek(week.slug, locale)
-  const path = `${indexPath}/${week.slug}`
+  const path = weekPath(week.slug, locale)
   const crumbs: Crumb[] = [
     { name: t(locale).breadcrumbHome, path: homePath(locale) },
     { name: s.eyebrow, path: indexPath },
@@ -70,6 +70,10 @@ export function Component() {
         title={`${s.titlePrefix} ${label}`}
         description={`${s.lead} — ${label}.`}
         path={path}
+        // Les deux versions existent et sont pré-rendues, mais aucune ne citait
+        // l'autre : mêmes puzzles, deux URLs, et rien pour dire aux moteurs
+        // qu'il s'agit de la même page dans une autre langue.
+        alternates={{ fr: weekPath(week.slug, 'fr'), en: weekPath(week.slug, 'en') }}
         jsonLd={[breadcrumbSchema(crumbs)]}
         noindex
       />

@@ -3,6 +3,8 @@
  * (produced by the Go batch, already anonymised — mirrored FEN + solution).
  * Loaded at build so each week's article (/tactiques/JJ-MM-AA) is pre-rendered.
  */
+import type { Locale } from './i18n'
+
 export interface Puzzle {
   id: string
   fen: string
@@ -38,6 +40,14 @@ export const weeks: TacticsWeek[] = Object.entries(files)
 export const getWeek = (slug: string): TacticsWeek | undefined => weeks.find((w) => w.slug === slug)
 
 export const weekStaticPaths = (): string[] => weeks.map((w) => `/tactiques/${w.slug}`)
+
+/**
+ * URL d'une série hebdomadaire, par locale. Les deux existent et sont
+ * pré-rendues, mais aucune ne citait l'autre en hreflang — même oubli que sur
+ * les archives de catégorie.
+ */
+export const weekPath = (slug: string, locale: Locale): string =>
+  locale === 'en' ? `/en/tactics/${slug}` : `/tactiques/${slug}`
 
 /** "20-07-26" → a Date, or null. */
 export function weekDate(slug: string): Date | null {

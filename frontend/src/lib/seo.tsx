@@ -80,10 +80,12 @@ export function Seo({
       {/* No twitter:site — see the note in site.ts. */}
 
       {/* hreflang — advertise the FR/EN pair when this page is translated.
+          `fr` only, no `fr-CH`: les deux pointaient sur la même URL, et la
+          version française s'adresse aussi bien à la France voisine qu'au
+          canton. Un régionalisme en doublon ne dit rien de plus à personne.
           NOTE: no React Fragment here — react-helmet ignores fragment-wrapped
           children, so each <link> is emitted as a direct child of <Head>. */}
       {pair ? <link rel="alternate" hrefLang="fr" href={pair.fr} /> : null}
-      {pair ? <link rel="alternate" hrefLang="fr-CH" href={pair.fr} /> : null}
       {pair ? <link rel="alternate" hrefLang="en" href={pair.en} /> : null}
       {pair ? <link rel="alternate" hrefLang="x-default" href={pair.fr} /> : null}
       {pair ? null : <link rel="alternate" hrefLang={locale} href={canonical} />}

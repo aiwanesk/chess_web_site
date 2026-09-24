@@ -59,7 +59,14 @@ export function Component() {
 
   return (
     <>
-      {/* An archive with nothing in it is a thin page that promises articles it
+      {/* Les archives de catégorie ne vivent pas dans le registre PAGES (leur
+          URL se construit depuis categories.ts), donc le hreflang automatique
+          ne trouvait pas de contrepartie et chaque page se déclarait seule dans
+          sa langue : /blog/categorie/progresser en `fr`, /en/blog/category/
+          improve en `en`, et rien pour dire aux moteurs que c'est la même
+          rubrique. Le couple est donc passé explicitement.
+
+          An archive with nothing in it is a thin page that promises articles it
           doesn't have. It goes noindex,follow until the first article lands —
           and becomes indexable again on its own, with no flag to flip. The
           sitemap applies the same rule server-side (backend/internal/server/seo.go). */}
@@ -67,6 +74,7 @@ export function Component() {
         title={view.label}
         description={view.description}
         path={path}
+        alternates={{ fr: categoryPath(category.key, 'fr'), en: categoryPath(category.key, 'en') }}
         jsonLd={[breadcrumbSchema(crumbs)]}
         noindex={posts.length === 0}
       />
