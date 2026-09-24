@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "check:content": "node ../scripts/check-content-links.mjs",
     "check:seo": "node ../scripts/check-seo.mjs dist",
-    "postbuild": "node ../scripts/check-seo.mjs dist"
+    "postbuild": "node ../scripts/check-seo.mjs dist",
+    "check:crawl": "node ../scripts/crawl-seo.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
