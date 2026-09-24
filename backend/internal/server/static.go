@@ -31,14 +31,20 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 	// answer 200: three addresses for one document, held together by nothing
 	// but the canonical tag. A 301 says it in the protocol instead, and the
 	// query string rides along so a UTM-tagged link keeps its campaign.
-	if target, moved := canonicalPath(r.URL.Path); moved {
-		u := *r.URL
-		u.Path = target
-		http.Redirect(w, r, u.RequestURI(), http.StatusMovedPermanently)
+	clean, moved := canonicalPath(r.URL.Path)
+
+	// La table des 301 est consultée sur la forme canonique, pas sur ce qui est
+	// arrivé : /blog/<slug>/ part directement à destination au lieu de faire
+	// d'abord un saut pour perdre son slash. Un seul bond, dans tous les cas.
+	if target, ok := s.redirects[clean]; ok {
+		redirectTo(w, r, target)
+		return
+	}
+	if moved {
+		redirectTo(w, r, clean)
 		return
 	}
 
-	clean := path.Clean(r.URL.Path)
 	hasExt := path.Ext(clean) != ""
 
 	// Candidate files, in priority order. vite-react-ssg emits flat files

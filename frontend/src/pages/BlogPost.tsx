@@ -9,7 +9,7 @@ import { getPost, splitChunks } from '../lib/content'
 import { postsByCluster } from '../lib/postMeta'
 import { catView, categoryPath, getCategory } from '../lib/categories'
 import { articleSchema, breadcrumbSchema, type Crumb } from '../lib/schema'
-import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
+import { articleUrl, useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
 
 const STR: Record<Locale, {
   notFoundTitle: string; notFoundBody: string; back: string; by: string; min: string
@@ -66,8 +66,8 @@ export function Component() {
   // hreflang pair when a translated counterpart exists (frontmatter altSlug).
   const alternates = post.altSlug
     ? locale === 'en'
-      ? { fr: `/blog/${post.altSlug}`, en: `/en/blog/${post.slug}` }
-      : { fr: `/blog/${post.slug}`, en: `/en/blog/${post.altSlug}` }
+      ? { fr: articleUrl(post.altSlug, 'fr'), en: articleUrl(post.slug, 'en') }
+      : { fr: articleUrl(post.slug, 'fr'), en: articleUrl(post.altSlug, 'en') }
     : undefined
   const category = getCategory(post.category)
   const related = post.cluster

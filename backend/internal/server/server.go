@@ -21,15 +21,18 @@ import (
 
 // Server wires the HTTP handler.
 type Server struct {
-	cfg      Config
-	static   fs.FS
-	store    *stats.Store      // nil if stats are disabled (no DB_PATH)
-	news     *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
-	bookings *booking.Store    // nil if bookings are disabled (no DB_PATH)
-	formKey  []byte            // HMAC key for anti-spam form tokens (per-process)
-	corpus   *corpus.Store     // nil tant qu'aucune base n'est chargée
-	games    *games.Store      // idem
-	twic     *twic.Importer    // mise à jour hebdomadaire de games ; nil si GAMES_DB absent
+	cfg    Config
+	static fs.FS
+	// redirects : 301 des URLs indexées qui n'existent plus, calculées une fois
+	// au démarrage (voir redirects.go). Le contenu vit dans l'image.
+	redirects map[string]string
+	store     *stats.Store      // nil if stats are disabled (no DB_PATH)
+	news      *newsletter.Store // nil if the newsletter is disabled (no DB_PATH)
+	bookings  *booking.Store    // nil if bookings are disabled (no DB_PATH)
+	formKey   []byte            // HMAC key for anti-spam form tokens (per-process)
+	corpus    *corpus.Store     // nil tant qu'aucune base n'est chargée
+	games     *games.Store      // idem
+	twic      *twic.Importer    // mise à jour hebdomadaire de games ; nil si GAMES_DB absent
 	// mu protège corpus et games : un téléversement remplace le pointeur
 	// pendant que des requêtes tournent. uploadMu sérialise les envois entre
 	// eux, deux morceaux concurrents écrivant sinon une base mélangée.
@@ -41,6 +44,7 @@ type Server struct {
 // build or on-disk dev directory), provided by the caller.
 func New(cfg Config, static fs.FS) (*Server, error) {
 	s := &Server{cfg: cfg, static: static, formKey: newFormKey()}
+	s.redirects = buildRedirects(cfg.ContentDir)
 	if cfg.GamesDB != "" {
 		if g, err := games.Open(cfg.GamesDB); err != nil {
 			slog.Error("base de parties indisponible — explorateur désactivé", "path", cfg.GamesDB, "err", err)

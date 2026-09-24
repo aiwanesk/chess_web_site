@@ -6,7 +6,7 @@ import { Section, Eyebrow } from './ui'
 import { Breadcrumbs } from './Breadcrumbs'
 import { PageHero, FactCard } from './PageHero'
 import { Faq } from './Faq'
-import { useLocale, t, homePath, PAGES } from '../lib/i18n'
+import { articleUrl, useLocale, t, homePath, PAGES } from '../lib/i18n'
 import { postsByCluster } from '../lib/postMeta'
 import {
   IconTarget,
@@ -179,7 +179,7 @@ export function MoneyPage(props: MoneyPageProps) {
               {articles.map((a) => (
                 <li key={a.slug}>
                   <Link
-                    to={`/blog/${a.slug}`}
+                    to={articleUrl(a.slug, locale)}
                     className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-paper p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card"
                   >
                     <h3 className="font-semibold text-ink-900">{a.title}</h3>

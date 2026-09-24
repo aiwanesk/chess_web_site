@@ -701,3 +701,66 @@ func TestCanonicalRedirects(t *testing.T) {
 		}
 	}
 }
+
+// Deux 404 remontées par la Search Console, deux causes différentes : un
+// article supprimé dont l'URL reste indexée, et une URL qu'un lien interne
+// fautif avait fabriquée (slug anglais sous le préfixe français).
+func TestRedirectsForDeadArticleURLs(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(dir, "en"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	post := func(title string) []byte {
+		return []byte("---\ntitle: \"" + title + "\"\ndate: \"2026-01-01\"\n---\n\nCorps.\n")
+	}
+	// Un article propre à chaque langue, et un slug partagé par les deux.
+	write := func(rel string, body []byte) {
+		if err := os.WriteFile(filepath.Join(dir, rel), body, 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("reprendre-les-echecs.md", post("Reprendre"))
+	write("en/returning-to-chess.md", post("Returning"))
+	write("open-badalona-2026.md", post("Badalona"))
+	write("en/open-badalona-2026.md", post("Badalona"))
+
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: dir}, fstest.MapFS{
+		"404.html": {Data: []byte("<!doctype html><h1>404</h1>")},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := srv.Handler()
+
+	cases := []struct{ from, to string }{
+		// Article supprimé → l'archive de sa catégorie, dans sa langue.
+		{"/blog/sortir-du-plateau-1500-elo", "/blog/categorie/progresser"},
+		{"/en/blog/breaking-the-1500-elo-plateau", "/en/blog/category/improve"},
+		// Mauvais préfixe de langue, dans les deux sens.
+		{"/blog/returning-to-chess", "/en/blog/returning-to-chess"},
+		{"/en/blog/reprendre-les-echecs", "/blog/reprendre-les-echecs"},
+		// Un seul bond : le slash final ne coûte pas une redirection de plus.
+		{"/blog/returning-to-chess/", "/en/blog/returning-to-chess"},
+	}
+	for _, c := range cases {
+		rec := get(t, h, c.from)
+		if rec.Code != http.StatusMovedPermanently {
+			t.Fatalf("%s: code = %d, attendu 301", c.from, rec.Code)
+		}
+		if got := rec.Header().Get("Location"); got != c.to {
+			t.Fatalf("%s: Location = %q, attendu %q", c.from, got, c.to)
+		}
+	}
+
+	// Un slug que les DEUX langues publient reste valide des deux côtés : pas
+	// de redirection, sinon on casse une URL qui marche.
+	for _, p := range []string{"/blog/open-badalona-2026", "/en/blog/open-badalona-2026"} {
+		if rec := get(t, h, p); rec.Code == http.StatusMovedPermanently {
+			t.Fatalf("%s redirige alors que l'article existe dans les deux langues", p)
+		}
+	}
+	// Et une URL qui n'a jamais existé reste un vrai 404.
+	if rec := get(t, h, "/blog/jamais-ecrit"); rec.Code != http.StatusNotFound {
+		t.Fatalf("/blog/jamais-ecrit: code = %d, attendu 404", rec.Code)
+	}
+}

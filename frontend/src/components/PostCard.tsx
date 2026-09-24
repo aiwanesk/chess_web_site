@@ -1,7 +1,7 @@
 import { Link } from 'vite-react-ssg'
 import { catView, categoryPath, getCategory } from '../lib/categories'
 import type { PostMeta } from '../lib/postMeta'
-import { useLocale, type Locale } from '../lib/i18n'
+import { articleUrl, useLocale, type Locale } from '../lib/i18n'
 
 const dateFmt = (iso: string, locale: Locale) =>
   new Date(iso).toLocaleDateString(locale === 'en' ? 'en-GB' : 'fr-CH', {
@@ -14,7 +14,7 @@ const dateFmt = (iso: string, locale: Locale) =>
 export function PostCard({ post, showCategory = true }: { post: PostMeta; showCategory?: boolean }) {
   const locale = useLocale()
   const cat = getCategory(post.category)
-  const postPath = locale === 'en' ? `/en/blog/${post.slug}` : `/blog/${post.slug}`
+  const postPath = articleUrl(post.slug, locale)
   return (
     <article className="hover-lift flex h-full flex-col rounded-2xl border border-ink-200/80 bg-paper p-6 shadow-soft transition-colors hover:border-gold-300 hover:shadow-card">
       <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-[0.1em] text-gold-700">

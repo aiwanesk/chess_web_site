@@ -6,7 +6,7 @@
  * on day numbers (days since the epoch) rather than millisecond arithmetic, so
  * a DST boundary can never shift an event by one square on the grid.
  */
-import type { Locale } from './i18n'
+import { articleUrl, type Locale } from './i18n'
 
 export interface CalEvent {
   id: string
@@ -75,7 +75,7 @@ export const slugFor = (e: CalEvent, locale: Locale): string | undefined =>
 export function articlePathFor(e: CalEvent, locale: Locale): string | undefined {
   const slug = slugFor(e, locale)
   if (!slug) return undefined
-  return locale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`
+  return articleUrl(slug, locale)
 }
 
 /**

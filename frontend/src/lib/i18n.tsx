@@ -163,5 +163,18 @@ export const UI: Record<Locale, Dict> = {
 
 export const t = (locale: Locale): Dict => UI[locale]
 
+/**
+ * URL d'un article, dans la langue de la page qui le cite.
+ *
+ * Un seul endroit pour cette forme, parce qu'elle avait été réécrite quatre
+ * fois et qu'une des quatre oubliait la locale : le bloc « articles liés » des
+ * pages argent envoyait `/blog/<slug-anglais>` depuis les pages EN, et la
+ * Search Console a fini par le remonter en 404. TypeScript ne voit rien passer,
+ * les deux branches étant des chaînes valides — d'où la fonction, puis le
+ * contrôle de liens dans `scripts/crawl-seo.mjs`.
+ */
+export const articleUrl = (slug: string, locale: Locale): string =>
+  locale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`
+
 /** Locale-aware home path. */
 export const homePath = (locale: Locale): string => (locale === 'en' ? '/en' : '/')
