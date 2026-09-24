@@ -14,6 +14,8 @@ import { useLocale, homePath, pathFor, t, type Locale } from '../lib/i18n'
 const STR: Record<Locale, {
   eyebrow: string; titlePrefix: string; lead: string; intro: string
   whiteWins: string; blackWins: string; mate: string; sac: string; notFound: string; back: string
+  summary: (n: number, mates: number, sacs: number, white: number, black: number, label: string) => string
+  metaDesc: (n: number, label: string) => string
   board: { yourMove: string; solved: string; tryAgain: string; retry: string; whiteToPlay: string; blackToPlay: string; showSolution: string; solutionShown: string }
 }> = {
   fr: {
@@ -22,6 +24,13 @@ const STR: Record<Locale, {
     intro: 'Chaque position vient d’une vraie partie. Cliquez la pièce puis sa case d’arrivée pour jouer la solution.',
     whiteWins: 'Les Blancs jouent et gagnent', blackWins: 'Les Noirs jouent et gagnent',
     mate: 'Mat', sac: 'Sacrifice', notFound: 'Cette série n’existe pas.', back: 'Toutes les semaines',
+    summary: (n, mates, sacs, white, black, label) =>
+      `${n} positions tirées de parties jouées autour du ${label}` +
+      `${mates > 0 ? `, dont ${mates} qui finissent par un mat` : ''}` +
+      `${sacs > 0 ? ` et ${sacs} qui passent par un sacrifice` : ''}` +
+      `. Les Blancs ont le trait dans ${white}, les Noirs dans ${black}.`,
+    metaDesc: (n, label) =>
+      `${n} positions tactiques à résoudre, série du ${label} — tirées de vraies parties et sélectionnées par un Maître FIDE.`,
     board: { yourMove: 'à vous de jouer', solved: 'Résolu !', tryAgain: 'Essayez encore', retry: 'Recommencer', whiteToPlay: 'Les Blancs jouent', blackToPlay: 'Les Noirs jouent', showSolution: 'Voir la solution', solutionShown: 'Solution affichée' },
   },
   en: {
@@ -30,6 +39,13 @@ const STR: Record<Locale, {
     intro: 'Each position is from a real game. Click the piece, then its destination square, to play the solution.',
     whiteWins: 'White to play and win', blackWins: 'Black to play and win',
     mate: 'Mate', sac: 'Sacrifice', notFound: 'This set does not exist.', back: 'All weeks',
+    summary: (n, mates, sacs, white, black, label) =>
+      `${n} positions from games played around ${label}` +
+      `${mates > 0 ? `, ${mates} of them ending in mate` : ''}` +
+      `${sacs > 0 ? ` and ${sacs} going through a sacrifice` : ''}` +
+      `. White is to play in ${white}, Black in ${black}.`,
+    metaDesc: (n, label) =>
+      `${n} tactical positions to solve, set of ${label} — from real games, hand-picked by a FIDE Master.`,
     board: { yourMove: 'your move', solved: 'Solved!', tryAgain: 'Try again', retry: 'Restart', whiteToPlay: 'White to play', blackToPlay: 'Black to play', showSolution: 'Show solution', solutionShown: 'Solution shown' },
   },
 }
@@ -55,6 +71,13 @@ export function Component() {
 
   const label = formatWeek(week.slug, locale)
   const path = weekPath(week.slug, locale)
+  // Chiffres lus dans la série elle-même : deux semaines ne racontent donc pas
+  // la même chose, ni à un lecteur ni à un moteur. C'est ce qui rend ces pages
+  // indexables sans être des quasi-doublons les unes des autres.
+  const n = week.puzzles.length
+  const mates = week.puzzles.filter((p) => p.mate).length
+  const sacs = week.puzzles.filter((p) => p.sacrifice).length
+  const white = week.puzzles.filter((p) => p.sideToMove === 'w').length
   const crumbs: Crumb[] = [
     { name: t(locale).breadcrumbHome, path: homePath(locale) },
     { name: s.eyebrow, path: indexPath },
@@ -63,26 +86,30 @@ export function Component() {
 
   return (
     <>
-      {/* noindex,follow: these pages are generated automatically every week and
-          have no search demand of their own. The links out of them still carry
-          weight, and the /tactiques hub stays indexed and keeps linking here. */}
+      {/* Ces pages étaient en noindex, au motif qu'elles sont générées chaque
+          semaine et n'ont pas de demande de recherche propre. Deux choses ont
+          changé : elles portent de vraies positions tirées de vraies parties —
+          du contenu que personne d'autre ne publie — et leur texte n'est plus
+          le même d'une semaine à l'autre (le résumé ci-dessous est calculé sur
+          la série). Une archive hebdomadaire indexable est justement ce que
+          /tactiques n'avait pas ; elles sont donc déclarées au sitemap. */}
       <Seo
         title={`${s.titlePrefix} ${label}`}
-        description={`${s.lead} — ${label}.`}
+        description={s.metaDesc(n, label)}
         path={path}
         // Les deux versions existent et sont pré-rendues, mais aucune ne citait
         // l'autre : mêmes puzzles, deux URLs, et rien pour dire aux moteurs
         // qu'il s'agit de la même page dans une autre langue.
         alternates={{ fr: weekPath(week.slug, 'fr'), en: weekPath(week.slug, 'en') }}
         jsonLd={[breadcrumbSchema(crumbs)]}
-        noindex
       />
       <Breadcrumbs crumbs={crumbs} />
       <PageHero eyebrow={s.eyebrow} title={`${s.titlePrefix} ${label}`} lead={s.lead} primaryCta={{ to: pathFor('reserver', locale), label: locale === 'en' ? 'Book a lesson' : 'Réserver un cours' }} />
 
       <Section>
         <Container>
-          <p className="mb-8 max-w-2xl leading-relaxed text-ink-600">{s.intro}</p>
+          <p className="max-w-2xl leading-relaxed text-ink-600">{s.summary(n, mates, sacs, white, n - white, label)}</p>
+          <p className="mb-8 mt-3 max-w-2xl leading-relaxed text-ink-600">{s.intro}</p>
           <ol className="grid gap-10 sm:grid-cols-2">
             {week.puzzles.map((p, i) => (
               <li key={p.id} className="rounded-2xl border border-ink-200/80 bg-paper p-5 shadow-soft sm:p-6">

@@ -40,7 +40,7 @@ const COLUMNS_FR: Column[] = [
     title: 'Informations',
     links: [
       { page: 'apropos', label: 'À propos' },
-      { page: 'resultats', label: 'Résultats & avis' },
+      { page: 'resultats', label: 'Résultats' },
       { page: 'tarifs', label: 'Tarifs' },
       { page: 'blog', label: 'Blog échecs' },
       { cat: 'carnet-de-tournoi', label: 'Carnet de tournoi' },
@@ -75,7 +75,7 @@ const COLUMNS_EN: Column[] = [
     title: 'Information',
     links: [
       { page: 'apropos', label: 'About' },
-      { page: 'resultats', label: 'Results & reviews' },
+      { page: 'resultats', label: 'Results' },
       { page: 'tarifs', label: 'Pricing' },
       { page: 'tactiques', label: 'Weekly tactics' },
       { page: 'blog', label: 'Blog' },

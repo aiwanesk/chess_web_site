@@ -74,6 +74,18 @@ func (s *Server) handleSitemap(w http.ResponseWriter, _ *http.Request) {
 			set.URLs = append(set.URLs, urlEntry{Loc: s.abs(prefix + post.Slug), LastMod: last})
 		}
 	}
+	// Une page par semaine, dans les deux langues. Elles existent depuis le
+	// début, pré-rendues et liées depuis l'index, mais étaient en noindex : des
+	// positions tirées de vraies parties, que personne d'autre ne publie, et que
+	// rien ne déclarait. Le noindex est levé (chaque série porte désormais un
+	// texte calculé sur ses propres positions), elles entrent donc au sitemap.
+	for _, wk := range weeks {
+		set.URLs = append(set.URLs,
+			urlEntry{Loc: s.abs("/tactiques/" + wk.Slug), LastMod: wk.Date},
+			urlEntry{Loc: s.abs("/en/tactics/" + wk.Slug), LastMod: wk.Date},
+		)
+	}
+
 	addPosts(s.cfg.ContentDir, "/blog/")          // FR
 	addPosts(s.cfg.ContentDir+"/en", "/en/blog/") // EN
 

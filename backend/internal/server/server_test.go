@@ -863,3 +863,24 @@ func TestLatestTacticsWeekIsChronological(t *testing.T) {
 		t.Fatalf("semaine servie = %s, attendu 14-09-26", body)
 	}
 }
+
+// Chaque série hebdomadaire est une page indexable, dans les deux langues, et
+// doit donc figurer au sitemap : c'est la partie du site qui publie le plus
+// régulièrement, et elle ne se découvrait qu'en suivant les liens de l'index.
+func TestSitemapListsTacticsWeeks(t *testing.T) {
+	dir := tacticsDir(t, "31-08-26.json", "14-09-26.json")
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: "nope", TacticsDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := get(t, srv.Handler(), "/sitemap.xml").Body.String()
+
+	for _, want := range []string{
+		"<loc>https://iwanesko.ch/tactiques/14-09-26</loc>\n    <lastmod>2026-09-14</lastmod>",
+		"<loc>https://iwanesko.ch/en/tactics/31-08-26</loc>\n    <lastmod>2026-08-31</lastmod>",
+	} {
+		if !strings.Contains(body, want) {
+			t.Fatalf("sitemap : %q absent\n%s", want, body)
+		}
+	}
+}

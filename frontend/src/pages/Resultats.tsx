@@ -27,6 +27,14 @@ interface StudentCase {
   metric?: string // the headline figure, when there is one
 }
 
+// TODO(alex) — aucun avis d'élève n'existe pour l'instant, et cette page n'en
+// invente pas : pas de citation, pas d'étoile, aucun balisage Review ni
+// AggregateRating (déclarer des notes que personne n'a données est un risque
+// d'action manuelle chez Google, et de la publicité trompeuse au sens de la LCD
+// art. 3). Le pied de page annonçait « Résultats & avis » : il dit « Résultats »
+// tant que c'est le cas. Le jour où un élève envoie un avis écrit, ajoute la
+// citation ici et recâble aggregateRatingSchema (lib/schema.ts), qui est gardé
+// prêt pour ça.
 const CASES: Record<Locale, StudentCase[]> = {
   fr: [
     {
