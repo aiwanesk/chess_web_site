@@ -19,9 +19,9 @@ import {
 } from './icons'
 import {
   breadcrumbSchema,
-  courseSchema,
+  offeringSchema,
   faqSchema,
-  type CourseInput,
+  type OfferingInput,
   type FaqItem,
   type Crumb,
 } from '../lib/schema'
@@ -49,8 +49,8 @@ export interface MoneyPageProps {
   /** "What you get" bullet points. */
   benefitsTitle?: string
   benefits: Array<{ title: string; body: string }>
-  /** Structured data */
-  course: CourseInput
+  /** Structured data: the Course (or Service) this page sells. */
+  offering: OfferingInput
   faq: FaqItem[]
   /** Internal linking (silo). */
   related?: RelatedLink[]
@@ -72,7 +72,7 @@ export interface MoneyPageProps {
 /**
  * Template shared by every "money page": semantic HTML, single H1, answer-first
  * intro, benefits, internal-link silo, FAQ, and the full JSON-LD stack
- * (BreadcrumbList + Course/Offer + FAQPage).
+ * (BreadcrumbList + Course-or-Service/Offer + FAQPage).
  */
 export function MoneyPage(props: MoneyPageProps) {
   const locale = useLocale()
@@ -90,7 +90,7 @@ export function MoneyPage(props: MoneyPageProps) {
 
   const jsonLd = [
     breadcrumbSchema(crumbs),
-    courseSchema(props.course),
+    offeringSchema(props.offering),
     faqSchema(props.faq),
     ...(props.extraJsonLd ?? []),
   ]

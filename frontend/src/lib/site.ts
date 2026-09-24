@@ -13,6 +13,11 @@ export const SITE = {
   locale: 'fr_CH',
   lang: 'fr',
   defaultOgImage: '/og/default.png',
+  // Logo carré, pour les endroits qui attendent un logo et pas une carte de
+  // partage : publisher.logo en JSON-LD réclame une image (Google demande au
+  // moins 112 px de haut), pas un visuel 1200×630 qui s'y affiche rogné ou
+  // refusé. Régénéré par scripts/gen-brand-assets.mjs depuis assets/logo-source.png.
+  logo: { url: '/logo-512.png', width: 512, height: 512 },
   // No X/Twitter account for now, so no `twitter:site` tag: pointing it at a
   // handle nobody owns is a broken attribution (and an open door to someone
   // else claiming it). Add the handle back here and restore the tag in seo.tsx
@@ -25,11 +30,29 @@ export const SITE = {
     honorific: 'Maître FIDE',
     description:
       'Maître FIDE et coach d’échecs à Genève, spécialisé dans la progression des adultes (1200–2200 Elo) et des adolescents en compétition.',
-    // Entity disambiguation for GEO / knowledge graph — official FIDE profile only.
-    // (lichess / chess.com intentionally not listed.) Add LinkedIn if desired.
+    // Désambiguïsation de l'entité pour le graphe de connaissances : plus il y a
+    // de profils officiels concordants, plus un moteur peut relier « Alexandre
+    // Iwanesko » à une seule personne réelle. Uniquement des fiches vérifiables.
+    //
+    // TODO(alex) — trois pistes manquent, et je ne peux pas les deviner :
+    //   1. chess-results.com : il n'y a pas d'URL de joueur stable, seulement des
+    //      pages de tournoi. Envoie le lien de ta fiche s'il en existe une.
+    //   2. Lichess et/ou Chess.com : ils étaient volontairement exclus jusqu'ici
+    //      (ce ne sont pas des fédérations). À rétablir seulement si tu veux
+    //      assumer ces comptes publiquement — donne les pseudos exacts.
+    //   3. Fiche Google Business : l'URL n'existera qu'une fois la fiche créée
+    //      (voir le point SEO local de l'audit).
     sameAs: [
       'https://ratings.fide.com/profile/682136',
+      'https://www.echecs.asso.fr/FicheJoueur.aspx?Id=335623',
+      'https://www.365chess.com/players/Alexandre_Iwanesko',
+      'https://ch.linkedin.com/in/alexandre-iwanesko-720593144',
     ],
+    // TODO(alex) — Person.image : il n'y a aucun portrait dans le dépôt. Dépose
+    // une photo dans public/ (paysage ou carré, ≥ 800 px, toi reconnaissable) et
+    // renseigne son chemin ici ; personSchema l'émettra automatiquement, et
+    // /a-propos l'affichera. Un logo ne peut pas servir d'image de personne.
+    image: undefined as string | undefined,
   },
 
   // NAP — must match the Google Business Profile exactly.

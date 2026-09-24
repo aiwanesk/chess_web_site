@@ -1,6 +1,5 @@
 import { MoneyPage, type MoneyPageProps } from '../components/MoneyPage'
 import { DeepDive, StepList } from '../components/ui'
-import { eventSchema } from '../lib/schema'
 import { useLocale } from '../lib/i18n'
 
 function ProgrammeFR() {
@@ -98,27 +97,22 @@ const FR: MoneyPageProps = {
     { title: 'Par niveau', body: 'Des groupes homogènes pour un rythme adapté à chacun.' },
     { title: 'Bilan personnalisé', body: 'Un retour individuel avec des axes de travail pour la suite.' },
   ],
-  course: {
+  offering: {
     name: 'Stage d’échecs à Genève',
     description:
       'Stage d’échecs intensif à Genève pendant les vacances scolaires, encadré par un Maître FIDE, organisé par niveau.',
     url: '/stages-echecs-geneve',
-    price: 240,
-    priceUnit: 'le stage de plusieurs jours',
     courseMode: 'onsite',
+    // Pas de `price` : la page n'affiche aucun tarif de stage et /tarifs n'en
+    // liste pas. Le JSON-LD annonçait 240 CHF que personne ne pouvait lire
+    // nulle part, et le `priceRange` du cabinet disait 70–120 deux pages plus
+    // loin. Même règle que sur /resultats : un chiffre publié doit être un
+    // chiffre vérifiable sur la page. Le jour où un tarif de stage est arrêté,
+    // il va sur /tarifs ET ici, et `priceRange` s'élargit avec lui.
   },
-  extraJsonLd: [
-    eventSchema({
-      name: 'Stage d’échecs intensif — Genève',
-      description:
-        'Stage d’échecs de plusieurs jours à Genève pendant les vacances scolaires, encadré par un Maître FIDE.',
-      url: '/stages-echecs-geneve',
-      // Placeholder dates — mettre à jour à chaque session programmée.
-      startDate: '2026-10-19',
-      endDate: '2026-10-21',
-      price: 240,
-    }),
-  ],
+  // Pas d'`eventSchema` non plus : il portait des dates « placeholder » dans le
+  // code, donc un stage annoncé aux moteurs sans qu'aucune session soit fixée.
+  // Le builder reste dans schema.ts pour la première vraie session datée.
   related: [
     { to: '/cours-echecs-ados-competition', label: 'Coaching ados en compétition' },
     { to: '/cours-echecs-groupe-geneve', label: 'Cours en groupe à l’année' },
@@ -189,27 +183,15 @@ const EN: MoneyPageProps = {
     { title: 'By level', body: 'Homogeneous groups for a pace suited to everyone.' },
     { title: 'Personalised review', body: 'Individual feedback with areas of work for what comes next.' },
   ],
-  course: {
+  offering: {
     name: 'Chess camp in Geneva',
     description:
       'Intensive chess camp in Geneva during the school holidays, led by a FIDE Master, organised by level.',
     url: '/en/chess-camps-geneva',
-    price: 240,
-    priceUnit: 'per multi-day camp',
     courseMode: 'onsite',
+    // Voir le commentaire côté FR : aucun tarif de stage n'est publié, donc
+    // aucune Offer n'est déclarée.
   },
-  extraJsonLd: [
-    eventSchema({
-      name: 'Intensive chess camp — Geneva',
-      description:
-        'Multi-day chess camp in Geneva during the school holidays, led by a FIDE Master.',
-      url: '/en/chess-camps-geneva',
-      // Placeholder dates — update for each scheduled session.
-      startDate: '2026-10-19',
-      endDate: '2026-10-21',
-      price: 240,
-    }),
-  ],
   related: [
     { to: '/en/junior-chess-coaching', label: 'Junior competition coaching' },
     { to: '/en/group-chess-lessons-geneva', label: 'Year-round group lessons' },

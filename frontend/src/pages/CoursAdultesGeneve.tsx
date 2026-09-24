@@ -107,7 +107,7 @@ const FR: MoneyPageProps = {
     { title: 'Travail entre les séances', body: 'Exercices et parties commentées à réaliser seul, corrigés à la séance suivante.' },
     { title: 'Suivi de progression', body: 'Objectifs Elo, points de contrôle réguliers et ajustement du plan selon vos résultats.' },
   ],
-  course: {
+  offering: {
     name: 'Cours d’échecs pour adultes à Genève',
     description:
       'Cours particuliers d’échecs pour adultes 1200–2200 Elo à Genève, avec un Maître FIDE : diagnostic, plan de progression, ouvertures, calcul et finales.',
@@ -115,6 +115,7 @@ const FR: MoneyPageProps = {
     price: 120,
     priceUnit: 'la séance individuelle de 60 min',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/preparation-tournoi-echecs', label: 'Préparer un tournoi spécifique' },
@@ -176,7 +177,7 @@ const EN: MoneyPageProps = {
     { title: 'Work between sessions', body: 'Exercises and annotated games to do on your own, reviewed at the next session.' },
     { title: 'Progress tracking', body: 'Elo goals, regular checkpoints and plan adjustments based on your results.' },
   ],
-  course: {
+  offering: {
     name: 'Adult chess lessons in Geneva',
     description:
       'Private chess lessons for adults 1200–2200 Elo in Geneva with a FIDE Master: diagnosis, progression plan, openings, calculation and endgames.',
@@ -184,6 +185,7 @@ const EN: MoneyPageProps = {
     price: 120,
     priceUnit: 'per one-to-one 60-min session',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [{ to: '/en/pricing', label: 'See pricing & packages' }],
   faq: [

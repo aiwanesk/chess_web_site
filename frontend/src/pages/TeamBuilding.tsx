@@ -88,12 +88,12 @@ const FR: MoneyPageProps = {
     { title: 'Ludique', body: 'Variantes originales, défis et simultanée pour une ambiance conviviale.' },
     { title: 'Modulable', body: 'De petites équipes à plus de trente personnes, selon votre événement.' },
   ],
-  course: {
+  offering: {
     name: 'Team building échecs à Genève',
     description:
       'Atelier de team building autour des échecs pour entreprises à Genève et dans l’arc lémanique, animé par un Maître FIDE.',
     url: '/team-building-echecs-geneve',
-    courseMode: 'onsite',
+    kind: 'service',
   },
   related: [
     { to: '/conferences-echecs-entreprise', label: 'Conférence d’échecs en entreprise' },
@@ -169,12 +169,12 @@ const EN: MoneyPageProps = {
     { title: 'Playful', body: 'Original variants, challenges and a simul for a friendly atmosphere.' },
     { title: 'Scalable', body: 'From small teams to more than thirty people, depending on your event.' },
   ],
-  course: {
+  offering: {
     name: 'Chess team building in Geneva',
     description:
       'A chess team-building workshop for companies in Geneva and the Lake Geneva region, led by a FIDE Master.',
     url: '/en/chess-team-building-geneva',
-    courseMode: 'onsite',
+    kind: 'service',
   },
   related: [
     { to: '/en/corporate-chess-talks', label: 'Corporate chess talk' },

@@ -11,6 +11,27 @@ type JsonLd = Record<string, unknown>
 const PERSON_ID = `${SITE.url}/#person`
 const BUSINESS_ID = `${SITE.url}/#business`
 
+/**
+ * Références vers les deux entités du site, AVEC leur nom.
+ *
+ * Les nœuds complets (Person, ProfessionalService) ne sont émis que sur
+ * l'accueil et /a-propos. Ailleurs, un `{ '@id': … }` seul est une référence
+ * pendante : un analyseur qui lit la page isolément voit un fournisseur, un
+ * intervenant ou un auteur sans nom. Le nom voyage donc avec la référence, et
+ * l'`@id` reste pour que tout se réconcilie à l'échelle du site.
+ *
+ * articleSchema appliquait déjà cette règle pour lui seul ; les pages argent, le
+ * calendrier et /contact émettaient encore quarante références nues.
+ * scripts/check-seo.mjs échoue maintenant dessus.
+ */
+const personRef = () => ({ '@type': 'Person', '@id': PERSON_ID, name: SITE.person.name, url: SITE.url })
+const businessRef = () => ({
+  '@type': 'ProfessionalService',
+  '@id': BUSINESS_ID,
+  name: SITE.name,
+  url: SITE.url,
+})
+
 /** The coach as a stable Person entity. Emitted on home + /a-propos. */
 export function personSchema(): JsonLd {
   return {
@@ -28,6 +49,7 @@ export function personSchema(): JsonLd {
       name: 'Maître FIDE (FIDE Master)',
     },
     sameAs: SITE.person.sameAs,
+    ...(SITE.person.image ? { image: absoluteUrl(SITE.person.image) } : {}),
   }
 }
 
@@ -43,8 +65,8 @@ export function localBusinessSchema(): JsonLd {
     email: SITE.contact.email,
     telephone: SITE.contact.phone,
     priceRange: SITE.priceRange,
-    founder: { '@id': PERSON_ID },
-    employee: { '@id': PERSON_ID },
+    founder: personRef(),
+    employee: personRef(),
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.address.street,
@@ -64,18 +86,41 @@ export function localBusinessSchema(): JsonLd {
   }
 }
 
-export interface CourseInput {
+export interface OfferingInput {
   name: string
   description: string
   url: string
   price?: number // CHF, per unit
   priceUnit?: string // e.g. 'la séance (60 min)'
   courseMode?: 'onsite' | 'online' | 'blended'
+  /**
+   * Durée d'une session, en durée ISO 8601 (`PT1H`). Elle valait `PT1H` en dur
+   * pour tout le monde : le stage « 2 à 5 jours » se déclarait donc comme une
+   * heure de cours, et son tarif forfaitaire se lisait comme un tarif horaire.
+   * Facultative — sans elle, rien n'est affirmé sur la durée.
+   */
+  courseWorkload?: string
+  /**
+   * `course` (défaut) pour ce qui s'enseigne à un élève sur la durée, `service`
+   * pour une prestation ponctuelle vendue à une entreprise. La conférence et le
+   * team building sortaient en `Course` : ni inscription, ni programme, ni
+   * élève — juste une intervention facturée. Un `Course` qui n'enseigne rien
+   * est une donnée structurée fausse, et Google le teste sur ces signaux-là.
+   */
+  kind?: 'course' | 'service'
 }
 
-/** A Course + Offer with a CHF price. Emitted on each money page. */
-export function courseSchema(c: CourseInput): JsonLd {
+/**
+ * L'offre d'une page argent : un `Course` pour un cours, un `Service` pour une
+ * prestation en entreprise, plus l'`Offer` quand un prix public existe (les
+ * pages entreprise sont sur devis : pas de prix, donc pas d'offre inventée).
+ */
+export function offeringSchema(c: OfferingInput): JsonLd {
   const modeMap = { onsite: 'Onsite', online: 'Online', blended: 'Blended' } as const
+  const url = absoluteUrl(c.url)
+  // La locale se lit dans l'URL : les pages EN se déclaraient toutes en `fr`,
+  // exactement le bug déjà corrigé sur les articles.
+  const inLanguage = c.url.startsWith('/en') ? 'en' : 'fr'
   const offers = c.price
     ? {
         offers: {
@@ -83,24 +128,40 @@ export function courseSchema(c: CourseInput): JsonLd {
           price: c.price,
           priceCurrency: 'CHF',
           availability: 'https://schema.org/InStock',
-          url: absoluteUrl(c.url),
+          url,
           ...(c.priceUnit ? { description: `Tarif ${c.priceUnit}` } : {}),
         },
       }
     : {}
+
+  if (c.kind === 'service') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: c.name,
+      serviceType: c.name,
+      description: c.description,
+      url,
+      provider: businessRef(),
+      areaServed: SITE.areaServed.map((name) => ({ '@type': 'Place', name })),
+      availableChannel: { '@type': 'ServiceChannel', serviceUrl: url },
+      ...offers,
+    }
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: c.name,
     description: c.description,
-    url: absoluteUrl(c.url),
-    inLanguage: 'fr',
-    provider: { '@id': BUSINESS_ID },
+    url,
+    inLanguage,
+    provider: businessRef(),
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: modeMap[c.courseMode ?? 'blended'],
-      courseWorkload: 'PT1H',
-      instructor: { '@id': PERSON_ID },
+      ...(c.courseWorkload ? { courseWorkload: c.courseWorkload } : {}),
+      instructor: personRef(),
     },
     ...offers,
   }
@@ -136,7 +197,7 @@ export function eventSchema(e: EventInput): JsonLd {
       name: 'Genève',
       address: { '@type': 'PostalAddress', addressLocality: 'Genève', addressCountry: 'CH' },
     },
-    organizer: { '@type': 'Organization', '@id': BUSINESS_ID, name: SITE.person.name, url: SITE.url },
+    organizer: businessRef(),
     ...(e.price != null
       ? {
           offers: {
@@ -183,7 +244,7 @@ export function sportsEventSchema(e: TournamentEventInput): JsonLd {
     location: e.location
       ? { '@type': 'Place', name: e.location, address: e.location }
       : { '@type': 'Place', name: 'Europe' },
-    performer: { '@id': PERSON_ID },
+    performer: personRef(),
   }
 }
 
@@ -296,13 +357,15 @@ export function articleSchema(a: ArticleInput): JsonLd {
     datePublished: a.datePublished,
     dateModified: a.dateModified ?? a.datePublished,
     inLanguage: a.locale === 'en' ? 'en' : 'fr',
-    author: { '@type': 'Person', '@id': PERSON_ID, name: SITE.person.name, url: SITE.url },
+    author: personRef(),
     publisher: {
-      '@type': 'ProfessionalService',
-      '@id': BUSINESS_ID,
-      name: SITE.name,
-      url: SITE.url,
-      logo: absoluteUrl(SITE.defaultOgImage),
+      ...businessRef(),
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl(SITE.logo.url),
+        width: SITE.logo.width,
+        height: SITE.logo.height,
+      },
     },
     image: absoluteUrl(a.image ?? SITE.defaultOgImage),
     ...(a.section ? { articleSection: a.section } : {}),

@@ -9,7 +9,8 @@
  * de la chaîne. C'est d'ailleurs comme ça que /blog/<slug-anglais> a échappé à
  * tout le monde jusqu'à ce que la Search Console le remonte en 404.
  *
- * Contrôles : longueur des titles et des descriptions, réciprocité du hreflang.
+ * Contrôles : longueur des titles et des descriptions, réciprocité du hreflang,
+ * validité du JSON-LD (et absence de référence @id pendante).
  *
  * Usage : node scripts/check-seo.mjs [dossier-dist]
  * Sort en 1 au premier problème listé, pour être utilisable en CI.
@@ -66,6 +67,7 @@ function parse(file) {
     description: decode(attr(tag(html, /<meta\b[^>]*name="description"[^>]*>/g)[0]?.[0] ?? '', 'content') ?? ''),
     robots: attr(tag(html, /<meta\b[^>]*name="robots"[^>]*>/g)[0]?.[0] ?? '', 'content') ?? '',
     alternates,
+    jsonLd: tag(html, /<script\b[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g).map((m) => decode(m[1])),
   }
 }
 
@@ -96,6 +98,53 @@ for (const page of pages) {
   if (page.description.length === 0) fail(page, 'aucune meta description')
   else if (page.description.length > DESC_MAX) {
     fail(page, `description de ${page.description.length} signes (max ${DESC_MAX})`)
+  }
+}
+
+// ----------------------------------------------------------------- JSON-LD
+
+/** Tous les nœuds objets d'un graphe, à plat. */
+function walk(value, out = []) {
+  if (Array.isArray(value)) {
+    for (const v of value) walk(v, out)
+  } else if (value && typeof value === 'object') {
+    out.push(value)
+    for (const v of Object.values(value)) walk(v, out)
+  }
+  return out
+}
+
+for (const page of pages) {
+  if (page.jsonLd.length === 0) {
+    fail(page, 'aucun bloc JSON-LD')
+    continue
+  }
+  const nodes = []
+  for (const raw of page.jsonLd) {
+    let data
+    try {
+      data = JSON.parse(raw)
+    } catch (err) {
+      fail(page, `JSON-LD illisible : ${err.message}`)
+      continue
+    }
+    if (!data['@context']) fail(page, `bloc JSON-LD sans @context (@type=${data['@type'] ?? '?'})`)
+    if (!data['@type']) fail(page, 'bloc JSON-LD sans @type')
+    nodes.push(...walk(data))
+  }
+
+  // Un nœud qui porte un @type (ou un nom) DÉFINIT son @id ; un objet réduit au
+  // seul @id n'est qu'une RÉFÉRENCE. Une référence dont la cible n'est définie
+  // nulle part sur la page est pendante : un analyseur qui lit cette page seule
+  // voit un fournisseur, un auteur ou un intervenant sans nom. C'est la raison
+  // pour laquelle articleSchema fait voyager le nom avec la référence — la règle
+  // vaut pour tous les types, pas seulement les articles.
+  const defined = new Set(nodes.filter((n) => n['@id'] && (n['@type'] || n.name)).map((n) => n['@id']))
+  for (const node of nodes) {
+    const keys = Object.keys(node)
+    if (keys.length === 1 && keys[0] === '@id' && !defined.has(node['@id'])) {
+      fail(page, `référence @id pendante : ${node['@id']} n'est défini par aucun nœud de la page`)
+    }
   }
 }
 
@@ -167,3 +216,4 @@ console.log(`✓ ${label}`)
 console.log(`  titles ≤ ${TITLE_MAX} (le plus long : ${longest.title.length}, ${longest.path})`)
 console.log(`  descriptions ≤ ${DESC_MAX} (la plus longue : ${wordiest.description.length}, ${wordiest.path})`)
 console.log('  hreflang réciproques, fr/en/x-default uniquement')
+console.log(`  JSON-LD valide, sans référence @id pendante (${pages.reduce((n, p) => n + p.jsonLd.length, 0)} blocs)`)

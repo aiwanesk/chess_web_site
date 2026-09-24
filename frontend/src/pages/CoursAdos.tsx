@@ -103,7 +103,7 @@ const FR: MoneyPageProps = {
     { title: 'Technique solide', body: 'Répertoire adapté, calcul et finales — les fondations d’une progression durable.' },
     { title: 'Suivi transparent', body: 'Objectifs partagés et retours réguliers aux parents.' },
   ],
-  course: {
+  offering: {
     name: 'Coaching d’échecs pour ados en compétition',
     description:
       'Coaching individualisé pour adolescents joueurs de compétition : progression Elo, préparation tournoi et mental, par un Maître FIDE à Genève.',
@@ -111,6 +111,7 @@ const FR: MoneyPageProps = {
     price: 120,
     priceUnit: 'la séance individuelle de 60 min',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/preparation-tournoi-echecs', label: 'Préparer un tournoi précis' },
@@ -188,7 +189,7 @@ const EN: MoneyPageProps = {
     { title: 'Solid technique', body: 'A suitable repertoire, calculation and endgames — the foundations of lasting progress.' },
     { title: 'Transparent follow-up', body: 'Shared goals and regular feedback to parents.' },
   ],
-  course: {
+  offering: {
     name: 'Chess coaching for competitive teenagers',
     description:
       'Individual coaching for teenage competition players: Elo progress, tournament preparation and mental game, by a FIDE Master in Geneva.',
@@ -196,6 +197,7 @@ const EN: MoneyPageProps = {
     price: 120,
     priceUnit: 'per one-to-one 60-min session',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/en/tournament-preparation', label: 'Prepare for a specific tournament' },

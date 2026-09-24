@@ -48,7 +48,7 @@ const FR: MoneyPageProps = {
     { title: 'Analyse post-rondes', body: 'Débrief rapide entre les rondes pour corriger et préparer la suivante.' },
     { title: 'Plan jour J', body: 'Une routine d’avant-partie claire pour aborder chaque ronde sereinement.' },
   ],
-  course: {
+  offering: {
     name: 'Préparation à un tournoi d’échecs',
     description:
       'Coaching de préparation aux tournois d’échecs avec un Maître FIDE : répertoire, préparation adverse, gestion du temps et suivi pendant l’événement.',
@@ -56,6 +56,7 @@ const FR: MoneyPageProps = {
     price: 120,
     priceUnit: 'la séance (forfaits dédiés)',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/cours-echecs-adultes-geneve', label: 'Progresser toute l’année (cours adultes)' },
@@ -171,7 +172,7 @@ const EN: MoneyPageProps = {
     { title: 'Post-round analysis', body: 'A quick debrief between rounds to fix mistakes and prepare the next one.' },
     { title: 'Match-day plan', body: 'A clear pre-game routine so you approach every round with a calm head.' },
   ],
-  course: {
+  offering: {
     name: 'Chess tournament preparation',
     description:
       'Tournament preparation coaching with a FIDE Master: repertoire, opponent prep, time management and support during the event.',
@@ -179,6 +180,7 @@ const EN: MoneyPageProps = {
     price: 120,
     priceUnit: 'per session (dedicated packages)',
     courseMode: 'blended',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/en/adult-chess-lessons-geneva', label: 'Progress all year round (adult lessons)' },

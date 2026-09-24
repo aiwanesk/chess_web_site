@@ -30,6 +30,10 @@ await Promise.all([
   sharp(src).resize(48, 48).png().toFile(out('favicon-48.png')),
   sharp(src).resize(180, 180).png().toFile(out('apple-touch-icon.png')),
   sharp(src).resize(128, 128).png().toFile(out('logo-128.png')),
+  // 512 px : la taille que réclame publisher.logo en JSON-LD (Google demande au
+  // moins 112 px de haut ; 512 laisse de la marge et sert aussi de logo carré
+  // partout où l'image OG 1200×630 s'afficherait rognée).
+  sharp(src).resize(512, 512).png().toFile(out('logo-512.png')),
   // Open Graph / Twitter card: 1200×630, king centered on the brand navy.
   sharp(src).resize(1200, 630, { fit: 'contain', background: bg }).png().toFile(out('og/default.png')),
 ])

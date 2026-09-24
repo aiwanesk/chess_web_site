@@ -102,7 +102,7 @@ const FR: MoneyPageProps = {
     { title: 'Thèmes structurés', body: 'Un programme progressif commun, avec exercices collectifs et corrigés.' },
     { title: 'Mini-tournois', body: 'Des parties commentées en direct pour appliquer immédiatement les notions.' },
   ],
-  course: {
+  offering: {
     name: 'Cours d’échecs en groupe à Genève',
     description:
       'Cours d’échecs en petit groupe (3 à 6 joueurs) de niveau homogène à Genève, encadrés par un Maître FIDE.',
@@ -110,6 +110,7 @@ const FR: MoneyPageProps = {
     price: 70,
     priceUnit: 'par personne et par séance de 60 min',
     courseMode: 'onsite',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/cours-echecs-adultes-geneve', label: 'Préférer un cours individuel' },
@@ -185,7 +186,7 @@ const EN: MoneyPageProps = {
     { title: 'Structured themes', body: 'A shared, progressive programme with group exercises and corrections.' },
     { title: 'Mini-tournaments', body: 'Games commented live to apply the concepts straight away.' },
   ],
-  course: {
+  offering: {
     name: 'Group chess lessons in Geneva',
     description:
       'Small-group chess lessons (3 to 6 players) of matched level in Geneva, taught by a FIDE Master.',
@@ -193,6 +194,7 @@ const EN: MoneyPageProps = {
     price: 70,
     priceUnit: 'per person per 60-min session',
     courseMode: 'onsite',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/en/adult-chess-lessons-geneva', label: 'Prefer one-to-one lessons' },

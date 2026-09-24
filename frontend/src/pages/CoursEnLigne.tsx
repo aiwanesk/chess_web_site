@@ -97,7 +97,7 @@ const FR: MoneyPageProps = {
     { title: 'Créneaux flexibles', body: 'Des horaires adaptés à votre emploi du temps, en soirée ou le week-end.' },
     { title: 'Même méthode', body: 'Diagnostic, plan de progression et exercices, exactement comme en présentiel.' },
   ],
-  course: {
+  offering: {
     name: 'Cours d’échecs en ligne',
     description:
       'Cours particuliers d’échecs en ligne avec un Maître FIDE, par visioconférence et échiquier partagé, pour toute la Suisse romande.',
@@ -105,6 +105,7 @@ const FR: MoneyPageProps = {
     price: 120,
     priceUnit: 'la séance en ligne de 60 min',
     courseMode: 'online',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/cours-echecs-adultes-geneve', label: 'Cours pour adultes (présentiel à Genève)' },
@@ -182,7 +183,7 @@ const EN: MoneyPageProps = {
     { title: 'Flexible slots', body: 'Times that fit your schedule, in the evening or at the weekend.' },
     { title: 'The same method', body: 'Diagnosis, progression plan and exercises, exactly as in person.' },
   ],
-  course: {
+  offering: {
     name: 'Online chess lessons',
     description:
       'Private online chess lessons with a FIDE Master, over video call and a shared board, for the whole of French-speaking Switzerland.',
@@ -190,6 +191,7 @@ const EN: MoneyPageProps = {
     price: 120,
     priceUnit: 'per online 60-min session',
     courseMode: 'online',
+    courseWorkload: 'PT1H',
   },
   related: [
     { to: '/en/adult-chess-lessons-geneva', label: 'Adult lessons (in person in Geneva)' },

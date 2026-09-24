@@ -88,12 +88,12 @@ const FR: MoneyPageProps = {
     { title: 'Interactif', body: 'Des exemples concrets et des moments de participation qui marquent les esprits.' },
     { title: 'Clé en main', body: 'Organisation simple, dans vos locaux à Genève ou dans l’arc lémanique.' },
   ],
-  course: {
+  offering: {
     name: 'Conférence d’échecs en entreprise',
     description:
       'Conférence ou atelier échecs en entreprise sur la stratégie et la prise de décision, animé par un Maître FIDE à Genève.',
     url: '/conferences-echecs-entreprise',
-    courseMode: 'onsite',
+    kind: 'service',
   },
   related: [
     { to: '/team-building-echecs-geneve', label: 'Team building échecs' },
@@ -169,12 +169,12 @@ const EN: MoneyPageProps = {
     { title: 'Interactive', body: 'Concrete examples and moments of participation that leave a lasting impression.' },
     { title: 'Turnkey', body: 'Simple to organise, at your offices in Geneva or across the Lake Geneva region.' },
   ],
-  course: {
+  offering: {
     name: 'Corporate chess talk',
     description:
       'A corporate chess keynote or workshop on strategy and decision-making, delivered by a FIDE Master in Geneva.',
     url: '/en/corporate-chess-talks',
-    courseMode: 'onsite',
+    kind: 'service',
   },
   related: [
     { to: '/en/chess-team-building-geneva', label: 'Chess team building' },
