@@ -6,13 +6,12 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"sort"
-	"strings"
 
+	"github.com/iwanesko/chess-web-site/backend/internal/content"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 )
 
-// handleTactics serves the most recent weekly puzzle file (AAAA-Sxx.json) from
+// handleTactics serves the most recent weekly puzzle file (JJ-MM-AA.json) from
 // TacticsDir. The files are already anonymised (mirrored FEN + solution, no
 // identifiers) — safe to serve publicly. Returns an empty set if none exist.
 func (s *Server) handleTactics(w http.ResponseWriter, _ *http.Request) {
@@ -83,23 +82,18 @@ func validToken(v string) bool {
 	return true
 }
 
-// latestTacticsFile returns the lexically-greatest AAAA-Sxx.json name (weeks
-// sort chronologically), or "" if none.
+// latestTacticsFile returns the newest weekly puzzle file, or "" if none.
+//
+// It used to sort the names as text on the assumption, written into its own
+// comment, that they were AAAA-Sxx. They are JJ-MM-AA: "31-08-26" sorted after
+// "14-09-26", so the endpoint served an August week all September. The date is
+// rebuilt from the name before comparing — content.TacticsWeeks does exactly
+// that for the sitemap, and one parser for one file-naming scheme means the
+// two can no longer disagree about which week is the current one.
 func latestTacticsFile(dir string) string {
-	entries, err := os.ReadDir(dir)
-	if err != nil {
+	weeks := content.TacticsWeeks(dir)
+	if len(weeks) == 0 {
 		return ""
 	}
-	var names []string
-	for _, e := range entries {
-		n := e.Name()
-		if !e.IsDir() && strings.HasSuffix(n, ".json") {
-			names = append(names, n)
-		}
-	}
-	if len(names) == 0 {
-		return ""
-	}
-	sort.Strings(names)
-	return names[len(names)-1]
+	return weeks[0].Slug + ".json"
 }

@@ -841,3 +841,25 @@ func tacticsDir(t *testing.T, names ...string) string {
 	}
 	return dir
 }
+
+// après « 14-09-26 », et l'endpoint servait une semaine d'août tout septembre.
+func TestLatestTacticsWeekIsChronological(t *testing.T) {
+	dir := t.TempDir()
+	write := func(name, body string) {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("31-08-26.json", `{"week":"31-08-26","puzzles":[]}`)
+	write("14-09-26.json", `{"week":"14-09-26","puzzles":[]}`)
+	write("notes.txt", "ignoré")
+
+	srv, err := New(Config{BaseURL: "https://iwanesko.ch", ContentDir: "nope", TacticsDir: dir}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	body := get(t, srv.Handler(), "/api/tactics").Body.String()
+	if !strings.Contains(body, `"week":"14-09-26"`) {
+		t.Fatalf("semaine servie = %s, attendu 14-09-26", body)
+	}
+}
