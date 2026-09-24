@@ -597,3 +597,5 @@ Voilà ce que je ramène dans mes valises :
 6. **Dormir** — je ne rigole qu'à moitié. La ronde 9 est la conséquence directe d'une mauvaise nuit. Pas de sommeil, pas de lucidité, pas de résultat. C'est aussi bête que ça.
 
 **Score final : 4.5/9** — décevant, mais instructif. Pas le temps de ressasser : j'enchaîne directement avec **Badalona**. Le repos attendra.
+
+Ces six chantiers, je ne les ai pas découverts à Pontevedra : ce sont ceux que je fais ouvrir aux joueurs que j'entraîne, à la différence près qu'eux ont quelqu'un pour les y tenir. Si la liste vous parle, c'est à peu près le programme qu'on démonte ensemble en [cours d'échecs pour adultes à Genève](/cours-echecs-adultes-geneve).

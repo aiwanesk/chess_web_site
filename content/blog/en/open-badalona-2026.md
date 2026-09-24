@@ -598,3 +598,5 @@ Here's what I'm packing back into the suitcase:
 And then there was **Nathan**, a few tables over, who landed just about all my preparations and put together a superb tournament — proof that a good parrot who's also a good friend is worth all the theoreticians in the world.
 
 **Final score: 4.5/8**, 23rd, and a rushed departure the night before the last round, a point left on the table. Disappointing in places, joyful in others. But as long as I still find `Nf1 Rg4+ Ng3 Rxg3+ Rf1#` mates and `f4!` breaks that hit the mark, I'll know exactly why I keep coming back to sit at the board. If only, one day, to learn to keep quiet when my position is already winning.
+
+Over-pressing a position that was already fine is the most expensive habit I know, and I spot it in the adults I coach with embarrassing ease — from the outside, naturally. If round 4 sounds like you, that's exactly the reflex we rewire in [adult chess lessons in Geneva](/en/adult-chess-lessons-geneva).

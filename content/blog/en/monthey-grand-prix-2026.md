@@ -441,3 +441,5 @@ On the Friday evening I played fast because I trusted my decisions. On Saturday 
 So the question isn't really whether I know what to play any more. It's whether I'm able to check, all the way through, what I think I've seen.
 
 That lines up exactly with what I brought back from the team championship three weeks ago, with one difference that changes everything: the judgement is coming back. It's the calculation that's taking longer.
+
+Checking a line all the way through isn't something you get by playing more: it's trained, session by session, with someone reading your calculations back to you cold. That's the heart of what I do in [adult chess lessons in Geneva](/en/adult-chess-lessons-geneva) — and yes, I take the same medicine.

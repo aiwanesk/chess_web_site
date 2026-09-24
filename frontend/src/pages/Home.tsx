@@ -4,6 +4,8 @@ import { Seo } from '../lib/seo'
 import { Container } from '../components/Container'
 import { Section, Eyebrow, CtaLink } from '../components/ui'
 import { PageHero, FactCard } from '../components/PageHero'
+import { PostCard } from '../components/PostCard'
+import { postsForLocale } from '../lib/postMeta'
 import { IconGraduation, IconTrophy, IconMonitor, IconUsers, IconSpark, IconBoard, IconCheck, IconArrowRight } from '../components/icons'
 import { personSchema, localBusinessSchema, faqSchema, breadcrumbSchema, type FaqItem } from '../lib/schema'
 import { useLocale, homePath, pathFor, t, type Locale, type PageKey } from '../lib/i18n'
@@ -40,7 +42,8 @@ const FAQ: Record<Locale, FaqItem[]> = {
 const T: Record<Locale, {
   metaTitle: string; metaDesc: string; heroEyebrow: string; heroTitle: string
   formats: string; formatsTitle: string; whyEyebrow: string; whyTitle: string; whyLead: ReactNode; whyCta: string
-  bullets: string[]; faqTitle: string; ctaTitle: string; ctaLead: string; ctaBtn: string
+  bullets: string[]; blogEyebrow: string; blogTitle: string; blogLead: string; blogCta: string
+  faqTitle: string; ctaTitle: string; ctaLead: string; ctaBtn: string
   facts: { label: string; value: string }[]
 }> = {
   fr: {
@@ -52,6 +55,7 @@ const T: Record<Locale, {
     whyLead: (<>Le titre de <strong className="text-ink-900">Maître FIDE</strong> garantit un niveau de jeu élevé. Mais progresser, c’est surtout une méthode : diagnostic précis, plan de travail personnalisé et exercices ciblés entre les séances.</>),
     whyCta: 'En savoir plus sur mon parcours',
     bullets: ['Diagnostic de vos parties classées pour cibler les vrais leviers.', 'Plan de progression sur 8 à 12 semaines avec objectifs Elo.', 'Présentiel à Genève ou en ligne, au même niveau d’exigence.', 'Public sérieux : joueurs qui veulent progresser, pas s’initier.'],
+    blogEyebrow: 'Le blog', blogTitle: 'Mes derniers articles', blogLead: 'Ce que j’écris entre deux tournois : carnets de compétition et méthode de travail, chiffres et parties à l’appui.', blogCta: 'Tous les articles',
     faqTitle: 'Questions fréquentes', ctaTitle: 'Envie de franchir un palier ?',
     ctaLead: 'Réservez un premier cours à Genève ou en ligne pour définir vos objectifs.', ctaBtn: 'Réserver un premier cours',
     facts: [{ label: 'Titre', value: 'Maître FIDE' }, { label: 'Public', value: '1200–2200 Elo' }, { label: 'Lieu', value: 'Genève / en ligne' }, { label: 'Langues', value: 'FR · EN' }],
@@ -65,6 +69,7 @@ const T: Record<Locale, {
     whyLead: (<>The <strong className="text-ink-900">FIDE Master</strong> title guarantees a high level of play. But improving is mostly a method: precise diagnosis, a personalised work plan and targeted exercises between sessions.</>),
     whyCta: 'More about my background',
     bullets: ['Diagnosis of your rated games to target the real levers.', 'An 8–12 week progression plan with Elo goals.', 'In person in Geneva or online, at the same standard.', 'A serious audience: players who want to improve, not to start out.'],
+    blogEyebrow: 'The blog', blogTitle: 'My latest articles', blogLead: 'What I write between tournaments: competition diaries and working method, with the numbers and the games to back them up.', blogCta: 'All articles',
     faqTitle: 'Frequently asked questions', ctaTitle: 'Ready to reach the next level?',
     ctaLead: 'Book a first lesson in Geneva or online to define your goals.', ctaBtn: 'Book a first lesson',
     facts: [{ label: 'Title', value: 'FIDE Master' }, { label: 'Level', value: '1200–2200 Elo' }, { label: 'Where', value: 'Geneva / online' }, { label: 'Languages', value: 'EN · FR' }],
@@ -75,7 +80,14 @@ export function Component() {
   const locale = useLocale()
   const c = T[locale]
   const aboutPath = pathFor('apropos', locale)
-  const contactPath = pathFor('contact', locale)
+  // Le bouton dit « Réserver un premier cours » : il mène donc à la page qui
+  // réserve, pas au formulaire de contact. /reserver donne un créneau et une
+  // confirmation par e-mail — un pas de moins avant le premier cours.
+  const bookPath = pathFor('reserver', locale)
+  // Les articles sont les pages les plus riches du site, et l'accueil n'en
+  // citait aucune : tout le jus passait de l'accueil aux pages de cours et
+  // s'arrêtait là, pendant que les carnets renvoyaient déjà vers les cours.
+  const latest = postsForLocale(locale).slice(0, 3)
   const jsonLd = [personSchema(), localBusinessSchema(), breadcrumbSchema([{ name: t(locale).breadcrumbHome, path: homePath(locale) }]), faqSchema(FAQ[locale])]
 
   return (
@@ -88,7 +100,7 @@ export function Component() {
         lead={locale === 'en'
           ? (<>Chess coaching for <strong>adults (1200–2200 Elo)</strong> and <strong>competitive teens</strong>. A clear method, a progression plan and real follow-up — in person in Geneva or online.</>)
           : (<>Coaching d’échecs pour <strong>adultes (1200–2200 Elo)</strong> et <strong>ados en compétition</strong>. Une méthode claire, un plan de progression et un vrai suivi — en présentiel à Genève ou en ligne.</>)}
-        primaryCta={{ to: contactPath, label: c.ctaBtn }}
+        primaryCta={{ to: bookPath, label: c.ctaBtn }}
         secondaryCta={{ to: pathFor('coursAdultes', locale), label: locale === 'en' ? 'Discover adult lessons' : 'Découvrir les cours adultes' }}
         aside={<div className="relative"><img src="/brand-lockup.svg" alt="Alexandre Iwanesko — Outhink Outplay" width={520} height={600} className="mx-auto w-52 drop-shadow-xl sm:w-60" /><div className="mt-6"><FactCard facts={c.facts} /></div></div>}
       />
@@ -131,6 +143,31 @@ export function Component() {
         </Container>
       </Section>
 
+      {latest.length > 0 ? (
+        <Section>
+          <Container>
+            <Eyebrow>{c.blogEyebrow}</Eyebrow>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="font-display text-3xl font-bold text-ink-900 sm:text-4xl">{c.blogTitle}</h2>
+                <p className="mt-3 max-w-2xl leading-relaxed text-ink-600">{c.blogLead}</p>
+              </div>
+              <Link to={pathFor('blog', locale)} className="inline-flex items-center gap-2 font-semibold text-gold-700 hover:text-gold-600">
+                {c.blogCta}
+                <span aria-hidden><IconArrowRight size={18} /></span>
+              </Link>
+            </div>
+            <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {latest.map((p) => (
+                <li key={`${p.lang}-${p.slug}`}>
+                  <PostCard post={p} />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      ) : null}
+
       <Section>
         <Container>
           <Eyebrow>FAQ</Eyebrow>
@@ -154,7 +191,7 @@ export function Component() {
           <span aria-hidden className="mx-auto mb-6 block h-0.5 w-12 rounded-full bg-gold-500" />
           <h2 className="font-display text-3xl font-bold sm:text-4xl">{c.ctaTitle}</h2>
           <p className="mx-auto mt-4 max-w-xl leading-relaxed text-slab-300">{c.ctaLead}</p>
-          <div className="mt-9"><CtaLink to={contactPath} variant="primary">{c.ctaBtn}</CtaLink></div>
+          <div className="mt-9"><CtaLink to={bookPath} variant="primary">{c.ctaBtn}</CtaLink></div>
         </Container>
       </Section>
     </>

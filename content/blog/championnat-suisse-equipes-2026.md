@@ -444,6 +444,8 @@ Et peut-être aussi croire un peu plus longtemps que la partie est jouable. À [
 
 C'est la principale leçon que je ramène de ce week-end. Reste le plus important, et il n'a rien à voir avec mes deux parties : **Nyon 1 se maintient en LNA.** C'était l'objectif de la saison, on l'a rempli en deux matchs, et je suis franchement content d'y avoir participé — même pour un demi-point.
 
+Voir le bon plan et ne pas le jouer, ce n'est pas un problème de connaissances, c'est un problème d'entraînement. Si ça vous arrive aussi, c'est précisément l'écart qu'on mesure et qu'on réduit en [cours d'échecs pour adultes à Genève](/cours-echecs-adultes-geneve).
+
 ## Les deux parties, coup par coup
 
 [[pgn:cse-2026-r6,cse-2026-r7]]

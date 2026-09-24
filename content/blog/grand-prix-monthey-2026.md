@@ -441,3 +441,5 @@ Vendredi soir, j'ai joué vite parce que je faisais confiance à mes décisions.
 La question n'est donc plus vraiment de savoir si je sais quoi jouer. C'est de savoir si je suis capable de vérifier jusqu'au bout ce que je crois avoir vu.
 
 Ça rejoint exactement ce que je ramenais du championnat par équipes il y a trois semaines, à un détail près qui change tout : le jugement, je le récupère. C'est le calcul qui met plus longtemps.
+
+Vérifier jusqu'au bout ce qu'on croit avoir vu, ça ne s'obtient pas en jouant davantage : ça se travaille par séances, avec quelqu'un qui relit vos calculs à froid. C'est le cœur de ce que je fais en [cours d'échecs pour adultes à Genève](/cours-echecs-adultes-geneve) — et oui, je m'applique le même traitement.

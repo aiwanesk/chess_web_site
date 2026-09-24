@@ -7,7 +7,7 @@ import { Breadcrumbs } from './Breadcrumbs'
 import { PageHero, FactCard } from './PageHero'
 import { Faq } from './Faq'
 import { articleUrl, useLocale, t, homePath, PAGES } from '../lib/i18n'
-import { postsByCluster } from '../lib/postMeta'
+import { postsByCluster, postsBySlugs } from '../lib/postMeta'
 import {
   IconTarget,
   IconRoute,
@@ -56,6 +56,13 @@ export interface MoneyPageProps {
   related?: RelatedLink[]
   /** Content silo key: surfaces matching blog articles (see postMeta.ts). */
   cluster?: string
+  /**
+   * Articles cités explicitement, par slug de CETTE locale, dans cet ordre.
+   * Prioritaire sur `cluster`, pour les pages dont le silo est vide ou trop
+   * mince (« en-ligne » n'a aucun article, « adultes » n'en a qu'un) alors
+   * qu'elles ont besoin de renvoyer vers les pages les plus riches du site.
+   */
+  articles?: string[]
   /** Extra JSON-LD objects (e.g. Event for stages/simultanées). */
   extraJsonLd?: Array<Record<string, unknown>>
   /** Optional extra content injected before the FAQ. */
@@ -75,7 +82,11 @@ export function MoneyPage(props: MoneyPageProps) {
     { name: props.title, path: props.path },
   ]
 
-  const articles = props.cluster ? postsByCluster(props.cluster, 3, locale) : []
+  const articles = props.articles
+    ? postsBySlugs(props.articles, locale)
+    : props.cluster
+      ? postsByCluster(props.cluster, 3, locale)
+      : []
 
   const jsonLd = [
     breadcrumbSchema(crumbs),
@@ -208,7 +219,7 @@ export function MoneyPage(props: MoneyPageProps) {
           </p>
           <div className="mt-9">
             <Link
-              to={PAGES.contact[locale]}
+              to={PAGES.reserver[locale]}
               className="inline-flex rounded-full bg-gold-500 px-7 py-3 font-semibold text-on-gold shadow-gold transition-[background-color,transform] duration-200 hover:bg-gold-400 active:translate-y-px"
             >
               {s.reserveFirst}

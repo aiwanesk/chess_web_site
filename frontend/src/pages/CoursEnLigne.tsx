@@ -58,6 +58,7 @@ function DeroulementEN() {
 
 const FR: MoneyPageProps = {
   path: '/cours-echecs-en-ligne',
+  articles: ['reprendre-les-echecs-apres-une-pause', 'grand-prix-monthey-2026', 'championnat-suisse-equipes-2026'],
   title: 'Cours d’échecs en ligne',
   metaTitle: 'Cours d’échecs en ligne — Maître FIDE (Suisse romande)',
   description:
@@ -142,6 +143,7 @@ const FR: MoneyPageProps = {
 
 const EN: MoneyPageProps = {
   path: '/en/online-chess-lessons',
+  articles: ['returning-to-chess-after-a-break', 'monthey-grand-prix-2026', 'swiss-team-championship-2026'],
   title: 'Online chess lessons',
   metaTitle: 'Online chess lessons with a FIDE Master — Switzerland',
   description:

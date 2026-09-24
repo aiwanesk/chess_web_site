@@ -84,7 +84,7 @@ export function Component() {
         eyebrow="Blog"
         title={view.label}
         lead={view.intro}
-        primaryCta={{ to: pathFor('contact', locale), label: s.reserve }}
+        primaryCta={{ to: pathFor('reserver', locale), label: s.reserve }}
         secondaryCta={{ to: pathFor('blog', locale), label: s.allBlog }}
       />
 

@@ -59,6 +59,7 @@ function ProgrammeEN() {
 
 const FR: MoneyPageProps = {
   path: '/stages-echecs-geneve',
+  articles: ['open-pontevedra-2026', 'open-badalona-2026', 'grand-prix-monthey-2026'],
   title: 'Stages d’échecs à Genève',
   metaTitle: 'Stages d’échecs à Genève — vacances, Maître FIDE',
   description:
@@ -150,6 +151,7 @@ const FR: MoneyPageProps = {
 
 const EN: MoneyPageProps = {
   path: '/en/chess-camps-geneva',
+  articles: ['open-pontevedra-2026', 'open-badalona-2026', 'monthey-grand-prix-2026'],
   title: 'Chess camps in Geneva',
   metaTitle: 'Chess camps in Geneva — school holidays, FIDE Master',
   description:

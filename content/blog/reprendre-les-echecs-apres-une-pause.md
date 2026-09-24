@@ -386,3 +386,5 @@ Rien de tout cela n'est original, et je me méfierais d'une méthode qui préten
 **La partie intéressante commence maintenant.**
 
 Si vous êtes dans la même situation et que vous voulez structurer votre retour à la compétition, c'est exactement ce que je travaille avec les adultes que j'entraîne : [voir les cours pour adultes à Genève](/cours-echecs-adultes-geneve).
+
+Et si votre échéance est un tournoi précis plutôt qu'un niveau général, ce n'est pas le même travail : répertoire resserré, gestion de la pendule, préparation de l'adversaire. Ça se monte à part — voir la [préparation de tournoi d'échecs](/preparation-tournoi-echecs).

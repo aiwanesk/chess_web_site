@@ -386,3 +386,5 @@ None of this is original, and I'd be wary of a method that claimed to be. They'r
 **The interesting part starts now.**
 
 If you're in the same situation and want to structure your return to competition, that's exactly what I work on with the adults I coach: [see adult chess lessons in Geneva](/en/adult-chess-lessons-geneva).
+
+And if your deadline is one specific tournament rather than a general level, that's a different job: a tighter repertoire, clock management, opponent prep. It gets built separately — see [chess tournament preparation](/en/tournament-preparation).

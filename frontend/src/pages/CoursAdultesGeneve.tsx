@@ -65,6 +65,7 @@ function DeroulementEN() {
 
 const FR: MoneyPageProps = {
   path: '/cours-echecs-adultes-geneve',
+  articles: ['reprendre-les-echecs-apres-une-pause', 'grand-prix-monthey-2026', 'championnat-suisse-equipes-2026'],
   title: 'Cours d’échecs pour adultes à Genève',
   metaTitle: 'Cours d’échecs adultes à Genève',
   description:
@@ -133,6 +134,7 @@ const FR: MoneyPageProps = {
 
 const EN: MoneyPageProps = {
   path: '/en/adult-chess-lessons-geneva',
+  articles: ['returning-to-chess-after-a-break', 'monthey-grand-prix-2026', 'swiss-team-championship-2026'],
   title: 'Adult chess lessons in Geneva',
   metaTitle: 'Adult chess lessons in Geneva — FIDE Master',
   description:

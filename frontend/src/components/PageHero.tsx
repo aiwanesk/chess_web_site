@@ -27,7 +27,10 @@ export function PageHero({
   aside?: ReactNode
 }) {
   const locale = useLocale()
-  const cta = primaryCta ?? { to: pathFor('contact', locale), label: t(locale).reserveFirst }
+  // Le CTA par défaut dit « Réserver un premier cours » : il mène donc à la page
+  // qui réserve, pas au formulaire de contact. /reserver propose un créneau et
+  // confirme par e-mail — un pas de moins avant le premier cours.
+  const cta = primaryCta ?? { to: pathFor('reserver', locale), label: t(locale).reserveFirst }
   return (
     <div className="relative overflow-hidden border-b border-ink-100 bg-gradient-to-b from-cream-100 to-paper">
       <div aria-hidden className="board-texture absolute inset-0 opacity-70" />

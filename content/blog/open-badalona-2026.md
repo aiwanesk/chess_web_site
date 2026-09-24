@@ -596,3 +596,5 @@ Voilà ce que je remballe dans la valise :
 Et puis il y a eu **Nathan**, à quelques tables de là, qui a placé à peu près toutes mes préparations et signé un tournoi superbe — la preuve qu'un bon perroquet doublé d'un bon ami vaut tous les théoriciens du monde.
 
 **Score final : 4,5/8**, 23ᵉ, et un départ précipité la veille de la dernière ronde, un point laissé sur la table. Décevant par endroits, joyeux par d'autres. Mais tant que je trouverai encore des `Cf1 Tg4+ Cg3 Txg3+ Tf1#` et des `f4 !` qui font mouche, je saurai exactement pourquoi je reviens m'asseoir devant l'échiquier. Ne serait-ce que pour, un jour, apprendre à me taire quand ma position est déjà gagnante.
+
+Sur-jouer une position déjà bonne, c'est le défaut le plus cher que je connaisse, et je le repère chez les adultes que j'entraîne avec une facilité déconcertante — de l'extérieur, évidemment. Si vous vous reconnaissez dans la ronde 4, c'est exactement le réflexe qu'on reprogramme en [cours d'échecs pour adultes à Genève](/cours-echecs-adultes-geneve).

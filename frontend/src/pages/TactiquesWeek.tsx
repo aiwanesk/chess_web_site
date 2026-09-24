@@ -78,7 +78,7 @@ export function Component() {
         noindex
       />
       <Breadcrumbs crumbs={crumbs} />
-      <PageHero eyebrow={s.eyebrow} title={`${s.titlePrefix} ${label}`} lead={s.lead} primaryCta={{ to: pathFor('contact', locale), label: locale === 'en' ? 'Book a lesson' : 'Réserver un cours' }} />
+      <PageHero eyebrow={s.eyebrow} title={`${s.titlePrefix} ${label}`} lead={s.lead} primaryCta={{ to: pathFor('reserver', locale), label: locale === 'en' ? 'Book a lesson' : 'Réserver un cours' }} />
 
       <Section>
         <Container>

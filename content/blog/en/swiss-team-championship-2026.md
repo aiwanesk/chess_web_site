@@ -444,6 +444,8 @@ And perhaps also believe a little longer that the game is playable. At [Badalona
 
 That's the main lesson I bring home from the weekend. The most important thing is left, and it has nothing to do with my two games: **Nyon 1 stay up in LNA.** That was the objective of the season, we met it in two matches, and I'm genuinely glad to have been part of it — even for half a point.
 
+Seeing the right plan and not playing it isn't a knowledge problem, it's a training problem. If that happens to you too, it's precisely the gap we measure and close in [adult chess lessons in Geneva](/en/adult-chess-lessons-geneva).
+
 ## Both Games, Move by Move
 
 [[pgn:cse-2026-r6,cse-2026-r7]]

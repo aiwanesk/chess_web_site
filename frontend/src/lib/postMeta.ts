@@ -78,6 +78,30 @@ export function postsByCluster(cluster: string, limit = 3, locale: Locale = 'fr'
   return postsMeta.filter((p) => p.cluster === cluster && p.lang === locale).slice(0, limit)
 }
 
+/**
+ * Articles choisis à la main, dans l'ordre donné, pour une page qui n'a pas de
+ * silo fourni. `postsByCluster` suffit quand le thème a des articles : sur
+ * /preparation-tournoi-echecs les carnets arrivent tout seuls. Mais le cluster
+ * « adultes » n'en compte qu'un et « en-ligne » aucun, et ces pages ont besoin
+ * de deux ou trois liens sortants vers les contenus les plus riches du site.
+ *
+ * Un slug inconnu fait ÉCHOUER LE BUILD plutôt que de disparaître en silence :
+ * une sélection écrite à la main se périme le jour où un article est renommé,
+ * et un bloc « à lire » qui rétrécit sans bruit ne se remarque jamais.
+ */
+export function postsBySlugs(slugs: string[], locale: Locale): PostMeta[] {
+  return slugs.map((slug) => {
+    const post = postsMeta.find((p) => p.slug === slug && p.lang === locale)
+    if (!post) {
+      throw new Error(
+        `postsBySlugs : aucun article « ${slug} » en ${locale}. ` +
+          `Corrigez la liste de la page, ou le slug s'il a été renommé.`,
+      )
+    }
+    return post
+  })
+}
+
 /** Articles in a browsable category (by stable key), for one locale. */
 export function postsByCategory(key: string, locale: Locale = 'fr', limit?: number): PostMeta[] {
   const list = postsMeta.filter((p) => p.category === key && p.lang === locale)

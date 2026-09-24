@@ -597,3 +597,5 @@ Here's what I'm taking home:
 6. **Sleep** — I'm only half joking. Round 9 is the direct consequence of a bad night. No sleep, no clarity, no result. It's as simple as that.
 
 **Final score: 4.5/9** — disappointing, but instructive. No time to dwell on it: I'm heading straight to **Badalona**. Rest will have to wait.
+
+I didn't discover those six jobs in Pontevedra: they're the ones I get the players I coach to start on, with the small difference that they have someone holding them to it. If the list sounds familiar, it's roughly the programme we take apart together in [adult chess lessons in Geneva](/en/adult-chess-lessons-geneva).
