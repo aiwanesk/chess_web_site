@@ -1,6 +1,7 @@
 ---
 title: "Badalona Open 2026: My Tournament Diary (50th Edition)"
-description: "A round-by-round account of the 50th 'Ciutat de Badalona' International Open (Spain), August 2-10, 2026 — 9 rounds, international opponents, and lessons game by game."
+seoTitle: "Badalona Open 2026: 4.5/8, my round-by-round diary"
+description: "A round-by-round account of the 50th 'Ciutat de Badalona' International Open (Spain), 2–10 August 2026: 9 rounds and international opponents."
 author: "Alexandre Iwanesko"
 date: "2026-08-02"
 category: "carnet-de-tournoi"

@@ -2,6 +2,9 @@ import { Head } from 'vite-react-ssg'
 import { SITE, absoluteUrl } from './site'
 import { localeFromPath, altPath, keyForPath, PAGES } from './i18n'
 
+/** Au-delà, Google tronque le titre dans la SERP (~600 px, soit ~60 signes). */
+const TITLE_MAX = 60
+
 export interface SeoProps {
   /** ≤ 60 chars ideally. The site name is appended automatically unless isHome. */
   title: string
@@ -39,7 +42,21 @@ export function Seo({
   jsonLd = [],
   alternates,
 }: SeoProps) {
-  const fullTitle = isHome ? title : `${title} | ${SITE.person.name}`
+  // Le suffixe « | Alexandre Iwanesko » signe une page qui ne dit pas d'elle-
+  // même de qui elle parle. Il était collé partout : sur /a-propos, dont le
+  // titre porte déjà le nom, il le répétait ; sur les carnets, dont le titre
+  // éditorial remplit seul la ligne, il poussait jusqu'à 96 caractères, dont
+  // une bonne trentaine tombent hors de la SERP.
+  //
+  // Il ne s'ajoute donc que s'il ajoute quelque chose : jamais sur un article,
+  // jamais si le nom est déjà là, et jamais s'il fait déborder. Le seuil est
+  // dans le code plutôt que dans une règle de rédaction, parce qu'un titre
+  // s'allonge le jour où on le réécrit, pas le jour où on l'écrit.
+  const branded = `${title} | ${SITE.person.name}`
+  const fullTitle =
+    isHome || ogType === 'article' || title.includes(SITE.person.name) || branded.length > TITLE_MAX
+      ? title
+      : branded
   const canonical = absoluteUrl(path)
   const ogImage = absoluteUrl(image)
   const locale = localeFromPath(path)

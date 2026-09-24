@@ -1,5 +1,6 @@
 ---
 title: "Open de Badalona 2026 : mon carnet de tournoi (50e édition)"
+seoTitle: "Open de Badalona 2026 : 4,5/8, mon carnet ronde par ronde"
 description: "Récit du 50e Open international « Ciutat de Badalona » (Espagne) du 2 au 10 août 2026 — 9 rondes, adversaires internationaux et leçons ronde par ronde."
 author: "Alexandre Iwanesko"
 date: "2026-08-02"

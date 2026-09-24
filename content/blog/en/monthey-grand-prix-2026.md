@@ -1,6 +1,7 @@
 ---
 title: "Monthey Grand Prix 2026: diary of a very strong open"
-description: "Diary of the 15th Monthey Grand Prix, 4–6 September 2026: three rapid rounds on the Friday evening, four classical games over the weekend, four grandmasters on the entry list."
+seoTitle: "Monthey Grand Prix 2026: four GMs, my three-day diary"
+description: "Diary of the 15th Monthey Grand Prix, 4–6 September 2026: three rapid rounds on the Friday evening, four classical games over the weekend."
 author: "Alexandre Iwanesko"
 date: "2026-09-06"
 category: "carnet-de-tournoi"

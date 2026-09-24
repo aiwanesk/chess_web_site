@@ -1,6 +1,7 @@
 ---
 title: "Championnat suisse par équipes : le week-end du maintien avec Nyon"
-description: "Rondes 6 et 7 de LNA avec Nyon 1, les 22 et 23 août 2026 : deux matchs gagnés 4½–3½, le maintien au bout, mes deux parties rejouables coup par coup et commentées avec le verdict du moteur."
+seoTitle: "Championnat suisse par équipes : mes 2 parties rejouables"
+description: "Rondes 6 et 7 de LNA avec Nyon 1, les 22 et 23 août 2026 : deux matchs gagnés 4½–3½, le maintien au bout, et mes deux parties commentées."
 author: "Alexandre Iwanesko"
 date: "2026-08-23"
 category: "carnet-de-tournoi"

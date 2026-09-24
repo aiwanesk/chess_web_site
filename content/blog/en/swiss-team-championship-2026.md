@@ -1,6 +1,7 @@
 ---
 title: "Swiss Team Championship: The Survival Weekend with Nyon"
-description: "Rounds 6 and 7 of the Swiss top division with Nyon 1, on August 22 and 23, 2026: two matches won 4½–3½, survival secured, and both my games replayable move by move with the engine's verdict."
+seoTitle: "Swiss Team Championship: both my games, replayable"
+description: "Rounds 6 and 7 of the Swiss top division with Nyon 1, 22–23 August 2026: two matches won 4½–3½, survival secured, both my games annotated."
 author: "Alexandre Iwanesko"
 date: "2026-08-23"
 category: "carnet-de-tournoi"

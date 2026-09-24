@@ -1,6 +1,7 @@
 ---
 title: "Returning to chess after a break: what one year and 188 games taught me"
-description: "A FIDE Master, I stopped playing chess for six years before coming back in August 2025. One year on: 188 FIDE-rated games, 139 rating points lost at classical, and a much clearer idea of what had survived the break and what hadn't."
+seoTitle: "Returning to chess after 6 years: 188 games, −139 Elo"
+description: "A FIDE Master, six years away then a year back: 188 FIDE-rated games, 139 rating points lost at classical, and what had survived the break."
 author: "Alexandre Iwanesko"
 date: "2026-08-29"
 image: "/og/returning-to-chess-after-a-break.png"

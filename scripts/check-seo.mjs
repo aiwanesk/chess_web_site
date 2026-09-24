@@ -9,6 +9,8 @@
  * de la chaîne. C'est d'ailleurs comme ça que /blog/<slug-anglais> a échappé à
  * tout le monde jusqu'à ce que la Search Console le remonte en 404.
  *
+ * Contrôles : longueur des titles et des descriptions, réciprocité du hreflang.
+ *
  * Usage : node scripts/check-seo.mjs [dossier-dist]
  * Sort en 1 au premier problème listé, pour être utilisable en CI.
  */
@@ -75,6 +77,28 @@ const byUrl = new Map(pages.map((p) => [ORIGIN + (p.path === '/' ? '/' : p.path)
 const problems = []
 const fail = (page, msg) => problems.push(`${page.path} — ${msg}`)
 
+// --------------------------------------------------- titles et descriptions
+
+// 60 signes : au-delà, Google tronque dans la SERP (~600 px). Le suffixe de
+// marque se retire tout seul quand il ferait déborder (lib/seo.tsx), donc un
+// dépassement ici ne peut venir que du titre lui-même — à raccourcir à la main,
+// ou via `seoTitle:` en front-matter pour un article.
+const TITLE_MAX = 60
+// 160 : la limite d'affichage. La cible rédactionnelle est 150–155, mais on ne
+// fait échouer un build que sur ce qui est réellement coupé.
+const DESC_MAX = 160
+
+for (const page of pages) {
+  if (page.title.length === 0) fail(page, 'aucun <title>')
+  else if (page.title.length > TITLE_MAX) {
+    fail(page, `title de ${page.title.length} signes (max ${TITLE_MAX}) : « ${page.title} »`)
+  }
+  if (page.description.length === 0) fail(page, 'aucune meta description')
+  else if (page.description.length > DESC_MAX) {
+    fail(page, `description de ${page.description.length} signes (max ${DESC_MAX})`)
+  }
+}
+
 // ------------------------------------------------------- hreflang réciproque
 
 // fr, en, x-default et rien d'autre. fr-CH pointait partout vers la même URL
@@ -137,4 +161,9 @@ if (problems.length > 0) {
   for (const p of problems) console.error(`  • ${p}`)
   process.exit(1)
 }
-console.log(`✓ ${label} : hreflang réciproques, fr/en/x-default uniquement.`)
+const longest = pages.reduce((a, b) => (a.title.length >= b.title.length ? a : b))
+const wordiest = pages.reduce((a, b) => (a.description.length >= b.description.length ? a : b))
+console.log(`✓ ${label}`)
+console.log(`  titles ≤ ${TITLE_MAX} (le plus long : ${longest.title.length}, ${longest.path})`)
+console.log(`  descriptions ≤ ${DESC_MAX} (la plus longue : ${wordiest.description.length}, ${wordiest.path})`)
+console.log('  hreflang réciproques, fr/en/x-default uniquement')

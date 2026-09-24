@@ -1,6 +1,7 @@
 ---
 title: "Grand Prix de Monthey 2026 : carnet d'un tournoi très relevé"
-description: "Carnet du 15e Grand Prix de Monthey, du 4 au 6 septembre 2026 : trois rondes de rapide le vendredi soir, quatre parties longues le week-end, quatre grands maîtres au départ."
+seoTitle: "Grand Prix de Monthey 2026 : 4 GM, mon carnet en 3 jours"
+description: "Carnet du 15e Grand Prix de Monthey, du 4 au 6 septembre 2026 : trois rondes de rapide le vendredi soir, quatre parties longues le week-end."
 author: "Alexandre Iwanesko"
 date: "2026-09-06"
 category: "carnet-de-tournoi"

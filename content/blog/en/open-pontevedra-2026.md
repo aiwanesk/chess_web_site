@@ -1,5 +1,6 @@
 ---
 title: "Pontevedra Open 2026: My Tournament Diary from Spain"
+seoTitle: "Pontevedra Open 2026: 4.5/9, my round-by-round diary"
 description: "A round-by-round account of the Pontevedra International Open (Spain), July 25-30, 2026 — games, analysis, and lessons from a demanding tournament."
 author: "Alexandre Iwanesko"
 date: "2026-07-25"

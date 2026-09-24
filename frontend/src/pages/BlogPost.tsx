@@ -83,7 +83,7 @@ export function Component() {
   return (
     <>
       <Seo
-        title={post.title}
+        title={post.seoTitle ?? post.title}
         description={post.description}
         path={path}
         ogType="article"

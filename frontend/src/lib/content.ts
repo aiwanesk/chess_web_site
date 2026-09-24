@@ -24,6 +24,13 @@ const enFiles = import.meta.glob('../../../content/blog/en/*.md', {
 export interface PostMeta {
   slug: string
   title: string
+  /**
+   * Titre de la balise <title> quand le titre éditorial est trop long pour la
+   * SERP (au-delà d'une soixantaine de caractères, Google coupe). Facultatif :
+   * sans lui, `title` sert aux deux. C'est le seul endroit où les deux se
+   * séparent — le H1, le fil d'Ariane et le JSON-LD gardent le vrai titre.
+   */
+  seoTitle?: string
   description: string
   author: string
   date: string // ISO yyyy-mm-dd
@@ -72,6 +79,7 @@ function build(filePath: string, raw: string, lang: Locale): Post {
   return {
     slug: data.slug || slugFromPath(filePath),
     title: data.title ?? 'Sans titre',
+    seoTitle: data.seoTitle,
     description: data.description ?? '',
     author: data.author ?? 'Alexandre Iwanesko',
     date: data.date ?? '1970-01-01',

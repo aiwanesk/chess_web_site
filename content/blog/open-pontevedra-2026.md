@@ -1,5 +1,6 @@
 ---
 title: "Open de Pontevedra 2026 : mon carnet de tournoi en Espagne"
+seoTitle: "Open de Pontevedra 2026 : 4,5/9, mon carnet ronde par ronde"
 description: "Récit de l'Open international de Pontevedra (Espagne) du 25 au 30 juillet 2026 — rondes, analyses et leçons d'un tournoi exigeant."
 author: "Alexandre Iwanesko"
 date: "2026-07-25"

@@ -143,7 +143,7 @@ const FR: MoneyPageProps = {
 const EN: MoneyPageProps = {
   path: '/en/online-chess-lessons',
   title: 'Online chess lessons',
-  metaTitle: 'Online chess lessons — FIDE Master (French-speaking Switzerland)',
+  metaTitle: 'Online chess lessons with a FIDE Master — Switzerland',
   description:
     'Private online chess lessons with a FIDE Master, anywhere in French-speaking Switzerland and neighbouring France. The same method as in person.',
   eyebrow: 'Remote',
