@@ -1,0 +1,96 @@
+{
+  "week": "28-09-26",
+  "puzzles": [
+    {
+      "id": "ea255d8fffd6",
+      "fen": "6k1/7p/Qp1n2p1/3P1p2/p4q2/P1B2P1P/1P1R1KP1/4r3 b - - 6 41",
+      "sideToMove": "b",
+      "solution": [
+        "f4e3",
+        "f2g3",
+        "d6e4",
+        "g3h2",
+        "e3g1"
+      ],
+      "mate": true,
+      "beauty": 39
+    },
+    {
+      "id": "5915d8f5bb90",
+      "fen": "k3r3/1R4p1/p7/Q3P1P1/P4P2/5q2/1P4BP/7K b - - 2 36",
+      "sideToMove": "b",
+      "solution": [
+        "f3d1",
+        "a5e1",
+        "d1e1",
+        "g2f1",
+        "e1f1"
+      ],
+      "mate": true,
+      "beauty": 39
+    },
+    {
+      "id": "9c73fa0cabc0",
+      "fen": "6k1/P4pp1/1Q3n2/2N4p/8/6qb/r4pB1/5R1K w - - 0 32",
+      "sideToMove": "w",
+      "solution": [
+        "b6b8",
+        "g8h7",
+        "b8g3",
+        "h3g2",
+        "g3g2",
+        "a2a7",
+        "g2f2"
+      ],
+      "beauty": 17
+    },
+    {
+      "id": "dc650e340379",
+      "fen": "r4b1r/ppp3k1/4Q3/4Np1q/6p1/3P2P1/PP2PP2/R1B1R1K1 w - - 7 24",
+      "sideToMove": "w",
+      "solution": [
+        "e6d7",
+        "g7f6",
+        "c1g5",
+        "f6g5",
+        "e5f7",
+        "g5f6",
+        "f7h8"
+      ],
+      "beauty": 16
+    },
+    {
+      "id": "4b8836632738",
+      "fen": "5qk1/Rp6/1Pp3p1/2PbP3/4ppP1/7P/4Q3/6K1 b - - 0 32",
+      "sideToMove": "b",
+      "solution": [
+        "f8c5",
+        "e2f2",
+        "c5c1"
+      ],
+      "beauty": 15
+    },
+    {
+      "id": "172cb098e818",
+      "fen": "8/3k4/8/2p2b1R/4r2P/4B3/4K3/8 b - - 3 51",
+      "sideToMove": "b",
+      "solution": [
+        "f5g4",
+        "e2d2",
+        "g4h5"
+      ],
+      "beauty": 15
+    },
+    {
+      "id": "7db827d104ca",
+      "fen": "8/p7/2B2kpp/1P1P1p2/4R2P/P4KP1/8/r7 b - - 0 46",
+      "sideToMove": "b",
+      "solution": [
+        "f5e4",
+        "f3e4",
+        "a1a3"
+      ],
+      "beauty": 15
+    }
+  ]
+}
