@@ -18,6 +18,9 @@ backend/dist/assets
 .idea
 .vscode
 scripts
+# …sauf le contrôle SEO lancé en postbuild par `npm run build`
+!scripts/check-seo.mjs
+!scripts/lib
 docs
 assets
 README.md

@@ -10,6 +10,9 @@ RUN npm ci
 COPY frontend/ ./
 COPY content/ /app/content/
 COPY public/ /app/public/
+# Le postbuild lance ../scripts/check-seo.mjs : le build échoue sans lui.
+COPY scripts/check-seo.mjs /app/scripts/
+COPY scripts/lib/ /app/scripts/lib/
 RUN npm run build
 # → produces /app/frontend/dist
 
