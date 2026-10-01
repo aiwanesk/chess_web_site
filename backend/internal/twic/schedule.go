@@ -2,6 +2,7 @@ package twic
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"log/slog"
 	"os"
@@ -138,6 +139,13 @@ type Status struct {
 	Checked time.Time `json:"checked"`
 	Next    time.Time `json:"next"`
 	Running bool      `json:"running"`
+	// Updated est la date du dernier numéro réellement entré, Issue son bilan.
+	// Tous deux vides tant que l'importeur n'a rien fait entrer — une base
+	// construite sur le PC n'en dit rien.
+	Updated time.Time `json:"updated"`
+	Issue   *Issue    `json:"issue,omitempty"`
+	// Error est l'échec du dernier passage, vide s'il a réussi.
+	Error string `json:"error,omitempty"`
 }
 
 func (im *Importer) Status() Status {
@@ -165,5 +173,15 @@ func (im *Importer) Status() Status {
 	if v, _ := w.MetaGet(metaChecked); v != "" {
 		st.Checked, _ = time.Parse(time.RFC3339, v)
 	}
+	if v, _ := w.MetaGet(metaUpdated); v != "" {
+		st.Updated, _ = time.Parse(time.RFC3339, v)
+	}
+	if v, _ := w.MetaGet(metaIssue); v != "" {
+		var is Issue
+		if json.Unmarshal([]byte(v), &is) == nil {
+			st.Issue = &is
+		}
+	}
+	st.Error, _ = w.MetaGet(metaError)
 	return st
 }

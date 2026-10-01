@@ -332,6 +332,9 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
  .up button{background:#2b323e;color:var(--ink);border:1px solid var(--line);
    border-radius:.5rem;padding:.55rem 1rem;cursor:pointer;font-size:.9rem}
  .up button:hover{background:#353d4b}
+ .up a.dl{display:inline-block;background:#2b323e;color:var(--ink);border:1px solid var(--line);
+   border-radius:.5rem;padding:.55rem 1rem;font-size:.9rem;text-decoration:none}
+ .up a.dl:hover{background:#353d4b}
  .up button:disabled{opacity:.45;cursor:default}
  .up .bar{margin:.8rem 0 .4rem;height:8px;width:100%;min-width:0}
  .up .bar>span{background:var(--accent);transition:width .2s}
@@ -475,6 +478,18 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
   </div>
   <p class="state">—</p>
  </div>
+ <div class="up">
+  <h3>Exporter en PGN <span class="sub">— toute la base, zippée</span></h3>
+  <p class="empty" style="font-style:normal">
+   Le fichier est fabriqué pendant le téléchargement : le navigateur n'en
+   connaît pas la taille à l'avance. Ne sort que ce que la base garde —
+   joueurs, Elo, événement, date, ECO, coups. Ni Site, ni ronde, ni
+   commentaires, et une partie non terminée ressort nulle.
+  </p>
+  <div class="up-row">
+   <a class="dl" href="/admin/parties/export" download>Télécharger la base en PGN</a>
+  </div>
+ </div>
  {{end}}
 </section>
 
@@ -496,7 +511,9 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
     return "0";
   }
 
-  document.querySelectorAll(".up").forEach(function(box){
+  // [data-target] : seuls les blocs de téléversement. Les autres .up (TWIC,
+  // export) n'ont ni fichier ni bouton d'envoi, et y faisaient planter la boucle.
+  document.querySelectorAll(".up[data-target]").forEach(function(box){
     var target = box.dataset.target;
     var file = box.querySelector("input[type=file]");
     var send = box.querySelector(".send");
@@ -590,14 +607,32 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
     var d = new Date(iso);
     return d.toLocaleString("fr-CH", {dateStyle:"short", timeStyle:"short"});
   }
+  function num(n){ return (n || 0).toLocaleString("fr-CH"); }
   function refresh(){
     return fetch("/admin/parties/api/twic", {credentials:"same-origin"})
       .then(function(r){ return r.json(); })
       .then(function(s){
         if(!s.present){ state.textContent = "aucune base de parties en ligne"; return; }
-        state.textContent = "dernier numéro importé : " + s.last +
-          " · dernière vérification : " + when(s.checked) +
-          " · prochain passage : " + when(s.next);
+        // Deux lignes : ce qui est ENTRÉ (numéro, date, bilan), puis le dernier
+        // passage — qui peut avoir échoué sans que le curseur ait bougé.
+        var got = "dernier numéro : TWIC " + s.last;
+        if(s.issue && s.issue.number === s.last){
+          var i = s.issue;
+          got += ", importé le " + when(s.updated) + " — " + num(i.games) + " parties, " +
+                 num(i.added) + " ajoutées, " + num(i.skipped) + " doublons";
+          if(i.variants) got += ", " + i.variants + " variantes écartées";
+          if(i.rejected) got += ", " + i.rejected + " ILLISIBLES";
+        } else {
+          got += " (venu avec la base téléversée)";
+        }
+        var chk = "dernière vérification : " + when(s.checked) +
+                  (s.error ? " — ÉCHEC : " + s.error : "") +
+                  " · prochain passage : " + when(s.next);
+        if(s.running) chk = "import en cours…";
+        state.textContent = "";
+        state.appendChild(document.createTextNode(got));
+        state.appendChild(document.createElement("br"));
+        state.appendChild(document.createTextNode(chk));
         btn.disabled = !!s.running;
       }).catch(function(){ state.textContent = "état indisponible"; });
   }
@@ -605,7 +640,7 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
 
   btn.addEventListener("click", function(){
     btn.disabled = true;
-    state.textContent = "téléchargement et import en cours… (l'explorateur répond 503 pendant ce temps)";
+    state.textContent = "téléchargement et import en cours… (l'explorateur reste consultable)";
     fetch("/admin/parties/twic", {method:"POST", credentials:"same-origin"})
       .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
       .then(function(res){

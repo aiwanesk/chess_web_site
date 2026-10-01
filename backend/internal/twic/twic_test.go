@@ -217,6 +217,48 @@ func TestImportAvanceLeCurseurEtInsere(t *testing.T) {
 
 // Le cœur de la demande : ne jamais retélécharger ni redoubler. On rejoue le
 // MÊME import — le curseur doit tenir, et rien ne doit entrer deux fois.
+// /admin affiche QUAND le dernier numéro est entré et ce qu'il contenait, et
+// garde l'échec du dernier passage — sans quoi un mardi raté ne se voyait que
+// dans les logs.
+func TestStatusRetientLeDernierNumeroEtLEchec(t *testing.T) {
+	path := newBase(t)
+	srv := serveIssues(t, map[int]string{DefaultLast + 1: gameA + gameB})
+	im := &Importer{Path: path, BaseURL: srv.URL}
+
+	if st := im.Status(); st.Issue != nil || !st.Updated.IsZero() {
+		t.Fatalf("base neuve, statut déjà rempli : %+v", st)
+	}
+	if _, err := im.Run(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	st := im.Status()
+	if st.Issue == nil || st.Issue.Number != DefaultLast+1 || st.Issue.Added != 2 {
+		t.Fatalf("bilan du dernier numéro : %+v", st.Issue)
+	}
+	if time.Since(st.Updated) > time.Minute || st.Error != "" {
+		t.Fatalf("updated=%v error=%q", st.Updated, st.Error)
+	}
+
+	// Un passage qui échoue garde le bilan précédent et dit pourquoi.
+	im.BaseURL = "http://127.0.0.1:1"
+	if _, err := im.Run(context.Background()); err == nil {
+		t.Fatal("un serveur injoignable devrait échouer")
+	}
+	st = im.Status()
+	if st.Error == "" || st.Issue == nil || st.Issue.Number != DefaultLast+1 {
+		t.Fatalf("après échec : %+v", st)
+	}
+
+	// Et le passage suivant, réussi, efface l'erreur.
+	im.BaseURL = srv.URL
+	if _, err := im.Run(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	if st := im.Status(); st.Error != "" {
+		t.Fatalf("erreur restée affichée : %q", st.Error)
+	}
+}
+
 func TestImportEstRejouable(t *testing.T) {
 	srv := serveIssues(t, map[int]string{DefaultLast + 1: gameA + gameB})
 	path := newBase(t)

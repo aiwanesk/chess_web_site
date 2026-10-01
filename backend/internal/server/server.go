@@ -38,6 +38,7 @@ type Server struct {
 	// eux, deux morceaux concurrents écrivant sinon une base mélangée.
 	mu       sync.RWMutex
 	uploadMu sync.Mutex
+	exportMu sync.Mutex // un seul export PGN à la fois
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
@@ -100,6 +101,20 @@ func (s *Server) Close() error {
 		if e := s.bookings.Close(); e != nil && err == nil {
 			err = e
 		}
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.games != nil {
+		if e := s.games.Close(); e != nil && err == nil {
+			err = e
+		}
+		s.games = nil
+	}
+	if s.corpus != nil {
+		if e := s.corpus.Close(); e != nil && err == nil {
+			err = e
+		}
+		s.corpus = nil
 	}
 	return err
 }
@@ -184,6 +199,7 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/api/meta", s.handlePartiesMeta)
 			c.Get("/api/twic", s.handleTWICStatus)
 			c.Post("/twic", s.handleTWICRun)
+			c.Get("/export", s.handlePartiesExport)
 		})
 	}
 	if s.cfg.CorpusDB != "" || s.cfg.GamesDB != "" {
@@ -215,5 +231,15 @@ func (s *Server) compression() func(http.Handler) http.Handler {
 		httpcompression.Compressor("gzip", 0, gzEnc),
 		httpcompression.MinSize(512),
 	)
-	return compress
+	return func(next http.Handler) http.Handler {
+		compressed := compress(next)
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// Les réponses longues passent à côté : voir noLimit.
+			if r.URL.Path == exportPath || r.URL.Path == twicRunPath {
+				next.ServeHTTP(w, r)
+				return
+			}
+			compressed.ServeHTTP(w, r)
+		})
+	}
 }

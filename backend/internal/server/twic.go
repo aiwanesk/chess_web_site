@@ -61,6 +61,8 @@ func (s *Server) handleTWICStatus(w http.ResponseWriter, r *http.Request) {
 	s.corpusJSON(w, s.twic.Status())
 }
 
+const twicRunPath = "/admin/parties/twic"
+
 // handleTWICRun force une mise à jour depuis /admin. Utile la veille d'un
 // tournoi : on ne va pas attendre mardi pour avoir les parties de l'adversaire.
 func (s *Server) handleTWICRun(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +70,9 @@ func (s *Server) handleTWICRun(w http.ResponseWriter, r *http.Request) {
 		s.corpusError(w, "base de parties non configurée", http.StatusServiceUnavailable)
 		return
 	}
+	// Un rattrapage de plusieurs numéros dépasse les 30 s de WriteTimeout : sans
+	// ça, l'import allait au bout mais le bouton affichait « échec ».
+	noLimit(w)
 	// Volontairement PAS le contexte de la requête : fermer l'onglet ne doit pas
 	// interrompre un import à mi-chemin. La borne de temps vit ici.
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Minute)

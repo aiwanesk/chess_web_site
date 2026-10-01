@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -38,6 +39,15 @@ const MetaLast = "twic_last"
 // publication d'article, et un rattrapage au démarrage sans garde-fou ferait
 // une requête par redéploiement.
 const metaChecked = "twic_checked"
+
+// Ce que /admin affiche en plus du curseur. Le numéro seul ne dit ni QUAND il
+// est entré ni si le dernier passage a réussi : un échec du mardi ne laissait
+// de trace que dans les logs du conteneur, que personne ne lit.
+const (
+	metaUpdated = "twic_updated" // horodatage du dernier numéro réellement importé
+	metaIssue   = "twic_issue"   // son bilan, en JSON (type Issue)
+	metaError   = "twic_error"   // erreur du dernier passage ; vide s'il a réussi
+)
 
 // maxCatchUp borne un rattrapage. Assez large pour que la reprise depuis 1640
 // se fasse en UN passage — la couper en deux laisserait la base à moitié à jour
@@ -106,7 +116,7 @@ func (im *Importer) client() *http.Client {
 
 // Run récupère tout ce qui manque. Idempotente : appelée deux fois de suite,
 // la seconde ne trouve rien à faire.
-func (im *Importer) Run(ctx context.Context) (Report, error) {
+func (im *Importer) Run(ctx context.Context) (rep Report, err error) {
 	if !im.Enabled() {
 		return Report{}, errors.New("twic: GAMES_DB non configuré")
 	}
@@ -135,6 +145,14 @@ func (im *Importer) Run(ctx context.Context) (Report, error) {
 		return Report{}, err
 	}
 	defer w.Close()
+	// Après w.Close dans l'ordre d'écriture, donc AVANT lui à l'exécution.
+	defer func() {
+		msg := ""
+		if err != nil {
+			msg = err.Error()
+		}
+		_ = w.MetaSet(metaError, msg)
+	}()
 
 	last := DefaultLast
 	if v, err := w.MetaGet(MetaLast); err != nil {
@@ -142,7 +160,7 @@ func (im *Importer) Run(ctx context.Context) (Report, error) {
 	} else if n, err := strconv.Atoi(v); err == nil && n > 0 {
 		last = n
 	}
-	rep := Report{Last: last}
+	rep = Report{Last: last}
 	_ = w.MetaSet(metaChecked, time.Now().UTC().Format(time.RFC3339))
 
 	for i := 0; i < maxCatchUp; i++ {
@@ -163,6 +181,10 @@ func (im *Importer) Run(ctx context.Context) (Report, error) {
 		rep.Last = n
 		if err := w.MetaSet(MetaLast, strconv.Itoa(n)); err != nil {
 			return rep, err
+		}
+		_ = w.MetaSet(metaUpdated, time.Now().UTC().Format(time.RFC3339))
+		if b, err := json.Marshal(issue); err == nil {
+			_ = w.MetaSet(metaIssue, string(b))
 		}
 		slog.Info("TWIC importé", "numero", n, "parties", issue.Games,
 			"ajoutees", issue.Added, "doublons", issue.Skipped)
