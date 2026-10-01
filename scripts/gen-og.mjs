@@ -199,6 +199,26 @@ const CARDS = [
     score: '9 rounds · 4½/9',
     footer: FOOTER_EN,
   },
+  {
+    out: 'public/og/ne-plus-faire-de-gaffes-echecs-puzzle-storm.png',
+    dir: 'badalona-2026',
+    board: 'ronde1-diagramme3.svg', // le motif reconnu avant d'être calculé : …Tg4+, …Txg3+, …Tf1#
+    eyebrow: 'PROGRESSER · TACTIQUE',
+    title: ['Ne plus faire', 'de gaffes'],
+    subtitle: 'La tactique au quotidien, motif par motif',
+    score: 'Puzzle Storm : de 45 à 80 en un an',
+    footer: FOOTER_FR,
+  },
+  {
+    out: 'public/og/stop-blundering-chess-puzzle-storm.png',
+    dir: 'badalona-2026',
+    board: 'ronde1-diagramme3.svg',
+    eyebrow: 'IMPROVE · TACTICS',
+    title: ['Stop', 'blundering'],
+    subtitle: 'Daily tactics, one pattern at a time',
+    score: 'Puzzle Storm: from 45 to 80 in a year',
+    footer: FOOTER_EN,
+  },
 ]
 
 // Les articles de fond : une courbe plutot qu'une position.
