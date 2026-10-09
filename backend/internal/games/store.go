@@ -335,12 +335,6 @@ func (s *Store) OpeningTree(f Filter, opt TreeOptions) ([]Node, error) {
 	if len(f.PlayerIDs) == 0 {
 		return []Node{}, nil
 	}
-	if opt.MaxDepth <= 0 {
-		opt.MaxDepth = 12
-	}
-	if opt.MinGames <= 0 {
-		opt.MinGames = 1
-	}
 	selected := map[int64]bool{}
 	for _, id := range f.PlayerIDs {
 		selected[id] = true
@@ -356,7 +350,7 @@ func (s *Store) OpeningTree(f Filter, opt TreeOptions) ([]Node, error) {
 	}
 	defer rows.Close()
 
-	root := &builder{kids: map[string]*builder{}}
+	tree := NewTree(opt)
 	for rows.Next() {
 		var uciStr, sanStr string
 		var result int
@@ -364,30 +358,61 @@ func (s *Store) OpeningTree(f Filter, opt TreeOptions) ([]Node, error) {
 		if err := rows.Scan(&uciStr, &sanStr, &result, &whiteID, &blackID); err != nil {
 			return nil, err
 		}
-		uci, san := strings.Fields(uciStr), strings.Fields(sanStr)
-		if len(san) < len(uci) {
-			continue // scores dépareillés : on ne devine pas
-		}
-		if !hasPrefix(uci, opt.Path) {
-			continue
-		}
 		// Le résultat est rapporté aux joueurs cherchés : ils comptent LEURS
 		// gains. Avec les Noirs, une victoire des Blancs est une défaite.
 		pov := result
 		if !povIsWhite(whiteID, blackID, selected, f.Colour) {
 			pov = -result
 		}
-		node := root
-		for d := len(opt.Path); d < len(uci) && d-len(opt.Path) < opt.MaxDepth; d++ {
-			node = node.child(uci[d], san[d])
-			node.count(pov)
-		}
+		tree.Add(strings.Fields(uciStr), strings.Fields(sanStr), pov)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
-	return root.harvest(opt.MinGames), nil
+	return tree.Nodes(), nil
 }
+
+// Tree agrège des parties en arbre d'ouverture. Il sert à la base (ci-dessus)
+// comme aux parties chargées en direct depuis Lichess ou Chess.com : un seul
+// constructeur, donc les deux explorateurs comptent exactement pareil.
+type Tree struct {
+	opt  TreeOptions
+	root *builder
+}
+
+// NewTree prépare un arbre ; les zéros de opt prennent les valeurs par défaut.
+func NewTree(opt TreeOptions) *Tree {
+	if opt.MaxDepth <= 0 {
+		opt.MaxDepth = 12
+	}
+	if opt.MinGames <= 0 {
+		opt.MinGames = 1
+	}
+	return &Tree{opt: opt, root: &builder{kids: map[string]*builder{}}}
+}
+
+// Add compte une partie. pov est son résultat vu des joueurs préparés
+// (+1 gagné, 0 nul, -1 perdu). Une partie qui ne passe pas par opt.Path, ou
+// dont le SAN et l'UCI ne vont pas ensemble, est ignorée.
+func (t *Tree) Add(uci, san []string, pov int) {
+	if len(san) < len(uci) {
+		return // scores dépareillés : on ne devine pas
+	}
+	if !hasPrefix(uci, t.opt.Path) {
+		return
+	}
+	node := t.root
+	for d := len(t.opt.Path); d < len(uci) && d-len(t.opt.Path) < t.opt.MaxDepth; d++ {
+		node = node.child(uci[d], san[d])
+		node.count(pov)
+	}
+}
+
+// Nodes renvoie l'arbre, chaque niveau trié par fréquence.
+func (t *Tree) Nodes() []Node { return t.root.harvest(t.opt.MinGames) }
+
+// HasPrefix dit si une partie (en UCI) passe par le début de partie path.
+func HasPrefix(uci, path []string) bool { return hasPrefix(uci, path) }
 
 // povIsWhite : lequel des deux camps représente les joueurs cherchés ? La
 // couleur demandée tranche ; sans elle on prend celui des deux qui est dans la

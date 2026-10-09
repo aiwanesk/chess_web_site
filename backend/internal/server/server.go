@@ -15,6 +15,7 @@ import (
 	"github.com/iwanesko/chess-web-site/backend/internal/corpus"
 	"github.com/iwanesko/chess-web-site/backend/internal/games"
 	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
+	"github.com/iwanesko/chess-web-site/backend/internal/online"
 	"github.com/iwanesko/chess-web-site/backend/internal/stats"
 	"github.com/iwanesko/chess-web-site/backend/internal/twic"
 )
@@ -39,12 +40,16 @@ type Server struct {
 	mu       sync.RWMutex
 	uploadMu sync.Mutex
 	exportMu sync.Mutex // un seul export PGN à la fois
+	// Préparation en ligne : les parties chargées vivent en mémoire (prepSets),
+	// seuls les pseudos favoris sont écrits (favorites, nil sans DB_PATH).
+	prepSets  *online.Sets
+	favorites *online.Favorites
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
 // build or on-disk dev directory), provided by the caller.
 func New(cfg Config, static fs.FS) (*Server, error) {
-	s := &Server{cfg: cfg, static: static, formKey: newFormKey()}
+	s := &Server{cfg: cfg, static: static, formKey: newFormKey(), prepSets: online.NewSets(online.NewClient())}
 	s.redirects = buildRedirects(cfg.ContentDir)
 	if cfg.GamesDB != "" {
 		if g, err := games.Open(cfg.GamesDB); err != nil {
@@ -81,6 +86,11 @@ func New(cfg Config, static fs.FS) (*Server, error) {
 			} else {
 				s.bookings = bk
 			}
+			if fav, err := online.OpenFavorites(cfg.DBPath); err != nil {
+				slog.Error("favoris de préparation indisponibles", "path", cfg.DBPath, "err", err)
+			} else {
+				s.favorites = fav
+			}
 		}
 	}
 	return s, nil
@@ -99,6 +109,11 @@ func (s *Server) Close() error {
 	}
 	if s.bookings != nil {
 		if e := s.bookings.Close(); e != nil && err == nil {
+			err = e
+		}
+	}
+	if s.favorites != nil {
+		if e := s.favorites.Close(); e != nil && err == nil {
 			err = e
 		}
 	}
@@ -202,6 +217,22 @@ func (s *Server) Handler() http.Handler {
 			c.Get("/export", s.handlePartiesExport)
 		})
 	}
+	// Préparation en ligne : ne dépend d'aucune base, elle va chercher les
+	// parties sur Lichess et Chess.com. Même limiteur que l'explorateur, la
+	// navigation y est aussi coup par coup.
+	prepLimiter := newIPRateLimiter(15, 90)
+	r.Route("/admin/prepa", func(c chi.Router) {
+		c.Use(rateLimit(prepLimiter), s.adminAuth)
+		c.Get("/", s.handlePrepPage)
+		c.Post("/api/load", s.handlePrepLoad)
+		c.Get("/api/status", s.handlePrepStatus)
+		c.Get("/api/tree", s.handlePrepTree)
+		c.Get("/api/games", s.handlePrepGames)
+		c.Get("/api/game", s.handlePrepGame)
+		c.Get("/api/favorites", s.handlePrepFavorites)
+		c.Post("/api/favorites", s.handlePrepFavorites)
+		c.Delete("/api/favorites", s.handlePrepFavorites)
+	})
 	if s.cfg.CorpusDB != "" || s.cfg.GamesDB != "" {
 		uploadLimiter := newIPRateLimiter(30, 120) // un morceau toutes les 2 s en régime
 		r.Route("/admin/upload", func(c chi.Router) {

@@ -137,6 +137,16 @@
 - **Ce que l'export perd** : la base ne garde ni Site, ni Round, ni commentaires (sortis en « ? »), et une partie non terminée (`*`) y est stockée comme nulle — elle ressort en `1/2-1/2`.
 - **L'import TWIC ne ferme PAS la base en lecture.** Le mode WAL est fait pour ça. La fermer rendait l'explorateur muet (503) pendant les deux minutes du rattrapage initial — pile au moment où on vient de téléverser et où on veut vérifier. Seul `uploadMu` est pris, pour qu'un téléversement ne bascule pas le fichier en plein import ; `reopen` remet une connexion neuve après coup.
 
+## Préparation en ligne (`/admin/prepa/`)
+- **Un pseudo Lichess ou Chess.com → l'arbre de ses ouvertures**, avec la même page que l'explorateur de la base (jusqu'à 4 comptes mélangés, filtre de couleur, partie rejouée, lien vers l'original). Lien dans le tableau de bord.
+- **Rien n'est stocké sauf les favoris.** Les parties vivent en mémoire (`online.Sets`) : 8 lots au plus, oubliés après 3 h. Les favoris (100 maximum) sont dans la table `prep_favorites` de `DB_PATH` ; sans `DB_PATH`, la page marche sans l'étoile.
+- **Le chargement tourne en arrière-plan** (`POST /api/load`, puis `/api/status` toutes les 800 ms) : Lichess n'envoie qu'environ 20 parties/s en anonyme, et le serveur coupe toute réponse à 30 s. Pas de `noLimit` ici, et rien à exclure du compresseur.
+- **Lichess** filtre lui-même par cadence (`perfType`) et par date ; **Chess.com** n'a qu'une archive par mois, remontée du plus récent au plus ancien jusqu'au maximum demandé. Le nom d'ouverture vient de l'URL `ECOUrl`, tronquée avant la suite de coups.
+- **Une seule règle du jeu, une seule navigation.** Le SAN est rejoué par `corpus.SANToUCI` (comme TWIC), le PGN de Chess.com lu par `twic.MainLine`, l'arbre construit par `games.NewTree` (le même que la base). Le CSS et le JS de navigation sont dans `explorer_html.go`, partagés avec `/admin/parties/` : chaque page ne définit que `ready()`, `emptyText()`, `query()`, `flipFor()`, `gameHeadMeta()`, `gameRowMeta()`.
+- **Garde-fous :** pseudos limités à `[A-Za-z0-9_-]{2,30}` avant d'entrer dans une URL ; POST en JSON exigé (un formulaire d'un autre site ne peut pas déclencher de chargement avec la Basic Auth que le navigateur renvoie seul) ; archives Chess.com acceptées seulement sous `https://api.chess.com/pub/player/`.
+- Variantes (960, positions de départ imposées) ignorées sans bruit : elles ne se raccrochent à aucune branche.
+- **Piège JS :** ne jamais nommer une globale `status` dans ces pages — c'est `window.status`, que le navigateur convertit en chaîne.
+
 ## Construire mega.db (`backend/cmd/megaindex`)
 - **L'indexeur est en Go, pas en Python.** Il réutilise le lecteur de PGN, le générateur SAN→UCI et l'empreinte `games.Key` de l'import TWIC : un indexeur écrit à côté serait une **seconde implémentation de l'empreinte**, et le jour où elle diverge d'un espace ou d'un accent, le rattrapage hebdomadaire réimporte tout en double sans rien dire.
 - Il tourne **sur le PC** : `go build -o megaindex.exe ./cmd/megaindex` puis `megaindex.exe -out mega.db "D:ases\*.zip"`. Accepte `.pgn` et `.zip`, développe les jokers lui-même (cmd.exe ne le fait pas).

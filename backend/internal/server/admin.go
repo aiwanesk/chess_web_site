@@ -348,6 +348,7 @@ var adminTmpl = template.Must(template.New("admin").Parse(`<!doctype html>
   {{else}}<span class="tool off"><span class="ic">&#9816;</span> Explorateur de corpus <small>— CORPUS_DB non configuré</small></span>{{end}}
   {{if .HasGames}}<a class="tool" href="/admin/parties/"><span class="ic">&#9820;</span> Base de parties</a>
   {{else}}<span class="tool off"><span class="ic">&#9820;</span> Base de parties <small>— GAMES_DB non configuré</small></span>{{end}}
+  <a class="tool" href="/admin/prepa/"><span class="ic">&#9822;</span> Préparation en ligne</a>
  </nav>
 </div>
 

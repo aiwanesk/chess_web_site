@@ -287,3 +287,19 @@ func decodeLine(b []byte) string {
 	}
 	return out.String()
 }
+
+// MainLine lit une partie PGN isolée (en-têtes compris) et renvoie les coups de
+// sa ligne principale, en SAN. C'est le lecteur de l'import TWIC, exposé pour
+// les parties de Chess.com qui arrivent en PGN : un second lecteur divergerait
+// au premier commentaire d'horloge.
+func MainLine(pgn string) []string {
+	var body strings.Builder
+	for _, line := range strings.Split(pgn, "\n") {
+		if strings.HasPrefix(strings.TrimSpace(line), "[") {
+			continue // en-tête
+		}
+		body.WriteString(line)
+		body.WriteByte('\n')
+	}
+	return parseMovetext(body.String())
+}
