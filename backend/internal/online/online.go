@@ -75,6 +75,7 @@ type Game struct {
 	WhiteElo int      `json:"whiteElo"`
 	BlackElo int      `json:"blackElo"`
 	Date     string   `json:"date"`
+	Played   int64    `json:"played"` // instant de la partie, en secondes Unix
 	Speed    string   `json:"speed"`
 	Rated    bool     `json:"rated"`
 	Result   int      `json:"result"`

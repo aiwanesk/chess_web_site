@@ -13,6 +13,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/iwanesko/chess-web-site/backend/internal/booking"
 	"github.com/iwanesko/chess-web-site/backend/internal/corpus"
+	"github.com/iwanesko/chess-web-site/backend/internal/exercises"
 	"github.com/iwanesko/chess-web-site/backend/internal/games"
 	"github.com/iwanesko/chess-web-site/backend/internal/newsletter"
 	"github.com/iwanesko/chess-web-site/backend/internal/online"
@@ -44,6 +45,8 @@ type Server struct {
 	// seuls les pseudos favoris sont écrits (favorites, nil sans DB_PATH).
 	prepSets  *online.Sets
 	favorites *online.Favorites
+	// Exercices tirés des parties d'Alexandre (nil sans DB_PATH).
+	exercises *exercises.Store
 }
 
 // New builds a Server. static is the resolved frontend file source (embedded
@@ -86,6 +89,11 @@ func New(cfg Config, static fs.FS) (*Server, error) {
 			} else {
 				s.bookings = bk
 			}
+			if ex, err := exercises.Open(cfg.DBPath); err != nil {
+				slog.Error("exercices indisponibles", "path", cfg.DBPath, "err", err)
+			} else {
+				s.exercises = ex
+			}
 			if fav, err := online.OpenFavorites(cfg.DBPath); err != nil {
 				slog.Error("favoris de préparation indisponibles", "path", cfg.DBPath, "err", err)
 			} else {
@@ -114,6 +122,11 @@ func (s *Server) Close() error {
 	}
 	if s.favorites != nil {
 		if e := s.favorites.Close(); e != nil && err == nil {
+			err = e
+		}
+	}
+	if s.exercises != nil {
+		if e := s.exercises.Close(); e != nil && err == nil {
 			err = e
 		}
 	}
@@ -232,6 +245,24 @@ func (s *Server) Handler() http.Handler {
 		c.Get("/api/favorites", s.handlePrepFavorites)
 		c.Post("/api/favorites", s.handlePrepFavorites)
 		c.Delete("/api/favorites", s.handlePrepFavorites)
+	})
+	// Exercices : l'analyseur du PC pousse ses parties d'un coup (une requête
+	// par partie), la page tire une position à la fois. Même limiteur que la
+	// préparation.
+	exLimiter := newIPRateLimiter(15, 90)
+	r.Route("/admin/exercices", func(c chi.Router) {
+		c.Use(rateLimit(exLimiter), s.adminAuth)
+		c.Get("/", s.handleExercisesPage)
+		c.Get("/api/games", s.handleExGames)
+		c.Post("/api/import", s.handleExImport)
+		c.Get("/api/pending", s.handleExPending)
+		c.Post("/api/resolve", s.handleExResolve)
+		c.Get("/api/batch", s.handleExBatch)
+		c.Post("/api/answer", s.handleExAnswer)
+		c.Get("/api/reveal", s.handleExReveal)
+		c.Post("/api/tag", s.handleExTag)
+		c.Post("/api/run", s.handleExRun)
+		c.Get("/api/stats", s.handleExStats)
 	})
 	if s.cfg.CorpusDB != "" || s.cfg.GamesDB != "" {
 		uploadLimiter := newIPRateLimiter(30, 120) // un morceau toutes les 2 s en régime

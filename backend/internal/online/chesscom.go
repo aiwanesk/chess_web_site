@@ -157,6 +157,7 @@ func chessComToGame(cg chessComGame) (Game, bool) {
 	}
 	if cg.EndTime > 0 {
 		g.Date = time.Unix(cg.EndTime, 0).UTC().Format("2006-01-02")
+		g.Played = cg.EndTime
 	}
 	g.Opening = openingName(pgnTag(cg.PGN, "ECOUrl"))
 	return g, true

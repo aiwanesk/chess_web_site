@@ -147,6 +147,7 @@ func lichessToGame(lg lichessGame) (Game, bool) {
 	}
 	if lg.CreatedAt > 0 {
 		g.Date = time.UnixMilli(lg.CreatedAt).UTC().Format("2006-01-02")
+		g.Played = lg.CreatedAt / 1000
 	}
 	return g, true
 }

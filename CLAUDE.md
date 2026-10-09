@@ -147,6 +147,15 @@
 - Variantes (960, positions de départ imposées) ignorées sans bruit : elles ne se raccrochent à aucune branche.
 - **Piège JS :** ne jamais nommer une globale `status` dans ces pages — c'est `window.status`, que le navigateur convertit en chaîne.
 
+## Exercices « mes imprécisions » (`/admin/exercices/`)
+- **Un Storm positionnel sur mes propres parties.** Chaque coup où j'ai perdu au moins **0,3** devient une position à retrouver. Trois modes : Storm 3 min (une erreur coûte 10 s, correction à la fin), Libre (correction après chaque coup), Théoriques (relire les positions écartées).
+- **L'analyse tourne sur le PC, jamais sur le serveur** : `cmd/mistakes` (`go build -o mistakes.exe ./cmd/mistakes`, puis `mistakes.exe`). Lit `../.env` : pseudos, `ADMIN_USER`/`ADMIN_TOKEN`, `STOCKFISH_PATH`, `SITE_URL`. Prend les 100 dernières parties blitz/rapides classées des deux comptes et saute celles que le site a déjà (`/api/games`) : relancer reprend où on s'est arrêté.
+- **Deux passes** : repérage à profondeur 18, confirmation à **profondeur 30 en MultiPV 3** seulement pour les candidats. **Plafond de 30 s par recherche** (`-maxtime`) : dans une position tactique, la MultiPV 3 à 30 coûte jusqu'à une minute (mesuré sur un Ryzen 9 9950X3D, 30 fils). La profondeur réellement atteinte est enregistrée et affichée.
+- **Plusieurs bons coups** : tout coup à moins de 0,15 du meilleur est juste (`-tolerance`). Un coup jamais évalué n'est **ni juste ni faux** : il part dans `ex_pending`, que le prochain `mistakes.exe` (ou `-pending`) tranche au moteur.
+- **« Théorique »** = choix conscient : la position ne revient plus jamais en manche. L'étiquette survit à une réanalyse (l'identifiant d'exercice dérive de l'URL de la partie et du demi-coup). Pas de répétition espacée, c'est voulu.
+- La page reçoit les **coups légaux** avec la position (`corpus.LegalUCIs`), jamais la solution ; le serveur corrige. Stockage : tables `ex_*` dans `DB_PATH`.
+- **Tests sous Windows** : Application Control bloque au hasard les binaires de test dans `%TEMP%`. Lancer avec `GOTMPDIR` pointé ailleurs, et relancer un paquet bloqué.
+
 ## Construire mega.db (`backend/cmd/megaindex`)
 - **L'indexeur est en Go, pas en Python.** Il réutilise le lecteur de PGN, le générateur SAN→UCI et l'empreinte `games.Key` de l'import TWIC : un indexeur écrit à côté serait une **seconde implémentation de l'empreinte**, et le jour où elle diverge d'un espace ou d'un accent, le rattrapage hebdomadaire réimporte tout en double sans rien dire.
 - Il tourne **sur le PC** : `go build -o megaindex.exe ./cmd/megaindex` puis `megaindex.exe -out mega.db "D:ases\*.zip"`. Accepte `.pgn` et `.zip`, développe les jokers lui-même (cmd.exe ne le fait pas).

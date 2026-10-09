@@ -13,9 +13,10 @@ import (
 // Line is one engine principal variation: an evaluation from the side-to-move's
 // perspective plus the move sequence (UCI).
 type Line struct {
-	CP   int      // centipawns (side to move); ignored if Mate != 0
-	Mate int      // >0 = side to move mates in N; <0 = gets mated in N; 0 = none
-	PV   []string // principal variation, UCI moves
+	Depth int      // profondeur atteinte (0 si inconnue)
+	CP    int      // centipawns (side to move); ignored if Mate != 0
+	Mate  int      // >0 = side to move mates in N; <0 = gets mated in N; 0 = none
+	PV    []string // principal variation, UCI moves
 }
 
 // Score collapses CP/Mate into a single comparable integer (side-to-move POV).
@@ -44,6 +45,7 @@ type Stockfish struct {
 	stdin    io.Writer
 	out      *bufio.Scanner
 	moveTime int // ms per position
+	maxTime  int // plafond de Search en ms (0 = aucun)
 }
 
 // NewStockfish starts the engine at path (e.g. "stockfish" on PATH).
@@ -94,6 +96,51 @@ func (s *Stockfish) Lines(fen string, multipv int) ([]Line, error) {
 	s.send(fmt.Sprintf("setoption name MultiPV value %d", multipv))
 	s.send("position fen " + fen)
 	s.send(fmt.Sprintf("go movetime %d", s.moveTime))
+	return s.readLines(multipv)
+}
+
+// Configure règle les fils et la table de hachage. Pour l'analyse profonde des
+// exercices sur le PC : la profondeur 30 se paie en temps, et c'est la mémoire
+// de la table qui empêche de recalculer ce qu'on vient de voir.
+func (s *Stockfish) Configure(threads, hashMB int) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if threads > 0 {
+		s.send(fmt.Sprintf("setoption name Threads value %d", threads))
+	}
+	if hashMB > 0 {
+		s.send(fmt.Sprintf("setoption name Hash value %d", hashMB))
+	}
+	s.send("isready")
+	s.waitFor("readyok")
+}
+
+// SetMaxTime plafonne chaque Search : profondeur demandée OU ce temps, le
+// premier atteint. Dans une position très tactique, la profondeur 30 en
+// MultiPV peut coûter une minute ; le plafond garde l'analyse d'une centaine de
+// parties dans une nuit. La profondeur réellement atteinte reste dans Line.Depth.
+func (s *Stockfish) SetMaxTime(ms int) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.maxTime = ms
+}
+
+// Search analyse à profondeur fixe plutôt qu'au temps : deux positions
+// analysées à la même profondeur se comparent, deux analyses de 400 ms non.
+// moves restreint la recherche (searchmoves) — pour évaluer un coup précis.
+func (s *Stockfish) Search(fen string, multipv, depth int, moves ...string) ([]Line, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.send(fmt.Sprintf("setoption name MultiPV value %d", multipv))
+	s.send("position fen " + fen)
+	cmd := fmt.Sprintf("go depth %d", depth)
+	if s.maxTime > 0 {
+		cmd += fmt.Sprintf(" movetime %d", s.maxTime)
+	}
+	if len(moves) > 0 {
+		cmd += " searchmoves " + strings.Join(moves, " ")
+	}
+	s.send(cmd)
 	return s.readLines(multipv)
 }
 
@@ -148,6 +195,10 @@ func parseInfo(text string) (int, Line, bool) {
 	hasScore := false
 	for i := 0; i < len(toks); i++ {
 		switch toks[i] {
+		case "depth":
+			if i+1 < len(toks) {
+				line.Depth, _ = strconv.Atoi(toks[i+1])
+			}
 		case "multipv":
 			if i+1 < len(toks) {
 				idx, _ = strconv.Atoi(toks[i+1])
