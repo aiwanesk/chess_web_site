@@ -1,0 +1,100 @@
+{
+  "week": "19-10-26",
+  "puzzles": [
+    {
+      "id": "2c55111a80bd",
+      "fen": "r4rk1/pp3Rp1/1b2b1Qp/3Nq1N1/1P6/P5P1/1n4BP/7K b - - 2 22",
+      "sideToMove": "b",
+      "solution": [
+        "e5e1",
+        "g2f1",
+        "e6d5",
+        "g5e4",
+        "f8f7",
+        "g6f7",
+        "g8f7"
+      ],
+      "mate": true,
+      "beauty": 42
+    },
+    {
+      "id": "e61574f5c6eb",
+      "fen": "1Q6/p3q2k/8/2p5/3p1p2/3P1Pp1/P2KP1R1/2N4r b - - 2 40",
+      "sideToMove": "b",
+      "solution": [
+        "e7e3",
+        "d2c2",
+        "e3c1",
+        "c2b3",
+        "c1b1",
+        "b3c4",
+        "b1b8"
+      ],
+      "mate": true,
+      "beauty": 38
+    },
+    {
+      "id": "1d97f6ba98e9",
+      "fen": "2k4r/pp3pp1/2p2q2/8/1QBP1Pb1/6Pp/P4K1P/R6R b - - 0 24",
+      "sideToMove": "b",
+      "solution": [
+        "f6d4",
+        "f2f1",
+        "d4a1"
+      ],
+      "beauty": 18
+    },
+    {
+      "id": "dc671f9814fe",
+      "fen": "4rrk1/ppqb2P1/4p2p/2p1P2P/2npP1Q1/8/P1P3B1/R4RK1 b - - 0 25",
+      "sideToMove": "b",
+      "solution": [
+        "f8f1",
+        "a1f1",
+        "c7e5"
+      ],
+      "beauty": 17
+    },
+    {
+      "id": "4cf65bee5014",
+      "fen": "7r/1p3k2/2p1q3/4pNQ1/7p/2P5/PPP3P1/6K1 w - - 5 36",
+      "sideToMove": "w",
+      "solution": [
+        "g5g7",
+        "f7e8",
+        "g7h8",
+        "e8d7",
+        "h8g7",
+        "d7e8",
+        "f5h4"
+      ],
+      "beauty": 17
+    },
+    {
+      "id": "a488ea973698",
+      "fen": "1nkr2r1/ppp2p1p/3qbn2/4p3/QP2P3/B1P2N1P/P2N1KP1/3R1B1R b - - 0 15",
+      "sideToMove": "b",
+      "solution": [
+        "d6b6",
+        "f3d4",
+        "e5d4"
+      ],
+      "beauty": 17
+    },
+    {
+      "id": "0c10872ac9d0",
+      "fen": "r2qk2r/ppp3b1/4b1pp/1P1N4/2PpPpB1/3P4/P5PP/R2QK2R b KQkq - 1 16",
+      "sideToMove": "b",
+      "solution": [
+        "d8h4",
+        "g2g3",
+        "f4g3",
+        "g4e6",
+        "g3g2",
+        "e1d2",
+        "g2h1n"
+      ],
+      "beauty": 15
+    }
+  ]
+}
